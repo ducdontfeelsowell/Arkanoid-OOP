@@ -1,4 +1,4 @@
-Phân việc:
+List việc:
 
 Mechanic:
 -cấp độ màn chơi: Thắng
