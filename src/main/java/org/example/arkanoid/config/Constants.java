@@ -33,6 +33,8 @@ public class Constants {
     public final static int INITIAL_LIVES = 3;
     public final static int POINTS_PER_BRICK = 10;
 
+    public static boolean isStarted = false;
+
     // TODO cải tiến để đọc nhiều map
     public final static String MAP_PATH = "src/main/resources/Maps/map.txt";
 }
