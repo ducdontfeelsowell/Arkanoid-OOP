@@ -22,8 +22,11 @@ public class MenuController {
     private Button exitButton;
 
     @FXML
-    public void onPlayGameButtonClick() {
-        Main.startGame();
+    public void onPlayGameButtonClick() throws IOException {
+//        Main.startGame();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/arkanoid/level-view.fxml"));
+        Parent root = loader.load();
+        playButton.getScene().setRoot(root);
     }
 
     @FXML
