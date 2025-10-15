@@ -42,13 +42,15 @@ public class Main extends Application {
         stage.setScene(menuScene);
         stage.setTitle("Arkanoid");
         stage.setResizable(false);
+        stage.setX(Constants.DEFAULT_SCREEN_X);
+        stage.setX(Constants.DEFAULT_SCREEN_Y);
         stage.show();
     }
 
     /**
      * Khởi tạo và bắt đầu game
      */
-    public static void startGame() {
+    public static void startGame(String mapPath) {
         try {
             // Create canvas for rendering
             Canvas canvas = new Canvas(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
@@ -95,7 +97,7 @@ public class Main extends Application {
                     Constants.DEFAULT_BALL_DIRECTION_Y);
 
             // Load map
-            Brick[][] bricks = MapLoader.loadMap(Constants.MAP_PATH);
+            Brick[][] bricks = MapLoader.loadMap(mapPath);
 
             // Create renderer
             GameRenderer renderer = new GameRenderer(gc);
