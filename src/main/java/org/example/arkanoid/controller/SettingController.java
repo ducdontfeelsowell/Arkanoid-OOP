@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import org.example.arkanoid.config.Constants;
 
 import java.io.IOException;
 
@@ -36,7 +37,7 @@ public class SettingController {
 
     @FXML
     public void onBackButton() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/arkanoid/main-menu-view.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.PATH_TO_MAIN_MENU));
         Parent root = loader.load();
 
         backButton.getScene().setRoot(root);
