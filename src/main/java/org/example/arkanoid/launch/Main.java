@@ -42,6 +42,8 @@ public class Main extends Application {
         stage.setScene(menuScene);
         stage.setTitle("Arkanoid");
         stage.setResizable(false);
+        stage.setX(Constants.DEFAULT_SCREEN_X);
+        stage.setY(Constants.DEFAULT_SCREEN_Y);
         stage.show();
     }
 
@@ -105,6 +107,8 @@ public class Main extends Application {
                     gameController, inputHandler, paddle, ball, bricks, renderer);
 
             // Set scene
+            primaryStage.setX(Constants.DEFAULT_SCREEN_X);
+            primaryStage.setY(Constants.DEFAULT_SCREEN_Y);
             primaryStage.setScene(gameScene);
 
             // Start game loop

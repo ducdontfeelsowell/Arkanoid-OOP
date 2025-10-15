@@ -1,0 +1,13 @@
+.playButton {
+    -fx-background-image: url("/Images/background/play_button.png");
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+.playButton:hover {
+    -fx-background-image: url("/Images/background/play_button_hover.png");
+}
