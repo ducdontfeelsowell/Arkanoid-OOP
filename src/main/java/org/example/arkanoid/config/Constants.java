@@ -3,8 +3,10 @@ package org.example.arkanoid.config;
 public class Constants {
     // TODO: sửa lại các hằng số để vừa mắt
 
-    public final static double SCREEN_WIDTH = 1560;
-    public final static double SCREEN_HEIGHT = 690;
+    public final static double SCREEN_WIDTH = 1520;
+    public final static double SCREEN_HEIGHT = 700;
+    public final static double DEFAULT_SCREEN_X = 110;
+    public final static double DEFAULT_SCREEN_Y = 0;
 
     public final static double DEFAULT_PADDLE_WIDTH = 120;
     public final static double DEFAULT_PADDLE_HEIGHT = 20;
@@ -34,6 +36,7 @@ public class Constants {
     public final static int POINTS_PER_BRICK = 10;
 
     public static boolean isStarted = false;
+    public static boolean isTransisioning = false;
 
     // TODO cải tiến để đọc nhiều map
     public final static String MAP_PATH = "src/main/resources/Maps/map.txt";
