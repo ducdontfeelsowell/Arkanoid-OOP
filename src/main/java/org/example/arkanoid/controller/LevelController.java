@@ -76,7 +76,7 @@ public class LevelController {
 
 
     public void onBackButtonClick() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/arkanoid/main-menu-view.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.PATH_TO_MAIN_MENU));
         Parent root = loader.load();
         backButton.getScene().setRoot(root);
     }

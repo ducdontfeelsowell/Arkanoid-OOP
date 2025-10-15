@@ -53,6 +53,7 @@ public class GameManager {
         // Render
         if (gameOver) {
             renderer.renderGameOver(score);
+            gameController.showLoseScreen();
         } else if (won) {
             renderer.renderWin(score);
         } else {

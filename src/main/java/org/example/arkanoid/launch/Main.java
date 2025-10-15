@@ -26,24 +26,32 @@ public class Main extends Application {
 
     private static Stage primaryStage;
     private static Scene menuScene;
+    private static AnimationTimer timer;
+    private static String currentMapPath;
+
+    private static GameController gameController;
+    private static InputHandler inputHandler;
+    private static Paddle paddle;
+    private static Ball ball;
+    private static Brick[][] bricks;
+    private static GameRenderer renderer;
+    private static GameManager gameManager;
 
     @Override
     public void start(Stage stage) throws Exception {
         primaryStage = stage;
 
-        // Load menu scene
         Parent root = FXMLLoader.load(Objects.requireNonNull(
-                getClass().getResource("/org/example/arkanoid/main-menu-view.fxml")));
+                getClass().getResource(Constants.PATH_TO_MAIN_MENU)));
         menuScene = new Scene(root);
 
-        // Set stage properties
         stage.getIcons().add(new Image(Objects.requireNonNull(
-                getClass().getResourceAsStream("/Images/logo/jarkanoid_logo.png"))));
+                getClass().getResourceAsStream(Constants.PATH_TO_LOGO))));
         stage.setScene(menuScene);
-        stage.setTitle("Arkanoid");
+        stage.setTitle(Constants.TITLE_SCREEN);
         stage.setResizable(false);
         stage.setX(Constants.DEFAULT_SCREEN_X);
-        stage.setX(Constants.DEFAULT_SCREEN_Y);
+        stage.setY(Constants.DEFAULT_SCREEN_Y);
         stage.show();
     }
 
@@ -52,6 +60,8 @@ public class Main extends Application {
      */
     public static void startGame(String mapPath) {
         try {
+            currentMapPath = mapPath;
+
             // Create canvas for rendering
             Canvas canvas = new Canvas(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
             GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -62,21 +72,19 @@ public class Main extends Application {
 
             // Load pause screen overlay
             FXMLLoader loader = new FXMLLoader(
-                    Main.class.getResource("/org/example/arkanoid/game-view.fxml"));
+                    Main.class.getResource(Constants.PATH_TO_GAME_VIEW));
             Parent pauseOverlay = loader.load();
-            GameController gameController = loader.getController();
+            gameController = loader.getController();
 
             gameRoot.getChildren().add(pauseOverlay);
 
-            // Create game scene
             Scene gameScene = new Scene(gameRoot);
 
-            // Initialize input handler
-            InputHandler inputHandler = new InputHandler(gameScene);
+            inputHandler = new InputHandler(gameScene);
             gameController.setInputHandler(inputHandler);
 
             // Initialize game objects
-            Paddle paddle = new Paddle(
+            paddle = new Paddle(
                     Constants.DEFAULT_PADDLE_POSITION_X,
                     Constants.DEFAULT_PADDLE_POSITION_Y,
                     Constants.DEFAULT_PADDLE_WIDTH,
@@ -85,7 +93,7 @@ public class Main extends Application {
                     Constants.DEFAULT_PADDLE_DY,
                     Constants.DEFAULT_PADDLE_SPEED);
 
-            Ball ball = new Ball(
+            ball = new Ball(
                     Constants.DEFAULT_BALL_POSITION_X,
                     Constants.DEFAULT_BALL_POSITION_Y,
                     Constants.DEFAULT_BALL_SIZE,
@@ -96,21 +104,17 @@ public class Main extends Application {
                     Constants.DEFAULT_BALL_DIRECTION_X,
                     Constants.DEFAULT_BALL_DIRECTION_Y);
 
-            // Load map
-            Brick[][] bricks = MapLoader.loadMap(mapPath);
+            bricks = MapLoader.loadMap(mapPath);
 
-            // Create renderer
-            GameRenderer renderer = new GameRenderer(gc);
+            renderer = new GameRenderer(gc);
 
-            // Create game manager
-            GameManager gameManager = new GameManager(
-                    gameController, inputHandler, paddle, ball, bricks, renderer);
+            gameManager = new GameManager(gameController, inputHandler, paddle, ball, bricks, renderer);
 
-            // Set scene
             primaryStage.setScene(gameScene);
 
-            // Start game loop
-            AnimationTimer timer = new AnimationTimer() {
+            if (timer != null) timer.stop();
+
+            timer = new AnimationTimer() {
                 @Override
                 public void handle(long now) {
                     gameManager.updateGame();
@@ -123,12 +127,28 @@ public class Main extends Application {
         }
     }
 
-    /**
-     * Quay về menu chính
-     */
     public static void returnToMenu() {
+        if (timer != null) timer.stop();
         if (primaryStage != null && menuScene != null) {
             primaryStage.setScene(menuScene);
         }
     }
+
+    public static void restartGame() {
+        GameController.paused = false;
+        if (currentMapPath != null) {
+            startGame(currentMapPath);
+        }
+    }
+
+    public static GameController getGameController() {
+        return gameController;
+    }
+
+    public Paddle getPaddle() { return paddle; }
+    public Ball getBall() { return ball; }
+    public Brick[][] getBricks() { return bricks; }
+    public GameRenderer getRenderer() { return renderer; }
+    public GameManager getGameManager() { return gameManager; }
+    public InputHandler getInputHandler() { return inputHandler; }
 }
