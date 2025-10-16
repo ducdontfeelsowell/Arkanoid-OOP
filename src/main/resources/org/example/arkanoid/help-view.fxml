@@ -22,7 +22,40 @@
          <Glow level="1.0" />
       </effect>
    </Label>
-    <Button fx:id="helpButton" layoutX="360.0" layoutY="357.0" mnemonicParsing="false" onAction="#onHelpButton" prefHeight="42.0" prefWidth="78.0" text="Help" />
-    <Label fx:id="helpLabel" layoutX="209.0" layoutY="130.0" prefHeight="18.0" prefWidth="224.0" />
-    <Button fx:id="backButton" layoutX="1016.0" layoutY="611.0" mnemonicParsing="false" onAction="#onBackButtonClick" prefHeight="42.0" prefWidth="78.0" text="Back" />
+    <Label fx:id="helpLabel" alignment="CENTER" layoutX="370.0" layoutY="424.0" prefHeight="42.0" prefWidth="224.0" text="OKKK" textFill="WHITE">
+      <font>
+         <Font size="38.0" />
+      </font></Label>
+   <ImageView fx:id="helpImage" fitHeight="42.0" fitWidth="116.0" layoutX="209.0" layoutY="425.0" pickOnBounds="true" preserveRatio="false">
+      <image>
+         <Image url="@../../../Images/background/unnamed.png" />
+      </image>
+   </ImageView>
+   <ImageView fx:id="helpHoverImage" fitHeight="42.0" fitWidth="116.0" layoutX="210.0" layoutY="425.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <image>
+         <Image url="@../../../Images/background/unname2.png" />
+      </image>
+   </ImageView>
+   <Label alignment="CENTER" layoutX="210.0" layoutY="425.0" prefHeight="42.0" prefWidth="116.0" text="HELP" textFill="WHITE">
+      <font>
+         <Font name="System Bold Italic" size="25.0" />
+      </font>
+   </Label>
+    <Button fx:id="helpButton" layoutX="210.0" layoutY="424.0" mnemonicParsing="false" onAction="#onHelpButton" opacity="0.0" prefHeight="42.0" prefWidth="116.0" text="Help" />
+   <ImageView fx:id="backImage" fitHeight="42.0" fitWidth="116.0" layoutX="205.0" layoutY="633.0" pickOnBounds="true" preserveRatio="false">
+      <image>
+         <Image url="@../../../Images/background/unnamed.png" />
+      </image>
+   </ImageView>
+   <ImageView fx:id="backHoverImage" fitHeight="42.0" fitWidth="116.0" layoutX="205.0" layoutY="633.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <image>
+         <Image url="@../../../Images/background/unname2.png" />
+      </image>
+   </ImageView>
+   <Label alignment="CENTER" layoutX="205.0" layoutY="632.0" prefHeight="42.0" prefWidth="116.0" text="BACK" textFill="WHITE">
+      <font>
+         <Font name="System Bold Italic" size="25.0" />
+      </font>
+   </Label>
+    <Button fx:id="backButton" layoutX="205.0" layoutY="633.0" mnemonicParsing="false" onAction="#onBackButtonClick" opacity="0.0" prefHeight="42.0" prefWidth="116.0" text="Back" />
 </AnchorPane>
