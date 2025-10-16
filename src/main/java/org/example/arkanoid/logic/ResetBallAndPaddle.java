@@ -6,13 +6,13 @@ import org.example.arkanoid.object.Paddle;
 
 public class ResetBallAndPaddle {
     public static void reset(Ball ball, Paddle paddle) {
-        paddle.setX(Constants.DEFAULT_PADDLE_POSITION_X);
-        paddle.setY(Constants.DEFAULT_PADDLE_POSITION_Y);
-
+        Constants.isStarted = false;
         // Reset ball
-        ball.setX(Constants.DEFAULT_BALL_POSITION_X);
-        ball.setY(Constants.DEFAULT_BALL_POSITION_Y);
+        ball.setX(paddle.getX() + paddle.getWidth() / 2 - ball.getWidth() / 2);
+        ball.setY(paddle.getY() - ball.getHeight() * 2);
         ball.setDirectionX(Constants.DEFAULT_BALL_DIRECTION_X);
         ball.setDirectionY(Constants.DEFAULT_BALL_DIRECTION_Y);
+
+        ball.clearTrail();
     }
 }
