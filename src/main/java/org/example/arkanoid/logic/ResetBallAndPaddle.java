@@ -12,5 +12,7 @@ public class ResetBallAndPaddle {
         ball.setY(paddle.getY() - ball.getHeight() * 2);
         ball.setDirectionX(Constants.DEFAULT_BALL_DIRECTION_X);
         ball.setDirectionY(Constants.DEFAULT_BALL_DIRECTION_Y);
+
+        ball.clearTrail();
     }
 }
