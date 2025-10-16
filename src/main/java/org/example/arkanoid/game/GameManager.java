@@ -56,6 +56,7 @@ public class GameManager {
             gameController.showLoseScreen();
         } else if (won) {
             renderer.renderWin(score);
+            gameController.showWinScreen();
         } else {
             renderer.renderObject(paddle, ball, bricks, score, lives);
         }

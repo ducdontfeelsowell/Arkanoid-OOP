@@ -13,8 +13,10 @@ public class GameController {
     public Button backButton1;
     public Button playAgainButton;
     public Button backButton2;
+    public Button backButton3;
     public VBox loseScreen;
     public VBox pauseScreen;
+    public VBox winScreen;
 
     public static boolean paused = false;
     private boolean escapeWasPressed = false;
@@ -66,6 +68,7 @@ public class GameController {
     }
 
     public void onBackClick2() {
+        paused = false;
         loseScreen.setVisible(false);
         Main.returnToMenu();
     }
@@ -78,5 +81,15 @@ public class GameController {
     public void showLoseScreen() {
         loseScreen.setVisible(true);
         paused = true;
+    }
+
+    public void showWinScreen() {
+        winScreen.setVisible(true);
+        paused = true;
+    }
+
+    public void onBackClick3() {
+        winScreen.setVisible(false);
+        paused = false;
     }
 }
