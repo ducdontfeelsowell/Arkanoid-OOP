@@ -42,9 +42,15 @@ public class GameManager {
     public void updateGame() {
         if (!GameController.isPaused() && !gameOver && !won) {
             inputHandler.handleInput(paddle);
-            UpdatePhysics.update(ball);
-            CheckCollisions.check(ball, paddle, bricks, this);
-            CheckWinCondition.check(bricks, this);
+            // đợi bắt đầu bóng
+            if(Constants.isStarted) {
+                UpdatePhysics.update(ball);
+                CheckCollisions.check(ball, paddle, bricks, this);
+                CheckWinCondition.check(bricks, this);
+            } else {
+                ball.setX(paddle.getX() + paddle.getWidth() / 2 - ball.getWidth() / 2);
+                ball.setY(paddle.getY() - ball.getHeight() * 2);
+            }
         }
 
         // kiểm tra pause/unpause
