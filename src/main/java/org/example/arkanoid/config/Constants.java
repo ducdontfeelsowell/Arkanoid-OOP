@@ -22,7 +22,7 @@ public class Constants {
     public final static double DEFAULT_BALL_POSITION_Y  = DEFAULT_PADDLE_POSITION_Y - DEFAULT_BALL_SIZE - 5;
     public final static double DEFAULT_BALL_DX          = 5;
     public final static double DEFAULT_BALL_DY          = -5;
-    public final static double DEFAULT_BALL_SPEED       = 4;
+    public final static double DEFAULT_BALL_SPEED       = 5;
     public final static int    DEFAULT_BALL_DIRECTION_X = 1;
     public final static int    DEFAULT_BALL_DIRECTION_Y = -1;
 
