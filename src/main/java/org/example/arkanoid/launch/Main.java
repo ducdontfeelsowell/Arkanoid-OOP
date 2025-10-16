@@ -110,6 +110,9 @@ public class Main extends Application {
 
             gameManager = new GameManager(gameController, inputHandler, paddle, ball, bricks, renderer);
 
+            // Set scene
+            primaryStage.setX(Constants.DEFAULT_SCREEN_X);
+            primaryStage.setY(Constants.DEFAULT_SCREEN_Y);
             primaryStage.setScene(gameScene);
 
             if (timer != null) timer.stop();
