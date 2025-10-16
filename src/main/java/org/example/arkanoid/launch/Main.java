@@ -91,8 +91,7 @@ public class Main extends Application {
                     Constants.DEFAULT_BALL_DX,
                     Constants.DEFAULT_BALL_DY,
                     Constants.DEFAULT_BALL_SPEED,
-                    Constants.DEFAULT_BALL_DIRECTION_X,
-                    Constants.DEFAULT_BALL_DIRECTION_Y);
+                    Constants.DEFAULT_BALL_OFFSET);
 
             // Load map
             Brick[][] bricks = MapLoader.loadMap(Constants.MAP_PATH);

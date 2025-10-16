@@ -6,29 +6,34 @@ import org.example.arkanoid.config.Constants;
 
 public class Ball extends MoveAbleObject {
     private double speed;
-    private int directionX; // 1: chiều dương, -1: chiều âm trục X
-    private int directionY; // 1: chiều dương, -1: chiều âm trục Y
+    private double offset;
+    private double xCenter;
+    private double yCenter;
+    private double radius;
 
     public Ball(double x, double y, double width, double height,
                 double dx, double dy,
-                double speed, int directionX, int directionY) {
+                double speed, double offset) {
 
         super(x, y, width, height, dx, dy);
 
+        this.xCenter = x + width / 2;
+        this.yCenter = y + height / 2;
+
+        this.radius = width/2;
+
         this.speed = speed;
-        this.directionX = directionX;
-        this.directionY = directionY;
+        this.offset = offset;
 
         updateVelocity();
     }
 
     /**
-     * Cập nhật vận tốc (dx, dy) dựa vào hướng và tốc độ.
+     * Cập nhật vận tốc (dx, dy) dựa vào hướng và tốc độ. Cho va chạm paddle.
      */
     private void updateVelocity() {
-        double diagonalSpeed = speed / Math.sqrt(2);
-        dx = diagonalSpeed * directionX;
-        dy = diagonalSpeed * directionY;
+        dx = speed * offset;
+        dy = -Math.sqrt(Math.pow(speed, 2) - Math.pow(dx, 2));
     }
 
     @Override
@@ -80,29 +85,27 @@ public class Ball extends MoveAbleObject {
     }
 
     /**
-     * Đảo chiều theo trục X.
+     * Đảo chiều theo trục X. Cho va chạm ngoài paddle.
      */
     public void reverseX() {
-        directionX = -directionX;
-        updateVelocity();
+        dx = -dx;
     }
 
     /**
-     * Đảo chiều theo trục Y.
+     * Đảo chiều theo trục Y. Cho va chạm ngoài paddle.
      */
     public void reverseY() {
-        directionY = -directionY;
-        updateVelocity();
+        dy = -dy;
     }
 
     /**
      * Kiểm tra va chạm giữa hai hình chữ nhật (AABB collision).
      */
     public boolean isCollidingWith(GameObject other) {
-        return x < other.getX() + other.getWidth() &&
-                x + width > other.getX() &&
-                y < other.getY() + other.getHeight() &&
-                y + height > other.getY();
+        return x <= other.getX() + other.getWidth() &&
+                x + width >= other.getX() &&
+                y <= other.getY() + other.getHeight() &&
+                y + height >= other.getY();
     }
 
     // ===== Getter & Setter =====
@@ -115,21 +118,24 @@ public class Ball extends MoveAbleObject {
         updateVelocity();
     }
 
-    public int getDirectionX() {
-        return directionX;
+    public double getOffset() {
+        return offset;
     }
 
-    public void setDirectionX(int directionX) {
-        this.directionX = directionX;
+    public void setOffset(double offset) {
+        this.offset = offset;
         updateVelocity();
     }
 
-    public int getDirectionY() {
-        return directionY;
+    public double getxCenter() {
+        return xCenter;
     }
 
-    public void setDirectionY(int directionY) {
-        this.directionY = directionY;
-        updateVelocity();
+    public double getyCenter() {
+        return yCenter;
+    }
+
+    public double getRadius() {
+        return radius;
     }
 }
