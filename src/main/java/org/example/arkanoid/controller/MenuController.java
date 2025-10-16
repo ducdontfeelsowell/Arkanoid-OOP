@@ -1,9 +1,5 @@
 package org.example.arkanoid.controller;
 
-import javafx.animation.Interpolator;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,7 +13,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MenuController implements Initializable {
-    // Biến đang chuyển cảnh
     @FXML
     private Button exitButton;
 
@@ -28,14 +23,51 @@ public class MenuController implements Initializable {
     private Button playButton;
 
     @FXML
+    private Button settingButton;
+
+    @FXML
+    private Button levelButton; // Đã có
+
+    @FXML
+    private Button shopButton; // Đã có
+
+    @FXML
     private ImageView playHoverImage;
 
     @FXML
     private ImageView playImage;
 
     @FXML
-    private Button settingButton;
+    private ImageView settingImage;
 
+    @FXML
+    private ImageView settingHoverImage;
+
+    @FXML
+    private ImageView helpHoverImage;
+
+    @FXML
+    private ImageView helpImage;
+
+    @FXML
+    private ImageView shopHoverImage;
+
+    @FXML
+    private ImageView shopImage;
+
+    @FXML
+    private ImageView levelHoverImage;
+
+    @FXML
+    private ImageView levelImage;
+
+    @FXML
+    private ImageView exitImage;
+
+    @FXML
+    private ImageView exitHoverImage;
+
+    // Các phương thức xử lý sự kiện đã có
     @FXML
     public void onPlayGameButtonClick() {
         Main.startGame();
@@ -45,7 +77,6 @@ public class MenuController implements Initializable {
     public void onHelpButtonClick() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/arkanoid/help-view.fxml"));
         Parent newRoot = loader.load();
-        // Gọi hàm chuyển cảnh có hiệu ứng
         helpButton.getScene().setRoot(newRoot);
     }
 
@@ -56,28 +87,57 @@ public class MenuController implements Initializable {
         settingButton.getScene().setRoot(newRoot);
     }
 
+    // START: Các phương thức xử lý Level và Shop đã thiếu <--- CẦN THIẾT
+    @FXML
+    public void onLevelButtonClick() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/arkanoid/level-view.fxml"));
+        Parent newRoot = loader.load();
+        levelButton.getScene().setRoot(newRoot);
+    }
+
+    @FXML
+    public void onShopButtonClick() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/arkanoid/shop-view.fxml"));
+        Parent newRoot = loader.load();
+        shopButton.getScene().setRoot(newRoot);
+    }
+    // END: Các phương thức Level và Shop đã thiếu
+
     @FXML
     public void onExitGameButtonClick() {
         System.exit(0);
     }
 
-    @FXML
-    private void onPlayHoverEnter() {
-        playHoverImage.setVisible(true);
-    }
-
-    @FXML
-    private void onPlayHoverExit() {
-        playHoverImage.setVisible(false);
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Đảm bảo ảnh hover không bắt sự kiện chuột (nếu chưa đặt trong FXML)
+        // Play button hover setup
+        System.out.println("DEBUG: SettingController Initialized.");
         playHoverImage.setMouseTransparent(true);
-
-        // Khi hover lên nút -> hiện ảnh hover và ẩn ảnh bình thường
         playHoverImage.visibleProperty().bind(playButton.hoverProperty());
         playImage.visibleProperty().bind(playButton.hoverProperty().not());
+
+        // Setting button hover setup
+        settingHoverImage.setMouseTransparent(true);
+        settingHoverImage.visibleProperty().bind(settingButton.hoverProperty());
+        settingImage.visibleProperty().bind(settingButton.hoverProperty().not());
+
+        // Help button hover setup
+        helpHoverImage.setMouseTransparent(true);
+        helpHoverImage.visibleProperty().bind(helpButton.hoverProperty());
+        helpImage.visibleProperty().bind(helpButton.hoverProperty().not());
+
+        // Level button hover setup
+        levelHoverImage.setMouseTransparent(true);
+        levelHoverImage.visibleProperty().bind(levelButton.hoverProperty());
+        levelImage.visibleProperty().bind(levelButton.hoverProperty().not());
+
+        // Shop button hover setup
+        shopHoverImage.setMouseTransparent(true);
+        shopHoverImage.visibleProperty().bind(shopButton.hoverProperty());
+        shopImage.visibleProperty().bind(shopButton.hoverProperty().not());
+
+        exitHoverImage.setMouseTransparent(true);
+        exitHoverImage.visibleProperty().bind(exitButton.hoverProperty());
+        exitImage.visibleProperty().bind(exitButton.hoverProperty().not());
     }
 }
