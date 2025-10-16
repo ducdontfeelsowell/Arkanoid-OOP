@@ -3,13 +3,14 @@ package org.example.arkanoid.config;
 public class Constants {
     // TODO: sửa lại các hằng số để vừa mắt
 
-    public final static double SCREEN_WIDTH = 1520;
-    public final static double SCREEN_HEIGHT = 700;
+    // Ví dụ sửa thành 1280x720
+    public final static double SCREEN_WIDTH = 1280;
+    public final static double SCREEN_HEIGHT = 800;
     public final static double DEFAULT_SCREEN_X = 110;
     public final static double DEFAULT_SCREEN_Y = 0;
 
     public final static double DEFAULT_PADDLE_WIDTH = 120;
-    public final static double DEFAULT_PADDLE_HEIGHT = 20;
+    public final static double DEFAULT_PADDLE_HEIGHT = 50;
     public final static double DEFAULT_PADDLE_POSITION_X = SCREEN_WIDTH / 2 - DEFAULT_PADDLE_WIDTH / 2;
     public final static double DEFAULT_PADDLE_POSITION_Y = SCREEN_HEIGHT - 100;
     public final static double DEFAULT_PADDLE_DX = 0;
@@ -21,7 +22,7 @@ public class Constants {
     public final static double DEFAULT_BALL_POSITION_Y = DEFAULT_PADDLE_POSITION_Y - DEFAULT_BALL_SIZE - 5;
     public final static double DEFAULT_BALL_DX = 5;
     public final static double DEFAULT_BALL_DY = -5;
-    public final static double DEFAULT_BALL_SPEED = 4;
+    public final static double DEFAULT_BALL_SPEED = 8;
     public final static int DEFAULT_BALL_DIRECTION_X = 1;
     public final static int DEFAULT_BALL_DIRECTION_Y = -1;
 

@@ -9,13 +9,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="784.8" prefWidth="1294.8" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.arkanoid.controller.SettingController">
-    <ImageView fitHeight="784.8" fitWidth="1295.8" pickOnBounds="true" preserveRatio="false">
+<AnchorPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.arkanoid.controller.SettingController">
+    <ImageView fitHeight="800.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="false">
         <image>
             <Image url="@../../../Images/background/menu_Background.jpg" />
         </image>
     </ImageView>
-    <Label alignment="CENTER" layoutX="208.0" layoutY="87.0" prefHeight="234.0" prefWidth="880.0" text="Setting" textAlignment="RIGHT" textFill="#16ccf2" textOverrun="CLIP">
+    <Label alignment="CENTER" layoutX="200.0" layoutY="85.0" prefHeight="234.0" prefWidth="880.0" text="Setting" textAlignment="RIGHT" textFill="#16ccf2" textOverrun="CLIP">
         <font>
             <Font name="Algerian" size="96.0" />
         </font>
@@ -24,63 +24,63 @@
         </effect>
     </Label>
 
-    <ImageView fx:id="volumeImage" fitHeight="72.0" fitWidth="116.0" layoutX="200.0" layoutY="288.0" pickOnBounds="true" preserveRatio="true">
+    <ImageView fx:id="volumeImage" fitHeight="72.0" fitWidth="116.0" layoutX="167.0" layoutY="290.0" pickOnBounds="true" preserveRatio="true">
         <image>
             <Image url="@../../../Images/background/unnamed.png" />
         </image>
     </ImageView>
-    <ImageView fx:id="volumeHoverImage" fitHeight="42.0" fitWidth="116.0" layoutX="200.0" layoutY="288.0" pickOnBounds="true" preserveRatio="true" visible="false">
+    <ImageView fx:id="volumeHoverImage" fitHeight="42.0" fitWidth="116.0" layoutX="167.0" layoutY="290.0" pickOnBounds="true" preserveRatio="true" visible="false">
         <image>
             <Image url="@../../../Images/background/unname2.png" />
         </image>
     </ImageView>
-    <Label alignment="CENTER" layoutX="198.0" layoutY="287.0" prefHeight="42.0" prefWidth="116.0" text="VOLUME" textFill="WHITE">
+    <Label alignment="CENTER" layoutX="165.0" layoutY="289.0" prefHeight="42.0" prefWidth="116.0" text="VOLUME" textFill="WHITE">
         <font>
             <Font name="System Bold Italic" size="24.0" />
         </font>
     </Label>
-    <Button fx:id="volumeButton" layoutX="200.0" layoutY="287.0" mnemonicParsing="false" onAction="#onVolumeButtonClick" opacity="0.0" prefHeight="42.0" prefWidth="116.0" text="Volume" />
-    <ImageView fx:id="fontImage" fitHeight="72.0" fitWidth="116.0" layoutX="199.0" layoutY="421.0" pickOnBounds="true" preserveRatio="true">
+    <Button fx:id="volumeButton" layoutX="167.0" layoutY="289.0" mnemonicParsing="false" onAction="#onVolumeButtonClick" opacity="0.0" prefHeight="42.0" prefWidth="116.0" text="Volume" />
+    <ImageView fx:id="fontImage" fitHeight="72.0" fitWidth="116.0" layoutX="166.0" layoutY="423.0" pickOnBounds="true" preserveRatio="true">
         <image>
             <Image url="@../../../Images/background/unnamed.png" />
         </image>
     </ImageView>
-    <ImageView fx:id="fontHoverImage" fitHeight="42.0" fitWidth="116.0" layoutX="200.0" layoutY="421.0" pickOnBounds="true" preserveRatio="true" visible="false">
+    <ImageView fx:id="fontHoverImage" fitHeight="42.0" fitWidth="116.0" layoutX="167.0" layoutY="423.0" pickOnBounds="true" preserveRatio="true" visible="false">
         <image>
             <Image url="@../../../Images/background/unname2.png" />
         </image>
     </ImageView>
-    <Label alignment="CENTER" layoutX="200.0" layoutY="420.0" prefHeight="42.0" prefWidth="116.0" text="FONT" textFill="WHITE">
+    <Label alignment="CENTER" layoutX="167.0" layoutY="422.0" prefHeight="42.0" prefWidth="116.0" text="FONT" textFill="WHITE">
         <font>
             <Font name="System Bold Italic" size="25.0" />
         </font>
     </Label>
-    <Button fx:id="fontButton" layoutX="200.0" layoutY="420.0" mnemonicParsing="false" onAction="#onFontButtonClick" opacity="0.0" prefHeight="42.0" prefWidth="116.0" text="Font" />
-    <ImageView fx:id="backImage" fitHeight="72.0" fitWidth="116.0" layoutX="200.0" layoutY="620.0" pickOnBounds="true" preserveRatio="true">
+    <Button fx:id="fontButton" layoutX="167.0" layoutY="422.0" mnemonicParsing="false" onAction="#onFontButtonClick" opacity="0.0" prefHeight="42.0" prefWidth="116.0" text="Font" />
+    <ImageView fx:id="backImage" fitHeight="72.0" fitWidth="116.0" layoutX="167.0" layoutY="637.0" pickOnBounds="true" preserveRatio="true">
         <image>
             <Image url="@../../../Images/background/unnamed.png" />
         </image>
     </ImageView>
-    <ImageView fx:id="backHoverImage" fitHeight="42.0" fitWidth="116.0" layoutX="200.0" layoutY="620.0" pickOnBounds="true" preserveRatio="true" visible="false">
+    <ImageView fx:id="backHoverImage" fitHeight="42.0" fitWidth="116.0" layoutX="167.0" layoutY="637.0" pickOnBounds="true" preserveRatio="true" visible="false">
         <image>
             <Image url="@../../../Images/background/unname2.png" />
         </image>
     </ImageView>
-    <Label alignment="CENTER" layoutX="200.0" layoutY="620.0" prefHeight="42.0" prefWidth="116.0" text="BACK" textFill="WHITE">
+    <Label alignment="CENTER" layoutX="167.0" layoutY="637.0" prefHeight="42.0" prefWidth="116.0" text="BACK" textFill="WHITE">
         <font>
             <Font name="System Bold Italic" size="25.0" />
         </font>
     </Label>
-    <Button fx:id="backButton" layoutX="200.0" layoutY="620.0" mnemonicParsing="false" onAction="#onBackButton" opacity="0.0" prefHeight="42.0" prefWidth="116.0" text="Back">
+    <Button fx:id="backButton" layoutX="167.0" layoutY="637.0" mnemonicParsing="false" onAction="#onBackButton" opacity="0.0" prefHeight="42.0" prefWidth="116.0" text="Back">
       <opaqueInsets>
          <Insets />
       </opaqueInsets></Button>
-   <Label fx:id="volumeText" layoutX="408.0" layoutY="300.0" text="ok bạn" textFill="WHITE">
+   <Label fx:id="volumeText" layoutX="375.0" layoutY="302.0" text="ok bạn" textFill="WHITE">
       <font>
          <Font size="35.0" />
       </font>
    </Label>
-   <Label fx:id="fontText" layoutX="416.0" layoutY="433.0" text="ok bạn luôn" textFill="WHITE">
+   <Label fx:id="fontText" layoutX="383.0" layoutY="435.0" text="ok bạn luôn" textFill="WHITE">
       <font>
          <Font size="34.0" />
       </font>
