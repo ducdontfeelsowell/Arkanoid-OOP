@@ -14,14 +14,14 @@ public class Constants {
     public final static double DEFAULT_PADDLE_POSITION_Y = SCREEN_HEIGHT - 100;
     public final static double DEFAULT_PADDLE_DX = 0;
     public final static double DEFAULT_PADDLE_DY = 0;
-    public final static double DEFAULT_PADDLE_SPEED = 8;
+    public final static double DEFAULT_PADDLE_SPEED = 6;
 
     public final static double DEFAULT_BALL_SIZE = 15;
     public final static double DEFAULT_BALL_POSITION_X = SCREEN_WIDTH / 2 - DEFAULT_BALL_SIZE / 2;
     public final static double DEFAULT_BALL_POSITION_Y = DEFAULT_PADDLE_POSITION_Y - DEFAULT_BALL_SIZE - 5;
     public final static double DEFAULT_BALL_DX = 5;
     public final static double DEFAULT_BALL_DY = -5;
-    public final static double DEFAULT_BALL_SPEED = 4;
+    public final static double DEFAULT_BALL_SPEED = 2;
     public final static int DEFAULT_BALL_DIRECTION_X = 1;
     public final static int DEFAULT_BALL_DIRECTION_Y = -1;
 

@@ -1,11 +1,16 @@
 package org.example.arkanoid.logic;
 
+import org.example.arkanoid.sound.SoundManager; // <-- THÊM IMPORT NÀY
 import org.example.arkanoid.object.Ball;
 import org.example.arkanoid.object.Paddle;
 
 public class CheckBallPaddleCollision {
     public static void check(Ball ball, Paddle paddle) {
         if (ball.isCollidingWith(paddle) && ball.getDy() > 0) {
+
+            // PHÁT ÂM THANH VA CHẠM PADDLE
+            SoundManager.playPaddleHit(); // <-- THÊM DÒNG NÀY
+
             ball.reverseY();
 
             // Điều chỉnh hướng X dựa trên vị trí chạm
