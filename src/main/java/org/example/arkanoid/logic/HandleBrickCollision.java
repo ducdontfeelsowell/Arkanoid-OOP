@@ -2,11 +2,16 @@ package org.example.arkanoid.logic;
 
 import org.example.arkanoid.config.Constants;
 import org.example.arkanoid.game.GameManager;
+import org.example.arkanoid.sound.SoundManager; // <-- THÊM IMPORT NÀY
 import org.example.arkanoid.object.Ball;
 import org.example.arkanoid.object.Brick.Brick;
 
 public class HandleBrickCollision {
     public static void handle(Ball ball, Brick brick, GameManager gm) {
+
+        // PHÁT ÂM THANH VA CHẠM GẠCH
+        SoundManager.playBrickHit(); // <-- THÊM DÒNG NÀY
+
         double overlapLeft = (ball.getX() + ball.getWidth()) - brick.getX();
         double overlapRight = (brick.getX() + brick.getWidth()) - ball.getX();
         double overlapTop = (ball.getY() + ball.getHeight()) - brick.getY();

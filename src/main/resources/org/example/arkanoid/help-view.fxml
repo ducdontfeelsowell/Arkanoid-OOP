@@ -22,7 +22,6 @@
          <Glow level="1.0" />
       </effect>
    </Label>
-    <Button fx:id="helpButton" layoutX="360.0" layoutY="357.0" mnemonicParsing="false" onAction="#onHelpButton" prefHeight="42.0" prefWidth="78.0" text="Help" />
     <Label fx:id="helpLabel" layoutX="209.0" layoutY="130.0" prefHeight="18.0" prefWidth="224.0" />
-    <Button fx:id="backButton" layoutX="1016.0" layoutY="611.0" mnemonicParsing="false" onAction="#onBackButtonClick" prefHeight="42.0" prefWidth="78.0" text="Back" />
+    <Button fx:id="backButton" layoutX="998.0" layoutY="633.0" mnemonicParsing="false" onAction="#onBackButtonClick" prefHeight="42.0" prefWidth="78.0" text="Back" />
 </AnchorPane>
