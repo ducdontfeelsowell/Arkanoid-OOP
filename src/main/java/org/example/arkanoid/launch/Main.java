@@ -1,5 +1,6 @@
 package org.example.arkanoid.launch;
 
+import com.sun.tools.jconsole.JConsoleContext;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -135,12 +136,14 @@ public class Main extends Application {
         if (primaryStage != null && menuScene != null) {
             primaryStage.setScene(menuScene);
         }
+        Constants.isStarted = false;
     }
 
     public static void restartGame() {
         GameController.paused = false;
         if (currentMapPath != null) {
             startGame(currentMapPath);
+            Constants.isStarted = false;
         }
     }
 
