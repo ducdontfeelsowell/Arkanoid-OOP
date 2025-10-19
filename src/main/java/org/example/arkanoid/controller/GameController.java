@@ -90,5 +90,6 @@ public class GameController {
     public void onBackClick3() {
         winScreen.setVisible(false);
         paused = false;
+        Main.returnToMenu();
     }
 }

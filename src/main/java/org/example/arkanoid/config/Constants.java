@@ -4,7 +4,7 @@ public class Constants {
     // TODO: sửa lại các hằng số để vừa mắt
 
     // Ví dụ sửa thành 1280x720
-    public final static double SCREEN_WIDTH = 1280;
+    public final static double SCREEN_WIDTH = 1260;
     public final static double SCREEN_HEIGHT = 800;
     public final static double DEFAULT_SCREEN_X = 110;
     public final static double DEFAULT_SCREEN_Y = 0;
@@ -32,7 +32,7 @@ public class Constants {
     public final static int HIT_POINTS_STRONG_BRICK = 3;
     public final static int HIT_POINTS_INF_BRICK = Integer.MAX_VALUE;
 
-    public final static double BRICK_WIDTH = 80;
+    public final static double BRICK_WIDTH = 60;
     public final static double BRICK_HEIGHT = 30;
 
     public final static int INITIAL_LIVES = 3;

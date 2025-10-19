@@ -9,6 +9,7 @@ module org.example.arkanoid {
     requires javafx.base;
     requires javafx.graphics;
     requires jdk.compiler;
+    requires jdk.jconsole;
 
     opens org.example.arkanoid.game to javafx.fxml;
     exports org.example.arkanoid.game;
