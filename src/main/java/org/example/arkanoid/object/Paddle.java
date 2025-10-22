@@ -39,10 +39,10 @@ public class Paddle extends MoveAbleObject {
         x += dx;
 
         // Giới hạn trong khung màn hình
-        if (x < 0) {
-            x = 0;
-        } else if (x + width > Constants.SCREEN_WIDTH) {
-            x = Constants.SCREEN_WIDTH - width;
+        if (x < 340) {
+            x = 340;
+        } else if (x + width > Constants.SCREEN_WIDTH - 290) {
+            x = Constants.SCREEN_WIDTH - width - 290;
         }
     }
 

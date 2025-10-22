@@ -1,34 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="700.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.arkanoid.controller.LevelController">
-    <VBox layoutX="115.0" layoutY="132.0" spacing="60.0">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.arkanoid.controller.LevelController">
+   <ImageView pickOnBounds="true" preserveRatio="false">
+      <image>
+         <Image url="@../../../Images/background/1.jpg" />
+      </image>
+   </ImageView>
+    <VBox layoutX="198.0" layoutY="131.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" spacing="60.0">
         <VBox>
-            <HBox spacing="60.0">
+            <HBox spacing="200.0">
                 <Button fx:id="map1Button" mnemonicParsing="false" onAction="#onClickMap1" prefHeight="80.0" prefWidth="80.0" text="1" />
                 <Button fx:id="map2Button" mnemonicParsing="false" onAction="#onClickMap2" prefHeight="80.0" prefWidth="80.0" text="2" />
                 <Button fx:id="map3Button" mnemonicParsing="false" onAction="#onClickMap3" prefHeight="80.0" prefWidth="80.0" text="3" />
                 <Button fx:id="map4Button" mnemonicParsing="false" onAction="#onClickMap4" prefHeight="80.0" prefWidth="80.0" text="4" />
             </HBox>
         </VBox>
-        <HBox spacing="60.0">
+        <HBox spacing="200.0">
             <Button fx:id="map5Button" mnemonicParsing="false" onAction="#onClickMap5" prefHeight="80.0" prefWidth="80.0" text="5" />
             <Button fx:id="map6Button" mnemonicParsing="false" onAction="#onClickMap6" prefHeight="80.0" prefWidth="80.0" text="6" />
             <Button fx:id="map7Button" mnemonicParsing="false" onAction="#onClickMap7" prefHeight="80.0" prefWidth="80.0" text="7" />
             <Button fx:id="map8Button" mnemonicParsing="false" onAction="#onClickMap8" prefHeight="80.0" prefWidth="80.0" text="8" />
         </HBox>
-        <HBox spacing="60.0">
+        <HBox spacing="200.0">
             <Button fx:id="map9Button" mnemonicParsing="false" onAction="#onClickMap9" prefHeight="80.0" prefWidth="80.0" text="9" />
             <Button fx:id="map10Button" mnemonicParsing="false" onAction="#onClickMap10" prefHeight="80.0" prefWidth="80.0" text="10" />
             <Button fx:id="map11Button" mnemonicParsing="false" onAction="#onClickMap11" prefHeight="80.0" prefWidth="80.0" text="11" />
             <Button fx:id="map12Button" mnemonicParsing="false" onAction="#onClickMap12" prefHeight="80.0" prefWidth="80.0" text="12" />
         </HBox>
     </VBox>
-    <Label contentDisplay="CENTER" layoutX="321.0" layoutY="54.0" prefHeight="55.0" prefWidth="87.0" text="CHOOSE LEVEL" />
-    <Button fx:id="backButton" layoutX="266.0" layoutY="551.0" mnemonicParsing="false" onAction="#onBackButtonClick" prefHeight="80.0" prefWidth="186.0" text="BACK" />
+    <Button fx:id="backButton" layoutX="533.0" layoutY="549.0" mnemonicParsing="false" onAction="#onBackButtonClick" prefHeight="80.0" prefWidth="186.0" text="BACK" />
 </AnchorPane>
