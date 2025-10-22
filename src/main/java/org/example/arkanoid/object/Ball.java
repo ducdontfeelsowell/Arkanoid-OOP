@@ -38,7 +38,7 @@ public class Ball extends MoveAbleObject {
         // --- THÊM MỚI: Tải ảnh cho vệt ---
         try {
             // Thay đổi đường dẫn đến tệp ảnh vệt của bạn
-            trailImage = new Image(getClass().getResourceAsStream(Constants.PATH_TO_TRAIL_1));
+            trailImage = new Image(getClass().getResourceAsStream(Constants.PATH_TO_TRAIL_2));
             // --- THÊM MỚI: Tải ảnh cho quả bóng ---
             ballImage = new Image(getClass().getResourceAsStream(Constants.PATH_TO_BALL_1));
         } catch (Exception e) {
@@ -64,12 +64,12 @@ public class Ball extends MoveAbleObject {
             trail.remove(trail.size() - 1);
         }
 
-        if (x <= 0) {
-            x = 0;
+        if (x <= 340) {
+            x = 340;
             reverseX();
         }
-        if (x + width >= Constants.SCREEN_WIDTH) {
-            x = Constants.SCREEN_WIDTH - width;
+        if (x + width >= Constants.SCREEN_WIDTH - 290) {
+            x = Constants.SCREEN_WIDTH - width - 290;
             reverseX();
         }
         if (y <= 0) {

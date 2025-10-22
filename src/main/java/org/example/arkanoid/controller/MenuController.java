@@ -129,12 +129,6 @@ public class MenuController implements Initializable{
         helpHoverImage.setMouseTransparent(true);
         helpHoverImage.visibleProperty().bind(helpButton.hoverProperty());
         helpImage.visibleProperty().bind(helpButton.hoverProperty().not());
-
-        // Level button hover setup
-        levelHoverImage.setMouseTransparent(true);
-        levelHoverImage.visibleProperty().bind(levelButton.hoverProperty());
-        levelImage.visibleProperty().bind(levelButton.hoverProperty().not());
-
         // Shop button hover setup
         shopHoverImage.setMouseTransparent(true);
         shopHoverImage.visibleProperty().bind(shopButton.hoverProperty());

@@ -61,6 +61,9 @@ public class Constants {
 
     // đường dẫn đến hình ảnh
     public final static String PATH_TO_LOGO = "/Images/logo/jarkanoid_logo.png";
+    public final static String PATH_TO_BACKGROUND = "/Images/background/1.jpg";
+    public final static String PATH_TO_MENU_BACKGROUND = "/Images/background/menu_Background.jpg";
+
 
     public static boolean isStarted = false;
     public static boolean isTransisioning = false;
@@ -75,7 +78,7 @@ public class Constants {
     public static final String PATH_TO_BALL_1 = "";
 
     // đường dẫn đến hình ảnh của trail
-    public static final String PATH_TO_TRAIL_1 = "Images/ball/trail_effect/trail_effect1.png";
+    public static final String PATH_TO_TRAIL_1 = "/Images/ball/trail_effect/trail_effect1.png";
     public static final String PATH_TO_TRAIL_2 = "Images/ball/trail_effect/trail_effect2.png";
 
 
