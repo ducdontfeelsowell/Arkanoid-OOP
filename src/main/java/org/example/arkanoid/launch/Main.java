@@ -15,6 +15,7 @@ import org.example.arkanoid.config.Constants;
 import org.example.arkanoid.controller.GameController;
 import org.example.arkanoid.game.GameManager;
 import org.example.arkanoid.game.GameRenderer;
+import org.example.arkanoid.game.ItemManager;
 import org.example.arkanoid.input.InputHandler;
 import org.example.arkanoid.input.MapLoader;
 import org.example.arkanoid.object.Ball;
@@ -37,6 +38,7 @@ public class Main extends Application {
     private static Brick[][] bricks;
     private static GameRenderer renderer;
     private static GameManager gameManager;
+    private static ItemManager itemManager;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -85,31 +87,18 @@ public class Main extends Application {
             gameController.setInputHandler(inputHandler);
 
             // Initialize game objects
-            paddle = new Paddle(
-                    Constants.DEFAULT_PADDLE_POSITION_X,
-                    Constants.DEFAULT_PADDLE_POSITION_Y,
-                    Constants.DEFAULT_PADDLE_WIDTH,
-                    Constants.DEFAULT_PADDLE_HEIGHT,
-                    Constants.DEFAULT_PADDLE_DX,
-                    Constants.DEFAULT_PADDLE_DY,
-                    Constants.DEFAULT_PADDLE_SPEED);
+            paddle = new Paddle();
 
-            ball = new Ball(
-                    Constants.DEFAULT_BALL_POSITION_X,
-                    Constants.DEFAULT_BALL_POSITION_Y,
-                    Constants.DEFAULT_BALL_SIZE,
-                    Constants.DEFAULT_BALL_SIZE,
-                    Constants.DEFAULT_BALL_DX,
-                    Constants.DEFAULT_BALL_DY,
-                    Constants.DEFAULT_BALL_SPEED,
-                    Constants.DEFAULT_BALL_DIRECTION_X,
-                    Constants.DEFAULT_BALL_DIRECTION_Y);
+            ball = new Ball();
 
             bricks = MapLoader.loadMap(mapPath);
 
             renderer = new GameRenderer(gc);
 
-            gameManager = new GameManager(gameController, inputHandler, paddle, ball, bricks, renderer);
+            itemManager = new ItemManager();
+
+            gameManager = new GameManager(gameController, inputHandler,
+                    paddle, ball, bricks, renderer, itemManager);
 
             // Set scene
             primaryStage.setX(Constants.DEFAULT_SCREEN_X);

@@ -18,6 +18,7 @@ public class GameManager {
     private final Ball ball;
     private final Brick[][] bricks;
     private final GameRenderer renderer;
+    private final ItemManager im;
 
     private int score;
     private int lives;
@@ -25,13 +26,14 @@ public class GameManager {
     private boolean won;
 
     public GameManager(GameController gameController, InputHandler inputHandler,
-                       Paddle paddle, Ball ball, Brick[][] bricks, GameRenderer renderer) {
+                       Paddle paddle, Ball ball, Brick[][] bricks, GameRenderer renderer, ItemManager im) {
         this.gameController = gameController;
         this.inputHandler = inputHandler;
         this.paddle = paddle;
         this.ball = ball;
         this.bricks = bricks;
         this.renderer = renderer;
+        this.im = im;
 
         this.score = 0;
         this.lives = Constants.INITIAL_LIVES;
@@ -45,8 +47,10 @@ public class GameManager {
             // đợi bắt đầu bóng
             if(Constants.isStarted) {
                 UpdatePhysics.update(ball);
-                CheckCollisions.check(ball, paddle, bricks, this);
+                CheckCollisions.check(ball, paddle, bricks, this, im);
                 CheckWinCondition.check(bricks, this);
+                im.update();
+                im.checkCollisions(paddle, ball, this);
             } else {
                 ball.setX(paddle.getX() + paddle.getWidth() / 2 - ball.getWidth() / 2);
                 ball.setY(paddle.getY() - ball.getHeight() * 2);
@@ -64,7 +68,7 @@ public class GameManager {
             renderer.renderWin(score);
             gameController.showWinScreen();
         } else {
-            renderer.renderObject(paddle, ball, bricks, score, lives);
+            renderer.renderObject(paddle, ball, bricks, im, score, lives);
         }
     }
 
