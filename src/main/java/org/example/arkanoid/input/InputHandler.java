@@ -1,8 +1,6 @@
 package org.example.arkanoid.input;
 
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import org.example.arkanoid.config.Constants;
 import org.example.arkanoid.object.Paddle;
 
 import static org.example.arkanoid.config.Constants.isStarted;

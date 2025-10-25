@@ -2,13 +2,14 @@ module org.example.arkanoid {
     requires javafx.controls;
     requires javafx.fxml;
 
-    requires org.controlsfx.controls;
+    //requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
-    requires org.kordamp.bootstrapfx.core;
-    requires com.almasb.fxgl.all;
+//    requires org.kordamp.bootstrapfx.core;
+//    requires com.almasb.fxgl.all;
     requires javafx.base;
     requires javafx.graphics;
     requires jdk.compiler;
+    requires jdk.jconsole;
 
     opens org.example.arkanoid.game to javafx.fxml;
     exports org.example.arkanoid.game;
