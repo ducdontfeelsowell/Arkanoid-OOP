@@ -22,24 +22,25 @@ public class Ball extends MoveAbleObject {
     // --- THÊM MỚI: Biến để lưu ảnh quả bóng ---
     private Image ballImage;
 
-    public Ball(double x, double y, double width, double height,
-                double dx, double dy,
-                double speed, int directionX, int directionY) {
+    public Ball() {
+        super(
+                Constants.DEFAULT_BALL_POSITION_X,
+                Constants.DEFAULT_BALL_POSITION_Y,
+                Constants.DEFAULT_BALL_SIZE,
+                Constants.DEFAULT_BALL_SIZE,
+                Constants.DEFAULT_BALL_DX,
+                Constants.DEFAULT_BALL_DY
+        );
 
-        super(x, y, width, height, dx, dy);
-
-        this.speed = speed;
-        this.directionX = directionX;
-        this.directionY = directionY;
+        this.speed = Constants.DEFAULT_BALL_SPEED;
+        this.directionX = Constants.DEFAULT_BALL_DIRECTION_X;
+        this.directionY = Constants.DEFAULT_BALL_DIRECTION_Y;
         this.trail = new ArrayList<>();
 
         updateVelocity();
 
-        // --- THÊM MỚI: Tải ảnh cho vệt ---
         try {
-            // Thay đổi đường dẫn đến tệp ảnh vệt của bạn
             trailImage = new Image(getClass().getResourceAsStream(Constants.PATH_TO_TRAIL_2));
-            // --- THÊM MỚI: Tải ảnh cho quả bóng ---
             ballImage = new Image(getClass().getResourceAsStream(Constants.PATH_TO_BALL_1));
         } catch (Exception e) {
             System.err.println("Lỗi tải ảnh cho vệt hoặc bóng!");

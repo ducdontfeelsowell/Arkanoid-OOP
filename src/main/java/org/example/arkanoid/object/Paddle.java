@@ -15,11 +15,18 @@ public class Paddle extends MoveAbleObject {
     private long lastToggleTime = 0; // Thời gian cuối cùng chuyển đổi hình ảnh
     private final long TOGGLE_INTERVAL = 200_000_000; // Khoảng thời gian nhấp nháy (200ms) tính bằng nanoseconds
 
+    public Paddle() {
+        super(
+                Constants.DEFAULT_PADDLE_POSITION_X,
+                Constants.DEFAULT_PADDLE_POSITION_Y,
+                Constants.DEFAULT_PADDLE_WIDTH,
+                Constants.DEFAULT_PADDLE_HEIGHT,
+                Constants.DEFAULT_PADDLE_DX,
+                Constants.DEFAULT_PADDLE_DY);
 
-    public Paddle(double x, double y, double width, double height,
-                  double dx, double dy, double speed) {
-        super(x, y, width, height, dx, dy);
-        this.speed = speed;
+        this.speed = Constants.DEFAULT_PADDLE_SPEED;
+
+         // Tải ảnh cho paddle
         try {
             image1 = new Image(getClass().getResourceAsStream(Constants.PATH_TO_PADDLE_1)); // Đường dẫn đến ảnh 1
             image2 = new Image(getClass().getResourceAsStream(Constants.PATH_TO_PADDLE_2)); // Đường dẫn đến ảnh 2
@@ -30,7 +37,6 @@ public class Paddle extends MoveAbleObject {
             image1 = null;
             image2 = null;
         }
-
     }
 
     @Override
