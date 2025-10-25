@@ -17,7 +17,7 @@ public class Constants {
     public final static double DEFAULT_BALL_SIZE = 15;
     public final static double DEFAULT_BALL_POSITION_X = SCREEN_WIDTH / 2 - DEFAULT_BALL_SIZE / 2;
     public final static double DEFAULT_BALL_POSITION_Y = DEFAULT_PADDLE_POSITION_Y - DEFAULT_BALL_SIZE - 5;
-    public final static double DEFAULT_BALL_SPEED = 3;
+    public final static double DEFAULT_BALL_SPEED = 4;
     public final static double DEFAULT_BALL_OFFSET = 0.2;
     public final static double DEFAULT_BALL_OFFSET_CAP = 0.9;
     public final static double DEFAULT_BALL_DX = 0;

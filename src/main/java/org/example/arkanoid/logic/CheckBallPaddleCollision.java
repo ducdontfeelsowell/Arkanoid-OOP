@@ -45,15 +45,12 @@ public class CheckBallPaddleCollision {
                 double paddleCenter = paddle.getX() + paddle.getWidth() / 2;
                 double ballCenter = ball.getX() + ball.getWidth() / 2;
                 double offset = (ballCenter - paddleCenter) / (paddle.getWidth() / 2);
-                System.out.print(offset + " ");
 
                 // Thay đổi góc phản xạ dựa vào vị trí va chạm
                 if (Math.abs(offset) < Constants.DEFAULT_BALL_OFFSET) {
                     offset = Math.signum(offset) * Constants.DEFAULT_BALL_OFFSET;
-                    System.out.print(offset + "\n");
                 } else if (Math.abs(offset) >= Constants.DEFAULT_BALL_OFFSET_CAP) {
                     offset = Math.signum(offset) * Constants.DEFAULT_BALL_OFFSET_CAP;
-                    System.out.print(offset + "\n");
                 }
                 ball.setOffset(offset);
             }
