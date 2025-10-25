@@ -39,6 +39,9 @@ public class MapLoader {
                     case 3 -> row[colIndex] = new InfBrick(
                             x, y, Constants.BRICK_WIDTH, Constants.BRICK_HEIGHT,
                             Constants.HIT_POINTS_INF_BRICK, type);
+                    case 4 -> row[colIndex] = new InfBrick(
+                            x, y, Constants.BRICK_WIDTH, Constants.BRICK_HEIGHT,
+                            Constants.HIT_POINTS_INF_BRICK, type);
 
                     default -> row[colIndex] = null;
                 }

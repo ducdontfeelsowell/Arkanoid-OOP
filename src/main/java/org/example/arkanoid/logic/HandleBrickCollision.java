@@ -2,11 +2,13 @@ package org.example.arkanoid.logic;
 
 import org.example.arkanoid.config.Constants;
 import org.example.arkanoid.game.GameManager;
+import org.example.arkanoid.game.ItemManager;
 import org.example.arkanoid.object.Ball;
 import org.example.arkanoid.object.Brick.Brick;
 
 public class HandleBrickCollision {
-    public static void handle(Ball ball, Brick brick, GameManager gm) {
+    public static void handle(Ball ball, Brick brick, GameManager gm, ItemManager im) {
+        System.out.println("Ball collided with brick of type: " + brick.getType());
         double overlapLeft = (ball.getX() + ball.getWidth()) - brick.getX();
         double overlapRight = (brick.getX() + brick.getWidth()) - ball.getX();
         double overlapTop = (ball.getY() + ball.getHeight()) - brick.getY();
@@ -27,6 +29,12 @@ public class HandleBrickCollision {
             brick.takeHit();
             if (brick.isDestroyed()) {
                 gm.setScore(gm.getScore() + Constants.POINTS_PER_BRICK * brick.getType());
+
+                // THÊM MỚI: Spawn item khi gạch bị phá
+                if (im != null) {
+                    System.out.println("Spawning item from destroyed brick.");
+                    im.spawnItem(brick);
+                }
             }
         }
     }

@@ -12,5 +12,7 @@ public class ResetBallAndPaddle {
         ball.setY(paddle.getY() - ball.getHeight() - 1);
         ball.setOffset(Constants.DEFAULT_BALL_OFFSET);
         CheckBallPaddleCollision.sideHit = false;
+
+        ball.clearTrail();
     }
 }

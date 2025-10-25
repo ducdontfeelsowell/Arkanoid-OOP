@@ -1,26 +1,23 @@
 package org.example.arkanoid.controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import org.example.arkanoid.launch.Main;
 import org.example.arkanoid.input.InputHandler;
 
 public class GameController {
-    @FXML
-    private AnchorPane pauseScreen;
+    public Button resumeGameButton;
+    public Button backButton1;
+    public Button playAgainButton;
+    public Button backButton2;
+    public Button backButton3;
+    public VBox loseScreen;
+    public VBox pauseScreen;
+    public VBox winScreen;
 
-    @FXML
-    private Button resumeGameButton;
-
-    @FXML
-    private Button resetLevelButton;
-
-    @FXML
-    private Button backToMenuButton;
-
-    private static boolean paused = false;
+    public static boolean paused = false;
     private boolean escapeWasPressed = false;
 
     private InputHandler inputHandler;
@@ -43,19 +40,6 @@ public class GameController {
         pauseScreen.setVisible(paused);
     }
 
-    @FXML
-    public void onResumeGameClick() {
-        paused = false;
-        pauseScreen.setVisible(false);
-    }
-
-    @FXML
-    public void onBackToMenuClick() {
-        paused = false;
-        pauseScreen.setVisible(false);
-        Main.returnToMenu();
-    }
-
     public void setInputHandler(InputHandler inputHandler) {
         this.inputHandler = inputHandler;
     }
@@ -69,5 +53,43 @@ public class GameController {
         if (pauseScreen != null) {
             pauseScreen.setVisible(false);
         }
+    }
+
+    public void onResumeClick() {
+        paused = false;
+        pauseScreen.setVisible(false);
+    }
+
+    public void onBackClick1() {
+        paused = false;
+        pauseScreen.setVisible(false);
+        Main.returnToMenu();
+    }
+
+    public void onBackClick2() {
+        paused = false;
+        loseScreen.setVisible(false);
+        Main.returnToMenu();
+    }
+
+    public void onPLayAgainClick() {
+        loseScreen.setVisible(false);
+        Main.restartGame();
+    }
+
+    public void showLoseScreen() {
+        loseScreen.setVisible(true);
+        paused = true;
+    }
+
+    public void showWinScreen() {
+        winScreen.setVisible(true);
+        paused = true;
+    }
+
+    public void onBackClick3() {
+        winScreen.setVisible(false);
+        paused = false;
+        Main.returnToMenu();
     }
 }
