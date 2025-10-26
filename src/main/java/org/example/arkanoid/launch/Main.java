@@ -16,7 +16,7 @@ import org.example.arkanoid.game.GameManager;
 import org.example.arkanoid.game.GameRenderer;
 import org.example.arkanoid.input.InputHandler;
 import org.example.arkanoid.input.MapLoader;
-import org.example.arkanoid.sound.SoundManager; // <-- THÊM IMPORT NÀY
+import org.example.arkanoid.sound.SoundManager;
 import org.example.arkanoid.object.Ball;
 import org.example.arkanoid.object.Brick.Brick;
 import org.example.arkanoid.object.Paddle;
@@ -30,7 +30,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        // ... (Code gốc không đổi)
         primaryStage = stage;
 
         // Load menu scene
@@ -55,7 +54,7 @@ public class Main extends Application {
     public static void startGame() {
         try {
             // TẢI ÂM THANH KHI BẮT ĐẦU GAME
-            SoundManager.loadSounds(); // <-- THÊM DÒNG NÀY
+            SoundManager.loadGameSounds(); // <-- Đã sửa: tải âm thanh game
             SoundManager.playMusic();
 
             // Create canvas for rendering
@@ -111,6 +110,7 @@ public class Main extends Application {
             // Create game manager
             GameManager gameManager = new GameManager(
                     gameController, inputHandler, paddle, ball, bricks, renderer);
+
 
             // Set scene
             primaryStage.setX(Constants.DEFAULT_SCREEN_X);

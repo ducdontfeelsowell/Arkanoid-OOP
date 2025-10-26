@@ -1,9 +1,5 @@
 package org.example.arkanoid.controller;
 
-import javafx.animation.Interpolator;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,13 +7,14 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import org.example.arkanoid.launch.Main;
+import org.example.arkanoid.sound.SoundManager; // <-- Đảm bảo có import này
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MenuController implements Initializable {
-    // Biến đang chuyển cảnh
+
     @FXML
     private Button exitButton;
 
@@ -45,7 +42,6 @@ public class MenuController implements Initializable {
     public void onHelpButtonClick() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/arkanoid/help-view.fxml"));
         Parent newRoot = loader.load();
-        // Gọi hàm chuyển cảnh có hiệu ứng
         helpButton.getScene().setRoot(newRoot);
     }
 
@@ -61,9 +57,12 @@ public class MenuController implements Initializable {
         System.exit(0);
     }
 
+    // --- CÁC HÀM XỬ LÝ HOVER CHUỘT ---
+
     @FXML
     private void onPlayHoverEnter() {
         playHoverImage.setVisible(true);
+        SoundManager.playMenuHover(); // <-- ĐÃ THÊM ÂM THANH VÀO ĐÂY
     }
 
     @FXML
@@ -71,8 +70,28 @@ public class MenuController implements Initializable {
         playHoverImage.setVisible(false);
     }
 
+    @FXML
+    private void onHelpHoverEnter() { // <-- HÀM MỚI
+        SoundManager.playMenuHover();
+    }
+
+    @FXML
+    private void onSettingHoverEnter() { // <-- HÀM MỚI
+        SoundManager.playMenuHover();
+    }
+
+    @FXML
+    private void onExitHoverEnter() { // <-- HÀM MỚI
+        SoundManager.playMenuHover();
+    }
+
+    // --- KẾT THÚC CÁC HÀM HOVER ---
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Tải âm thanh cho menu
+        SoundManager.loadMenuSounds(); // <-- Đã thêm
+
         // Đảm bảo ảnh hover không bắt sự kiện chuột (nếu chưa đặt trong FXML)
         playHoverImage.setMouseTransparent(true);
 

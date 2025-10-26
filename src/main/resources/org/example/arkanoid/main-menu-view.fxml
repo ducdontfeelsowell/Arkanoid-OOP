@@ -20,23 +20,15 @@
                <Rectangle2D width="800.0" />
            </viewport>
        </ImageView>
-       <Button fx:id="settingButton" layoutX="385.0" layoutY="535.0" mnemonicParsing="false" onAction="#onSettingButtonClick" prefHeight="46.0" prefWidth="98.0" text="Setting" />
-       <Button fx:id="exitButton" layoutX="175.0" layoutY="628.0" mnemonicParsing="false" onAction="#onExitGameButtonClick" prefHeight="46.0" prefWidth="81.0" text="Exit game" />
-       <Button fx:id="helpButton" layoutX="820.0" layoutY="535.0" mnemonicParsing="false" onAction="#onHelpButtonClick" prefHeight="46.0" prefWidth="98.0" text="Help" />
+       <Button fx:id="settingButton" layoutX="385.0" layoutY="535.0" mnemonicParsing="false" onAction="#onSettingButtonClick" onMouseEntered="#onSettingHoverEnter" prefHeight="46.0" prefWidth="98.0" text="Setting" />
+       <Button fx:id="exitButton" layoutX="175.0" layoutY="628.0" mnemonicParsing="false" onAction="#onExitGameButtonClick" onMouseEntered="#onExitHoverEnter" prefHeight="46.0" prefWidth="81.0" text="Exit game" />
+       <Button fx:id="helpButton" layoutX="820.0" layoutY="535.0" mnemonicParsing="false" onAction="#onHelpButtonClick" onMouseEntered="#onHelpHoverEnter" prefHeight="46.0" prefWidth="98.0" text="Help" />
        <ImageView fx:id="playImage" fitHeight="99.0" fitWidth="205.0" layoutX="544.0" layoutY="392.0" pickOnBounds="true" preserveRatio="true">
            <image>
                <Image url="@../../../Images/background/play_button.png" />
            </image>
        </ImageView>
-       <Button fx:id="playButton"
-               layoutX="545.0" layoutY="389.0"
-               mnemonicParsing="false"
-               onAction="#onPlayGameButtonClick"
-               opacity="0.0"
-               prefHeight="73.0"
-               prefWidth="205.0"
-               stylesheets="@../../../../java/org/example/arkanoid/scene.css"
-               text="Play Game" />
+       <Button fx:id="playButton" layoutX="545.0" layoutY="389.0" mnemonicParsing="false" onAction="#onPlayGameButtonClick" onMouseEntered="#onPlayHoverEnter" opacity="0.0" prefHeight="73.0" prefWidth="205.0" stylesheets="@../../../../java/org/example/arkanoid/scene.css" text="Play Game" />
           <Label alignment="CENTER" contentDisplay="CENTER" layoutX="314.0" layoutY="136.0" prefHeight="222.0" prefWidth="665.0" text="ARKANOID" textFill="#08e7e3">
          <font>
             <Font name="Algerian" size="120.0" />
@@ -50,13 +42,7 @@
       </Label>
       <Button layoutX="532.0" layoutY="535.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="98.0" text="SHOP" />
       <Button layoutX="678.0" layoutY="535.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="98.0" text="LEVEL" />
-       <ImageView fx:id="playHoverImage"
-                  fitHeight="150.0" fitWidth="200.0"
-                  layoutX="547.0" layoutY="392.0"
-                  pickOnBounds="true"
-                  preserveRatio="true"
-                  mouseTransparent="true"
-                  visible="false">
+       <ImageView fx:id="playHoverImage" fitHeight="150.0" fitWidth="200.0" layoutX="547.0" layoutY="392.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" visible="false">
            <image>
                <Image url="@../../../Images/background/play_button_hold.png" />
            </image>
