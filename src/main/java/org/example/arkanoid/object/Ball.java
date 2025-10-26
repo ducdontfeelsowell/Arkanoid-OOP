@@ -65,12 +65,12 @@ public class Ball extends MoveAbleObject {
             trail.remove(trail.size() - 1);
         }
 
-        if (x <= 340) {
-            x = 340;
+        if (x <= Constants.PLAY_AREA_LEFT) {
+            x = Constants.PLAY_AREA_LEFT;
             reverseX();
         }
-        if (x + width >= Constants.SCREEN_WIDTH - 290) {
-            x = Constants.SCREEN_WIDTH - width - 290;
+        if (x + width >= Constants.SCREEN_WIDTH - Constants.PLAY_AREA_RIGHT_MARGIN) {
+            x = Constants.SCREEN_WIDTH - width - Constants.PLAY_AREA_RIGHT_MARGIN;
             reverseX();
         }
         if (y <= 0) {

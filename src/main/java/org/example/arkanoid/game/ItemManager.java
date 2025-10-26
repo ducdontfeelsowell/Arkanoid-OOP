@@ -1,6 +1,7 @@
 package org.example.arkanoid.game;
 
 import javafx.scene.canvas.GraphicsContext;
+import org.example.arkanoid.config.Constants;
 import org.example.arkanoid.object.Item;
 import org.example.arkanoid.object.Paddle;
 import org.example.arkanoid.object.Ball;
@@ -15,7 +16,6 @@ public class ItemManager {
 
     private List<Item> items;
     private Random random;
-    private static final double DROP_CHANCE = 0.3; // 30% tỉ lệ rơi item
 
     public ItemManager() {
         this.items = new ArrayList<>();
@@ -26,12 +26,9 @@ public class ItemManager {
      * Tạo item ngẫu nhiên tại vị trí gạch bị phá
      */
     public void spawnItem(Brick brick) {
-        // Kiểm tra tỉ lệ rơi
         double x = random.nextDouble();
-        if (x > DROP_CHANCE) {
-            System.out.println("No item dropped.");
-            System.out.println(x);
-            return; // Không rơi item
+        if (x > Constants.DROP_CHANCE) {
+            return;
         }
 
         // Chọn loại item ngẫu nhiên
@@ -106,6 +103,9 @@ public class ItemManager {
             case EXTRA_LIFE:
                 // Thêm 1 mạng
                 gm.setLives(gm.getLives() + 1);
+                break;
+            case SHOOTER_PADDLE:
+                paddle.activateShooter();
                 break;
         }
     }

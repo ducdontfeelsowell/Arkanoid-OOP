@@ -13,6 +13,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.example.arkanoid.config.Constants;
 import org.example.arkanoid.controller.GameController;
+import org.example.arkanoid.game.BulletManager;
 import org.example.arkanoid.game.GameManager;
 import org.example.arkanoid.game.GameRenderer;
 import org.example.arkanoid.game.ItemManager;
@@ -39,6 +40,7 @@ public class Main extends Application {
     private static GameRenderer renderer;
     private static GameManager gameManager;
     private static ItemManager itemManager;
+    private static BulletManager bulletManager;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -97,8 +99,10 @@ public class Main extends Application {
 
             itemManager = new ItemManager();
 
+            bulletManager = new BulletManager();
+
             gameManager = new GameManager(gameController, inputHandler,
-                    paddle, ball, bricks, renderer, itemManager);
+                    paddle, ball, bricks, renderer, itemManager, bulletManager);
 
             // Set scene
             primaryStage.setX(Constants.DEFAULT_SCREEN_X);

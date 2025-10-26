@@ -1,6 +1,7 @@
 package org.example.arkanoid.input;
 
 import javafx.scene.Scene;
+import org.example.arkanoid.game.BulletManager;
 import org.example.arkanoid.object.Paddle;
 
 import static org.example.arkanoid.config.Constants.isStarted;
@@ -12,6 +13,7 @@ public class InputHandler {
     private boolean escapePressed;
     private boolean spacePressed;
 
+    private boolean spaceWasPressed = false;
 
     public InputHandler(Scene scene) {
         attach(scene);
@@ -40,15 +42,26 @@ public class InputHandler {
         });
     }
 
-    public void handleInput(Paddle paddle) {
-
+    public void handleInput(Paddle paddle, BulletManager bm) {
         if (isSpacePressed()) {
-            isStarted = true;
+            if (!spaceWasPressed) {
+                if (!isStarted) {
+                    isStarted = true;
+                } else if (paddle.isShooter()) {
+                    bm.shoot(paddle.getX(), paddle.getY(), paddle.getWidth());
+                }
+            }
+            spaceWasPressed = true;
+        } else {
+            spaceWasPressed = false;
         }
+
         if (isLeftPressed()) {
             paddle.moveLeft();
         } else if (isRightPressed()) {
             paddle.moveRight();
+        } else {
+            paddle.stopMove();
         }
     }
 
