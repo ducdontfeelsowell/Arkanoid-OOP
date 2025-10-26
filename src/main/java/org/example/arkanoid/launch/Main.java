@@ -111,9 +111,33 @@ public class Main extends Application {
             if (timer != null) timer.stop();
 
             timer = new AnimationTimer() {
+                private double fps = Constants.FPS;
+                private double interval = Constants.INTERVAL;
+                private long lastUpdate = 0;
+
+                private int frameCount = 0;
+                private long lastFpsTime = 0;
+
                 @Override
                 public void handle(long now) {
-                    gameManager.updateGame();
+                    if (now - lastUpdate >= interval) {
+                        gameManager.updateGame();
+                        lastUpdate = now;
+                        frameCount++;
+
+                        long delayNs = (long) interval - (System.nanoTime() - now);
+                        if (delayNs > 0) {
+                            try {
+                                Thread.sleep(delayNs / 1_000_000, (int) (delayNs % 1_000_000));
+                            } catch (InterruptedException ignored) {}
+                        }
+                    }
+
+                    if (now - lastFpsTime >= 1000000000) {
+                        System.out.println("FPS: " + frameCount);
+                        frameCount = 0;
+                        lastFpsTime = now;
+                    }
                 }
             };
             timer.start();
