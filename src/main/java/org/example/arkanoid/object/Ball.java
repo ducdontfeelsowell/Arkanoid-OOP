@@ -10,8 +10,10 @@ import java.util.List;
 
 public class Ball extends MoveAbleObject {
     private double speed;
-    private int directionX;
-    private int directionY;
+    private double offset;
+    private double xCenter;
+    private double yCenter;
+    private double radius;
 
     private List<TrailSegment> trail;
     private static final int MAX_TRAIL_LENGTH = 15;
@@ -32,9 +34,13 @@ public class Ball extends MoveAbleObject {
                 Constants.DEFAULT_BALL_DY
         );
 
+        this.xCenter = Constants.DEFAULT_BALL_POSITION_X + Constants.DEFAULT_BALL_SIZE / 2;
+        this.yCenter = Constants.DEFAULT_BALL_POSITION_Y + Constants.DEFAULT_BALL_SIZE / 2;
+
+        this.radius = Constants.DEFAULT_BALL_SIZE/2;
+
         this.speed = Constants.DEFAULT_BALL_SPEED;
-        this.directionX = Constants.DEFAULT_BALL_DIRECTION_X;
-        this.directionY = Constants.DEFAULT_BALL_DIRECTION_Y;
+        this.offset = Constants.DEFAULT_BALL_OFFSET;
         this.trail = new ArrayList<>();
 
         updateVelocity();
@@ -49,10 +55,12 @@ public class Ball extends MoveAbleObject {
         }
     }
 
+    /**
+     * Cập nhật vận tốc (dx, dy) dựa vào hướng và tốc độ. Cho va chạm paddle.
+     */
     private void updateVelocity() {
-        double diagonalSpeed = speed / Math.sqrt(2);
-        dx = diagonalSpeed * directionX;
-        dy = diagonalSpeed * directionY;
+        dx = speed * offset;
+        dy = -Math.sqrt(Math.pow(speed, 2) - Math.pow(dx, 2));
     }
 
     @Override
@@ -73,10 +81,14 @@ public class Ball extends MoveAbleObject {
             x = Constants.SCREEN_WIDTH - width - Constants.PLAY_AREA_RIGHT_MARGIN;
             reverseX();
         }
+
+        // --- Va chạm với tường trên ---
         if (y <= 0) {
             y = 0;
             reverseY();
         }
+
+        // Không xử lý rơi xuống dưới ở đây, để GameManager xử lý
     }
 
     @Override
@@ -131,27 +143,60 @@ public class Ball extends MoveAbleObject {
         }
     }
 
-    // ... (Các getter, setter và phương thức khác không đổi) ...
+    /**
+     * Đảo chiều theo trục X. Cho va chạm ngoài paddle.
+     */
     public void reverseX() {
-        directionX = -directionX;
-        updateVelocity();
+        dx = -dx;
     }
+
+    /**
+     * Đảo chiều theo trục Y. Cho va chạm ngoài paddle.
+     */
     public void reverseY() {
-        directionY = -directionY;
+        dy = -dy;
+    }
+
+    /**
+     * Kiểm tra va chạm giữa hai hình chữ nhật (AABB collision).
+     */
+    public boolean isCollidingWith(GameObject other) {
+        return x <= other.getX() + other.getWidth() &&
+                x + width >= other.getX() &&
+                y <= other.getY() + other.getHeight() &&
+                y + height >= other.getY();
+    }
+
+    // ===== Getter & Setter =====
+    public double getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(double speed) {
+        this.speed = speed;
         updateVelocity();
     }
-    public boolean isCollidingWith(GameObject other) {
-        return x < other.getX() + other.getWidth() &&
-                x + width > other.getX() &&
-                y < other.getY() + other.getHeight() &&
-                y + height > other.getY();
+
+    public double getOffset() {
+        return offset;
     }
-    public double getSpeed() { return speed; }
-    public void setSpeed(double speed) { this.speed = speed; updateVelocity(); }
-    public int getDirectionX() { return directionX; }
-    public void setDirectionX(int directionX) { this.directionX = directionX; updateVelocity(); }
-    public int getDirectionY() { return directionY; }
-    public void setDirectionY(int directionY) { this.directionY = directionY; updateVelocity(); }
+
+    public void setOffset(double offset) {
+        this.offset = offset;
+        updateVelocity();
+    }
+
+    public double getxCenter() {
+        return xCenter;
+    }
+
+    public double getyCenter() {
+        return yCenter;
+    }
+
+    public double getRadius() {
+        return radius;
+    }
 
     private static class TrailSegment {
         double x, y;

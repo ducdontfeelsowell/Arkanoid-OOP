@@ -60,7 +60,7 @@ public class GameManager {
                 bm.checkCollisions(bricks, this, im);
             } else {
                 ball.setX(paddle.getX() + paddle.getWidth() / 2 - ball.getWidth() / 2);
-                ball.setY(paddle.getY() - ball.getHeight() * 2);
+                ball.setY(paddle.getY() - ball.getHeight() - 1);
             }
         }
 
