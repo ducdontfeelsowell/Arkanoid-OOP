@@ -108,6 +108,10 @@ public class Brick extends GameObject {
         return hitPoints;
     }
 
+    public void setHitPoints(int hitPoints) {
+        this.hitPoints = hitPoints;
+    }
+
     public void setDestroyed(boolean destroyed) {
         this.destroyed = destroyed;
     }

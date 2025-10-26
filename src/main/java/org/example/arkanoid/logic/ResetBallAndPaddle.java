@@ -9,9 +9,9 @@ public class ResetBallAndPaddle {
         Constants.isStarted = false;
         // Reset ball
         ball.setX(paddle.getX() + paddle.getWidth() / 2 - ball.getWidth() / 2);
-        ball.setY(paddle.getY() - ball.getHeight() * 2);
-        ball.setDirectionX(Constants.DEFAULT_BALL_DIRECTION_X);
-        ball.setDirectionY(Constants.DEFAULT_BALL_DIRECTION_Y);
+        ball.setY(paddle.getY() - ball.getHeight() - 1);
+        ball.setOffset(Constants.DEFAULT_BALL_OFFSET);
+        CheckBallPaddleCollision.sideHit = false;
 
         ball.clearTrail();
     }
