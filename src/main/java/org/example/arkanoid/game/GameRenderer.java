@@ -12,15 +12,12 @@ import org.example.arkanoid.render.*;
 
 public class GameRenderer {
     private final GraphicsContext gc;
-    private final Image backgroundImage; // <<< THÊM MỚI
     private final Image backgroundImage2; // <<< THÊM MỚI
 
     public GameRenderer(GraphicsContext gc) {
         this.gc = gc;
         try {
-            this.backgroundImage = new Image(getClass().getResourceAsStream(Constants.PATH_TO_BACKGROUND));
             this.backgroundImage2 = new Image(getClass().getResourceAsStream(Constants.PATH_TO_MENU_BACKGROUND));
-
         } catch (Exception e) {
             System.err.println("Lỗi tải ảnh background!");
             throw new RuntimeException(e);
@@ -31,15 +28,14 @@ public class GameRenderer {
      * Vẽ toàn bộ game state
      */
     public void renderObject(Paddle paddle, Ball ball, Brick[][] bricks, int score, int lives) {
-        if (backgroundImage != null) {
-            gc.drawImage(backgroundImage, 0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
+        gc.clearRect(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
+        if (backgroundImage2 != null) {
             gc.drawImage(backgroundImage2, 350, 0, Constants.SCREEN_WIDTH/2, Constants.SCREEN_HEIGHT);
         } else {
             gc.setFill(Color.rgb(20, 20, 40));
             gc.fillRect(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
         }
         // --------------------------------------------------
-
         // Render game objects
         RenderBricks.render(bricks, gc);
         RenderPaddle.render(paddle, gc);

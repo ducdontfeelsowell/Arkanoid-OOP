@@ -27,10 +27,7 @@ public class MenuController implements Initializable{
     private Button settingButton;
 
     @FXML
-    private Button levelButton; // Đã có
-
-    @FXML
-    private Button shopButton; // Đã có
+    private Button shopButton;
 
     @FXML
     private ImageView playHoverImage;
@@ -57,12 +54,6 @@ public class MenuController implements Initializable{
     private ImageView shopImage;
 
     @FXML
-    private ImageView levelHoverImage;
-
-    @FXML
-    private ImageView levelImage;
-
-    @FXML
     private ImageView exitImage;
 
     @FXML
@@ -71,7 +62,6 @@ public class MenuController implements Initializable{
     // Các phương thức xử lý sự kiện đã có
     @FXML
     public void onPlayGameButtonClick() throws IOException {
-//        Main.startGame();
         FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.PATH_TO_LEVEL_VIEW));
         Parent root = loader.load();
         playButton.getScene().setRoot(root);
@@ -91,21 +81,12 @@ public class MenuController implements Initializable{
         settingButton.getScene().setRoot(root);
     }
 
-    // START: Các phương thức xử lý Level và Shop đã thiếu <--- CẦN THIẾT
-    @FXML
-    public void onLevelButtonClick() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/arkanoid/level-view.fxml"));
-        Parent newRoot = loader.load();
-        levelButton.getScene().setRoot(newRoot);
-    }
-
     @FXML
     public void onShopButtonClick() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/arkanoid/shop-view.fxml"));
         Parent newRoot = loader.load();
         shopButton.getScene().setRoot(newRoot);
     }
-    // END: Các phương thức Level và Shop đã thiếu
 
     @FXML
     public void onExitGameButtonClick() {

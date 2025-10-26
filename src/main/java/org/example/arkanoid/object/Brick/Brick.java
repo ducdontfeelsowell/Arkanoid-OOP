@@ -33,7 +33,7 @@ public class Brick extends GameObject {
 
         switch (getType()) {
             case 1:
-                imagePath = Constants.PATH_TO_BRICK_1; 
+                imagePath = Constants.PATH_TO_BRICK_1;
                 break;
             case 2:
                 imagePath = Constants.PATH_TO_BRICK_2;
@@ -62,7 +62,7 @@ public class Brick extends GameObject {
     @Override
     public void render(GraphicsContext gc) {
         if (brickImage != null) {
-            gc.drawImage(brickImage, getX(), getY(), getWidth(), getHeight());
+            gc.drawImage(Constants.brick_state_list1[9], getX(), getY(), getWidth(), getHeight());
         }
 
         if (getType() == 2 && getHitPoints() > 0) {
