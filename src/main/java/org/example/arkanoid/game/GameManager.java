@@ -1,5 +1,7 @@
 package org.example.arkanoid.game;
 
+import javafx.geometry.Rectangle2D;
+import javafx.scene.image.*;
 import org.example.arkanoid.logic.CheckCollisions;
 import org.example.arkanoid.logic.CheckWinCondition;
 import org.example.arkanoid.logic.UpdatePhysics;
@@ -9,6 +11,10 @@ import org.example.arkanoid.input.InputHandler;
 import org.example.arkanoid.object.Ball;
 import org.example.arkanoid.object.Brick.Brick;
 import org.example.arkanoid.object.Paddle;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class GameManager {
 
@@ -76,6 +82,56 @@ public class GameManager {
             gameController.showWinScreen();
         } else {
             renderer.renderObject(paddle, ball, bricks, im, bm, score, lives);
+        }
+    }
+    static Image createCroppedImage(Image sourceImage, Rectangle2D viewport) {
+        if (sourceImage == null || viewport == null) {
+            return null;
+        }
+
+        int newWidth = (int) viewport.getWidth();
+        int newHeight = (int) viewport.getHeight();
+
+        int startX = (int) viewport.getMinX();
+        int startY = (int) viewport.getMinY();
+
+        WritableImage croppedImage = new WritableImage(newWidth, newHeight);
+        PixelReader pixelReader = sourceImage.getPixelReader();
+        PixelWriter pixelWriter = croppedImage.getPixelWriter();
+
+        pixelWriter.setPixels(
+                0, 0,
+                newWidth, newHeight,
+                pixelReader,
+                startX, startY
+        );
+
+        return croppedImage;
+    }
+
+    public void Init(){
+        InputStream inputStream = getClass().getResourceAsStream("/Images/background/3333.jpg");
+
+        Image fullImage = null;
+        if (inputStream != null) {
+            fullImage = new Image(inputStream);
+        }
+
+        if (fullImage == null || fullImage.isError()) {
+            System.out.println("FAIL: Không tìm thấy hoặc lỗi tải ảnh.");
+            return;
+        }
+
+        double fullWidth = fullImage.getWidth();
+        double fullHeight = fullImage.getHeight();
+
+        for(int i= 0 ; i < 10 ; i++){
+            Rectangle2D halfTopLeft = new Rectangle2D(231 + i*58,0,45,21);
+            Constants.brick_state_list1[i] = createCroppedImage(fullImage, halfTopLeft);
+        }
+        for(int i= 0 ; i < 10 ; i++){
+            Rectangle2D halfTopLeft = new Rectangle2D(231 + i*58,37,45,21);
+            Constants.brick_state_list2[i] = createCroppedImage(fullImage, halfTopLeft);
         }
     }
 
