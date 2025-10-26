@@ -58,9 +58,10 @@ public class HandleBrickCollision {
                 if (brick.isDestroyed()) {
                     gm.setScore(gm.getScore() + Constants.POINTS_PER_BRICK * brick.getType());
 
-                // THÊM MỚI: Spawn item khi gạch bị phá
-                if (im != null) {
-                    im.spawnItem(brick);
+                    // THÊM MỚI: Spawn item khi gạch bị phá
+                    if (im != null) {
+                        im.spawnItem(brick);
+                    }
                 }
             }
 
@@ -73,5 +74,6 @@ public class HandleBrickCollision {
 
             default -> {}
         }
+
     }
 }
