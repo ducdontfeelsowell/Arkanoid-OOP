@@ -195,6 +195,8 @@ public class Constants {
     public static final String PATH_TO_EXPAND_7 = "/Images/item/Expand/expand7.png";
     public static final String PATH_TO_EXPAND_8 = "/Images/item/Expand/expand8.png";
 
+
+    public static final String PATH_TO_BRICK_3333 = "/Images/background/3333.jpg";
     public static Image[] brick_state_list1 = new Image[10];
     public static Image[] brick_state_list2 = new Image[10];
 

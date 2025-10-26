@@ -110,7 +110,7 @@ public class GameManager {
     }
 
     public void Init(){
-        InputStream inputStream = getClass().getResourceAsStream("/Images/background/3333.jpg");
+        InputStream inputStream = getClass().getResourceAsStream(Constants.PATH_TO_BRICK_3333);
 
         Image fullImage = null;
         if (inputStream != null) {
