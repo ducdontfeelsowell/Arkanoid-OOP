@@ -2,9 +2,9 @@ package org.example.arkanoid.object.Brick;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color; // Cần thiết cho Text (điểm số)
-import javafx.scene.text.Font; // Cần thiết cho Text (điểm số)
-import javafx.scene.text.FontWeight; // Cần thiết cho Text (điểm số)
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import org.example.arkanoid.config.Constants;
 import org.example.arkanoid.object.GameObject;
 
@@ -12,6 +12,7 @@ public class Brick extends GameObject {
 
     private int hitPoints;
     private int type;
+    private int score;
     private boolean destroyed;
     private Image brickImage;
 
@@ -22,30 +23,37 @@ public class Brick extends GameObject {
         this.destroyed = false;
 
         loadImage();
+        setScoreBasedOnType();
     }
 
-    /**
-     * Tải hình ảnh dựa trên loại gạch (type).
-     * SỬA ĐỔI: Đường dẫn đã được điều chỉnh để khớp với cấu trúc thư mục.
-     */
-    private void loadImage() {
-        String imagePath = "";
-
-        switch (getType()) {
+    private void setScoreBasedOnType() {
+        switch (this.type) {
             case 1:
-                imagePath = Constants.PATH_TO_BRICK_1; 
+                this.score = 50;
                 break;
             case 2:
-                imagePath = Constants.PATH_TO_BRICK_2;
+                this.score = 100;
                 break;
             case 3:
-                imagePath = Constants.PATH_TO_BRICK_3;
+                this.score = 50;
                 break;
             case 4:
-                imagePath = Constants.PATH_TO_BRICK_4;
+                this.score = 50;
+                break;
+            default:
+                this.score = 0;
                 break;
         }
+    }
 
+    private void loadImage() {
+        String imagePath = "";
+        switch (getType()) {
+            case 1: imagePath = Constants.PATH_TO_BRICK_1; break;
+            case 2: imagePath = Constants.PATH_TO_BRICK_2; break;
+            case 3: imagePath = Constants.PATH_TO_BRICK_3; break;
+            case 4: imagePath = Constants.PATH_TO_BRICK_4; break;
+        }
         try {
             brickImage = new Image(getClass().getResourceAsStream(imagePath));
         } catch (Exception e) {
@@ -56,11 +64,12 @@ public class Brick extends GameObject {
 
     @Override
     public void update() {
-        // Brick không di chuyển
     }
 
     @Override
     public void render(GraphicsContext gc) {
+        if (destroyed) return;
+
         if (brickImage != null) {
             gc.drawImage(brickImage, getX(), getY(), getWidth(), getHeight());
         }
@@ -85,6 +94,10 @@ public class Brick extends GameObject {
 
     public boolean isDestroyed() {
         return destroyed;
+    }
+
+    public int getScore() {
+        return this.score;
     }
 
     public int getType() {

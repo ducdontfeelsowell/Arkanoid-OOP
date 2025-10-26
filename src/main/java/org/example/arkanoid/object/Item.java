@@ -5,48 +5,69 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import org.example.arkanoid.config.Constants;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 public class Item extends MoveAbleObject {
 
     public enum ItemType {
         EXPAND_PADDLE,    // Mở rộng paddle
         SHRINK_PADDLE,    // Thu nhỏ paddle
-        EXTRA_LIFE       // Thêm mạng
+        EXTRA_LIFE,       // Thêm mạng
+        SHOOTER_PADDLE    // Biến paddle thành shooter
     }
 
     private ItemType type;
-    private Image itemImage;
     private boolean collected;
+
+    private List<Image> animationFrames;
+    private int currentFrame = 0;
+    private long lastFrameTime = 0;
+    private static final long FRAME_DURATION = 100_000_000L; // 100ms per frame (nanoseconds)
 
     public Item(double x, double y, ItemType type) {
         super(x, y, Constants.DEFAULT_ITEM_WIDTH, Constants.DEFAULT_ITEM_HEIGHT,
                 Constants.DEFAULT_ITEM_DX, Constants.DEFAULT_ITEM_DY);
         this.type = type;
         this.collected = false;
+
+        this.animationFrames = new ArrayList<>();
+
         loadImage();
     }
 
     private void loadImage() {
-        String imagePath = "";
-
-        switch (type) {
-            case EXPAND_PADDLE:
-                imagePath = "/images/mechanic/expand_paddle.png";
-                break;
-            case SHRINK_PADDLE:
-                imagePath = "/Images/mechanic/shrink_paddle.png";
-                break;
-            case EXTRA_LIFE:
-                imagePath = "/Images/mechanic/extra_heart.png";
-                break;
-        }
-
         try {
-            itemImage = new Image(getClass().getResourceAsStream(imagePath));
+            switch (type) {
+                case EXPAND_PADDLE:
+                    for (int i = 1; i <= 8; i++) {
+                        String path = String.format("/Images/item/Expand/expand%d.png", i);
+                        animationFrames.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream(path))));
+                    }
+                    break;
+
+                case SHRINK_PADDLE:
+                    for (int i = 1; i <= 8; i++) {
+                        String path = String.format("/Images/item/Shrink/shrink%d.png", i);
+                        animationFrames.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream(path))));
+                    }
+                    break;
+
+                case EXTRA_LIFE:
+                    animationFrames.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream(Constants.PATH_TO_EXTRA_LIFE))));
+                    break;
+
+                case SHOOTER_PADDLE:
+                    animationFrames.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream(Constants.PATH_TO_TRANSFER_SHOOTER))));
+                    break;
+            }
         } catch (Exception e) {
-            System.err.println("Lỗi tải ảnh cho item: " + imagePath);
-            itemImage = null;
+            System.err.println("Lỗi tải ảnh cho item: " + type);
+            animationFrames.clear();
         }
     }
+
 
     @Override
     public void move() {
@@ -56,16 +77,23 @@ public class Item extends MoveAbleObject {
     @Override
     public void update() {
         move();
+        long now = System.nanoTime();
+        if (now - lastFrameTime > FRAME_DURATION) {
+            if (animationFrames != null && !animationFrames.isEmpty()) {
+                currentFrame = (currentFrame + 1) % animationFrames.size();
+            }
+            lastFrameTime = now;
+        }
     }
 
     @Override
     public void render(GraphicsContext gc) {
         if (collected) return;
 
-        if (itemImage != null) {
-            gc.drawImage(itemImage, x, y, width, height);
+        if (animationFrames != null && !animationFrames.isEmpty()) {
+            Image imageToRender = animationFrames.get(currentFrame);
+            gc.drawImage(imageToRender, x, y, width, height);
         } else {
-            // Vẽ hình chữ nhật màu dự phòng nếu không có ảnh
             Color color = getColorForType();
             gc.setFill(color);
             gc.fillRect(x, y, width, height);
@@ -94,7 +122,6 @@ public class Item extends MoveAbleObject {
                 y + height > other.getY();
     }
 
-    // Getters and Setters
     public ItemType getType() {
         return type;
     }

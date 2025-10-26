@@ -19,6 +19,7 @@ public class GameManager {
     private final Brick[][] bricks;
     private final GameRenderer renderer;
     private final ItemManager im;
+    private final BulletManager bm;
 
     private int score;
     private int lives;
@@ -26,7 +27,8 @@ public class GameManager {
     private boolean won;
 
     public GameManager(GameController gameController, InputHandler inputHandler,
-                       Paddle paddle, Ball ball, Brick[][] bricks, GameRenderer renderer, ItemManager im) {
+                       Paddle paddle, Ball ball, Brick[][] bricks, GameRenderer renderer,
+                       ItemManager im, BulletManager bm) {
         this.gameController = gameController;
         this.inputHandler = inputHandler;
         this.paddle = paddle;
@@ -34,6 +36,7 @@ public class GameManager {
         this.bricks = bricks;
         this.renderer = renderer;
         this.im = im;
+        this.bm = bm;
 
         this.score = 0;
         this.lives = Constants.INITIAL_LIVES;
@@ -43,7 +46,9 @@ public class GameManager {
 
     public void updateGame() {
         if (!GameController.isPaused() && !gameOver && !won) {
-            inputHandler.handleInput(paddle);
+            inputHandler.handleInput(paddle, bm);
+            paddle.update(); // DÒNG NÀY ĐÃ ĐƯỢC THÊM VÀO
+
             // đợi bắt đầu bóng
             if(Constants.isStarted) {
                 UpdatePhysics.update(ball);
@@ -51,6 +56,8 @@ public class GameManager {
                 CheckWinCondition.check(bricks, this);
                 im.update();
                 im.checkCollisions(paddle, ball, this);
+                bm.update();
+                bm.checkCollisions(bricks, this, im);
             } else {
                 ball.setX(paddle.getX() + paddle.getWidth() / 2 - ball.getWidth() / 2);
                 ball.setY(paddle.getY() - ball.getHeight() * 2);
@@ -68,7 +75,7 @@ public class GameManager {
             renderer.renderWin(score);
             gameController.showWinScreen();
         } else {
-            renderer.renderObject(paddle, ball, bricks, im, score, lives);
+            renderer.renderObject(paddle, ball, bricks, im, bm, score, lives);
         }
     }
 

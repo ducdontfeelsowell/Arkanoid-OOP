@@ -5,15 +5,24 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import org.example.arkanoid.config.Constants;
 
+import java.util.Objects;
+
 public class Paddle extends MoveAbleObject {
 
     private double speed;
 
-    private Image image1; // Hình ảnh thứ nhất
-    private Image image2; // Hình ảnh thứ hai
-    private boolean useImage1 = true; // Biến cờ để chuyển đổi hình ảnh
-    private long lastToggleTime = 0; // Thời gian cuối cùng chuyển đổi hình ảnh
-    private final long TOGGLE_INTERVAL = 200_000_000; // Khoảng thời gian nhấp nháy (200ms) tính bằng nanoseconds
+    private Image image0;
+    private Image image1;
+    private Image image2;
+
+    private Image shooterImage0;
+
+    private int currentImageIndex = 0;
+    private long lastToggleTime = 0;
+    private final long TOGGLE_INTERVAL = 200_000_000; // 200ms
+
+    private boolean isShooter = false;
+    private double shooterEndTime = 0;
 
     public Paddle() {
         super(
@@ -26,64 +35,99 @@ public class Paddle extends MoveAbleObject {
 
         this.speed = Constants.DEFAULT_PADDLE_SPEED;
 
-         // Tải ảnh cho paddle
         try {
-            image1 = new Image(getClass().getResourceAsStream(Constants.PATH_TO_PADDLE_1)); // Đường dẫn đến ảnh 1
-            image2 = new Image(getClass().getResourceAsStream(Constants.PATH_TO_PADDLE_2)); // Đường dẫn đến ảnh 2
+            image0 = new Image(Objects.requireNonNull(getClass().getResourceAsStream(Constants.PATH_TO_PADDLE_0)));
+            image1 = new Image(Objects.requireNonNull(getClass().getResourceAsStream(Constants.PATH_TO_PADDLE_1)));
+            image2 = new Image(Objects.requireNonNull(getClass().getResourceAsStream(Constants.PATH_TO_PADDLE_2)));
+
+            shooterImage0 = new Image(Objects.requireNonNull(getClass().getResourceAsStream(Constants.PATH_TO_SHOOTER_PADDLE)));
+
         } catch (Exception e) {
-            System.err.println("Lỗi tải ảnh cho Paddle!");
+            System.err.println("Không thể tải ảnh cho paddle!");
             e.printStackTrace();
-            // Xử lý nếu ảnh không tải được (ví dụ: dùng màu mặc định)
+            image0 = null;
             image1 = null;
             image2 = null;
+            shooterImage0 = null;
         }
     }
 
     @Override
     public void move() {
-        // Paddle chỉ di chuyển theo trục X
         x += dx;
 
-        // Giới hạn trong khung màn hình
-        if (x < 340) {
-            x = 340;
-        } else if (x + width > Constants.SCREEN_WIDTH - 290) {
-            x = Constants.SCREEN_WIDTH - width - 290;
+        if (x < Constants.PLAY_AREA_LEFT) {
+            x = Constants.PLAY_AREA_LEFT;
+        } else if (x + width > Constants.SCREEN_WIDTH - Constants.PLAY_AREA_RIGHT_MARGIN) {
+            x = Constants.SCREEN_WIDTH - width - Constants.PLAY_AREA_RIGHT_MARGIN;
         }
     }
 
     public void moveLeft() {
         dx = -speed;
-        move();
     }
 
     public void moveRight() {
         dx = +speed;
-        move();
+    }
+
+    public void stopMove() {
+        dx = 0;
     }
 
     @Override
     public void update() {
         move();
+
+        if (isShooter && System.nanoTime() > shooterEndTime) {
+            isShooter = false;
+        }
     }
 
     @Override
     public void render(GraphicsContext gc) {
-        Image currentImage = useImage1 ? image1 : image2;
-
         long currentTime = System.nanoTime();
         if (currentTime - lastToggleTime > TOGGLE_INTERVAL) {
-            useImage1 = !useImage1; // Chuyển đổi cờ
+            currentImageIndex = (currentImageIndex + 1) % 3;
             lastToggleTime = currentTime;
+        }
+
+        Image currentImage;
+        if (isShooter) {
+            switch (currentImageIndex) {
+                case 0: currentImage = shooterImage0; break;
+                default: currentImage = shooterImage0; break;
+            }
+        } else {
+            switch (currentImageIndex) {
+                case 0: currentImage = image0; break;
+                case 1: currentImage = image1; break;
+                case 2: currentImage = image2; break;
+                default: currentImage = image0; break;
+            }
         }
 
         if (currentImage != null) {
             gc.drawImage(currentImage, getX(), getY(), getWidth(), getHeight());
         } else {
-            // Nếu không tải được ảnh, vẽ hình chữ nhật màu vàng làm dự phòng
-            gc.setFill(javafx.scene.paint.Color.YELLOW);
+            gc.setFill(Color.YELLOW);
             gc.fillRect(getX(), getY(), getWidth(), getHeight());
         }
+    }
+
+    public void activateShooter() {
+        this.isShooter = true;
+        this.shooterEndTime = System.nanoTime() + Constants.DEFAULT_SHOOTER_DURATION;
+    }
+
+    public void resetState() {
+        this.isShooter = false;
+        this.width = Constants.DEFAULT_PADDLE_WIDTH;
+        this.x = Constants.DEFAULT_PADDLE_POSITION_X;
+    }
+
+    public boolean isShooter() {
+        return isShooter;
     }
 
     public double getSpeed() {
