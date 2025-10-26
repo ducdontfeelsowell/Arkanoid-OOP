@@ -1,5 +1,8 @@
 package org.example.arkanoid.config;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 public class Constants {
     /*
     màn hình
@@ -136,12 +139,12 @@ public class Constants {
     đường dẫn đến hình ảnh chung
      */
     public final static String PATH_TO_LOGO = "/Images/logo/jarkanoid_logo.png";
+    public final static String PATH_TO_VIDEO = "/Images/background/video2.mp4";
     public final static String PATH_TO_BACKGROUND = "/Images/background/1.jpg";
     public final static String PATH_TO_MENU_BACKGROUND = "/Images/background/menu_Background.jpg";
 
 
     public static boolean isStarted = false;
-    public static boolean isTransisioning = false;
 
     /*
     đường dẫn đến hình ảnh của brick
@@ -191,6 +194,9 @@ public class Constants {
     public static final String PATH_TO_EXPAND_6 = "/Images/item/Expand/expand6.png";
     public static final String PATH_TO_EXPAND_7 = "/Images/item/Expand/expand7.png";
     public static final String PATH_TO_EXPAND_8 = "/Images/item/Expand/expand8.png";
+
+    public static Image[] brick_state_list1 = new Image[10];
+    public static Image[] brick_state_list2 = new Image[10];
 
     public static final String PATH_TO_EXTRA_LIFE = "/Images/item/extra_heart.png";
 
