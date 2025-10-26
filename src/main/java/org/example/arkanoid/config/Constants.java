@@ -1,5 +1,8 @@
 package org.example.arkanoid.config;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 public class Constants {
     // TODO: sửa lại các hằng số để vừa mắt
 
@@ -61,12 +64,12 @@ public class Constants {
 
     // đường dẫn đến hình ảnh
     public final static String PATH_TO_LOGO = "/Images/logo/jarkanoid_logo.png";
+    public final static String PATH_TO_VIDEO = "/Images/background/video2.mp4";
     public final static String PATH_TO_BACKGROUND = "/Images/background/1.jpg";
     public final static String PATH_TO_MENU_BACKGROUND = "/Images/background/menu_Background.jpg";
 
 
     public static boolean isStarted = false;
-    public static boolean isTransisioning = false;
 
     // đường dẫn đến hình ảnh của gạch
     public final static String PATH_TO_BRICK_1 = "/Images/brick/1.png";
@@ -85,5 +88,8 @@ public class Constants {
     // đường dẫn đến hình ảnh của paddle
     public static final String PATH_TO_PADDLE_1 = "/Images/paddle/paddle1.png";
     public static final String PATH_TO_PADDLE_2 = "/Images/paddle/paddle2.png";
+
+    public static Image[] brick_state_list1 = new Image[10];
+    public static Image[] brick_state_list2 = new Image[10];
 
 }

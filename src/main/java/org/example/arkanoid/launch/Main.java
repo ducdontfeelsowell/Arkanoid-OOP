@@ -10,6 +10,10 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.example.arkanoid.config.Constants;
 import org.example.arkanoid.controller.GameController;
@@ -38,6 +42,8 @@ public class Main extends Application {
     private static GameRenderer renderer;
     private static GameManager gameManager;
 
+    private static MediaPlayer backgroundVideoPlayer;
+
     @Override
     public void start(Stage stage) throws Exception {
         primaryStage = stage;
@@ -63,12 +69,37 @@ public class Main extends Application {
         try {
             currentMapPath = mapPath;
 
+            if (backgroundVideoPlayer != null) {
+                backgroundVideoPlayer.stop();
+            }
+
+            String videoPath = Constants.PATH_TO_VIDEO;
+
+            Media media = new Media(Objects.requireNonNull(
+                    Main.class.getResource(videoPath)).toExternalForm());
+
+            // 2. Tạo MediaPlayer
+            backgroundVideoPlayer = new MediaPlayer(media);
+            backgroundVideoPlayer.setAutoPlay(true);
+            backgroundVideoPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Lặp vô hạn
+            backgroundVideoPlayer.setMute(true); // Tắt tiếng video nền
+
+            // 3. Tạo MediaView
+            MediaView mediaView = new MediaView(backgroundVideoPlayer);
+            mediaView.setFitWidth(Constants.SCREEN_WIDTH);
+            mediaView.setFitHeight(Constants.SCREEN_HEIGHT);
+            mediaView.setPreserveRatio(false); // Kéo dãn video cho vừa màn hình
+
+            backgroundVideoPlayer.play(); // Bắt đầu phát video
             // Create canvas for rendering
             Canvas canvas = new Canvas(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
             GraphicsContext gc = canvas.getGraphicsContext2D();
 
             // Create root pane
             Pane gameRoot = new Pane();
+
+            gameRoot.getChildren().add(mediaView);
+
             gameRoot.getChildren().add(canvas);
 
             // Load pause screen overlay
@@ -80,6 +111,8 @@ public class Main extends Application {
             gameRoot.getChildren().add(pauseOverlay);
 
             Scene gameScene = new Scene(gameRoot);
+
+            gameScene.setFill(Color.TRANSPARENT);
 
             inputHandler = new InputHandler(gameScene);
             gameController.setInputHandler(inputHandler);
@@ -111,6 +144,8 @@ public class Main extends Application {
 
             gameManager = new GameManager(gameController, inputHandler, paddle, ball, bricks, renderer);
 
+            gameManager.Init();
+
             // Set scene
             primaryStage.setX(Constants.DEFAULT_SCREEN_X);
             primaryStage.setY(Constants.DEFAULT_SCREEN_Y);
@@ -133,6 +168,10 @@ public class Main extends Application {
 
     public static void returnToMenu() {
         if (timer != null) timer.stop();
+        if (backgroundVideoPlayer != null) {
+            backgroundVideoPlayer.stop();
+            backgroundVideoPlayer = null;
+        }
         if (primaryStage != null && menuScene != null) {
             primaryStage.setScene(menuScene);
         }
