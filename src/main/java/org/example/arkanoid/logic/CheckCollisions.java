@@ -8,7 +8,6 @@ import org.example.arkanoid.object.Paddle;
 
 public class CheckCollisions {
     public static void check(Ball ball, Paddle paddle, Brick[][] bricks, GameManager gm, ItemManager im) {
-        // Implementation of collision detection and response
         CheckBallPaddleCollision.check(ball, paddle);
         CheckBallBrickCollision.check(ball, bricks, gm, im);
         CheckBallOutOfBounds.check(ball, paddle, gm);

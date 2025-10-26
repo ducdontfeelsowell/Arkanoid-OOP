@@ -33,7 +33,7 @@ public class Brick extends GameObject {
 
         switch (getType()) {
             case 1:
-                imagePath = Constants.PATH_TO_BRICK_1; 
+                imagePath = Constants.PATH_TO_BRICK_1;
                 break;
             case 2:
                 imagePath = Constants.PATH_TO_BRICK_2;
@@ -93,6 +93,10 @@ public class Brick extends GameObject {
 
     public int getHitPoints() {
         return hitPoints;
+    }
+
+    public void setHitPoints(int hitPoints) {
+        this.hitPoints = hitPoints;
     }
 
     public void setDestroyed(boolean destroyed) {
