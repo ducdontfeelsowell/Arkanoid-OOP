@@ -5,7 +5,7 @@ import org.example.arkanoid.object.Brick.Brick;
 import org.example.arkanoid.object.Brick.ExplodeBrick;
 import org.example.arkanoid.object.Brick.InfBrick;
 
-public class destroyRegion {
+public class DestroyRegion {
     public static int destroyer(Brick[][] bricks, int row, int col, int points) {
         int rows = bricks.length;
         int cols = bricks[0].length;

@@ -67,10 +67,17 @@ public class Constants {
     public final static int HIT_POINTS_INF_BRICK = Integer.MAX_VALUE;
 
     /*
+    vùng chơi (play area)
+    */
+    public final static double PLAY_AREA_LEFT = 340;
+    public final static double PLAY_AREA_RIGHT_MARGIN = 290;
+
+
+    /*
     kích thước gạch
      */
-    public final static double BRICK_WIDTH = 60;
-    public final static double BRICK_HEIGHT = 30;
+    public final static double BRICK_WIDTH =  30;
+    public final static double BRICK_HEIGHT = BRICK_WIDTH;
 
     /*
     số mạng ban đầu và điểm số mỗi khi phá được gạch
@@ -120,11 +127,6 @@ public class Constants {
     public final static String PATH_TO_BACKGROUND_MAP11 = "/Images/background/map11_background.jpg";
     public final static String PATH_TO_BACKGROUND_MAP12 = "/Images/background/map12_background.jpg";
 
-    /*
-    vùng chơi (play area)
-     */
-    public final static double PLAY_AREA_LEFT = 340;
-    public final static double PLAY_AREA_RIGHT_MARGIN = 290;
 
     /*
     đường dẫn đến các file fxml
@@ -149,10 +151,45 @@ public class Constants {
     /*
     đường dẫn đến hình ảnh của brick
      */
-    public final static String PATH_TO_BRICK_1 = "/Images/brick/1.png";
-    public final static String PATH_TO_BRICK_2 = "/Images/brick/2.png";
-    public final static String PATH_TO_BRICK_3 = "/Images/brick/3.png";
-    public final static String PATH_TO_BRICK_4 = "/Images/brick/4.png";
+
+    /*
+    Gạch vỡ (Broken Bricks)
+     */
+    public final static String PATH_TO_BROKEN_BRICK1 = "/Images/brick/brokenbrick1.png";
+    public final static String PATH_TO_BROKEN_BRICK2 = "/Images/brick/brokenbrick2.png";
+    public final static String PATH_TO_BROKEN_BRICK3 = "/Images/brick/brokenbrick3.png";
+    public final static String PATH_TO_BROKEN_BRICK3_2 = "/Images/brick/brokenbrick3-2.png";
+    public final static String PATH_TO_BROKEN_BRICK4 = "/Images/brick/brokenbrick4.png";
+    public final static String PATH_TO_BROKEN_BRICK5 = "/Images/brick/brokenbrick5.png";
+    public final static String PATH_TO_BROKEN_BRICK6 = "/Images/brick/brokenbrick6.png";
+    public final static String PATH_TO_BROKEN_BRICK7 = "/Images/brick/brokenbrick7.png";
+    public final static String PATH_TO_BROKEN_BRICK8 = "/Images/brick/brokenbrick8.png";
+    public final static String PATH_TO_BROKEN_BRICK9 = "/Images/brick/brokenbrick9.png";
+    public final static String PATH_TO_BROKEN_BRICK10 = "/Images/brick/brokenbrick10.png";
+    public final static String PATH_TO_BROKEN_BRICK11 = "/Images/brick/brokenbrick11.png";
+    public final static String PATH_TO_BROKEN_BRICK12 = "/Images/brick/brokenbrick12.png";
+    public final static String PATH_TO_BROKEN_BRICK13 = "/Images/brick/brokenbrick13.png";
+    public final static String PATH_TO_BROKEN_BRICK14 = "/Images/brick/brokenbrick14.png";
+
+    /*
+    Gạch thường (Normal Bricks)
+     */
+    public final static String PATH_TO_NORMAL_BRICK1 = "/Images/brick/normalbrick1.png";
+    public final static String PATH_TO_NORMAL_BRICK2 = "/Images/brick/normalbrick2.png";
+    public final static String PATH_TO_NORMAL_BRICK3 = "/Images/brick/normalbrick3.png";
+    public final static String PATH_TO_NORMAL_BRICK4 = "/Images/brick/normalbrick4.png";
+    public final static String PATH_TO_NORMAL_BRICK5 = "/Images/brick/normalbrick5.png";
+    public final static String PATH_TO_NORMAL_BRICK6 = "/Images/brick/normalbrick6.png";
+    public final static String PATH_TO_NORMAL_BRICK7 = "/Images/brick/normalbrick7.png";
+    public final static String PATH_TO_NORMAL_BRICK8 = "/Images/brick/normalbrick8.png";
+    public final static String PATH_TO_NORMAL_BRICK9 = "/Images/brick/normalbrick9.png";
+    public final static String PATH_TO_NORMAL_BRICK10 = "/Images/brick/normalbrick10.png";
+    public final static String PATH_TO_NORMAL_BRICK11 = "/Images/brick/normalbrick11.png";
+    public final static String PATH_TO_NORMAL_BRICK13 = "/Images/brick/normalbrick13.png";
+    public final static String PATH_TO_NORMAL_BRICK14 = "/Images/brick/normalbrick14.png";
+    public final static String PATH_TO_NORMAL_BRICKKK = "/Images/brick/normalbrickkk.png";
+
+
 
     /*
     đường dẫn đến hình ảnh của paddle
