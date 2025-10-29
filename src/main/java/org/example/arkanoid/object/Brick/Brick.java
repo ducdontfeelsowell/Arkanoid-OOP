@@ -49,10 +49,10 @@ public class Brick extends GameObject {
     private void loadImage() {
         String imagePath = "";
         switch (getType()) {
-            case 1: imagePath = Constants.PATH_TO_BRICK_1; break;
-            case 2: imagePath = Constants.PATH_TO_BRICK_2; break;
-            case 3: imagePath = Constants.PATH_TO_BRICK_3; break;
-            case 4: imagePath = Constants.PATH_TO_BRICK_4; break;
+            case 1: imagePath = Constants.PATH_TO_NORMAL_BRICK11; break;
+            case 2: imagePath = Constants.PATH_TO_NORMAL_BRICK8; break;
+            case 3: imagePath = Constants.PATH_TO_NORMAL_BRICK7; break;
+            case 4: imagePath = Constants.PATH_TO_NORMAL_BRICK5; break;
         }
         try {
             brickImage = new Image(getClass().getResourceAsStream(imagePath));

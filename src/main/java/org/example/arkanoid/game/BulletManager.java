@@ -22,15 +22,11 @@ public class BulletManager {
         long now = System.nanoTime();
         if (now - lastShotTime > Constants.DEFAULT_BULLET_COOLDOWN) {
 
-            // Tọa độ Y (đỉnh của paddle) là như nhau
             double spawnY = paddleY;
 
-            // Tọa độ X cho súng bên trái (25% chiều rộng)
-            double spawnX_Left = paddleX + (paddleWidth * 0.25);
-            // Tọa độ X cho súng bên phải (75% chiều rộng)
-            double spawnX_Right = paddleX + (paddleWidth * 0.75);
+            double spawnX_Left = paddleX + (paddleWidth * 0.05);
+            double spawnX_Right = paddleX + (paddleWidth * 0.95);
 
-            // Tạo và thêm 2 viên đạn
             Bullet newBulletLeft = new Bullet(spawnX_Left, spawnY);
             Bullet newBulletRight = new Bullet(spawnX_Right, spawnY);
 

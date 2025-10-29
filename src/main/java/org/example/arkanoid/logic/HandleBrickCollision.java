@@ -68,7 +68,7 @@ public class HandleBrickCollision {
             case 4 -> {
                 int points = 0;
                 brick.takeHit();
-                points = destroyRegion.destroyer(bricks, row, col, points);
+                points = DestroyRegion.destroyer(bricks, row, col, points);
                 gm.setScore(gm.getScore() + points);
             }
 

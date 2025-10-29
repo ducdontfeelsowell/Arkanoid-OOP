@@ -24,7 +24,9 @@ public class MapLoader {
 
             for (int colIndex = 0; colIndex < tokens.length; colIndex++) {
                 int type = Integer.parseInt(tokens[colIndex]);
-                double x = colIndex * Constants.BRICK_WIDTH;
+
+                // THAY ĐỔI Ở ĐÂY: Thêm Constants.PLAY_AREA_LEFT
+                double x = Constants.PLAY_AREA_LEFT + (colIndex * Constants.BRICK_WIDTH);
                 double y = rowIndex * Constants.BRICK_HEIGHT;
 
                 switch (type) {
