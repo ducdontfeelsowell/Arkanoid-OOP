@@ -23,6 +23,7 @@ import org.example.arkanoid.game.GameRenderer;
 import org.example.arkanoid.game.ItemManager;
 import org.example.arkanoid.input.InputHandler;
 import org.example.arkanoid.input.MapLoader;
+import org.example.arkanoid.sound.SoundManager; // <-- THÊM IMPORT NÀY
 import org.example.arkanoid.object.Ball;
 import org.example.arkanoid.object.Brick.Brick;
 import org.example.arkanoid.object.Paddle;
@@ -50,6 +51,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        // ... (Code gốc không đổi)
         primaryStage = stage;
 
         // Load menu scene
@@ -73,6 +75,10 @@ public class Main extends Application {
      */
     public static void startGame(String mapPath) {
         try {
+            // TẢI ÂM THANH KHI BẮT ĐẦU GAME
+            SoundManager.loadSounds(); // <-- THÊM DÒNG NÀY
+            SoundManager.playMusic();
+
             currentMapPath = mapPath;
 
             if (backgroundVideoPlayer != null) {
@@ -195,6 +201,7 @@ public class Main extends Application {
             backgroundVideoPlayer.stop();
             backgroundVideoPlayer = null;
         }
+        SoundManager.stopMusic();
         if (primaryStage != null && menuScene != null) {
             primaryStage.setScene(menuScene);
         }
