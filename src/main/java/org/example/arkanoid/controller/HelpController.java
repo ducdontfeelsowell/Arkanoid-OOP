@@ -44,11 +44,13 @@ public class HelpController implements Initializable {
 
     @FXML
     private void onHelpButton() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         helpLabel.setText("Help screen!");
     }
 
     @FXML
     public void onBackButtonClick(ActionEvent event) throws IOException {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.PATH_TO_MAIN_MENU));
         Parent root = loader.load();
         backButton.getScene().setRoot(root);
@@ -65,10 +67,12 @@ public class HelpController implements Initializable {
     }
 
     public void initialize(URL location, ResourceBundle resources) {
+        // back button hover setup
         backHoverImage.setMouseTransparent(true);
         backHoverImage.visibleProperty().bind(backButton.hoverProperty());
         backImage.visibleProperty().bind(backButton.hoverProperty().not());
 
+        // font button hover setup
         helpHoverImage.setMouseTransparent(true);
         helpHoverImage.visibleProperty().bind(helpButton.hoverProperty());
         helpImage.visibleProperty().bind(helpButton.hoverProperty().not());
@@ -76,4 +80,5 @@ public class HelpController implements Initializable {
         addHoverSound(helpButton);
         addHoverSound(backButton);
     }
+
 }

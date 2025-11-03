@@ -31,102 +31,151 @@ public class LevelController implements Initializable{
 
     @FXML
     private ImageView Level1_on;
+
     @FXML
     private ImageView Level2_on;
+
     @FXML
     private ImageView Level3_on;
+
     @FXML
     private ImageView Level4_on;
+
     @FXML
     private ImageView Level5_on;
+
     @FXML
     private ImageView Level6_on;
+
     @FXML
     private ImageView Level7_on;
+
     @FXML
     private ImageView Level8_on;
+
     @FXML
     private ImageView Level9_on;
+
     @FXML
     private ImageView Level10_on;
+
     @FXML
     private ImageView Level11_on;
+
     @FXML
     private ImageView Level12_on;
 
     @FXML
     private ImageView Level1_out;
+
     @FXML
     private ImageView Level2_out;
+
     @FXML
     private ImageView Level3_out;
+
     @FXML
     private ImageView Level4_out;
+
     @FXML
     private ImageView Level5_out;
+
     @FXML
     private ImageView Level6_out;
+
     @FXML
     private ImageView Level7_out;
+
     @FXML
     private ImageView Level8_out;
+
     @FXML
     private ImageView Level9_out;
+
     @FXML
     private ImageView Level10_out;
+
     @FXML
     private ImageView Level11_out;
+
     @FXML
     private ImageView Level12_out;
 
     @FXML
     private ImageView back_button_out;
+
     @FXML
     private ImageView back_button_on;
 
     public Button backButton;
 
     public void onClickMap1() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         Main.startGame(Constants.MAP1_PATH);
     }
+
     public void onClickMap2() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         Main.startGame(Constants.MAP2_PATH);
     }
+
     public void onClickMap3() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         Main.startGame(Constants.MAP3_PATH);
     }
+
     public void onClickMap4() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         Main.startGame(Constants.MAP4_PATH);
     }
+
     public void onClickMap5() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         Main.startGame(Constants.MAP5_PATH);
     }
+
     public void onClickMap6() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         Main.startGame(Constants.MAP6_PATH);
     }
+
     public void onClickMap7() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         Main.startGame(Constants.MAP7_PATH);
     }
+
     public void onClickMap8() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         Main.startGame(Constants.MAP8_PATH);
     }
+
     public void onClickMap9() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         Main.startGame(Constants.MAP9_PATH);
     }
+
     public void onClickMap10() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         Main.startGame(Constants.MAP10_PATH);
     }
+
     public void onClickMap11() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         Main.startGame(Constants.MAP11_PATH);
     }
+
     public void onClickMap12() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         Main.startGame(Constants.MAP12_PATH);
     }
 
+
     public void onBackButtonClick() throws IOException {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.PATH_TO_MAIN_MENU));
         Parent root = loader.load();
         backButton.getScene().setRoot(root);
+
     }
 
     private void addHoverSound(Button button) {
@@ -140,19 +189,22 @@ public class LevelController implements Initializable{
     }
 
     public void initialize(URL location, ResourceBundle resources) {
+        // Play button hover setup
         System.out.println("DEBUG: SettingController Initialized.");
         Level1_on.setMouseTransparent(true);
         Level1_on.visibleProperty().bind(map1Button.hoverProperty());
         Level1_out.visibleProperty().bind(map1Button.hoverProperty().not());
 
+        // Setting button hover setup
         Level2_on.setMouseTransparent(true);
         Level2_on.visibleProperty().bind(map2Button.hoverProperty());
         Level2_out.visibleProperty().bind(map2Button.hoverProperty().not());
 
+        // Help button hover setup
         Level3_on.setMouseTransparent(true);
         Level3_on.visibleProperty().bind(map3Button.hoverProperty());
         Level3_out.visibleProperty().bind(map3Button.hoverProperty().not());
-
+        // Shop button hover setup
         Level4_on.setMouseTransparent(true);
         Level4_on.visibleProperty().bind(map4Button.hoverProperty());
         Level4_out.visibleProperty().bind(map4Button.hoverProperty().not());
@@ -169,14 +221,16 @@ public class LevelController implements Initializable{
         Level7_on.visibleProperty().bind(map7Button.hoverProperty());
         Level7_out.visibleProperty().bind(map7Button.hoverProperty().not());
 
+        // Setting button hover setup
         Level8_on.setMouseTransparent(true);
         Level8_on.visibleProperty().bind(map8Button.hoverProperty());
         Level8_out.visibleProperty().bind(map8Button.hoverProperty().not());
 
+        // Help button hover setup
         Level9_on.setMouseTransparent(true);
         Level9_on.visibleProperty().bind(map9Button.hoverProperty());
         Level9_out.visibleProperty().bind(map9Button.hoverProperty().not());
-
+        // Shop button hover setup
         Level10_on.setMouseTransparent(true);
         Level10_on.visibleProperty().bind(map10Button.hoverProperty());
         Level10_out.visibleProperty().bind(map10Button.hoverProperty().not());

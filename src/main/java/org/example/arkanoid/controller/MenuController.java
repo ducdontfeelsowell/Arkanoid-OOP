@@ -60,8 +60,10 @@ public class MenuController implements Initializable{
     @FXML
     private ImageView exitHoverImage;
 
+    // Các phương thức xử lý sự kiện đã có
     @FXML
     public void onPlayGameButtonClick() throws IOException {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.PATH_TO_LEVEL_VIEW));
         Parent root = loader.load();
         playButton.getScene().setRoot(root);
@@ -69,6 +71,7 @@ public class MenuController implements Initializable{
 
     @FXML
     public void onHelpButtonClick() throws IOException {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.PATH_TO_HELP_VIEW));
         Parent root = loader.load();
         helpButton.getScene().setRoot(root);
@@ -76,6 +79,7 @@ public class MenuController implements Initializable{
 
     @FXML
     public void onSettingButtonClick() throws IOException {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.PATH_TO_SETTING_VIEW));
         Parent root = loader.load();
         settingButton.getScene().setRoot(root);
@@ -83,6 +87,7 @@ public class MenuController implements Initializable{
 
     @FXML
     public void onShopButtonClick() throws IOException {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/arkanoid/shop-view.fxml"));
         Parent newRoot = loader.load();
         shopButton.getScene().setRoot(newRoot);
@@ -90,6 +95,7 @@ public class MenuController implements Initializable{
 
     @FXML
     public void onExitGameButtonClick() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         System.exit(0);
     }
 
@@ -105,19 +111,22 @@ public class MenuController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Play button hover setup
         System.out.println("DEBUG: SettingController Initialized.");
         playHoverImage.setMouseTransparent(true);
         playHoverImage.visibleProperty().bind(playButton.hoverProperty());
         playImage.visibleProperty().bind(playButton.hoverProperty().not());
 
+        // Setting button hover setup
         settingHoverImage.setMouseTransparent(true);
         settingHoverImage.visibleProperty().bind(settingButton.hoverProperty());
         settingImage.visibleProperty().bind(settingButton.hoverProperty().not());
 
+        // Help button hover setup
         helpHoverImage.setMouseTransparent(true);
         helpHoverImage.visibleProperty().bind(helpButton.hoverProperty());
         helpImage.visibleProperty().bind(helpButton.hoverProperty().not());
-
+        // Shop button hover setup
         shopHoverImage.setMouseTransparent(true);
         shopHoverImage.visibleProperty().bind(shopButton.hoverProperty());
         shopImage.visibleProperty().bind(shopButton.hoverProperty().not());
