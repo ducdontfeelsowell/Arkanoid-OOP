@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import org.example.arkanoid.config.Constants;
 import javafx.scene.image.ImageView;
+import org.example.arkanoid.game.SoundManager;
 import org.example.arkanoid.launch.Main;
 
 import java.io.IOException;
@@ -59,7 +60,6 @@ public class MenuController implements Initializable{
     @FXML
     private ImageView exitHoverImage;
 
-    // Các phương thức xử lý sự kiện đã có
     @FXML
     public void onPlayGameButtonClick() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.PATH_TO_LEVEL_VIEW));
@@ -93,24 +93,31 @@ public class MenuController implements Initializable{
         System.exit(0);
     }
 
+    private void addHoverSound(Button button) {
+        if (button != null) {
+            button.hoverProperty().addListener((obs, oldVal, newVal) -> {
+                if (newVal) {
+                    SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_HOVER);
+                }
+            });
+        }
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Play button hover setup
         System.out.println("DEBUG: SettingController Initialized.");
         playHoverImage.setMouseTransparent(true);
         playHoverImage.visibleProperty().bind(playButton.hoverProperty());
         playImage.visibleProperty().bind(playButton.hoverProperty().not());
 
-        // Setting button hover setup
         settingHoverImage.setMouseTransparent(true);
         settingHoverImage.visibleProperty().bind(settingButton.hoverProperty());
         settingImage.visibleProperty().bind(settingButton.hoverProperty().not());
 
-        // Help button hover setup
         helpHoverImage.setMouseTransparent(true);
         helpHoverImage.visibleProperty().bind(helpButton.hoverProperty());
         helpImage.visibleProperty().bind(helpButton.hoverProperty().not());
-        // Shop button hover setup
+
         shopHoverImage.setMouseTransparent(true);
         shopHoverImage.visibleProperty().bind(shopButton.hoverProperty());
         shopImage.visibleProperty().bind(shopButton.hoverProperty().not());
@@ -118,5 +125,11 @@ public class MenuController implements Initializable{
         exitHoverImage.setMouseTransparent(true);
         exitHoverImage.visibleProperty().bind(exitButton.hoverProperty());
         exitImage.visibleProperty().bind(exitButton.hoverProperty().not());
+
+        addHoverSound(playButton);
+        addHoverSound(helpButton);
+        addHoverSound(settingButton);
+        addHoverSound(shopButton);
+        addHoverSound(exitButton);
     }
 }

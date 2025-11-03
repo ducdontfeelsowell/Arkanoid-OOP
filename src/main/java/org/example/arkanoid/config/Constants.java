@@ -240,4 +240,17 @@ public class Constants {
     public static final String PATH_TO_EXTRA_LIFE = "/Images/item/extra_heart.png";
 
     public static final String PATH_TO_TRANSFER_SHOOTER = "/Images/item/transfer_shooter.png";
+
+    /*
+    đường dẫn đến âm thanh
+     */
+    public static final String PATH_TO_SOUND_BACKGROUND_1 = "/Sounds/background1.mp3";
+    public static final String PATH_TO_SOUND_BACKGROUND_2 = "/Sounds/background2.mp3";
+    public static final String PATH_TO_SOUND_BACKGROUND_3 = "/Sounds/background3.ogg";
+    public static final String PATH_TO_SOUND_BACKGROUND_4 = "/Sounds/background4.mp3";
+
+    public static final String PATH_TO_SOUND_HOVER = "/Sounds/Hover_button.wav";
+    public static final String PATH_TO_SOUND_PAUSE = "/Sounds/Pause.wav";
+    public static final String PATH_TO_SOUND_UNPAUSE = "/Sounds/Unpause.wav";
+    public static final String PATH_TO_SOUND_USE_ITEM = "/Sounds/Use_item.wav";
 }

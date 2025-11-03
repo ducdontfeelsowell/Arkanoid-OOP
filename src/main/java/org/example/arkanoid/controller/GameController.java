@@ -3,7 +3,8 @@ package org.example.arkanoid.controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
+import org.example.arkanoid.config.Constants;
+import org.example.arkanoid.game.SoundManager;
 import org.example.arkanoid.launch.Main;
 import org.example.arkanoid.input.InputHandler;
 
@@ -27,7 +28,6 @@ public class GameController {
         if (inputHandler != null) {
             boolean escapePressed = inputHandler.isEscapePressed();
 
-            // Detect escape key press (edge detection)
             if (escapePressed && !escapeWasPressed) {
                 togglePause();
             }
@@ -39,6 +39,13 @@ public class GameController {
     private void togglePause() {
         paused = !paused;
         pauseScreen.setVisible(paused);
+
+        // --- THÊM MỚI: Phát âm thanh Pause/Unpause ---
+        if (paused) {
+            SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_PAUSE);
+        } else {
+            SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_UNPAUSE);
+        }
     }
 
     public void setInputHandler(InputHandler inputHandler) {
@@ -49,16 +56,36 @@ public class GameController {
         return paused;
     }
 
+    private void addHoverSound(Button button) {
+        if (button != null) {
+            button.hoverProperty().addListener((obs, oldVal, newVal) -> {
+                if (newVal) {
+                    SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_HOVER);
+                }
+            });
+        }
+    }
+
     @FXML
     public void initialize() {
         if (pauseScreen != null) {
             pauseScreen.setVisible(false);
         }
+
+        addHoverSound(resumeGameButton);
+        addHoverSound(backButton1);
+
+        addHoverSound(playAgainButton);
+        addHoverSound(backButton2);
+
+        addHoverSound(backButton3);
     }
 
     public void onResumeClick() {
         paused = false;
         pauseScreen.setVisible(false);
+        // --- THÊM MỚI: Phát âm thanh Unpause khi nhấn nút ---
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_UNPAUSE);
     }
 
     public void onBackClick1() {
