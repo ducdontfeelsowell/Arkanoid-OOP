@@ -53,7 +53,7 @@ public class GameManager {
     public void updateGame() {
         if (!GameController.isPaused() && !gameOver && !won) {
             inputHandler.handleInput(paddle, bm);
-            paddle.update(); // DÒNG NÀY ĐÃ ĐƯỢC THÊM VÀO
+            paddle.update();
 
             // đợi bắt đầu bóng
             if(Constants.isStarted) {
@@ -70,8 +70,11 @@ public class GameManager {
             }
         }
 
-        // kiểm tra pause/unpause
-        gameController.update();
+        // --- SỬA ĐỔI: Chỉ kiểm tra pause/unpause khi game CHƯA kết thúc ---
+        if (!gameOver && !won) {
+            gameController.update();
+        }
+        // --- KẾT THÚC SỬA ĐỔI ---
 
         // Render
         if (gameOver) {

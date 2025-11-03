@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import org.example.arkanoid.config.Constants;
+import org.example.arkanoid.game.SoundManager;
 
 import java.io.IOException;
 import java.net.URL;
@@ -53,17 +54,26 @@ public class HelpController implements Initializable {
         backButton.getScene().setRoot(root);
     }
 
+    private void addHoverSound(Button button) {
+        if (button != null) {
+            button.hoverProperty().addListener((obs, oldVal, newVal) -> {
+                if (newVal) {
+                    SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_HOVER);
+                }
+            });
+        }
+    }
+
     public void initialize(URL location, ResourceBundle resources) {
-        // back button hover setup
         backHoverImage.setMouseTransparent(true);
         backHoverImage.visibleProperty().bind(backButton.hoverProperty());
         backImage.visibleProperty().bind(backButton.hoverProperty().not());
 
-        // font button hover setup
         helpHoverImage.setMouseTransparent(true);
         helpHoverImage.visibleProperty().bind(helpButton.hoverProperty());
         helpImage.visibleProperty().bind(helpButton.hoverProperty().not());
 
+        addHoverSound(helpButton);
+        addHoverSound(backButton);
     }
-
 }

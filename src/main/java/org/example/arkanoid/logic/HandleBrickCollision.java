@@ -2,7 +2,6 @@ package org.example.arkanoid.logic;
 
 import org.example.arkanoid.config.Constants;
 import org.example.arkanoid.game.GameManager;
-import org.example.arkanoid.sound.SoundManager; // <-- THÊM IMPORT NÀY
 import org.example.arkanoid.game.ItemManager;
 import org.example.arkanoid.object.Ball;
 import org.example.arkanoid.object.Brick.Brick;
