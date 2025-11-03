@@ -13,9 +13,10 @@ public class GameController {
     public Button playAgainButton;
     public Button backButton2;
     public Button backButton3;
-    public VBox loseScreen;
-    public VBox pauseScreen;
-    public VBox winScreen;
+
+    public AnchorPane loseScreen;
+    public AnchorPane pauseScreen;
+    public AnchorPane winScreen;
 
     public static boolean paused = false;
     private boolean escapeWasPressed = false;

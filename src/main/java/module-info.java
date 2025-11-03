@@ -12,7 +12,6 @@ module org.example.arkanoid {
     requires javafx.graphics;
     requires jdk.compiler;
     requires jdk.jconsole;
-    requires javafx.media;
 
     opens org.example.arkanoid.game to javafx.fxml;
     exports org.example.arkanoid.game;
