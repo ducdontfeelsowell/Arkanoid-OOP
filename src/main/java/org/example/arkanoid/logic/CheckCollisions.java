@@ -10,6 +10,9 @@ public class CheckCollisions {
     public static void check(Ball ball, Paddle paddle, Brick[][] bricks, GameManager gm, ItemManager im) {
         CheckBallPaddleCollision.check(ball, paddle);
         CheckBallBrickCollision.check(ball, bricks, gm, im);
-        CheckBallOutOfBounds.check(ball, paddle, gm);
+
+        // --- SỬA ĐỔI: Truyền 'im' vào ---
+        CheckBallOutOfBounds.check(ball, paddle, gm, im);
+        // --- KẾT THÚC SỬA ĐỔI ---
     }
 }

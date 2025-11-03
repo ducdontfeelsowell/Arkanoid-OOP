@@ -28,6 +28,7 @@ public class GameController {
         if (inputHandler != null) {
             boolean escapePressed = inputHandler.isEscapePressed();
 
+            // Detect escape key press (edge detection)
             if (escapePressed && !escapeWasPressed) {
                 togglePause();
             }
@@ -42,11 +43,9 @@ public class GameController {
 
         if (paused) {
             SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_PAUSE);
-            // --- THÊM MỚI: Tạm dừng nhạc nền ---
             SoundManager.getInstance().pauseBackgroundMusic();
         } else {
             SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_UNPAUSE);
-            // --- THÊM MỚI: Tiếp tục nhạc nền ---
             SoundManager.getInstance().resumeBackgroundMusic();
         }
     }
@@ -88,23 +87,25 @@ public class GameController {
         paused = false;
         pauseScreen.setVisible(false);
         SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_UNPAUSE);
-        // --- THÊM MỚI: Tiếp tục nhạc nền khi nhấn nút ---
         SoundManager.getInstance().resumeBackgroundMusic();
     }
 
     public void onBackClick1() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         paused = false;
         pauseScreen.setVisible(false);
         Main.returnToMenu();
     }
 
     public void onBackClick2() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         paused = false;
         loseScreen.setVisible(false);
         Main.returnToMenu();
     }
 
     public void onPLayAgainClick() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         loseScreen.setVisible(false);
         Main.restartGame();
     }
@@ -120,6 +121,7 @@ public class GameController {
     }
 
     public void onBackClick3() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         winScreen.setVisible(false);
         paused = false;
         Main.returnToMenu();

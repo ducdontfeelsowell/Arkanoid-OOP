@@ -66,9 +66,12 @@ public class Main extends Application {
 
         // Khởi tạo và phát nhạc ngẫu nhiên cho menu
         soundManager = SoundManager.getInstance();
-        soundManager.playRandomBackgroundMusic();
+        soundManager.playRandomBackgroundMusic(); // Phát nhạc 1, 2
     }
 
+    /**
+     * Khởi tạo và bắt đầu game
+     */
     public static void startGame(String mapPath) {
         try {
             currentMapPath = mapPath;
@@ -82,24 +85,29 @@ public class Main extends Application {
             Media media = new Media(Objects.requireNonNull(
                     Main.class.getResource(videoPath)).toExternalForm());
 
+            // 2. Tạo MediaPlayer
             mediaPlayer = new MediaPlayer(media);
             mediaPlayer.setAutoPlay(true);
 
+            // 3. Tạo MediaView
             MediaView mediaView = new MediaView(mediaPlayer);
             mediaView.setFitWidth(Constants.SCREEN_WIDTH);
             mediaView.setFitHeight(Constants.SCREEN_HEIGHT);
-            mediaView.setPreserveRatio(false);
+            mediaView.setPreserveRatio(false); // Kéo dãn video cho vừa màn hình
 
-            mediaPlayer.play();
+            mediaPlayer.play(); // Bắt đầu phát video
+            // Create canvas for rendering
             Canvas canvas = new Canvas(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
             GraphicsContext gc = canvas.getGraphicsContext2D();
 
+            // Create root pane
             Pane gameRoot = new Pane();
 
             gameRoot.getChildren().add(mediaView);
 
             gameRoot.getChildren().add(canvas);
 
+            // Load pause screen overlay
             FXMLLoader loader = new FXMLLoader(
                     Main.class.getResource(Constants.PATH_TO_GAME_VIEW));
             Parent pauseOverlay = loader.load();
@@ -107,6 +115,7 @@ public class Main extends Application {
 
             gameRoot.getChildren().add(pauseOverlay);
 
+            // Create game scene
             Scene gameScene = new Scene(gameRoot);
 
             gameScene.setFill(Color.TRANSPARENT);
@@ -114,6 +123,7 @@ public class Main extends Application {
             inputHandler = new InputHandler(gameScene);
             gameController.setInputHandler(inputHandler);
 
+            // Initialize game objects
             paddle = new Paddle();
 
             ball = new Ball();
@@ -131,8 +141,10 @@ public class Main extends Application {
 
             gameManager.Init();
 
-            soundManager.playRandomBackgroundMusic();
+            // Phát nhạc cố định cho game
+            soundManager.playBackgroundMusic(Constants.PATH_TO_SOUND_BACKGROUND_3);
 
+            // Set scene
             primaryStage.setX(Constants.DEFAULT_SCREEN_X);
             primaryStage.setY(Constants.DEFAULT_SCREEN_Y);
             primaryStage.setScene(gameScene);
@@ -176,10 +188,14 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * Quay về menu chính
+     */
     public static void returnToMenu() {
         if (timer != null) timer.stop();
+        // Phát nhạc ngẫu nhiên khi quay về menu
         if (soundManager != null) {
-            soundManager.playRandomBackgroundMusic();
+            soundManager.playRandomBackgroundMusic(); // Phát nhạc 1, 2
         }
         if (mediaPlayer != null) {
             mediaPlayer.stop();

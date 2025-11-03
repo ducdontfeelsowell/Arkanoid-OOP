@@ -31,7 +31,9 @@ public class SoundManager {
 
     public void playBackgroundMusic(String soundPath) {
         try {
+            // Dòng debug để xem tệp nhạc nào đang được phát
             System.out.println("SoundManager DEBUG: Đang phát nhạc: " + soundPath);
+
             stopBackgroundMusic();
 
             Media media = new Media(Objects.requireNonNull(
@@ -111,11 +113,10 @@ public class SoundManager {
     }
 
     public void playRandomBackgroundMusic() {
+        // Chỉ random nhạc 1 và 2 cho menu
         String[] musicTracks = {
                 Constants.PATH_TO_SOUND_BACKGROUND_1,
-                Constants.PATH_TO_SOUND_BACKGROUND_2,
-                Constants.PATH_TO_SOUND_BACKGROUND_3,
-                Constants.PATH_TO_SOUND_BACKGROUND_4
+                Constants.PATH_TO_SOUND_BACKGROUND_2
         };
 
         if (musicTracks.length == 0) {
