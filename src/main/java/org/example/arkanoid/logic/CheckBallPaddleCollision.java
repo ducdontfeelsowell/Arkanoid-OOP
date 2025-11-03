@@ -9,7 +9,7 @@ public class CheckBallPaddleCollision {
     public static boolean sideHit = false;
 
     public static void check(Ball ball, Paddle paddle) {
-        if (ball.isCollidingWith(paddle) && ball.getDy() > 0) {
+        if ((ball.isCollidingWith(paddle) && ball.getDy() > 0) && !sideHit) {
 
             // PHÁT ÂM THANH VA CHẠM PADDLE
             SoundManager.playPaddleHit(); // <-- THÊM DÒNG NÀY
@@ -25,19 +25,19 @@ public class CheckBallPaddleCollision {
             double overlapY = Math.min(overlapTop, overlapBottom);
 
             //Chạm side rồi thì chỉ chòn đẩy bóng, nếu paddle nhanh hơn
-            if (sideHit) {
-                if(overlapLeft < overlapRight) {
-                    ball.setX(ball.getX() - overlapLeft);
-                } else {
-                    ball.setX(ball.getX() + overlapRight);
-                }
-                return;
-            }
-
+//            if (sideHit) {
+////                if(overlapLeft < overlapRight) {
+////                    ball.setX(ball.getX() - overlapLeft);
+////                } else {
+////                    ball.setX(ball.getX() + overlapRight);
+////                }
+//                return;
+//            } else {
             // Bóng chạm cạnh hay chạm trên
             if (overlapX < overlapY) {
                 sideHit = true;
                 // Chỉnh vị trí để bóng không dính vào trong paddle
+                ball.setDy(Math.abs(ball.getDy()));
                 if (overlapLeft < overlapRight) {
                     ball.setX(ball.getX() - overlapLeft);
                     ball.setDx(-Math.abs(ball.getDx()));
