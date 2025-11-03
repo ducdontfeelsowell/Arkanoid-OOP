@@ -11,6 +11,7 @@ import org.example.arkanoid.input.InputHandler;
 import org.example.arkanoid.object.Ball;
 import org.example.arkanoid.object.Brick.Brick;
 import org.example.arkanoid.object.Paddle;
+import org.example.arkanoid.game.SoundManager; // THÊM MỚI IMPORT
 
 import java.io.File;
 import java.io.IOException;
@@ -55,7 +56,6 @@ public class GameManager {
             inputHandler.handleInput(paddle, bm);
             paddle.update();
 
-            // đợi bắt đầu bóng
             if(Constants.isStarted) {
                 UpdatePhysics.update(ball);
                 CheckCollisions.check(ball, paddle, bricks, this, im);
@@ -70,11 +70,9 @@ public class GameManager {
             }
         }
 
-        // --- SỬA ĐỔI: Chỉ kiểm tra pause/unpause khi game CHƯA kết thúc ---
         if (!gameOver && !won) {
             gameController.update();
         }
-        // --- KẾT THÚC SỬA ĐỔI ---
 
         // Render
         if (gameOver) {
@@ -160,6 +158,10 @@ public class GameManager {
 
     public void setGameOver(boolean gameOver) {
         this.gameOver = gameOver;
+        // --- THÊM MỚI: Dừng nhạc khi thua ---
+        if (gameOver) {
+            SoundManager.getInstance().stopBackgroundMusic();
+        }
     }
 
     public boolean isWon() {
@@ -168,5 +170,9 @@ public class GameManager {
 
     public void setWon(boolean won) {
         this.won = won;
+        // --- THÊM MỚI: Dừng nhạc khi thắng ---
+        if (won) {
+            SoundManager.getInstance().stopBackgroundMusic();
+        }
     }
 }

@@ -40,11 +40,14 @@ public class GameController {
         paused = !paused;
         pauseScreen.setVisible(paused);
 
-        // --- THÊM MỚI: Phát âm thanh Pause/Unpause ---
         if (paused) {
             SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_PAUSE);
+            // --- THÊM MỚI: Tạm dừng nhạc nền ---
+            SoundManager.getInstance().pauseBackgroundMusic();
         } else {
             SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_UNPAUSE);
+            // --- THÊM MỚI: Tiếp tục nhạc nền ---
+            SoundManager.getInstance().resumeBackgroundMusic();
         }
     }
 
@@ -84,8 +87,9 @@ public class GameController {
     public void onResumeClick() {
         paused = false;
         pauseScreen.setVisible(false);
-        // --- THÊM MỚI: Phát âm thanh Unpause khi nhấn nút ---
         SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_UNPAUSE);
+        // --- THÊM MỚI: Tiếp tục nhạc nền khi nhấn nút ---
+        SoundManager.getInstance().resumeBackgroundMusic();
     }
 
     public void onBackClick1() {
