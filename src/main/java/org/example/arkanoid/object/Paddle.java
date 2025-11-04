@@ -4,6 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import org.example.arkanoid.config.Constants;
+import org.example.arkanoid.game.SoundManager; // THÊM MỚI
 
 import java.util.Objects;
 
@@ -87,9 +88,12 @@ public class Paddle extends MoveAbleObject {
     public void update() {
         move();
 
+        // --- SỬA ĐỔI: Thêm âm thanh khi hết hiệu ứng súng ---
         if (isShooter && System.nanoTime() > shooterEndTime) {
             isShooter = false;
+            SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_GUN_LOAD);
         }
+        // --- KẾT THÚC SỬA ĐỔI ---
 
         // Cập nhật trạng thái bất tử
         if (isInvincible && System.nanoTime() > invincibilityEndTime) {
@@ -140,7 +144,6 @@ public class Paddle extends MoveAbleObject {
         }
     }
 
-    // --- PHƯƠNG THỨC GỐC CỦA BẠN (ĐÃ ĐƯỢC KHÔI PHỤC) ---
     public void activateShooter() {
         this.isShooter = true;
         this.shooterEndTime = System.nanoTime() + Constants.DEFAULT_SHOOTER_DURATION;
