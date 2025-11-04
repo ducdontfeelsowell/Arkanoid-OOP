@@ -46,7 +46,7 @@ public class GameManager {
         this.bm = bm;
 
         this.score = 0;
-        this.lives = Constants.INITIAL_LIVES;
+        this.lives = Constants.CURRENT_LIVES;
         this.gameOver = false;
         this.won = false;
     }

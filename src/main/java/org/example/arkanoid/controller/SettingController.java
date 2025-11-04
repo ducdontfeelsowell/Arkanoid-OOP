@@ -6,7 +6,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton; // THÊM MỚI
+import javafx.scene.control.ToggleGroup; // THÊM MỚI
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import org.example.arkanoid.config.Constants;
@@ -15,57 +16,32 @@ import org.example.arkanoid.game.SoundManager;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.scene.input.KeyCode; // THÊM MỚI
-import javafx.scene.input.KeyEvent; // THÊM MỚI
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 public class SettingController implements Initializable {
-    @FXML
-    private Button volumeButton;
-
-    @FXML
-    private Button fontButton;
 
     @FXML
     private Button backButton;
-
-    @FXML
-    private ImageView fontHoverImage;
-
-    @FXML
-    private ImageView fontImage;
-
-    @FXML
-    private ImageView volumeImage;
-
-    @FXML
-    private ImageView volumeHoverImage;
-
     @FXML
     private ImageView backHoverImage;
-
     @FXML
     private ImageView backImage;
-
-    @FXML Label volumeText;
-
-    @FXML Label fontText;
 
     @FXML private Slider volumeSlider;
     @FXML private CheckBox muteCheckbox;
 
+    // --- KHAI BÁO FXML CHO ĐỘ KHÓ ---
+    @FXML private RadioButton easyRadio;
+    @FXML private RadioButton normalRadio;
+    @FXML private RadioButton hardRadio;
+    @FXML private ToggleGroup difficultyToggleGroup;
+    // --- KẾT THÚC KHAI BÁO ---
+
+    @FXML private ImageView volumeIconViewHigh;
+    @FXML private ImageView volumeIconViewMuted;
+
     private SoundManager soundManager;
-
-    @FXML
-    public void onVolumeButtonClick() {
-        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
-        volumeText.setText("tang giam am luong");
-    }
-
-    @FXML
-    public void onFontButtonClick() {
-        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
-        fontText.setText("thay doi phong chu");
-    }
 
     @FXML
     public void onBackButton() throws IOException {
@@ -75,6 +51,54 @@ public class SettingController implements Initializable {
 
         backButton.getScene().setRoot(root);
     }
+
+    // --- CÁC PHƯƠNG THỨC XỬ LÝ ĐỘ KHÓ ---
+    @FXML
+    private void onEasyClick() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
+        updateDifficultySettings("Dễ");
+    }
+
+    @FXML
+    private void onNormalClick() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
+        updateDifficultySettings("Thường");
+    }
+
+    @FXML
+    private void onHardClick() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
+        updateDifficultySettings("Khó");
+    }
+
+    /**
+     * Cập nhật các biến CURRENT trong Constants
+     */
+    private void updateDifficultySettings(String difficulty) {
+        Constants.CURRENT_DIFFICULTY = difficulty;
+
+        switch (difficulty) {
+            case "Dễ":
+                Constants.CURRENT_LIVES = Constants.EASY_LIVES;
+                Constants.CURRENT_PADDLE_SPEED = Constants.EASY_PADDLE_SPEED;
+                Constants.CURRENT_BALL_SPEED = Constants.EASY_BALL_SPEED;
+                Constants.CURRENT_DROP_CHANCE = Constants.EASY_DROP_CHANCE;
+                break;
+            case "Thường":
+                Constants.CURRENT_LIVES = Constants.NORMAL_LIVES;
+                Constants.CURRENT_PADDLE_SPEED = Constants.NORMAL_PADDLE_SPEED;
+                Constants.CURRENT_BALL_SPEED = Constants.NORMAL_BALL_SPEED;
+                Constants.CURRENT_DROP_CHANCE = Constants.NORMAL_DROP_CHANCE;
+                break;
+            case "Khó":
+                Constants.CURRENT_LIVES = Constants.HARD_LIVES;
+                Constants.CURRENT_PADDLE_SPEED = Constants.HARD_PADDLE_SPEED;
+                Constants.CURRENT_BALL_SPEED = Constants.HARD_BALL_SPEED;
+                Constants.CURRENT_DROP_CHANCE = Constants.HARD_DROP_CHANCE;
+                break;
+        }
+    }
+    // --- KẾT THÚC PHƯƠNG THỨC ĐỘ KHÓ ---
 
     private void addHoverSound(Button button) {
         if (button != null) {
@@ -86,7 +110,6 @@ public class SettingController implements Initializable {
         }
     }
 
-    // --- THÊM MỚI: Phương thức chặn phím Space/Enter ---
     private void preventKeyActivation(Button button) {
         if (button != null) {
             button.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
@@ -96,48 +119,97 @@ public class SettingController implements Initializable {
             });
         }
     }
-    // --- KẾT THÚC THÊM MỚI ---
 
+    // Overload cho RadioButton (chỉ chặn Enter)
+    private void preventKeyActivation(RadioButton button) {
+        if (button != null) {
+            button.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+                if (event.getCode() == KeyCode.ENTER) {
+                    event.consume();
+                }
+            });
+        }
+    }
+
+    private void updateVolumeUI() {
+        if (soundManager == null) return;
+
+        boolean isMuted = soundManager.isMuted();
+        double currentVolume = soundManager.getMusicVolume();
+
+        muteCheckbox.setSelected(!isMuted);
+        volumeSlider.setDisable(isMuted);
+
+        if (isMuted) {
+            if (volumeIconViewMuted != null) volumeIconViewMuted.setVisible(true);
+            if (volumeIconViewHigh != null) volumeIconViewHigh.setVisible(false);
+        } else {
+            if (volumeIconViewMuted != null) volumeIconViewMuted.setVisible(false);
+            if (volumeIconViewHigh != null) volumeIconViewHigh.setVisible(true);
+            volumeSlider.setValue(currentVolume);
+        }
+    }
+
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
         soundManager = SoundManager.getInstance();
 
+        // Cài đặt Âm lượng
         if (volumeSlider != null) {
-            volumeSlider.setValue(soundManager.getMusicVolume());
             volumeSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
-                soundManager.setMusicVolume(newVal.doubleValue());
+                double newVolume = newVal.doubleValue();
+                soundManager.setMusicVolume(newVolume);
+
+                if (newVolume == 0 && !soundManager.isMuted()) {
+                    soundManager.toggleMute();
+                    updateVolumeUI();
+                }
+                else if (newVolume > 0 && soundManager.isMuted()) {
+                    soundManager.toggleMute();
+                    updateVolumeUI();
+                }
             });
         }
-
         if (muteCheckbox != null) {
-            muteCheckbox.setSelected(soundManager.isMuted());
             muteCheckbox.setOnAction(event -> {
                 soundManager.toggleMute();
+                updateVolumeUI();
             });
         }
+        if (volumeIconViewHigh != null) volumeIconViewHigh.setMouseTransparent(true);
+        if (volumeIconViewMuted != null) volumeIconViewMuted.setMouseTransparent(true);
+        updateVolumeUI();
 
-        // back button hover setup
+        // --- SỬA ĐỔI: Cài đặt Độ khó ---
+        // Cập nhật giá trị trong Constants (để phòng trường hợp game khởi động lại)
+        updateDifficultySettings(Constants.CURRENT_DIFFICULTY);
+
+        // Chọn RadioButton tương ứng
+        if (difficultyToggleGroup != null) {
+            switch (Constants.CURRENT_DIFFICULTY) {
+                case "Dễ":
+                    easyRadio.setSelected(true);
+                    break;
+                case "Thường":
+                    normalRadio.setSelected(true);
+                    break;
+                case "Khó":
+                    hardRadio.setSelected(true);
+                    break;
+            }
+        }
+        // --- KẾT THÚC SỬA ĐỔI ---
+
+        // Cài đặt Nút Back
         backHoverImage.setMouseTransparent(true);
         backHoverImage.visibleProperty().bind(backButton.hoverProperty());
         backImage.visibleProperty().bind(backButton.hoverProperty().not());
-
-        // font button hover setup
-        fontHoverImage.setMouseTransparent(true);
-        fontHoverImage.visibleProperty().bind(fontButton.hoverProperty());
-        fontImage.visibleProperty().bind(fontButton.hoverProperty().not());
-
-        // volume button hover setup
-        volumeHoverImage.setMouseTransparent(true);
-        volumeHoverImage.visibleProperty().bind(volumeButton.hoverProperty());
-        volumeImage.visibleProperty().bind(volumeButton.hoverProperty().not());
-
-        addHoverSound(volumeButton);
-        addHoverSound(fontButton);
         addHoverSound(backButton);
-
-        // --- THÊM MỚI: Gọi phương thức chặn phím ---
-        preventKeyActivation(volumeButton);
-        preventKeyActivation(fontButton);
         preventKeyActivation(backButton);
-        // --- KẾT THÚC THÊM MỚI ---
+
+        // Chặn phím cho RadioButtons
+        preventKeyActivation(easyRadio);
+        preventKeyActivation(normalRadio);
+        preventKeyActivation(hardRadio);
     }
 }

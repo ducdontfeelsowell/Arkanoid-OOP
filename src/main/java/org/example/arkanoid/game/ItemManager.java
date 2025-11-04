@@ -28,7 +28,7 @@ public class ItemManager {
      */
     public void spawnItem(Brick brick) {
         double x = random.nextDouble();
-        if (x > Constants.DROP_CHANCE) {
+        if (x > Constants.CURRENT_DROP_CHANCE) {
             return;
         }
 
