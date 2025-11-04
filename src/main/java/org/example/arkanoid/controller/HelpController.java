@@ -18,6 +18,8 @@ import org.example.arkanoid.game.SoundManager;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.scene.input.KeyCode; // THÊM MỚI
+import javafx.scene.input.KeyEvent; // THÊM MỚI
 
 public class HelpController implements Initializable {
     private boolean isTransisioning = false;
@@ -66,6 +68,18 @@ public class HelpController implements Initializable {
         }
     }
 
+    // --- THÊM MỚI: Phương thức chặn phím Space/Enter ---
+    private void preventKeyActivation(Button button) {
+        if (button != null) {
+            button.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+                if (event.getCode() == KeyCode.SPACE || event.getCode() == KeyCode.ENTER) {
+                    event.consume();
+                }
+            });
+        }
+    }
+    // --- KẾT THÚC THÊM MỚI ---
+
     public void initialize(URL location, ResourceBundle resources) {
         // back button hover setup
         backHoverImage.setMouseTransparent(true);
@@ -79,6 +93,11 @@ public class HelpController implements Initializable {
 
         addHoverSound(helpButton);
         addHoverSound(backButton);
+
+        // --- THÊM MỚI: Gọi phương thức chặn phím ---
+        preventKeyActivation(helpButton);
+        preventKeyActivation(backButton);
+        // --- KẾT THÚC THÊM MỚI ---
     }
 
 }

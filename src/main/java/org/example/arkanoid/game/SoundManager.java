@@ -13,6 +13,7 @@ public class SoundManager {
     private static SoundManager instance;
 
     private MediaPlayer backgroundMusicPlayer;
+    private MediaPlayer sequentialPlayer; // Trình phát cho âm thanh tuần tự (Win/Lose)
     private boolean isMuted = false;
     private double musicVolume = 0.5;
 
@@ -34,7 +35,7 @@ public class SoundManager {
             // Dòng debug để xem tệp nhạc nào đang được phát
             System.out.println("SoundManager DEBUG: Đang phát nhạc: " + soundPath);
 
-            stopBackgroundMusic();
+            stopBackgroundMusic(); // Dừng cả nhạc nền và nhạc tuần tự
 
             Media media = new Media(Objects.requireNonNull(
                     getClass().getResource(soundPath)).toExternalForm());
@@ -50,6 +51,56 @@ public class SoundManager {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Phát hai bản nhạc tuần tự (dùng cho Win/Lose).
+     * Bản nhạc 1 phát, khi kết thúc, Bản nhạc 2 sẽ phát.
+     */
+    public void playMusicSequence(String path1, String path2) {
+        if (isMuted) return;
+
+        try {
+            stopBackgroundMusic(); // Dừng mọi thứ đang phát
+
+            Media media1 = new Media(Objects.requireNonNull(
+                    getClass().getResource(path1)).toExternalForm());
+
+            sequentialPlayer = new MediaPlayer(media1);
+            sequentialPlayer.setVolume(musicVolume);
+
+            // Đặt sự kiện khi media1 kết thúc
+            sequentialPlayer.setOnEndOfMedia(() -> {
+                // Hủy trình phát cũ
+                sequentialPlayer.stop();
+                sequentialPlayer.dispose();
+
+                // Tạo và phát media2
+                try {
+                    Media media2 = new Media(Objects.requireNonNull(
+                            getClass().getResource(path2)).toExternalForm());
+                    sequentialPlayer = new MediaPlayer(media2);
+                    sequentialPlayer.setVolume(musicVolume);
+
+                    // --- THÊM MỚI: Đặt lặp lại vô tận cho nhạc afterwin/afterlose ---
+                    sequentialPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+                    // --- KẾT THÚC THÊM MỚI ---
+
+                    sequentialPlayer.play();
+                } catch (Exception e) {
+                    System.err.println("Không thể phát phần 2 (after) của nhạc: " + path2);
+                    e.printStackTrace();
+                }
+            });
+
+            // Bắt đầu phát media1
+            sequentialPlayer.play();
+
+        } catch (Exception e) {
+            System.err.println("Không thể phát phần 1 (chính) của nhạc: " + path1);
+            e.printStackTrace();
+        }
+    }
+
 
     public void playSoundEffect(String soundPath) {
         if (isMuted) {
@@ -67,10 +118,17 @@ public class SoundManager {
     }
 
     public void stopBackgroundMusic() {
+        // Dừng nhạc nền
         if (backgroundMusicPlayer != null) {
             backgroundMusicPlayer.stop();
             backgroundMusicPlayer.dispose();
             backgroundMusicPlayer = null;
+        }
+        // Dừng cả nhạc tuần tự (nếu đang phát)
+        if (sequentialPlayer != null) {
+            sequentialPlayer.stop();
+            sequentialPlayer.dispose();
+            sequentialPlayer = null;
         }
     }
 
@@ -78,18 +136,31 @@ public class SoundManager {
         if (backgroundMusicPlayer != null) {
             backgroundMusicPlayer.pause();
         }
+        // Tạm dừng cả nhạc tuần tự (nếu đang phát)
+        if (sequentialPlayer != null) {
+            sequentialPlayer.pause();
+        }
     }
 
     public void resumeBackgroundMusic() {
         if (backgroundMusicPlayer != null) {
             backgroundMusicPlayer.play();
         }
+        // Tiếp tục cả nhạc tuần tự (nếu đang phát)
+        if (sequentialPlayer != null) {
+            sequentialPlayer.play();
+        }
     }
 
     public void toggleMute() {
         isMuted = !isMuted;
+        double newVolume = isMuted ? 0 : musicVolume;
+
         if (backgroundMusicPlayer != null) {
-            backgroundMusicPlayer.setVolume(isMuted ? 0 : musicVolume);
+            backgroundMusicPlayer.setVolume(newVolume);
+        }
+        if (sequentialPlayer != null) {
+            sequentialPlayer.setVolume(newVolume);
         }
     }
 
@@ -97,6 +168,9 @@ public class SoundManager {
         musicVolume = Math.max(0.0, Math.min(1.0, volume));
         if (backgroundMusicPlayer != null && !isMuted) {
             backgroundMusicPlayer.setVolume(musicVolume);
+        }
+        if (sequentialPlayer != null && !isMuted) {
+            sequentialPlayer.setVolume(musicVolume);
         }
     }
 

@@ -14,6 +14,8 @@ import org.example.arkanoid.launch.Main;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.scene.input.KeyCode; // THÊM MỚI
+import javafx.scene.input.KeyEvent; // THÊM MỚI
 
 public class LevelController implements Initializable{
     public Button map1Button;
@@ -188,6 +190,18 @@ public class LevelController implements Initializable{
         }
     }
 
+    // --- THÊM MỚI: Phương thức chặn phím Space/Enter ---
+    private void preventKeyActivation(Button button) {
+        if (button != null) {
+            button.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+                if (event.getCode() == KeyCode.SPACE || event.getCode() == KeyCode.ENTER) {
+                    event.consume();
+                }
+            });
+        }
+    }
+    // --- KẾT THÚC THÊM MỚI ---
+
     public void initialize(URL location, ResourceBundle resources) {
         // Play button hover setup
         System.out.println("DEBUG: SettingController Initialized.");
@@ -260,5 +274,21 @@ public class LevelController implements Initializable{
         addHoverSound(map11Button);
         addHoverSound(map12Button);
         addHoverSound(backButton);
+
+        // --- THÊM MỚI: Gọi phương thức chặn phím ---
+        preventKeyActivation(map1Button);
+        preventKeyActivation(map2Button);
+        preventKeyActivation(map3Button);
+        preventKeyActivation(map4Button);
+        preventKeyActivation(map5Button);
+        preventKeyActivation(map6Button);
+        preventKeyActivation(map7Button);
+        preventKeyActivation(map8Button);
+        preventKeyActivation(map9Button);
+        preventKeyActivation(map10Button);
+        preventKeyActivation(map11Button);
+        preventKeyActivation(map12Button);
+        preventKeyActivation(backButton);
+        // --- KẾT THÚC THÊM MỚI ---
     }
 }

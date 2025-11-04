@@ -4,6 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import org.example.arkanoid.object.Brick.Brick;
 import org.example.arkanoid.object.Bullet;
 import org.example.arkanoid.config.Constants;
+import org.example.arkanoid.game.SoundManager; // THÊM MỚI
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -21,6 +22,10 @@ public class BulletManager {
     public void shoot(double paddleX, double paddleY, double paddleWidth) {
         long now = System.nanoTime();
         if (now - lastShotTime > Constants.DEFAULT_BULLET_COOLDOWN) {
+
+            // --- THÊM MỚI: Phát âm thanh bắn súng ---
+            SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_SHOOT);
+            // --- KẾT THÚC THÊM MỚI ---
 
             double spawnY = paddleY;
 
