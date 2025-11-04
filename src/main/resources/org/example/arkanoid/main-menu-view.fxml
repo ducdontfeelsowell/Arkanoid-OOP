@@ -29,7 +29,7 @@
                 <Glow level="1.0" />
             </effect>
             <cursor>
-                <Cursor fx:constant="CROSSHAIR" />
+                <Cursor fx:constant="DEFAULT" />
             </cursor>
         </Label>
 
@@ -48,7 +48,13 @@
                 <Font name="System Bold Italic" size="40.0" />
             </font>
         </Label>
-        <Button fx:id="playButton" layoutX="544.0" layoutY="366.0" mnemonicParsing="false" onAction="#onPlayGameButtonClick" opacity="0.0" prefHeight="67.0" prefWidth="190.0" stylesheets="@../../../../java/org/example/arkanoid/scene.css" text="Play Game" />
+        <Button fx:id="playButton" layoutX="544.0" layoutY="366.0" mnemonicParsing="false" onAction="#onPlayGameButtonClick" opacity="0.0" prefHeight="67.0" prefWidth="190.0" stylesheets="@../../../../java/org/example/arkanoid/scene.css" text="Play Game">
+         <cursor>
+            <Cursor fx:constant="CROSSHAIR" />
+         </cursor>
+         <effect>
+            <Glow level="1.0" />
+         </effect></Button>
 
         <ImageView fx:id="helpImage" fitHeight="46.0" fitWidth="135.0" layoutX="394.0" layoutY="567.0" pickOnBounds="true" preserveRatio="true">
             <image>
