@@ -54,7 +54,7 @@ public class Constants {
     public final static double DEFAULT_BULLET_DX = 0;
     public final static double DEFAULT_BULLET_DY = -8;
     public final static double DEFAULT_BULLET_COOLDOWN = 100_000_000L;
-    public final static double DEFAULT_SHOOTER_DURATION = 30_000_000_000L;
+    public final static double DEFAULT_SHOOTER_DURATION = 10_000_000_000L;
 
 
 
@@ -264,4 +264,7 @@ public class Constants {
 
     public static final String PATH_TO_SOUND_PADDLE_HIT = "/Sounds/paddleHit.mp3";
     public static final String PATH_TO_SOUND_WALL_HIT = "/Sounds/wallHit.mp3";
+
+    public static final String PATH_TO_SOUND_GUN_ITEM = "/Sounds/gunItem.wav";
+    public static final String PATH_TO_SOUND_GUN_LOAD = "/Sounds/gunLoad.mp3";
 }
