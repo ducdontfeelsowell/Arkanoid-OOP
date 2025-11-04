@@ -38,10 +38,8 @@ public class GameController implements Initializable {
     private MediaView lose_backgroundMediaView;
 
     private MediaPlayer win_mediaPlayer; // Đã thêm
-    private Media win_backgroundVideo;
 
     private MediaPlayer lose_mediaPlayer; // Đã thêm
-    private Media lose_backgroundVideo;
 
     public void update() {
         if (inputHandler != null) {
@@ -110,7 +108,7 @@ public class GameController implements Initializable {
                 throw new IOException("Không tìm thấy file video. Vui lòng kiểm tra đường dẫn: " + videoPath);
             }
 
-            lose_backgroundVideo = new Media(videoUrl.toExternalForm());
+            Media lose_backgroundVideo = new Media(videoUrl.toExternalForm());
             lose_mediaPlayer = new MediaPlayer(lose_backgroundVideo);
             lose_backgroundMediaView.setMediaPlayer(lose_mediaPlayer);
 
@@ -170,7 +168,7 @@ public class GameController implements Initializable {
                 throw new IOException("Không tìm thấy file video. Vui lòng kiểm tra đường dẫn: " + videoPath);
             }
 
-            win_backgroundVideo = new Media(videoUrl.toExternalForm());
+            Media win_backgroundVideo = new Media(videoUrl.toExternalForm());
             win_mediaPlayer = new MediaPlayer(win_backgroundVideo);
             win_backgroundMediaView.setMediaPlayer(win_mediaPlayer);
 
