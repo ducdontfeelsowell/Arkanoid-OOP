@@ -5,7 +5,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import org.example.arkanoid.config.Constants;
 import org.example.arkanoid.game.SoundManager;
@@ -13,6 +15,8 @@ import org.example.arkanoid.game.SoundManager;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.scene.input.KeyCode; // THÊM MỚI
+import javafx.scene.input.KeyEvent; // THÊM MỚI
 
 public class SettingController implements Initializable {
     @FXML
@@ -46,6 +50,11 @@ public class SettingController implements Initializable {
 
     @FXML Label fontText;
 
+    @FXML private Slider volumeSlider;
+    @FXML private CheckBox muteCheckbox;
+
+    private SoundManager soundManager;
+
     @FXML
     public void onVolumeButtonClick() {
         SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
@@ -77,7 +86,35 @@ public class SettingController implements Initializable {
         }
     }
 
+    // --- THÊM MỚI: Phương thức chặn phím Space/Enter ---
+    private void preventKeyActivation(Button button) {
+        if (button != null) {
+            button.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+                if (event.getCode() == KeyCode.SPACE || event.getCode() == KeyCode.ENTER) {
+                    event.consume();
+                }
+            });
+        }
+    }
+    // --- KẾT THÚC THÊM MỚI ---
+
     public void initialize(URL location, ResourceBundle resources) {
+        soundManager = SoundManager.getInstance();
+
+        if (volumeSlider != null) {
+            volumeSlider.setValue(soundManager.getMusicVolume());
+            volumeSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
+                soundManager.setMusicVolume(newVal.doubleValue());
+            });
+        }
+
+        if (muteCheckbox != null) {
+            muteCheckbox.setSelected(soundManager.isMuted());
+            muteCheckbox.setOnAction(event -> {
+                soundManager.toggleMute();
+            });
+        }
+
         // back button hover setup
         backHoverImage.setMouseTransparent(true);
         backHoverImage.visibleProperty().bind(backButton.hoverProperty());
@@ -96,5 +133,11 @@ public class SettingController implements Initializable {
         addHoverSound(volumeButton);
         addHoverSound(fontButton);
         addHoverSound(backButton);
+
+        // --- THÊM MỚI: Gọi phương thức chặn phím ---
+        preventKeyActivation(volumeButton);
+        preventKeyActivation(fontButton);
+        preventKeyActivation(backButton);
+        // --- KẾT THÚC THÊM MỚI ---
     }
 }

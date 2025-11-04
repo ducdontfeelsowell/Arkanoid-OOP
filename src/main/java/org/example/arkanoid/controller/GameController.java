@@ -7,6 +7,8 @@ import org.example.arkanoid.config.Constants;
 import org.example.arkanoid.game.SoundManager;
 import org.example.arkanoid.launch.Main;
 import org.example.arkanoid.input.InputHandler;
+import javafx.scene.input.KeyCode; // THÊM MỚI
+import javafx.scene.input.KeyEvent; // THÊM MỚI
 
 public class GameController {
     public Button resumeGameButton;
@@ -68,6 +70,18 @@ public class GameController {
         }
     }
 
+    // --- THÊM MỚI: Phương thức chặn phím Space/Enter ---
+    private void preventKeyActivation(Button button) {
+        if (button != null) {
+            button.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+                if (event.getCode() == KeyCode.SPACE || event.getCode() == KeyCode.ENTER) {
+                    event.consume();
+                }
+            });
+        }
+    }
+    // --- KẾT THÚC THÊM MỚI ---
+
     @FXML
     public void initialize() {
         if (pauseScreen != null) {
@@ -81,6 +95,14 @@ public class GameController {
         addHoverSound(backButton2);
 
         addHoverSound(backButton3);
+
+        // --- THÊM MỚI: Gọi phương thức chặn phím ---
+        preventKeyActivation(resumeGameButton);
+        preventKeyActivation(backButton1);
+        preventKeyActivation(playAgainButton);
+        preventKeyActivation(backButton2);
+        preventKeyActivation(backButton3);
+        // --- KẾT THÚC THÊM MỚI ---
     }
 
     public void onResumeClick() {

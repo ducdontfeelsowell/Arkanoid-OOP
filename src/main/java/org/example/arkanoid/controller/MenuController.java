@@ -13,6 +13,8 @@ import org.example.arkanoid.launch.Main;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.scene.input.KeyCode; // THÊM MỚI
+import javafx.scene.input.KeyEvent; // THÊM MỚI
 
 public class MenuController implements Initializable{
     @FXML
@@ -109,6 +111,18 @@ public class MenuController implements Initializable{
         }
     }
 
+    // --- THÊM MỚI: Phương thức chặn phím Space/Enter ---
+    private void preventKeyActivation(Button button) {
+        if (button != null) {
+            button.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+                if (event.getCode() == KeyCode.SPACE || event.getCode() == KeyCode.ENTER) {
+                    event.consume();
+                }
+            });
+        }
+    }
+    // --- KẾT THÚC THÊM MỚI ---
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Play button hover setup
@@ -140,5 +154,13 @@ public class MenuController implements Initializable{
         addHoverSound(settingButton);
         addHoverSound(shopButton);
         addHoverSound(exitButton);
+
+        // --- THÊM MỚI: Gọi phương thức chặn phím ---
+        preventKeyActivation(playButton);
+        preventKeyActivation(helpButton);
+        preventKeyActivation(settingButton);
+        preventKeyActivation(shopButton);
+        preventKeyActivation(exitButton);
+        // --- KẾT THÚC THÊM MỚI ---
     }
 }
