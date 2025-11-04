@@ -250,7 +250,7 @@ public class Constants {
     public static final String PATH_TO_SOUND_HOVER = "/Sounds/hover1.mp3";
     public static final String PATH_TO_SOUND_PAUSE = "/Sounds/click.mp3";
     public static final String PATH_TO_SOUND_UNPAUSE = "/Sounds/click.mp3";
-    public static final String PATH_TO_SOUND_USE_ITEM = "/Sounds/Use_item.wav";
+    public static final String PATH_TO_SOUND_USE_ITEM = "/Sounds/Use_item1.mp3";
 
     public static final String PATH_TO_SOUND_CLICK = "/Sounds/click.mp3";
     public static final String PATH_TO_SOUND_BALL_OUT = "/Sounds/ballOut.mp3";
@@ -261,4 +261,7 @@ public class Constants {
     public static final String PATH_TO_SOUND_LOSE = "/Sounds/lose.mp3";
     public static final String PATH_TO_SOUND_AFTERWIN = "/Sounds/afterwin.mp3";
     public static final String PATH_TO_SOUND_AFTERLOSE = "/Sounds/afterlose.mp3";
+
+    public static final String PATH_TO_SOUND_PADDLE_HIT = "/Sounds/paddleHit.mp3";
+    public static final String PATH_TO_SOUND_WALL_HIT = "/Sounds/wallHit.mp3";
 }
