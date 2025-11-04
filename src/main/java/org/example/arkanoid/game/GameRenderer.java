@@ -19,7 +19,7 @@ public class GameRenderer {
     public GameRenderer(GraphicsContext gc) {
         this.gc = gc;
         try {
-            this.backgroundImage2 = new Image(getClass().getResourceAsStream(Constants.PATH_TO_MENU_BACKGROUND));
+            this.backgroundImage2 = new Image(getClass().getResourceAsStream(Constants.PATH_TO_GAME_BACKGROUND));
         } catch (Exception e) {
             System.err.println("Lỗi tải ảnh background!");
             throw new RuntimeException(e);
@@ -32,7 +32,7 @@ public class GameRenderer {
     public void renderObject(Paddle paddle, Ball ball, Brick[][] bricks, ItemManager im, BulletManager bm, int score, int lives) {
         gc.clearRect(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
         if (backgroundImage2 != null) {
-            gc.drawImage(backgroundImage2, 350, 0, Constants.SCREEN_WIDTH/2, Constants.SCREEN_HEIGHT);
+            gc.drawImage(backgroundImage2, 315, 0, Constants.SCREEN_WIDTH/2, Constants.SCREEN_HEIGHT);
         } else {
             gc.setFill(Color.rgb(20, 20, 40));
             gc.fillRect(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
