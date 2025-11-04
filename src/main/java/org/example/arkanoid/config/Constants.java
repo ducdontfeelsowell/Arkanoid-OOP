@@ -267,4 +267,27 @@ public class Constants {
 
     public static final String PATH_TO_SOUND_GUN_ITEM = "/Sounds/gunItem.wav";
     public static final String PATH_TO_SOUND_GUN_LOAD = "/Sounds/gunLoad.mp3";
+
+    // Các giá trị final cho từng chế độ
+    public final static int EASY_LIVES = 5;
+    public final static double EASY_BALL_SPEED = 6;
+    public final static double EASY_PADDLE_SPEED = 5;
+    public final static double EASY_DROP_CHANCE = 0.5; // 50%
+
+    public final static int NORMAL_LIVES = 3;
+    public final static double NORMAL_BALL_SPEED = 7;
+    public final static double NORMAL_PADDLE_SPEED = 4;
+    public final static double NORMAL_DROP_CHANCE = 0.3; // 30%
+
+    public final static int HARD_LIVES = 2;
+    public final static double HARD_BALL_SPEED = 9;
+    public final static double HARD_PADDLE_SPEED = 4;
+    public final static double HARD_DROP_CHANCE = 0.15; // 15%
+
+    // Các biến (không final) để lưu cài đặt HIỆN TẠI
+    public static int CURRENT_LIVES = NORMAL_LIVES;
+    public static double CURRENT_BALL_SPEED = NORMAL_BALL_SPEED;
+    public static double CURRENT_PADDLE_SPEED = NORMAL_PADDLE_SPEED;
+    public static double CURRENT_DROP_CHANCE = NORMAL_DROP_CHANCE;
+    public static String CURRENT_DIFFICULTY = "Thường";
 }

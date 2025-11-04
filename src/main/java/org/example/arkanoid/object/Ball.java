@@ -46,7 +46,7 @@ public class Ball extends MoveAbleObject {
 
         this.radius = Constants.DEFAULT_BALL_SIZE/2;
 
-        this.speed = Constants.DEFAULT_BALL_SPEED;
+        this.speed = Constants.CURRENT_BALL_SPEED;
         this.offset = Constants.DEFAULT_BALL_OFFSET;
         this.trail = new ArrayList<>();
 

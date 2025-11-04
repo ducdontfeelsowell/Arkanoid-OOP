@@ -23,8 +23,6 @@ import javafx.scene.input.KeyEvent; // THÊM MỚI
 
 public class HelpController implements Initializable {
     private boolean isTransisioning = false;
-    @FXML
-    private Button helpButton;
 
     @FXML
     private Label helpLabel;
@@ -33,22 +31,10 @@ public class HelpController implements Initializable {
     private Button backButton;
 
     @FXML
-    private ImageView helpImage;
-
-    @FXML
-    private ImageView helpHoverImage;
-
-    @FXML
     private ImageView backHoverImage;
 
     @FXML
     private ImageView backImage;
-
-    @FXML
-    private void onHelpButton() {
-        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
-        helpLabel.setText("Help screen!");
-    }
 
     @FXML
     public void onBackButtonClick(ActionEvent event) throws IOException {
@@ -87,15 +73,9 @@ public class HelpController implements Initializable {
         backImage.visibleProperty().bind(backButton.hoverProperty().not());
 
         // font button hover setup
-        helpHoverImage.setMouseTransparent(true);
-        helpHoverImage.visibleProperty().bind(helpButton.hoverProperty());
-        helpImage.visibleProperty().bind(helpButton.hoverProperty().not());
-
-        addHoverSound(helpButton);
         addHoverSound(backButton);
 
         // --- THÊM MỚI: Gọi phương thức chặn phím ---
-        preventKeyActivation(helpButton);
         preventKeyActivation(backButton);
         // --- KẾT THÚC THÊM MỚI ---
     }

@@ -42,7 +42,7 @@ public class Paddle extends MoveAbleObject {
                 Constants.DEFAULT_PADDLE_DX,
                 Constants.DEFAULT_PADDLE_DY);
 
-        this.speed = Constants.DEFAULT_PADDLE_SPEED;
+        this.speed = Constants.CURRENT_PADDLE_SPEED;
 
         try {
             image0 = new Image(Objects.requireNonNull(getClass().getResourceAsStream(Constants.PATH_TO_PADDLE_0)));
