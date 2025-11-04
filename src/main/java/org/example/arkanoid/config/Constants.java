@@ -1,7 +1,6 @@
 package org.example.arkanoid.config;
 
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 public class Constants {
     /*
@@ -141,7 +140,7 @@ public class Constants {
     đường dẫn đến hình ảnh chung
      */
     public final static String PATH_TO_LOGO = "/Images/logo/jarkanoid_logo.png";
-    public final static String PATH_TO_VIDEO = "/Images/background/video2.mp4";
+    public final static String PATH_TO_VIDEO = "/Images/background/main_video_background.mp4";
     public final static String PATH_TO_BACKGROUND = "/Images/background/1.jpg";
     public final static String PATH_TO_MENU_BACKGROUND = "/Images/background/menu_Background.jpg";
 

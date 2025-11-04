@@ -28,6 +28,8 @@ import org.example.arkanoid.object.Ball;
 import org.example.arkanoid.object.Brick.Brick;
 import org.example.arkanoid.object.Paddle;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.Objects;
 
 public class Main extends Application {
@@ -76,7 +78,7 @@ public class Main extends Application {
     public static void startGame(String mapPath) {
         try {
             // TẢI ÂM THANH KHI BẮT ĐẦU GAME
-            SoundManager.loadSounds(); // <-- THÊM DÒNG NÀY
+            SoundManager.loadSounds();
             SoundManager.playMusic();
 
             currentMapPath = mapPath;
@@ -87,8 +89,12 @@ public class Main extends Application {
 
             String videoPath = Constants.PATH_TO_VIDEO;
 
-            Media media = new Media(Objects.requireNonNull(
-                    Main.class.getResource(videoPath)).toExternalForm());
+            URL videoUrl = Main.class.getResource(videoPath);
+            if (videoUrl == null) {
+                // Ném lỗi rõ ràng nếu không tìm thấy, không dựa vào Objects.requireNonNull
+                throw new IOException("Không tìm thấy file video. Vui lòng kiểm tra đường dẫn: " + videoPath);
+            }
+            Media media = new Media(videoUrl.toExternalForm());
 
             // 2. Tạo MediaPlayer
             backgroundVideoPlayer = new MediaPlayer(media);
