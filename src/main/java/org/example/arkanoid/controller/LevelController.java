@@ -7,12 +7,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+import javafx.util.Duration;
 import org.example.arkanoid.config.Constants;
 import org.example.arkanoid.game.SoundManager;
 import org.example.arkanoid.launch.Main;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.scene.input.KeyCode; // THÊM MỚI
 import javafx.scene.input.KeyEvent; // THÊM MỚI
@@ -30,6 +35,12 @@ public class LevelController implements Initializable{
     public Button map10Button;
     public Button map11Button;
     public Button map12Button;
+
+    @FXML
+    private MediaView backgroundMediaView; // Đã thêm
+
+    private MediaPlayer mediaPlayer; // Đã thêm
+    private Media backgroundVideo; // Đã thêm
 
     @FXML
     private ImageView Level1_on;
@@ -177,7 +188,6 @@ public class LevelController implements Initializable{
         FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.PATH_TO_MAIN_MENU));
         Parent root = loader.load();
         backButton.getScene().setRoot(root);
-
     }
 
     private void addHoverSound(Button button) {
@@ -203,8 +213,30 @@ public class LevelController implements Initializable{
     // --- KẾT THÚC THÊM MỚI ---
 
     public void initialize(URL location, ResourceBundle resources) {
-        // Play button hover setup
         System.out.println("DEBUG: SettingController Initialized.");
+        try {
+            String videoPath = "/Images/background/video_level.mp4";
+            URL videoUrl = getClass().getResource(videoPath);
+            if (videoUrl == null) {
+                // Ném lỗi rõ ràng nếu không tìm thấy, không dựa vào Objects.requireNonNull
+                throw new IOException("Không tìm thấy file video. Vui lòng kiểm tra đường dẫn: " + videoPath);
+            }
+            backgroundVideo = new Media(videoUrl.toExternalForm());
+            mediaPlayer = new MediaPlayer(backgroundVideo);
+            backgroundMediaView.setMediaPlayer(mediaPlayer);
+            // Thiết lập phát lặp lại
+            mediaPlayer.setAutoPlay(true);
+            mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+            mediaPlayer.setMute(true);
+            // 3. Tạo MediaView
+            mediaPlayer.play();
+        } catch (NullPointerException e) {
+            System.err.println("Lỗi: Không tìm thấy file video. Vui lòng kiểm tra đường dẫn.");
+            e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         Level1_on.setMouseTransparent(true);
         Level1_on.visibleProperty().bind(map1Button.hoverProperty());
         Level1_out.visibleProperty().bind(map1Button.hoverProperty().not());

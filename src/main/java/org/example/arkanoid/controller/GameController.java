@@ -1,8 +1,13 @@
 package org.example.arkanoid.controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import org.example.arkanoid.config.Constants;
 import org.example.arkanoid.game.SoundManager;
 import org.example.arkanoid.launch.Main;
@@ -10,7 +15,11 @@ import org.example.arkanoid.input.InputHandler;
 import javafx.scene.input.KeyCode; // THÊM MỚI
 import javafx.scene.input.KeyEvent; // THÊM MỚI
 
-public class GameController {
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class GameController implements Initializable {
     public Button resumeGameButton;
     public Button backButton1;
     public Button playAgainButton;
@@ -25,6 +34,16 @@ public class GameController {
     private boolean escapeWasPressed = false;
 
     private InputHandler inputHandler;
+
+    @FXML
+    private MediaView win_backgroundMediaView; // Đã thêm
+
+    @FXML
+    private MediaView lose_backgroundMediaView;
+
+    private MediaPlayer win_mediaPlayer; // Đã thêm
+
+    private MediaPlayer lose_mediaPlayer; // Đã thêm
 
     public void update() {
         if (inputHandler != null) {
@@ -132,14 +151,56 @@ public class GameController {
         Main.restartGame();
     }
 
+    private void initializeLoseScreenVideo() {
+        if (lose_mediaPlayer != null) {
+            return; // Đã khởi tạo rồi
+        }
+
+        try {
+            String videoPath = "/Images/background/lose_background.mp4";
+            URL videoUrl = getClass().getResource(videoPath);
+            if (videoUrl == null) {
+                throw new IOException("Không tìm thấy file video. Vui lòng kiểm tra đường dẫn: " + videoPath);
+            }
+
+            Media lose_backgroundVideo = new Media(videoUrl.toExternalForm());
+            lose_mediaPlayer = new MediaPlayer(lose_backgroundVideo);
+            lose_backgroundMediaView.setMediaPlayer(lose_mediaPlayer);
+
+            // Thiết lập phát lặp lại và tắt tiếng
+            lose_mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+            lose_mediaPlayer.setMute(true);
+
+        } catch (IOException e) {
+            System.err.println("Lỗi khi load video thua:");
+            e.printStackTrace();
+            // Xử lý lỗi (có thể hiển thị màn hình tĩnh thay thế)
+        }
+    }
+
     public void showLoseScreen() {
+        initializeLoseScreenVideo();
         loseScreen.setVisible(true);
         paused = true;
+        loseScreen.setVisible(true);
+
+        // 3. Bắt đầu chạy video
+        if (lose_mediaPlayer != null) {
+            lose_mediaPlayer.play();
+        }
     }
 
     public void showWinScreen() {
-        winScreen.setVisible(true);
+        initializeWinScreenVideo();
+
+        // 2. Bật cờ và hiển thị
         paused = true;
+        winScreen.setVisible(true);
+
+        // 3. Bắt đầu chạy video
+        if (win_mediaPlayer != null) {
+            win_mediaPlayer.play();
+        }
     }
 
     public void onBackClick3() {
@@ -147,5 +208,36 @@ public class GameController {
         winScreen.setVisible(false);
         paused = false;
         Main.returnToMenu();
+    }
+
+    private void initializeWinScreenVideo() {
+        if (win_mediaPlayer != null) {
+            return; // Đã khởi tạo rồi
+        }
+
+        try {
+            String videoPath = "/Images/background/win_background.mp4";
+            URL videoUrl = getClass().getResource(videoPath);
+            if (videoUrl == null) {
+                throw new IOException("Không tìm thấy file video. Vui lòng kiểm tra đường dẫn: " + videoPath);
+            }
+
+            Media win_backgroundVideo = new Media(videoUrl.toExternalForm());
+            win_mediaPlayer = new MediaPlayer(win_backgroundVideo);
+            win_backgroundMediaView.setMediaPlayer(win_mediaPlayer);
+
+            // Thiết lập phát lặp lại và tắt tiếng
+            win_mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+            win_mediaPlayer.setMute(true);
+
+        } catch (IOException e) {
+            System.err.println("Lỗi khi load video thua:");
+            e.printStackTrace();
+            // Xử lý lỗi (có thể hiển thị màn hình tĩnh thay thế)
+        }
+    }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
     }
 }
