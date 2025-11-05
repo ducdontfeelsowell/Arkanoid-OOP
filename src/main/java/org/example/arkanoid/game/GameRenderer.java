@@ -41,7 +41,11 @@ public class GameRenderer {
         // Render game objects
         RenderBricks.render(bricks, gc);
         RenderPaddle.render(paddle, gc);
-        RenderBall.render(ball, gc);
+
+        // --- SỬA ĐỔI: Truyền trạng thái của paddle cho bóng ---
+        RenderBall.render(ball, gc, paddle.isInvincible());
+        // --- KẾT THÚC SỬA ĐỔI ---
+
         RenderUI.render(score, lives, gc);
         im.render(gc);
         bm.render(gc);

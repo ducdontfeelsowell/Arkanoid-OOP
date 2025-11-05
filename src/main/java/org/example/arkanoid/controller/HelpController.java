@@ -13,15 +13,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import org.example.arkanoid.config.Constants;
+import org.example.arkanoid.game.SoundManager;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.scene.input.KeyCode; // THÊM MỚI
+import javafx.scene.input.KeyEvent; // THÊM MỚI
 
 public class HelpController implements Initializable {
     private boolean isTransisioning = false;
-    @FXML
-    private Button helpButton;
 
     @FXML
     private Label helpLabel;
@@ -30,28 +31,40 @@ public class HelpController implements Initializable {
     private Button backButton;
 
     @FXML
-    private ImageView helpImage;
-
-    @FXML
-    private ImageView helpHoverImage;
-
-    @FXML
     private ImageView backHoverImage;
 
     @FXML
     private ImageView backImage;
 
     @FXML
-    private void onHelpButton() {
-        helpLabel.setText("Help screen!");
-    }
-
-    @FXML
     public void onBackButtonClick(ActionEvent event) throws IOException {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.PATH_TO_MAIN_MENU));
         Parent root = loader.load();
         backButton.getScene().setRoot(root);
     }
+
+    private void addHoverSound(Button button) {
+        if (button != null) {
+            button.hoverProperty().addListener((obs, oldVal, newVal) -> {
+                if (newVal) {
+                    SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_HOVER);
+                }
+            });
+        }
+    }
+
+    // --- THÊM MỚI: Phương thức chặn phím Space/Enter ---
+    private void preventKeyActivation(Button button) {
+        if (button != null) {
+            button.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+                if (event.getCode() == KeyCode.SPACE || event.getCode() == KeyCode.ENTER) {
+                    event.consume();
+                }
+            });
+        }
+    }
+    // --- KẾT THÚC THÊM MỚI ---
 
     public void initialize(URL location, ResourceBundle resources) {
         // back button hover setup
@@ -60,10 +73,11 @@ public class HelpController implements Initializable {
         backImage.visibleProperty().bind(backButton.hoverProperty().not());
 
         // font button hover setup
-        helpHoverImage.setMouseTransparent(true);
-        helpHoverImage.visibleProperty().bind(helpButton.hoverProperty());
-        helpImage.visibleProperty().bind(helpButton.hoverProperty().not());
+        addHoverSound(backButton);
 
+        // --- THÊM MỚI: Gọi phương thức chặn phím ---
+        preventKeyActivation(backButton);
+        // --- KẾT THÚC THÊM MỚI ---
     }
 
 }

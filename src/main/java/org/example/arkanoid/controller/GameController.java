@@ -8,8 +8,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import org.example.arkanoid.config.Constants;
+import org.example.arkanoid.game.SoundManager;
 import org.example.arkanoid.launch.Main;
 import org.example.arkanoid.input.InputHandler;
+import javafx.scene.input.KeyCode; // THÊM MỚI
+import javafx.scene.input.KeyEvent; // THÊM MỚI
 
 import java.io.IOException;
 import java.net.URL;
@@ -57,6 +61,14 @@ public class GameController implements Initializable {
     private void togglePause() {
         paused = !paused;
         pauseScreen.setVisible(paused);
+
+        if (paused) {
+            SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_PAUSE);
+            SoundManager.getInstance().pauseBackgroundMusic();
+        } else {
+            SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_UNPAUSE);
+            SoundManager.getInstance().resumeBackgroundMusic();
+        }
     }
 
     public void setInputHandler(InputHandler inputHandler) {
@@ -67,31 +79,74 @@ public class GameController implements Initializable {
         return paused;
     }
 
+    private void addHoverSound(Button button) {
+        if (button != null) {
+            button.hoverProperty().addListener((obs, oldVal, newVal) -> {
+                if (newVal) {
+                    SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_HOVER);
+                }
+            });
+        }
+    }
+
+    // --- THÊM MỚI: Phương thức chặn phím Space/Enter ---
+    private void preventKeyActivation(Button button) {
+        if (button != null) {
+            button.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+                if (event.getCode() == KeyCode.SPACE || event.getCode() == KeyCode.ENTER) {
+                    event.consume();
+                }
+            });
+        }
+    }
+    // --- KẾT THÚC THÊM MỚI ---
+
     @FXML
     public void initialize() {
         if (pauseScreen != null) {
             pauseScreen.setVisible(false);
         }
+
+        addHoverSound(resumeGameButton);
+        addHoverSound(backButton1);
+
+        addHoverSound(playAgainButton);
+        addHoverSound(backButton2);
+
+        addHoverSound(backButton3);
+
+        // --- THÊM MỚI: Gọi phương thức chặn phím ---
+        preventKeyActivation(resumeGameButton);
+        preventKeyActivation(backButton1);
+        preventKeyActivation(playAgainButton);
+        preventKeyActivation(backButton2);
+        preventKeyActivation(backButton3);
+        // --- KẾT THÚC THÊM MỚI ---
     }
 
     public void onResumeClick() {
         paused = false;
         pauseScreen.setVisible(false);
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_UNPAUSE);
+        SoundManager.getInstance().resumeBackgroundMusic();
     }
 
     public void onBackClick1() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         paused = false;
         pauseScreen.setVisible(false);
         Main.returnToMenu();
     }
 
     public void onBackClick2() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         paused = false;
         loseScreen.setVisible(false);
         Main.returnToMenu();
     }
 
     public void onPLayAgainClick() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         loseScreen.setVisible(false);
         Main.restartGame();
     }
@@ -124,10 +179,8 @@ public class GameController implements Initializable {
     }
 
     public void showLoseScreen() {
-        // 1. Khởi tạo MediaPlayer (chỉ lần đầu)
         initializeLoseScreenVideo();
-
-        // 2. Bật cờ và hiển thị
+        loseScreen.setVisible(true);
         paused = true;
         loseScreen.setVisible(true);
 
@@ -151,6 +204,7 @@ public class GameController implements Initializable {
     }
 
     public void onBackClick3() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         winScreen.setVisible(false);
         paused = false;
         Main.returnToMenu();
