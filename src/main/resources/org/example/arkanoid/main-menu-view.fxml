@@ -29,93 +29,100 @@
                 <Glow level="1.0" />
             </effect>
             <cursor>
-                <Cursor fx:constant="CROSSHAIR" />
+                <Cursor fx:constant="DEFAULT" />
             </cursor>
         </Label>
 
-        <ImageView fx:id="playImage" fitHeight="68.0" fitWidth="200.0" layoutX="545.0" layoutY="366.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="playImage" fitHeight="98.0" fitWidth="200.0" layoutX="540.0" layoutY="358.0" pickOnBounds="true">
             <image>
-                <Image url="@../../../Images/background/unnamed.png" />
+                <Image url="@../../../Images/background/button1.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="playHoverImage" fitHeight="68.0" fitWidth="190.0" layoutX="545.0" layoutY="366.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" visible="false">
+        <ImageView fx:id="playHoverImage" fitHeight="98.0" fitWidth="200.0" layoutX="540.0" layoutY="358.0" mouseTransparent="true" pickOnBounds="true" visible="false">
             <image>
-                <Image url="@../../../Images/background/unname2.png" />
+                <Image url="@../../../Images/background/button.png" />
             </image>
         </ImageView>
-        <Label alignment="CENTER" layoutX="541.0" layoutY="366.0" prefHeight="68.0" prefWidth="200.0" text="PLAY" textFill="WHITE">
+        <Label alignment="CENTER" layoutX="536.0" layoutY="367.0" prefHeight="78.0" prefWidth="210.0" text="PLAY" textFill="WHITE">
             <font>
                 <Font name="System Bold Italic" size="40.0" />
             </font>
         </Label>
-        <Button fx:id="playButton" layoutX="544.0" layoutY="366.0" mnemonicParsing="false" onAction="#onPlayGameButtonClick" opacity="0.0" prefHeight="67.0" prefWidth="190.0" stylesheets="@../../../../java/org/example/arkanoid/scene.css" text="Play Game" />
+        <Button fx:id="playButton" layoutX="550.0" layoutY="371.0" mnemonicParsing="false" onAction="#onPlayGameButtonClick" opacity="0.0" prefHeight="72.0" prefWidth="179.0" stylesheets="@../../../../java/org/example/arkanoid/scene.css" text="Play Game">
+            <cursor>
+                <Cursor fx:constant="CROSSHAIR" />
+            </cursor>
+            <effect>
+                <Glow level="1.0" />
+            </effect>
+        </Button>
 
-        <ImageView fx:id="helpImage" fitHeight="46.0" fitWidth="135.0" layoutX="394.0" layoutY="567.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="helpImage" fitHeight="80.0" fitWidth="145.0" layoutX="389.0" layoutY="552.0" pickOnBounds="true" preserveRatio="false">
             <image>
-                <Image url="@../../../Images/background/unnamed.png" />
+                <Image url="@../../../Images/background/button1.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="helpHoverImage" fitHeight="48.0" fitWidth="128.0" layoutX="394.0" layoutY="566.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" visible="false">
+        <ImageView fx:id="helpHoverImage" fitHeight="80.0" fitWidth="145.0" layoutX="389.0" layoutY="551.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="false" visible="false">
             <image>
-                <Image url="@../../../Images/background/unname2.png" />
+                <Image url="@../../../Images/background/button.png" />
             </image>
         </ImageView>
-        <Label alignment="CENTER" layoutX="391.0" layoutY="568.0" prefHeight="45.0" prefWidth="135.0" text="HELP" textFill="#fcfcfc">
+        <Label alignment="CENTER" layoutX="390.0" layoutY="563.0" prefHeight="55.0" prefWidth="145.0" text="HELP" textFill="#fcfcfc">
             <font>
                 <Font name="System Bold Italic" size="25.0" />
             </font>
         </Label>
-        <Button fx:id="helpButton" layoutX="394.0" layoutY="566.0" mnemonicParsing="false" onAction="#onHelpButtonClick" opacity="0.0" prefHeight="47.0" prefWidth="130.0" text="Help" />
+        <Button fx:id="helpButton" layoutX="389.0" layoutY="561.0" mnemonicParsing="false" onAction="#onHelpButtonClick" opacity="0.0" prefHeight="57.0" prefWidth="140.0" text="Help" />
 
-        <ImageView fx:id="settingImage" fitHeight="46.0" fitWidth="135.0" layoutX="572.0" layoutY="567.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="settingImage" fitHeight="80.0" fitWidth="145.0" layoutX="567.0" layoutY="552.0" pickOnBounds="true" preserveRatio="false">
             <image>
-                <Image url="@../../../Images/background/unnamed.png" />
+                <Image url="@../../../Images/background/button1.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="settingHoverImage" fitHeight="48.0" fitWidth="128.0" layoutX="572.0" layoutY="566.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" visible="false">
+        <ImageView fx:id="settingHoverImage" fitHeight="80.0" fitWidth="145.0" layoutX="567.0" layoutY="551.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="false" visible="false">
             <image>
-                <Image url="@../../../Images/background/unname2.png" />
+                <Image url="@../../../Images/background/button.png" />
             </image>
         </ImageView>
-        <Label alignment="CENTER" layoutX="570.0" layoutY="568.0" prefHeight="45.0" prefWidth="135.0" text="SETTING" textFill="#fcfcfc">
+        <Label alignment="CENTER" layoutX="567.0" layoutY="563.0" prefHeight="55.0" prefWidth="145.0" text="SETTING" textFill="#fcfcfc">
             <font>
                 <Font name="System Bold Italic" size="25.0" />
             </font>
         </Label>
-        <Button fx:id="settingButton" layoutX="574.0" layoutY="565.0" mnemonicParsing="false" onAction="#onSettingButtonClick" opacity="0.0" prefHeight="47.0" prefWidth="130.0" text="Setting" />
+        <Button fx:id="settingButton" layoutX="569.0" layoutY="560.0" mnemonicParsing="false" onAction="#onSettingButtonClick" opacity="0.0" prefHeight="57.0" prefWidth="140.0" text="Setting" />
 
-        <ImageView fx:id="shopImage" fitHeight="46.0" fitWidth="135.0" layoutX="754.0" layoutY="568.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="shopImage" fitHeight="80.0" fitWidth="145.0" layoutX="749.0" layoutY="553.0" pickOnBounds="true" preserveRatio="false">
             <image>
-                <Image url="@../../../Images/background/unnamed.png" />
+                <Image url="@../../../Images/background/button1.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="shopHoverImage" fitHeight="46.0" fitWidth="135.0" layoutX="754.0" layoutY="567.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" visible="false">
+        <ImageView fx:id="shopHoverImage" fitHeight="80.0" fitWidth="145.0" layoutX="749.0" layoutY="552.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="false" visible="false">
             <image>
-                <Image url="@../../../Images/background/unname2.png" />
+                <Image url="@../../../Images/background/button.png" />
             </image>
         </ImageView>
-        <Label alignment="CENTER" layoutX="752.0" layoutY="569.0" prefHeight="45.0" prefWidth="135.0" text="SHOP" textFill="#fcfcfc">
+        <Label alignment="CENTER" layoutX="750.0" layoutY="564.0" prefHeight="55.0" prefWidth="145.0" text="SHOP" textFill="#fcfcfc">
             <font>
                 <Font name="System Bold Italic" size="25.0" />
             </font>
         </Label>
-        <Button fx:id="shopButton" layoutX="754.0" layoutY="567.0" mnemonicParsing="false" onAction="#onShopButtonClick" opacity="0.0" prefHeight="47.0" prefWidth="130.0" text="SHOP" />
-        <ImageView fx:id="exitImage" fitHeight="46.0" fitWidth="128.0" layoutX="170.0" layoutY="642.0" pickOnBounds="true" preserveRatio="true">
+        <Button fx:id="shopButton" layoutX="749.0" layoutY="562.0" mnemonicParsing="false" onAction="#onShopButtonClick" opacity="0.0" prefHeight="57.0" prefWidth="140.0" text="SHOP" />
+
+        <ImageView fx:id="exitImage" fitHeight="80.0" fitWidth="138.0" layoutX="165.0" layoutY="627.0" pickOnBounds="true" preserveRatio="false">
             <image>
-                <Image url="@../../../Images/background/unnamed.png" />
+                <Image url="@../../../Images/background/button1.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="exitHoverImage" fitHeight="46.0" fitWidth="128.0" layoutX="170.0" layoutY="642.0" pickOnBounds="true" preserveRatio="true" visible="false">
+        <ImageView fx:id="exitHoverImage" fitHeight="80.0" fitWidth="138.0" layoutX="165.0" layoutY="627.0" pickOnBounds="true" preserveRatio="false" visible="false">
             <image>
-                <Image url="@../../../Images/background/unname2.png" />
+                <Image url="@../../../Images/background/button.png" />
             </image>
         </ImageView>
-        <Label alignment="CENTER" layoutX="170.0" layoutY="643.0" prefHeight="46.0" prefWidth="128.0" text="EXIT" textFill="WHITE">
+        <Label alignment="CENTER" layoutX="165.0" layoutY="638.0" prefHeight="56.0" prefWidth="138.0" text="EXIT" textFill="WHITE">
             <font>
                 <Font name="System Bold Italic" size="25.0" />
             </font>
         </Label>
-
-        <Button fx:id="exitButton" layoutX="170.0" layoutY="642.0" mnemonicParsing="false" onAction="#onExitGameButtonClick" opacity="0.0" prefHeight="46.0" prefWidth="128.0" />
+        <Button fx:id="exitButton" layoutX="165.0" layoutY="637.0" mnemonicParsing="false" onAction="#onExitGameButtonClick" opacity="0.0" prefHeight="56.0" prefWidth="138.0" />
     </children>
 </AnchorPane>

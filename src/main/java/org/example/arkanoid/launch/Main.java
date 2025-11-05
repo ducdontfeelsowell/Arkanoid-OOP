@@ -23,6 +23,8 @@ import org.example.arkanoid.object.Ball;
 import org.example.arkanoid.object.Brick.Brick;
 import org.example.arkanoid.object.Paddle;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.Objects;
 
 public class Main extends Application {
@@ -44,6 +46,7 @@ public class Main extends Application {
     private static BulletManager  bulletManager;
     private static MediaPlayer    mediaPlayer;
     private static SoundManager   soundManager;
+    private static MediaPlayer backgroundVideoPlayer;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -76,26 +79,39 @@ public class Main extends Application {
         try {
             currentMapPath = mapPath;
 
+            if (backgroundVideoPlayer != null) {
+                backgroundVideoPlayer.stop();
+            }
+
             if (mediaPlayer != null) {
                 mediaPlayer.stop();
             }
 
             String videoPath = Constants.PATH_TO_VIDEO;
 
-            Media media = new Media(Objects.requireNonNull(
-                    Main.class.getResource(videoPath)).toExternalForm());
+            URL videoUrl = Main.class.getResource(videoPath);
+            if (videoUrl == null) {
+                // Ném lỗi rõ ràng nếu không tìm thấy, không dựa vào Objects.requireNonNull
+                throw new IOException("Không tìm thấy file video. Vui lòng kiểm tra đường dẫn: " + videoPath);
+            }
+            Media media = new Media(videoUrl.toExternalForm());
 
             // 2. Tạo MediaPlayer
+            backgroundVideoPlayer = new MediaPlayer(media);
+            backgroundVideoPlayer.setAutoPlay(true);
+            backgroundVideoPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Lặp vô hạn
+            backgroundVideoPlayer.setMute(true); // Tắt tiếng video nền
+
             mediaPlayer = new MediaPlayer(media);
             mediaPlayer.setAutoPlay(true);
 
             // 3. Tạo MediaView
-            MediaView mediaView = new MediaView(mediaPlayer);
+            MediaView mediaView = new MediaView(backgroundVideoPlayer);
             mediaView.setFitWidth(Constants.SCREEN_WIDTH);
             mediaView.setFitHeight(Constants.SCREEN_HEIGHT);
             mediaView.setPreserveRatio(false); // Kéo dãn video cho vừa màn hình
 
-            mediaPlayer.play(); // Bắt đầu phát video
+            backgroundVideoPlayer.play(); // Bắt đầu phát video
             // Create canvas for rendering
             Canvas canvas = new Canvas(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
             GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -194,13 +210,13 @@ public class Main extends Application {
      */
     public static void returnToMenu() {
         if (timer != null) timer.stop();
+        if (backgroundVideoPlayer != null) {
+            backgroundVideoPlayer.stop();
+            backgroundVideoPlayer = null;
+        }
         // Phát nhạc ngẫu nhiên khi quay về menu
         if (soundManager != null) {
             soundManager.playRandomBackgroundMusic(); // Phát nhạc 1, 2
-        }
-        if (mediaPlayer != null) {
-            mediaPlayer.stop();
-            mediaPlayer = null;
         }
         if (primaryStage != null && menuScene != null) {
             primaryStage.setScene(menuScene);
