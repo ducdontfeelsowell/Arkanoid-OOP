@@ -4,7 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import org.example.arkanoid.config.Constants;
 import org.example.arkanoid.object.Ball;
 import org.example.arkanoid.object.Paddle;
-import org.example.arkanoid.sound.SoundManager;
+import org.example.arkanoid.game.SoundManager;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -25,7 +25,7 @@ public class BallManager {
             ball.move();
 
             if (ball.isOffScreen()) {
-                SoundManager.playBallDrop();
+                SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_BALL_OUT);
                 ball.clearTrail();
                 iterator.remove();
             }
@@ -65,6 +65,12 @@ public class BallManager {
     public void render(GraphicsContext gc) {
         for (Ball ball : balls) {
             ball.render(gc);
+        }
+    }
+
+    public void render(GraphicsContext gc, boolean isInvicible) {
+        for (Ball ball : balls) {
+            ball.render(gc, isInvicible);
         }
     }
 }
