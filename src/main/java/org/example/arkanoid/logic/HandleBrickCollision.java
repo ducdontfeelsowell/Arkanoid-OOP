@@ -2,13 +2,18 @@ package org.example.arkanoid.logic;
 
 import org.example.arkanoid.config.Constants;
 import org.example.arkanoid.game.GameManager;
-import org.example.arkanoid.sound.SoundManager; // <-- THÊM IMPORT NÀY
 import org.example.arkanoid.game.ItemManager;
+import org.example.arkanoid.game.SoundManager; // THÊM MỚI
 import org.example.arkanoid.object.Ball;
 import org.example.arkanoid.object.Brick.Brick;
 
 public class HandleBrickCollision {
     public static void handle(Ball ball, Brick[][] bricks, Brick brick, GameManager gm, ItemManager im, int row, int col) {
+
+        // --- THÊM MỚI: Phát âm thanh va chạm gạch (dùng chung âm thanh paddle) ---
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_PADDLE_HIT);
+        // --- KẾT THÚC THÊM MỚI ---
+
         System.out.println("Ball collided with brick of type: " + brick.getType());
         double overlapLeft = ball.getX() + ball.getWidth() - brick.getX();
         double overlapRight = brick.getX() + brick.getWidth() - ball.getX();

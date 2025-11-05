@@ -4,6 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import org.example.arkanoid.config.Constants;
+import org.example.arkanoid.game.SoundManager; // THÊM MỚI
 
 import java.util.Objects;
 
@@ -24,6 +25,14 @@ public class Paddle extends MoveAbleObject {
     private boolean isShooter = false;
     private double shooterEndTime = 0;
 
+    // --- Logic nhấp nháy và bất tử ---
+    private boolean isInvincible = false;
+    private long invincibilityEndTime = 0;
+    private boolean showWhileFlashing = true;
+    private long lastFlashToggleTime = 0;
+    private final long FLASH_INTERVAL = 100_000_000L; // 100ms
+    // --- Kết thúc ---
+
     public Paddle() {
         super(
                 Constants.DEFAULT_PADDLE_POSITION_X,
@@ -33,7 +42,7 @@ public class Paddle extends MoveAbleObject {
                 Constants.DEFAULT_PADDLE_DX,
                 Constants.DEFAULT_PADDLE_DY);
 
-        this.speed = Constants.DEFAULT_PADDLE_SPEED;
+        this.speed = Constants.CURRENT_PADDLE_SPEED;
 
         try {
             image0 = new Image(Objects.requireNonNull(getClass().getResourceAsStream(Constants.PATH_TO_PADDLE_0)));
@@ -79,13 +88,33 @@ public class Paddle extends MoveAbleObject {
     public void update() {
         move();
 
+        // --- SỬA ĐỔI: Thêm âm thanh khi hết hiệu ứng súng ---
         if (isShooter && System.nanoTime() > shooterEndTime) {
             isShooter = false;
+            SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_GUN_LOAD);
+        }
+        // --- KẾT THÚC SỬA ĐỔI ---
+
+        // Cập nhật trạng thái bất tử
+        if (isInvincible && System.nanoTime() > invincibilityEndTime) {
+            isInvincible = false;
         }
     }
 
     @Override
     public void render(GraphicsContext gc) {
+        // Xử lý nhấp nháy
+        if (isInvincible) {
+            long now = System.nanoTime();
+            if (now - lastFlashToggleTime > FLASH_INTERVAL) {
+                showWhileFlashing = !showWhileFlashing;
+                lastFlashToggleTime = now;
+            }
+            if (!showWhileFlashing) {
+                return;
+            }
+        }
+
         long currentTime = System.nanoTime();
         if (currentTime - lastToggleTime > TOGGLE_INTERVAL) {
             currentImageIndex = (currentImageIndex + 1) % 3;
@@ -120,8 +149,24 @@ public class Paddle extends MoveAbleObject {
         this.shooterEndTime = System.nanoTime() + Constants.DEFAULT_SHOOTER_DURATION;
     }
 
+    // --- CÁC PHƯƠNG THỨC MỚI CHO LOGIC BẤT TỬ ---
+    public void activateInvincibility(long durationNano) {
+        this.isInvincible = true;
+        this.invincibilityEndTime = System.nanoTime() + durationNano;
+    }
+
+    public void stopInvincibility() {
+        this.isInvincible = false;
+    }
+
+    public boolean isInvincible() {
+        return isInvincible;
+    }
+    // --- KẾT THÚC PHƯƠNG THỨC MỚI ---
+
     public void resetState() {
         this.isShooter = false;
+        this.isInvincible = false; // Cập nhật resetState
         this.width = Constants.DEFAULT_PADDLE_WIDTH;
         this.x = Constants.DEFAULT_PADDLE_POSITION_X;
     }

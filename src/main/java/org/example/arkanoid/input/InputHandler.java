@@ -47,6 +47,11 @@ public class InputHandler {
             if (!spaceWasPressed) {
                 if (!isStarted) {
                     isStarted = true;
+
+                    // --- THÊM MỚI: Hủy nhấp nháy khi bắn bóng ---
+                    paddle.stopInvincibility();
+                    // --- KẾT THÚC THÊM MỚI ---
+
                 } else if (paddle.isShooter()) {
                     bm.shoot(paddle.getX(), paddle.getY(), paddle.getWidth());
                 }
