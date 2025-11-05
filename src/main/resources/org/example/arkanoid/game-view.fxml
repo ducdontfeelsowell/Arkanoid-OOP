@@ -130,7 +130,28 @@
     <AnchorPane fx:id="winScreen" prefHeight="800.0" prefWidth="1260.0" visible="false">
         <children>
             <MediaView fx:id="win_backgroundMediaView" fitHeight="800.0" fitWidth="1260.0" preserveRatio="false" />
-            <Button fx:id="backButton3" layoutX="200.0" layoutY="500.0" mnemonicParsing="false" onAction="#onBackClick3" prefHeight="70.0" prefWidth="152.0" text="BACK" />
+         <Label alignment="CENTER" layoutX="397.0" layoutY="288.0" prefHeight="166.0" prefWidth="465.0" text="YOU WIN">
+            <font>
+               <Font name="System Bold" size="84.0" />
+            </font>
+            <textFill>
+               <LinearGradient endX="1.0" endY="1.0" startX="0.9166667249166605" startY="0.21969694079774799">
+                  <stops>
+                     <Stop>
+                        <color>
+                           <Color red="0.3867446482181549" green="0.6526315808296204" blue="0.3335672616958618" />
+                        </color>
+                     </Stop>
+                     <Stop offset="1.0">
+                        <color>
+                           <Color red="1.0" green="1.0" blue="1.0" />
+                        </color>
+                     </Stop>
+                  </stops>
+               </LinearGradient>
+            </textFill>
+         </Label>
+            <Button fx:id="backButton3" layoutX="600.0" layoutY="500.0" mnemonicParsing="false" onAction="#onBackClick3" prefHeight="70.0" prefWidth="152.0" text="BACK" />
         </children>
     </AnchorPane>
 </AnchorPane>
