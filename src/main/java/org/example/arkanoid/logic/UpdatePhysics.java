@@ -1,9 +1,9 @@
 package org.example.arkanoid.logic;
 
-import org.example.arkanoid.object.Ball;
+import org.example.arkanoid.game.BallManager;
 
 public class UpdatePhysics {
-    public static void update(Ball ball) {
-        ball.move();
+    public static void update(BallManager ballManager) {
+        ballManager.update();
     }
 }

@@ -1,18 +1,20 @@
 package org.example.arkanoid.logic;
 
 import org.example.arkanoid.config.Constants;
+import org.example.arkanoid.game.BallManager;
 import org.example.arkanoid.object.Ball;
 import org.example.arkanoid.object.Paddle;
 
 public class ResetBallAndPaddle {
-    public static void reset(Ball ball, Paddle paddle) {
+    public static void reset(BallManager ballManager, Paddle paddle) {
         Constants.isStarted = false;
         // Reset ball
-        ball.setX(paddle.getX() + paddle.getWidth() / 2 - ball.getWidth() / 2);
-        ball.setY(paddle.getY() - ball.getHeight() - 1);
-        ball.setOffset(Constants.DEFAULT_BALL_OFFSET);
-        CheckBallPaddleCollision.sideHit = false;
+//        ball.setX(paddle.getX() + paddle.getWidth() / 2 - ball.getWidth() / 2);
+//        ball.setY(paddle.getY() - ball.getHeight() - 1);
+//        ball.setOffset(Constants.DEFAULT_BALL_OFFSET);
+//        CheckBallPaddleCollision.sideHit = false;// locate sideHit to ball
+        ballManager.addBall(paddle);
 
-        ball.clearTrail();
+        //ball.clearTrail();
     }
 }
