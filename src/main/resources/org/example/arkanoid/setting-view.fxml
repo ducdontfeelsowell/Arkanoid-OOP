@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.arkanoid.controller.SettingController">
@@ -23,66 +29,70 @@
             <Glow level="1.0" />
         </effect>
     </Label>
-
-    <ImageView fx:id="volumeImage" fitHeight="72.0" fitWidth="116.0" layoutX="167.0" layoutY="290.0" pickOnBounds="true" preserveRatio="true">
+    <ImageView fx:id="backImage" fitHeight="72.0" fitWidth="116.0" layoutX="577.0" layoutY="702.0" pickOnBounds="true" preserveRatio="true">
         <image>
             <Image url="@../../../Images/background/unnamed.png" />
         </image>
     </ImageView>
-    <ImageView fx:id="volumeHoverImage" fitHeight="42.0" fitWidth="116.0" layoutX="167.0" layoutY="290.0" pickOnBounds="true" preserveRatio="true" visible="false">
+    <ImageView fx:id="backHoverImage" fitHeight="42.0" fitWidth="116.0" layoutX="577.0" layoutY="702.0" pickOnBounds="true" preserveRatio="true" visible="false">
         <image>
             <Image url="@../../../Images/background/unname2.png" />
         </image>
     </ImageView>
-    <Label alignment="CENTER" layoutX="165.0" layoutY="289.0" prefHeight="42.0" prefWidth="116.0" text="VOLUME" textFill="WHITE">
-        <font>
-            <Font name="System Bold Italic" size="24.0" />
-        </font>
-    </Label>
-    <Button fx:id="volumeButton" layoutX="167.0" layoutY="289.0" mnemonicParsing="false" onAction="#onVolumeButtonClick" opacity="0.0" prefHeight="42.0" prefWidth="116.0" text="Volume" />
-    <ImageView fx:id="fontImage" fitHeight="72.0" fitWidth="116.0" layoutX="166.0" layoutY="423.0" pickOnBounds="true" preserveRatio="true">
-        <image>
-            <Image url="@../../../Images/background/unnamed.png" />
-        </image>
-    </ImageView>
-    <ImageView fx:id="fontHoverImage" fitHeight="42.0" fitWidth="116.0" layoutX="167.0" layoutY="423.0" pickOnBounds="true" preserveRatio="true" visible="false">
-        <image>
-            <Image url="@../../../Images/background/unname2.png" />
-        </image>
-    </ImageView>
-    <Label alignment="CENTER" layoutX="167.0" layoutY="422.0" prefHeight="42.0" prefWidth="116.0" text="FONT" textFill="WHITE">
+    <Label alignment="CENTER" layoutX="577.0" layoutY="702.0" prefHeight="42.0" prefWidth="116.0" text="BACK" textFill="WHITE">
         <font>
             <Font name="System Bold Italic" size="25.0" />
         </font>
     </Label>
-    <Button fx:id="fontButton" layoutX="167.0" layoutY="422.0" mnemonicParsing="false" onAction="#onFontButtonClick" opacity="0.0" prefHeight="42.0" prefWidth="116.0" text="Font" />
-    <ImageView fx:id="backImage" fitHeight="72.0" fitWidth="116.0" layoutX="167.0" layoutY="637.0" pickOnBounds="true" preserveRatio="true">
-        <image>
-            <Image url="@../../../Images/background/unnamed.png" />
-        </image>
-    </ImageView>
-    <ImageView fx:id="backHoverImage" fitHeight="42.0" fitWidth="116.0" layoutX="167.0" layoutY="637.0" pickOnBounds="true" preserveRatio="true" visible="false">
-        <image>
-            <Image url="@../../../Images/background/unname2.png" />
-        </image>
-    </ImageView>
-    <Label alignment="CENTER" layoutX="167.0" layoutY="637.0" prefHeight="42.0" prefWidth="116.0" text="BACK" textFill="WHITE">
-        <font>
-            <Font name="System Bold Italic" size="25.0" />
-        </font>
-    </Label>
-    <Button fx:id="backButton" layoutX="167.0" layoutY="637.0" mnemonicParsing="false" onAction="#onBackButton" opacity="0.0" prefHeight="42.0" prefWidth="116.0" text="Back">
+    <Button fx:id="backButton" layoutX="577.0" layoutY="702.0" mnemonicParsing="false" onAction="#onBackButton" opacity="0.0" prefHeight="42.0" prefWidth="116.0" text="Back">
       <opaqueInsets>
          <Insets />
       </opaqueInsets></Button>
-   <Label fx:id="volumeText" layoutX="375.0" layoutY="302.0" text="ok bạn" textFill="WHITE">
+   <CheckBox fx:id="muteCheckbox" layoutX="432.0" layoutY="289.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="301.0" text="Âm Lượng" textFill="#fffdfd">
       <font>
-         <Font size="35.0" />
+         <Font size="42.0" />
+      </font>
+   </CheckBox>
+   <ImageView fx:id="volumeIconViewHigh" fitHeight="74.0" fitWidth="81.0" layoutX="422.0" layoutY="362.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@../../../../../../../Users/Lenovo/Downloads/maxVolume.png" />
+      </image>
+   </ImageView>
+   <ImageView fx:id="volumeIconViewMuted" fitHeight="74.0" fitWidth="81.0" layoutX="422.0" layoutY="362.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@../../../../../../../Users/Lenovo/Downloads/muted.png" />
+      </image>
+   </ImageView>
+   <Slider fx:id="volumeSlider" layoutX="521.0" layoutY="392.0" max="1.0" value="0.5" />
+   <Label layoutX="409.0" layoutY="423.0" prefHeight="68.0" prefWidth="204.0" text="Độ khó" textFill="WHITE">
+      <font>
+         <Font size="58.0" />
       </font>
    </Label>
-   <Label fx:id="fontText" layoutX="383.0" layoutY="435.0" text="ok bạn luôn" textFill="WHITE">
-      <font>
-         <Font size="34.0" />
-      </font>
-   </Label>
+   <Group layoutX="391.0" layoutY="522.0">
+      <children>
+         <HBox spacing="100.0">
+            <children>
+               <RadioButton fx:id="easyRadio" mnemonicParsing="false" onAction="#onEasyClick" text="Dễ" textFill="#fcfcfc">
+                  <font>
+                     <Font size="23.0" />
+                  </font>
+                  <toggleGroup>
+                     <ToggleGroup fx:id="difficultyToggleGroup" />
+                  </toggleGroup>
+               </RadioButton>
+               <RadioButton fx:id="normalRadio" mnemonicParsing="false" onAction="#onNormalClick" selected="true" text="Bình thường" textFill="#fcfcfc" toggleGroup="$difficultyToggleGroup">
+                  <font>
+                     <Font size="23.0" />
+                  </font>
+               </RadioButton>
+               <RadioButton fx:id="hardRadio" mnemonicParsing="false" onAction="#onHardClick" text="Khó" textFill="#fcfcfc" toggleGroup="$difficultyToggleGroup">
+                  <font>
+                     <Font size="23.0" />
+                  </font>
+               </RadioButton>
+            </children>
+         </HBox>
+      </children>
+   </Group>
 </AnchorPane>

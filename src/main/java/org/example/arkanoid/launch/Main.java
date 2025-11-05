@@ -1,6 +1,5 @@
 package org.example.arkanoid.launch;
 
-import com.sun.tools.jconsole.JConsoleContext;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -17,13 +16,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.example.arkanoid.config.Constants;
 import org.example.arkanoid.controller.GameController;
-import org.example.arkanoid.game.BulletManager;
-import org.example.arkanoid.game.GameManager;
-import org.example.arkanoid.game.GameRenderer;
-import org.example.arkanoid.game.ItemManager;
+import org.example.arkanoid.game.*;
 import org.example.arkanoid.input.InputHandler;
 import org.example.arkanoid.input.MapLoader;
-import org.example.arkanoid.sound.SoundManager; // <-- THÊM IMPORT NÀY
 import org.example.arkanoid.object.Ball;
 import org.example.arkanoid.object.Brick.Brick;
 import org.example.arkanoid.object.Paddle;
@@ -34,26 +29,27 @@ import java.util.Objects;
 
 public class Main extends Application {
 
-    private static Stage primaryStage;
-    private static Scene menuScene;
+    private static Stage         primaryStage;
+    private static Scene         menuScene;
     private static AnimationTimer timer;
-    private static String currentMapPath;
+    private static String        currentMapPath;
 
+    private static Paddle        paddle;
+    private static Ball          ball;
+    private static Brick[][]     bricks;
+
+    private static InputHandler   inputHandler;
     private static GameController gameController;
-    private static InputHandler inputHandler;
-    private static Paddle paddle;
-    private static Ball ball;
-    private static Brick[][] bricks;
-    private static GameRenderer renderer;
-    private static GameManager gameManager;
-    private static ItemManager itemManager;
-    private static BulletManager bulletManager;
-
+    private static GameRenderer   gameRenderer;
+    private static GameManager    gameManager;
+    private static ItemManager    itemManager;
+    private static BulletManager  bulletManager;
+    private static MediaPlayer    mediaPlayer;
+    private static SoundManager   soundManager;
     private static MediaPlayer backgroundVideoPlayer;
 
     @Override
     public void start(Stage stage) throws Exception {
-        // ... (Code gốc không đổi)
         primaryStage = stage;
 
         // Load menu scene
@@ -70,6 +66,10 @@ public class Main extends Application {
         stage.setX(Constants.DEFAULT_SCREEN_X);
         stage.setY(Constants.DEFAULT_SCREEN_Y);
         stage.show();
+
+        // Khởi tạo và phát nhạc ngẫu nhiên cho menu
+        soundManager = SoundManager.getInstance();
+        soundManager.playRandomBackgroundMusic(); // Phát nhạc 1, 2
     }
 
     /**
@@ -77,14 +77,14 @@ public class Main extends Application {
      */
     public static void startGame(String mapPath) {
         try {
-            // TẢI ÂM THANH KHI BẮT ĐẦU GAME
-            SoundManager.loadSounds();
-            SoundManager.playMusic();
-
             currentMapPath = mapPath;
 
             if (backgroundVideoPlayer != null) {
                 backgroundVideoPlayer.stop();
+            }
+
+            if (mediaPlayer != null) {
+                mediaPlayer.stop();
             }
 
             String videoPath = Constants.PATH_TO_VIDEO;
@@ -101,6 +101,9 @@ public class Main extends Application {
             backgroundVideoPlayer.setAutoPlay(true);
             backgroundVideoPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Lặp vô hạn
             backgroundVideoPlayer.setMute(true); // Tắt tiếng video nền
+
+            mediaPlayer = new MediaPlayer(media);
+            mediaPlayer.setAutoPlay(true);
 
             // 3. Tạo MediaView
             MediaView mediaView = new MediaView(backgroundVideoPlayer);
@@ -143,16 +146,19 @@ public class Main extends Application {
 
             bricks = MapLoader.loadMap(mapPath);
 
-            renderer = new GameRenderer(gc);
+            gameRenderer = new GameRenderer(gc);
 
             itemManager = new ItemManager();
 
             bulletManager = new BulletManager();
 
             gameManager = new GameManager(gameController, inputHandler,
-                    paddle, ball, bricks, renderer, itemManager, bulletManager);
+                    paddle, ball, bricks, gameRenderer, itemManager, bulletManager);
 
             gameManager.Init();
+
+            // Phát nhạc cố định cho game
+            soundManager.playBackgroundMusic(Constants.PATH_TO_SOUND_BACKGROUND_3);
 
             // Set scene
             primaryStage.setX(Constants.DEFAULT_SCREEN_X);
@@ -207,7 +213,10 @@ public class Main extends Application {
             backgroundVideoPlayer.stop();
             backgroundVideoPlayer = null;
         }
-        SoundManager.stopMusic();
+        // Phát nhạc ngẫu nhiên khi quay về menu
+        if (soundManager != null) {
+            soundManager.playRandomBackgroundMusic(); // Phát nhạc 1, 2
+        }
         if (primaryStage != null && menuScene != null) {
             primaryStage.setScene(menuScene);
         }
@@ -229,7 +238,7 @@ public class Main extends Application {
     public Paddle getPaddle() { return paddle; }
     public Ball getBall() { return ball; }
     public Brick[][] getBricks() { return bricks; }
-    public GameRenderer getRenderer() { return renderer; }
+    public GameRenderer getRenderer() { return gameRenderer; }
     public GameManager getGameManager() { return gameManager; }
     public InputHandler getInputHandler() { return inputHandler; }
 }

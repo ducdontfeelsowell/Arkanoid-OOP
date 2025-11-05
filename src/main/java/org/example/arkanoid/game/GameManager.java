@@ -11,6 +11,7 @@ import org.example.arkanoid.input.InputHandler;
 import org.example.arkanoid.object.Ball;
 import org.example.arkanoid.object.Brick.Brick;
 import org.example.arkanoid.object.Paddle;
+import org.example.arkanoid.game.SoundManager; // Import này đã có
 
 import java.io.File;
 import java.io.IOException;
@@ -45,7 +46,7 @@ public class GameManager {
         this.bm = bm;
 
         this.score = 0;
-        this.lives = Constants.INITIAL_LIVES;
+        this.lives = Constants.CURRENT_LIVES;
         this.gameOver = false;
         this.won = false;
     }
@@ -53,12 +54,12 @@ public class GameManager {
     public void updateGame() {
         if (!GameController.isPaused() && !gameOver && !won) {
             inputHandler.handleInput(paddle, bm);
-            paddle.update(); // DÒNG NÀY ĐÃ ĐƯỢC THÊM VÀO
+            paddle.update();
 
             // đợi bắt đầu bóng
             if(Constants.isStarted) {
                 UpdatePhysics.update(ball);
-                CheckCollisions.check(ball, paddle, bricks, this, im);
+                CheckCollisions.check(ball, paddle, bricks, this, im, bm);
                 CheckWinCondition.check(bricks, this);
                 im.update();
                 im.checkCollisions(paddle, ball, this);
@@ -71,7 +72,9 @@ public class GameManager {
         }
 
         // kiểm tra pause/unpause
-        gameController.update();
+        if (!gameOver && !won) {
+            gameController.update();
+        }
 
         // Render
         if (gameOver) {
@@ -156,7 +159,16 @@ public class GameManager {
     }
 
     public void setGameOver(boolean gameOver) {
-        this.gameOver = gameOver;
+        // Chỉ gọi một lần khi thua
+        if (gameOver && !this.gameOver) {
+            this.gameOver = true;
+            SoundManager.getInstance().playMusicSequence(
+                    Constants.PATH_TO_SOUND_LOSE,
+                    Constants.PATH_TO_SOUND_AFTERLOSE
+            );
+        } else {
+            this.gameOver = gameOver;
+        }
     }
 
     public boolean isWon() {
@@ -164,6 +176,15 @@ public class GameManager {
     }
 
     public void setWon(boolean won) {
-        this.won = won;
+        // Chỉ gọi một lần khi thắng
+        if (won && !this.won) {
+            this.won = true;
+            SoundManager.getInstance().playMusicSequence(
+                    Constants.PATH_TO_SOUND_WIN,
+                    Constants.PATH_TO_SOUND_AFTERWIN
+            );
+        } else {
+            this.won = won;
+        }
     }
 }
