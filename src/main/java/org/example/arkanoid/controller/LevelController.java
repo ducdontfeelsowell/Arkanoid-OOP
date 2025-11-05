@@ -124,62 +124,62 @@ public class LevelController implements Initializable{
 
     public void onClickMap1() {
         SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
-        Main.startGame(Constants.MAP1_PATH);
+        Main.startGame(1);
     }
 
     public void onClickMap2() {
         SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
-        Main.startGame(Constants.MAP2_PATH);
+        Main.startGame(2);
     }
 
     public void onClickMap3() {
         SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
-        Main.startGame(Constants.MAP3_PATH);
+        Main.startGame(3);
     }
 
     public void onClickMap4() {
         SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
-        Main.startGame(Constants.MAP4_PATH);
+        Main.startGame(4);
     }
 
     public void onClickMap5() {
         SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
-        Main.startGame(Constants.MAP5_PATH);
+        Main.startGame(5);
     }
 
     public void onClickMap6() {
         SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
-        Main.startGame(Constants.MAP6_PATH);
+        Main.startGame(6);
     }
 
     public void onClickMap7() {
         SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
-        Main.startGame(Constants.MAP7_PATH);
+        Main.startGame(7);
     }
 
     public void onClickMap8() {
         SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
-        Main.startGame(Constants.MAP8_PATH);
+        Main.startGame(8);
     }
 
     public void onClickMap9() {
         SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
-        Main.startGame(Constants.MAP9_PATH);
+        Main.startGame(9);
     }
 
     public void onClickMap10() {
         SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
-        Main.startGame(Constants.MAP10_PATH);
+        Main.startGame(10);
     }
 
     public void onClickMap11() {
         SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
-        Main.startGame(Constants.MAP11_PATH);
+        Main.startGame(11);
     }
 
     public void onClickMap12() {
         SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
-        Main.startGame(Constants.MAP12_PATH);
+        Main.startGame(12);
     }
 
 
