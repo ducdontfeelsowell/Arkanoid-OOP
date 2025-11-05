@@ -13,6 +13,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.arkanoid.controller.GameController">
+
     <AnchorPane fx:id="pauseScreen" prefHeight="800.0" prefWidth="1260.0" visible="false">
         <children>
             <ImageView fitHeight="296.0" fitWidth="478.0" layoutX="391.0" layoutY="242.0" pickOnBounds="true">
@@ -64,20 +65,10 @@
             <Button fx:id="backButton1" layoutX="566.0" layoutY="450.0" mnemonicParsing="false" onAction="#onBackClick1" opacity="0.0" prefHeight="50.0" prefWidth="128.0" text="BACK" />
         </children>
     </AnchorPane>
+
     <AnchorPane fx:id="loseScreen" prefHeight="141.0" prefWidth="185.0" visible="false">
         <children>
             <MediaView fx:id="lose_backgroundMediaView" fitHeight="800.0" fitWidth="1260.0" preserveRatio="false" />
-
-            <ImageView fx:id="playAgainImage" fitHeight="96.0" fitWidth="166.0" layoutX="548.8" layoutY="370.0" pickOnBounds="true">
-                <image>
-                    <Image url="@../../../Images/background/button1.png" />
-                </image>
-            </ImageView>
-            <ImageView fx:id="playAgainHoverImage" fitHeight="96.0" fitWidth="166.0" layoutX="548.8" layoutY="370.0" mouseTransparent="true" pickOnBounds="true" visible="false">
-                <image>
-                    <Image url="@../../../Images/background/button.png" />
-                </image>
-            </ImageView>
 
             <Label alignment="CENTER" layoutX="349.0" layoutY="160.0" prefHeight="166.0" prefWidth="562.0" text="GAME OVER">
                 <textFill>
@@ -101,6 +92,16 @@
                 </font>
             </Label>
 
+            <ImageView fx:id="playAgainImage" fitHeight="96.0" fitWidth="166.0" layoutX="548.8" layoutY="370.0" pickOnBounds="true">
+                <image>
+                    <Image url="@../../../Images/background/button1.png" />
+                </image>
+            </ImageView>
+            <ImageView fx:id="playAgainHoverImage" fitHeight="96.0" fitWidth="166.0" layoutX="548.8" layoutY="370.0" mouseTransparent="true" pickOnBounds="true" visible="false">
+                <image>
+                    <Image url="@../../../Images/background/button.png" />
+                </image>
+            </ImageView>
             <Label alignment="CENTER" layoutX="548.8" layoutY="370.0" prefHeight="96.0" prefWidth="166.0" text="PLAY AGAIN" textFill="WHITE">
                 <font>
                     <Font name="System Bold Italic" size="18.0" />
@@ -118,7 +119,6 @@
                     <Image url="@../../../Images/background/button.png" />
                 </image>
             </ImageView>
-
             <Label alignment="CENTER" layoutX="548.8" layoutY="500.0" prefHeight="96.0" prefWidth="166.0" text="BACK" textFill="WHITE">
                 <font>
                     <Font name="System Bold Italic" size="18.0" />
@@ -127,31 +127,65 @@
             <Button fx:id="backButton2" layoutX="548.8" layoutY="500.0" mnemonicParsing="false" onAction="#onBackClick2" opacity="0.0" prefHeight="96.0" prefWidth="166.0" text="BACK" />
         </children>
     </AnchorPane>
+
     <AnchorPane fx:id="winScreen" prefHeight="800.0" prefWidth="1260.0" visible="false">
         <children>
             <MediaView fx:id="win_backgroundMediaView" fitHeight="800.0" fitWidth="1260.0" preserveRatio="false" />
-         <Label alignment="CENTER" layoutX="397.0" layoutY="288.0" prefHeight="166.0" prefWidth="465.0" text="YOU WIN">
-            <font>
-               <Font name="System Bold" size="84.0" />
-            </font>
-            <textFill>
-               <LinearGradient endX="1.0" endY="1.0" startX="0.9166667249166605" startY="0.21969694079774799">
-                  <stops>
-                     <Stop>
-                        <color>
-                           <Color red="0.3867446482181549" green="0.6526315808296204" blue="0.3335672616958618" />
-                        </color>
-                     </Stop>
-                     <Stop offset="1.0">
-                        <color>
-                           <Color red="1.0" green="1.0" blue="1.0" />
-                        </color>
-                     </Stop>
-                  </stops>
-               </LinearGradient>
-            </textFill>
-         </Label>
-            <Button fx:id="backButton3" layoutX="600.0" layoutY="500.0" mnemonicParsing="false" onAction="#onBackClick3" prefHeight="70.0" prefWidth="152.0" text="BACK" />
+            <Label alignment="CENTER" layoutX="397.0" layoutY="288.0" prefHeight="166.0" prefWidth="465.0" text="YOU WIN">
+                <font>
+                    <Font name="System Bold" size="84.0" />
+                </font>
+                <textFill>
+                    <LinearGradient endX="1.0" endY="1.0" startX="0.9166667249166605" startY="0.21969694079774799">
+                        <stops>
+                            <Stop>
+                                <color>
+                                    <Color red="0.3867446482181549" green="0.6526315808296204" blue="0.3335672616958618" />
+                                </color>
+                            </Stop>
+                            <Stop offset="1.0">
+                                <color>
+                                    <Color red="1.0" green="1.0" blue="1.0" />
+                                </color>
+                            </Stop>
+                        </stops>
+                    </LinearGradient>
+                </textFill>
+            </Label>
+
+            <ImageView fx:id="nextLevelImage" fitHeight="96.0" fitWidth="166.0" layoutX="650.0" layoutY="580.0" pickOnBounds="true">
+                <image>
+                    <Image url="@../../../Images/background/button1.png" />
+                </image>
+            </ImageView>
+            <ImageView fx:id="nextLevelHoverImage" fitHeight="96.0" fitWidth="166.0" layoutX="650.0" layoutY="580.0" mouseTransparent="true" pickOnBounds="true" visible="false">
+                <image>
+                    <Image url="@../../../Images/background/button.png" />
+                </image>
+            </ImageView>
+            <Label alignment="CENTER" layoutX="650.0" layoutY="580.0" prefHeight="96.0" prefWidth="166.0" text="NEXT LEVEL" textFill="WHITE">
+                <font>
+                    <Font name="System Bold Italic" size="18.0" />
+                </font>
+            </Label>
+            <Button fx:id="nextLevelButton" layoutX="650.0" layoutY="580.0" mnemonicParsing="false" onAction="#onNextLevelClick" opacity="0.0" prefHeight="96.0" prefWidth="166.0" text="next level" />
+
+            <ImageView fx:id="backImage3" fitHeight="96.0" fitWidth="166.0" layoutX="450.0" layoutY="580.0" pickOnBounds="true">
+                <image>
+                    <Image url="@../../../Images/background/button1.png" />
+                </image>
+            </ImageView>
+            <ImageView fx:id="backHoverImage3" fitHeight="96.0" fitWidth="166.0" layoutX="450.0" layoutY="580.0" mouseTransparent="true" pickOnBounds="true" visible="false">
+                <image>
+                    <Image url="@../../../Images/background/button.png" />
+                </image>
+            </ImageView>
+            <Label alignment="CENTER" layoutX="450.0" layoutY="580.0" prefHeight="96.0" prefWidth="166.0" text="BACK" textFill="WHITE">
+                <font>
+                    <Font name="System Bold Italic" size="18.0" />
+                </font>
+            </Label>
+            <Button fx:id="backButton3" layoutX="450.0" layoutY="580.0" mnemonicParsing="false" onAction="#onBackClick3" opacity="0.0" prefHeight="96.0" prefWidth="166.0" text="BACK" />
         </children>
     </AnchorPane>
 </AnchorPane>
