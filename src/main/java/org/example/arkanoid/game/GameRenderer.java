@@ -43,9 +43,8 @@ public class GameRenderer {
         RenderPaddle.render(paddle, gc);
 
         // --- SỬA ĐỔI: Truyền trạng thái của paddle cho bóng ---
-        //RenderBall.render(ball, gc, paddle.isInvincible());
+        RenderBall.render(ball, gc, paddle.isInvincible());
         // --- KẾT THÚC SỬA ĐỔI ---
-        ball.render(gc);
 
         RenderUI.render(score, lives, gc);
         im.render(gc);
