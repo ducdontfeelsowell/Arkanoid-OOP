@@ -8,11 +8,14 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import org.example.arkanoid.config.Constants;
+import org.example.arkanoid.game.SoundManager;
 import org.example.arkanoid.launch.Main;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.scene.input.KeyCode; // THÊM MỚI
+import javafx.scene.input.KeyEvent; // THÊM MỚI
 
 public class LevelController implements Initializable{
     public Button map1Button;
@@ -109,60 +112,95 @@ public class LevelController implements Initializable{
     public Button backButton;
 
     public void onClickMap1() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         Main.startGame(Constants.MAP1_PATH);
     }
 
     public void onClickMap2() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         Main.startGame(Constants.MAP2_PATH);
     }
 
     public void onClickMap3() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         Main.startGame(Constants.MAP3_PATH);
     }
 
     public void onClickMap4() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         Main.startGame(Constants.MAP4_PATH);
     }
 
     public void onClickMap5() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         Main.startGame(Constants.MAP5_PATH);
     }
 
     public void onClickMap6() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         Main.startGame(Constants.MAP6_PATH);
     }
 
     public void onClickMap7() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         Main.startGame(Constants.MAP7_PATH);
     }
 
     public void onClickMap8() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         Main.startGame(Constants.MAP8_PATH);
     }
 
     public void onClickMap9() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         Main.startGame(Constants.MAP9_PATH);
     }
 
     public void onClickMap10() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         Main.startGame(Constants.MAP10_PATH);
     }
 
     public void onClickMap11() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         Main.startGame(Constants.MAP11_PATH);
     }
 
     public void onClickMap12() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         Main.startGame(Constants.MAP12_PATH);
     }
 
 
     public void onBackButtonClick() throws IOException {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.PATH_TO_MAIN_MENU));
         Parent root = loader.load();
         backButton.getScene().setRoot(root);
 
     }
+
+    private void addHoverSound(Button button) {
+        if (button != null) {
+            button.hoverProperty().addListener((obs, oldVal, newVal) -> {
+                if (newVal) {
+                    SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_HOVER);
+                }
+            });
+        }
+    }
+
+    // --- THÊM MỚI: Phương thức chặn phím Space/Enter ---
+    private void preventKeyActivation(Button button) {
+        if (button != null) {
+            button.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+                if (event.getCode() == KeyCode.SPACE || event.getCode() == KeyCode.ENTER) {
+                    event.consume();
+                }
+            });
+        }
+    }
+    // --- KẾT THÚC THÊM MỚI ---
 
     public void initialize(URL location, ResourceBundle resources) {
         // Play button hover setup
@@ -222,5 +260,35 @@ public class LevelController implements Initializable{
         back_button_on.setMouseTransparent(true);
         back_button_on.visibleProperty().bind(backButton.hoverProperty());
         back_button_out.visibleProperty().bind(backButton.hoverProperty().not());
+
+        addHoverSound(map1Button);
+        addHoverSound(map2Button);
+        addHoverSound(map3Button);
+        addHoverSound(map4Button);
+        addHoverSound(map5Button);
+        addHoverSound(map6Button);
+        addHoverSound(map7Button);
+        addHoverSound(map8Button);
+        addHoverSound(map9Button);
+        addHoverSound(map10Button);
+        addHoverSound(map11Button);
+        addHoverSound(map12Button);
+        addHoverSound(backButton);
+
+        // --- THÊM MỚI: Gọi phương thức chặn phím ---
+        preventKeyActivation(map1Button);
+        preventKeyActivation(map2Button);
+        preventKeyActivation(map3Button);
+        preventKeyActivation(map4Button);
+        preventKeyActivation(map5Button);
+        preventKeyActivation(map6Button);
+        preventKeyActivation(map7Button);
+        preventKeyActivation(map8Button);
+        preventKeyActivation(map9Button);
+        preventKeyActivation(map10Button);
+        preventKeyActivation(map11Button);
+        preventKeyActivation(map12Button);
+        preventKeyActivation(backButton);
+        // --- KẾT THÚC THÊM MỚI ---
     }
 }

@@ -1,9 +1,10 @@
 package org.example.arkanoid.object;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image; // Thêm import này
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import org.example.arkanoid.config.Constants;
+import org.example.arkanoid.game.SoundManager; // THÊM MỚI
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,12 @@ public class Ball extends MoveAbleObject {
     // --- THÊM MỚI: Biến để lưu ảnh quả bóng ---
     private Image ballImage;
 
+    // --- THÊM MỚI: Biến cho logic nhấp nháy của bóng ---
+    private boolean showWhileFlashing_ball = true;
+    private long lastFlashToggleTime_ball = 0;
+    private final long FLASH_INTERVAL = 100_000_000L; // 100ms
+    // --- KẾT THÚC THÊM MỚI ---
+
     public Ball(double positionX, double positionY, double offset, double dx, double dy) {
         super(
                 positionX,
@@ -40,7 +47,7 @@ public class Ball extends MoveAbleObject {
 
         this.radius = Constants.DEFAULT_BALL_SIZE/2;
 
-        this.speed = Constants.DEFAULT_BALL_SPEED;
+        this.speed = Constants.CURRENT_BALL_SPEED;
         this.offset = offset;
         this.trail = new ArrayList<>();
 
@@ -77,16 +84,19 @@ public class Ball extends MoveAbleObject {
         if (x <= Constants.PLAY_AREA_LEFT) {
             x = Constants.PLAY_AREA_LEFT;
             reverseX();
+            SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_WALL_HIT); // ÂM THANH TƯỜNG
         }
         if (x + width >= Constants.SCREEN_WIDTH - Constants.PLAY_AREA_RIGHT_MARGIN) {
             x = Constants.SCREEN_WIDTH - width - Constants.PLAY_AREA_RIGHT_MARGIN;
             reverseX();
+            SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_WALL_HIT); // ÂM THANH TƯỜNG
         }
 
         // --- Va chạm với tường trên ---
         if (y <= 0) {
             y = 0;
             reverseY();
+            SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_WALL_HIT); // ÂM THANH TƯỜNG
         }
     }
 
@@ -100,8 +110,8 @@ public class Ball extends MoveAbleObject {
         move();
     }
 
-    @Override
-    public void render(GraphicsContext gc) {
+    // --- SỬA ĐỔI: Tách logic vẽ ra ---
+    private void draw(GraphicsContext gc) {
         // --- SỬA ĐỔI: Vẽ hiệu ứng vệt bằng ảnh ---
         if (trailImage != null) {
             for (int i = trail.size() - 1; i >= 0; i--) {
@@ -138,8 +148,31 @@ public class Ball extends MoveAbleObject {
             gc.setFill(Color.rgb(255, 100, 100));
             gc.fillOval(getX(), getY(), getWidth(), getHeight());
         }
-
     }
+    // --- KẾT THÚC SỬA ĐỔI ---
+
+    @Override
+    public void render(GraphicsContext gc) {
+        // Phương thức này giữ lại để tuân thủ GameObject, gọi logic vẽ cơ bản
+        draw(gc);
+    }
+
+    // --- THÊM MỚI: Overload render để xử lý nhấp nháy ---
+    public void render(GraphicsContext gc, boolean isInvincible) {
+        if (isInvincible) {
+            long now = System.nanoTime();
+            if (now - lastFlashToggleTime_ball > FLASH_INTERVAL) {
+                showWhileFlashing_ball = !showWhileFlashing_ball;
+                lastFlashToggleTime_ball = now;
+            }
+            if (!showWhileFlashing_ball) {
+                return; // Không vẽ bóng
+            }
+        }
+        // Vẽ bóng bình thường
+        draw(gc);
+    }
+    // --- KẾT THÚC THÊM MỚI ---
 
     public void clearTrail() {
         if (trail != null) {

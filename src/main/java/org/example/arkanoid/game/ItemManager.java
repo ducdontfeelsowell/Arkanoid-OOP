@@ -6,6 +6,7 @@ import org.example.arkanoid.object.Item;
 import org.example.arkanoid.object.Paddle;
 import org.example.arkanoid.object.Ball;
 import org.example.arkanoid.object.Brick.Brick;
+import org.example.arkanoid.game.SoundManager; // Import này đã có
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -27,7 +28,7 @@ public class ItemManager {
      */
     public void spawnItem(Brick brick) {
         double x = random.nextDouble();
-        if (x > Constants.DROP_CHANCE) {
+        if (x > Constants.CURRENT_DROP_CHANCE) {
             return;
         }
 
@@ -87,27 +88,33 @@ public class ItemManager {
      * Áp dụng hiệu ứng của item
      */
     private void applyItemEffect(Item item, Paddle paddle, BallManager ballManager, GameManager gm) {
+
+        // --- SỬA ĐỔI: Logic phát âm thanh item ---
         switch (item.getType()) {
             case EXPAND_PADDLE:
-                // Tăng kích thước paddle (tối đa 150)
+                SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_USE_ITEM);
                 double newWidth = Math.min(paddle.getWidth() + 20, 150);
                 paddle.setWidth(newWidth);
                 break;
 
             case SHRINK_PADDLE:
-                // Giảm kích thước paddle (tối thiểu 60)
+                SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_USE_ITEM);
                 double shrinkWidth = Math.max(paddle.getWidth() - 20, 60);
                 paddle.setWidth(shrinkWidth);
                 break;
 
             case EXTRA_LIFE:
-                // Thêm 1 mạng
+                SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_USE_ITEM);
                 gm.setLives(gm.getLives() + 1);
                 break;
+
             case SHOOTER_PADDLE:
+                // Phát âm thanh súng riêng
+                SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_GUN_ITEM);
                 paddle.activateShooter();
                 break;
         }
+        // --- KẾT THÚC SỬA ĐỔI ---
     }
 
     /**

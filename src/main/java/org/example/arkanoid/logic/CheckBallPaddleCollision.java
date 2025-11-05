@@ -1,7 +1,7 @@
 package org.example.arkanoid.logic;
 
 import org.example.arkanoid.config.Constants;
-import org.example.arkanoid.sound.SoundManager; // <-- THÊM IMPORT NÀY
+import org.example.arkanoid.game.SoundManager; // THÊM MỚI
 import org.example.arkanoid.object.Ball;
 import org.example.arkanoid.object.Paddle;
 
@@ -9,8 +9,8 @@ public class CheckBallPaddleCollision {
     public static void check(Ball ball, Paddle paddle) {
         if ((ball.isCollidingWith(paddle) && ball.getDy() > 0) && !ball.getSideHit()) {
 
-            // PHÁT ÂM THANH VA CHẠM PADDLE
-            SoundManager.playPaddleHit(); // <-- THÊM DÒNG NÀY
+            // Phát âm thanh va chạm paddle
+            SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_PADDLE_HIT);
 
             ball.reverseY();
 
