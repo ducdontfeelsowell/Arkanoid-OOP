@@ -14,6 +14,7 @@ public class Ball extends MoveAbleObject {
     private double xCenter;
     private double yCenter;
     private double radius;
+    private boolean sideHit = false;
 
     private List<TrailSegment> trail;
     private static final int MAX_TRAIL_LENGTH = 15;
@@ -24,23 +25,23 @@ public class Ball extends MoveAbleObject {
     // --- THÊM MỚI: Biến để lưu ảnh quả bóng ---
     private Image ballImage;
 
-    public Ball() {
+    public Ball(double positionX, double positionY, double offset, double dx, double dy) {
         super(
-                Constants.DEFAULT_BALL_POSITION_X,
-                Constants.DEFAULT_BALL_POSITION_Y,
+                positionX,
+                positionY,
                 Constants.DEFAULT_BALL_SIZE,
                 Constants.DEFAULT_BALL_SIZE,
-                Constants.DEFAULT_BALL_DX,
-                Constants.DEFAULT_BALL_DY
+                dx,
+                dy
         );
 
-        this.xCenter = Constants.DEFAULT_BALL_POSITION_X + Constants.DEFAULT_BALL_SIZE / 2;
-        this.yCenter = Constants.DEFAULT_BALL_POSITION_Y + Constants.DEFAULT_BALL_SIZE / 2;
+        this.xCenter = positionX + Constants.DEFAULT_BALL_SIZE / 2;
+        this.yCenter = positionY + Constants.DEFAULT_BALL_SIZE / 2;
 
         this.radius = Constants.DEFAULT_BALL_SIZE/2;
 
         this.speed = Constants.DEFAULT_BALL_SPEED;
-        this.offset = Constants.DEFAULT_BALL_OFFSET;
+        this.offset = offset;
         this.trail = new ArrayList<>();
 
         updateVelocity();
@@ -87,8 +88,11 @@ public class Ball extends MoveAbleObject {
             y = 0;
             reverseY();
         }
+    }
 
-        // Không xử lý rơi xuống dưới ở đây, để GameManager xử lý
+    // Không xử lý rơi xuống dưới ở đây, trả về kiểm tra để GameManager xử lý
+    public boolean isOffScreen() {
+        return y + Constants.DEFAULT_BALL_SIZE > Constants.SCREEN_HEIGHT; // Ra khỏi màn hình phía trên
     }
 
     @Override
@@ -196,6 +200,14 @@ public class Ball extends MoveAbleObject {
 
     public double getRadius() {
         return radius;
+    }
+
+    public boolean getSideHit() {
+        return sideHit;
+    }
+
+    public void setSideHit(boolean sideHit) {
+        this.sideHit = sideHit;
     }
 
     private static class TrailSegment {

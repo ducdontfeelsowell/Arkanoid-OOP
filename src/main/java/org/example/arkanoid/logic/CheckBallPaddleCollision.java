@@ -6,10 +6,8 @@ import org.example.arkanoid.object.Ball;
 import org.example.arkanoid.object.Paddle;
 
 public class CheckBallPaddleCollision {
-    public static boolean sideHit = false;
-
     public static void check(Ball ball, Paddle paddle) {
-        if ((ball.isCollidingWith(paddle) && ball.getDy() > 0) && !sideHit) {
+        if ((ball.isCollidingWith(paddle) && ball.getDy() > 0) && !ball.getSideHit()) {
 
             // PHÁT ÂM THANH VA CHẠM PADDLE
             SoundManager.playPaddleHit(); // <-- THÊM DÒNG NÀY
@@ -35,7 +33,7 @@ public class CheckBallPaddleCollision {
 //            } else {
             // Bóng chạm cạnh hay chạm trên
             if (overlapX < overlapY) {
-                sideHit = true;
+                ball.setSideHit(true);
                 // Chỉnh vị trí để bóng không dính vào trong paddle
                 ball.setDy(Math.abs(ball.getDy()));
                 if (overlapLeft < overlapRight) {

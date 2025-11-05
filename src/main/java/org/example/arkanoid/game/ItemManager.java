@@ -74,10 +74,10 @@ public class ItemManager {
     /**
      * Kiểm tra va chạm với paddle và áp dụng hiệu ứng
      */
-    public void checkCollisions(Paddle paddle, Ball ball, GameManager gm) {
+    public void checkCollisions(Paddle paddle, BallManager ballManager, GameManager gm) {
         for (Item item : items) {
             if (!item.isCollected() && item.isCollidingWith(paddle)) {
-                applyItemEffect(item, paddle, ball, gm);
+                applyItemEffect(item, paddle, ballManager, gm);
                 item.setCollected(true);
             }
         }
@@ -86,7 +86,7 @@ public class ItemManager {
     /**
      * Áp dụng hiệu ứng của item
      */
-    private void applyItemEffect(Item item, Paddle paddle, Ball ball, GameManager gm) {
+    private void applyItemEffect(Item item, Paddle paddle, BallManager ballManager, GameManager gm) {
         switch (item.getType()) {
             case EXPAND_PADDLE:
                 // Tăng kích thước paddle (tối đa 150)

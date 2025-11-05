@@ -17,10 +17,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.example.arkanoid.config.Constants;
 import org.example.arkanoid.controller.GameController;
-import org.example.arkanoid.game.BulletManager;
-import org.example.arkanoid.game.GameManager;
-import org.example.arkanoid.game.GameRenderer;
-import org.example.arkanoid.game.ItemManager;
+import org.example.arkanoid.game.*;
 import org.example.arkanoid.input.InputHandler;
 import org.example.arkanoid.input.MapLoader;
 import org.example.arkanoid.sound.SoundManager; // <-- THÊM IMPORT NÀY
@@ -40,7 +37,7 @@ public class Main extends Application {
     private static GameController gameController;
     private static InputHandler inputHandler;
     private static Paddle paddle;
-    private static Ball ball;
+    private static BallManager ballManager;
     private static Brick[][] bricks;
     private static GameRenderer renderer;
     private static GameManager gameManager;
@@ -133,7 +130,8 @@ public class Main extends Application {
             // Initialize game objects
             paddle = new Paddle();
 
-            ball = new Ball();
+            ballManager = new BallManager();
+            ballManager.addBall(paddle);
 
             bricks = MapLoader.loadMap(mapPath);
 
@@ -144,7 +142,7 @@ public class Main extends Application {
             bulletManager = new BulletManager();
 
             gameManager = new GameManager(gameController, inputHandler,
-                    paddle, ball, bricks, renderer, itemManager, bulletManager);
+                    paddle, ballManager, bricks, renderer, itemManager, bulletManager);
 
             gameManager.Init();
 
@@ -221,7 +219,7 @@ public class Main extends Application {
     }
 
     public Paddle getPaddle() { return paddle; }
-    public Ball getBall() { return ball; }
+    public BallManager getBallManager() { return ballManager; }
     public Brick[][] getBricks() { return bricks; }
     public GameRenderer getRenderer() { return renderer; }
     public GameManager getGameManager() { return gameManager; }

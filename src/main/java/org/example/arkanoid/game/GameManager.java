@@ -21,7 +21,7 @@ public class GameManager {
     private final GameController gameController;
     private final InputHandler inputHandler;
     private final Paddle paddle;
-    private final Ball ball;
+    private final BallManager ballManager;
     private final Brick[][] bricks;
     private final GameRenderer renderer;
     private final ItemManager im;
@@ -33,12 +33,12 @@ public class GameManager {
     private boolean won;
 
     public GameManager(GameController gameController, InputHandler inputHandler,
-                       Paddle paddle, Ball ball, Brick[][] bricks, GameRenderer renderer,
+                       Paddle paddle, BallManager ballManager, Brick[][] bricks, GameRenderer renderer,
                        ItemManager im, BulletManager bm) {
         this.gameController = gameController;
         this.inputHandler = inputHandler;
         this.paddle = paddle;
-        this.ball = ball;
+        this.ballManager = ballManager;
         this.bricks = bricks;
         this.renderer = renderer;
         this.im = im;
@@ -57,16 +57,16 @@ public class GameManager {
 
             // đợi bắt đầu bóng
             if(Constants.isStarted) {
-                UpdatePhysics.update(ball);
-                CheckCollisions.check(ball, paddle, bricks, this, im);
+                UpdatePhysics.update(ballManager);
+                CheckCollisions.check(ballManager, paddle, bricks, this, im);
                 CheckWinCondition.check(bricks, this);
                 im.update();
-                im.checkCollisions(paddle, ball, this);
+                im.checkCollisions(paddle, ballManager, this);
                 bm.update();
                 bm.checkCollisions(bricks, this, im);
             } else {
-                ball.setX(paddle.getX() + paddle.getWidth() / 2 - ball.getWidth() / 2);
-                ball.setY(paddle.getY() - ball.getHeight() - 1);
+                ballManager.balls.get(0).setX(paddle.getX() + paddle.getWidth() / 2 - ballManager.balls.get(0).getWidth() / 2);
+                ballManager.balls.get(0).setY(paddle.getY() - ballManager.balls.get(0).getHeight() - 1);
             }
         }
 
@@ -81,7 +81,7 @@ public class GameManager {
             renderer.renderWin(score);
             gameController.showWinScreen();
         } else {
-            renderer.renderObject(paddle, ball, bricks, im, bm, score, lives);
+            renderer.renderObject(paddle, ballManager, bricks, im, bm, score, lives);
         }
     }
     static Image createCroppedImage(Image sourceImage, Rectangle2D viewport) {
