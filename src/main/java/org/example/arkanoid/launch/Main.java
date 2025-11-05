@@ -1,6 +1,9 @@
 package org.example.arkanoid.launch;
 
+import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,13 +28,15 @@ import org.example.arkanoid.object.Paddle;
 
 import java.io.IOException;
 import java.net.URL;
+import javafx.util.Duration;
 import java.util.Objects;
 
 public class Main extends Application {
 
     private static Stage         primaryStage;
     private static Scene         menuScene;
-    private static AnimationTimer timer;
+    private static AnimationTimer timer; // to be removed, i guess
+    private static Timeline      loop;
     private static String        currentMapPath;
 
     private static Paddle        paddle;
@@ -47,6 +52,9 @@ public class Main extends Application {
     private static MediaPlayer    mediaPlayer;
     private static SoundManager   soundManager;
     private static MediaPlayer backgroundVideoPlayer;
+
+    private static long lastFpsTime = 0;
+    private static int frameCount = 0;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -166,6 +174,8 @@ public class Main extends Application {
             primaryStage.setY(Constants.DEFAULT_SCREEN_Y);
             primaryStage.setScene(gameScene);
 
+            // Old fps cap, jaggy one
+            /*
             if (timer != null) timer.stop();
 
             timer = new AnimationTimer() {
@@ -199,6 +209,29 @@ public class Main extends Application {
                 }
             };
             timer.start();
+             */
+
+            if (loop != null) {
+                loop.stop();
+            }
+
+            // Beautiful FPS cap
+            loop = new Timeline(new KeyFrame(Duration.millis(1000.0 / Constants.FPS), e -> {
+                gameManager.updateGame();
+
+                // FPS counting
+                frameCount++;
+                long now = System.nanoTime();
+                if (lastFpsTime == 0) lastFpsTime = now;
+
+                if (now - lastFpsTime >= 1_000_000_000) {  // every 1 second
+                    System.out.println("FPS: " + frameCount);
+                    frameCount = 0;
+                    lastFpsTime = now;
+                }
+            }));
+            loop.setCycleCount(Animation.INDEFINITE);
+            loop.play();
 
         } catch (Exception e) {
             e.printStackTrace();

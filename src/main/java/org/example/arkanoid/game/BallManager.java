@@ -52,7 +52,7 @@ public class BallManager {
                         temp.getY(),
                         randomOff,
                         temp.getDx(),
-                        1
+                        -1
                 );
             }
         }

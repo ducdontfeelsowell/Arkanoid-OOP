@@ -15,7 +15,7 @@ public class Constants {
     /*
     FPS
      */
-    public static final double FPS = 120.0;
+    public static final double FPS = 60.0;
     public static final double INTERVAL = 1000000000 / FPS; // nanoseconds per frame, that's 10^9/fps
 
     /*
@@ -27,7 +27,7 @@ public class Constants {
     public final static double DEFAULT_PADDLE_POSITION_Y = SCREEN_HEIGHT - 100;
     public final static double DEFAULT_PADDLE_DX = 0;
     public final static double DEFAULT_PADDLE_DY = 0;
-    public final static double DEFAULT_PADDLE_SPEED = 7;
+    public final static double DEFAULT_PADDLE_SPEED = 10;
 
     /*
     ball
