@@ -97,6 +97,7 @@ public class Constants {
     /*
     đường dẫn đến các file map
      */
+    public final static String[] MAP_PATH  = new String[13];
     public final static String MAP1_PATH  = "src/main/resources/Maps/map1.txt";
     public final static String MAP2_PATH  = "src/main/resources/Maps/map2.txt";
     public final static String MAP3_PATH  = "src/main/resources/Maps/map3.txt";

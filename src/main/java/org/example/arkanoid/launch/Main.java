@@ -33,25 +33,27 @@ import java.util.Objects;
 
 public class Main extends Application {
 
-    private static Stage         primaryStage;
-    private static Scene         menuScene;
-    private static AnimationTimer timer; // to be removed, i guess
-    private static Timeline      loop;
-    private static String        currentMapPath;
+    private static Stage primaryStage;
+    private static Scene menuScene;
+    private static AnimationTimer timer;
+    private static Timeline loop;
+    private static String currentMapPath; // Đường dẫn map hiện tại
 
-    private static Paddle        paddle;
-    private static BallManager   ballManager;
-    private static Brick[][]     bricks;
 
-    private static InputHandler   inputHandler;
+    private static Paddle paddle;
+    private static BallManager ballManager;
+    private static Brick[][] bricks;
+
+    private static InputHandler inputHandler;
     private static GameController gameController;
-    private static GameRenderer   gameRenderer;
-    private static GameManager    gameManager;
-    private static ItemManager    itemManager;
-    private static BulletManager  bulletManager;
-    private static MediaPlayer    mediaPlayer;
-    private static SoundManager   soundManager;
+    private static GameRenderer gameRenderer;
+    private static GameManager gameManager;
+    private static ItemManager itemManager;
+    private static BulletManager bulletManager;
+    private static MediaPlayer mediaPlayer;
+    private static SoundManager soundManager;
     private static MediaPlayer backgroundVideoPlayer;
+    private static int curr_level = 0;
 
     private static long lastFpsTime = 0;
     private static int frameCount = 0;
@@ -60,6 +62,9 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         primaryStage = stage;
 
+        for(int i = 1 ; i <=12 ; i++){
+            Constants.MAP_PATH[i] = "src/main/resources/Maps/map" +String.valueOf(i)+".txt";
+        }
         // Load menu scene
         Parent root = FXMLLoader.load(Objects.requireNonNull(
                 getClass().getResource(Constants.PATH_TO_MAIN_MENU)));
@@ -81,11 +86,12 @@ public class Main extends Application {
     }
 
     /**
-     * Khởi tạo và bắt đầu game
+     * Khởi tạo và bắt đầu game với mapPath cụ thể
      */
-    public static void startGame(String mapPath) {
+    public static void startGame(int level) {
         try {
-            currentMapPath = mapPath;
+            curr_level = level;
+            currentMapPath = Constants.MAP_PATH[curr_level];
 
             if (backgroundVideoPlayer != null) {
                 backgroundVideoPlayer.stop();
@@ -153,7 +159,7 @@ public class Main extends Application {
             ballManager = new BallManager();
             ballManager.addBall(paddle);
 
-            bricks = MapLoader.loadMap(mapPath);
+            bricks = MapLoader.loadMap(currentMapPath);
 
             gameRenderer = new GameRenderer(gc);
 
@@ -239,6 +245,35 @@ public class Main extends Application {
     }
 
     /**
+     * Chuyển sang level tiếp theo
+     */
+    public static void loadNextLevel() {
+        System.out.println("OKK");
+        if (currentMapPath == null) {
+            System.err.println("Lỗi: Không xác định được map hiện tại. Quay về Menu.");
+            returnToMenu();
+            return;
+        }
+
+        try {
+            // currentMapPath có dạng: "src/main/resources/Maps/mapX.txt"
+            int nextLevel = curr_level + 1;
+
+            if (nextLevel <= 12) { // Giả định có 12 map
+                startGame(nextLevel);
+            } else {
+                // Hoàn thành tất cả các map
+                System.out.println("Chúc mừng! Bạn đã hoàn thành tất cả các màn chơi.");
+                returnToMenu(); // Quay về menu sau khi hoàn thành
+            }
+        } catch (NumberFormatException e) {
+            System.err.println("Lỗi khi phân tích số cấp độ từ đường dẫn: " + currentMapPath);
+            returnToMenu();
+        }
+    }
+
+
+    /**
      * Quay về menu chính
      */
     public static void returnToMenu() {
@@ -259,10 +294,8 @@ public class Main extends Application {
 
     public static void restartGame() {
         GameController.paused = false;
-        if (currentMapPath != null) {
-            startGame(currentMapPath);
-            Constants.isStarted = false;
-        }
+        startGame(curr_level);
+        Constants.isStarted = false;
     }
 
     public static GameController getGameController() {
