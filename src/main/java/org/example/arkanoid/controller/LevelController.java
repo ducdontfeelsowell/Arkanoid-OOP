@@ -215,7 +215,7 @@ public class LevelController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("DEBUG: SettingController Initialized.");
         try {
-            String videoPath = "/Images/background/video_level.mp4";
+            String videoPath = "/Images/background/level_background.mp4";
             URL videoUrl = getClass().getResource(videoPath);
             if (videoUrl == null) {
                 // Ném lỗi rõ ràng nếu không tìm thấy, không dựa vào Objects.requireNonNull

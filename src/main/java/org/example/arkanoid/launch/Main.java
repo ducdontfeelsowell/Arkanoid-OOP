@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -89,6 +90,7 @@ public class Main extends Application {
 
             String videoPath = Constants.PATH_TO_VIDEO;
 
+
             URL videoUrl = Main.class.getResource(videoPath);
             if (videoUrl == null) {
                 // Ném lỗi rõ ràng nếu không tìm thấy, không dựa vào Objects.requireNonNull
@@ -96,7 +98,6 @@ public class Main extends Application {
             }
             Media media = new Media(videoUrl.toExternalForm());
 
-            // 2. Tạo MediaPlayer
             backgroundVideoPlayer = new MediaPlayer(media);
             backgroundVideoPlayer.setAutoPlay(true);
             backgroundVideoPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Lặp vô hạn
@@ -111,13 +112,24 @@ public class Main extends Application {
             mediaView.setFitHeight(Constants.SCREEN_HEIGHT);
             mediaView.setPreserveRatio(false); // Kéo dãn video cho vừa màn hình
 
-            backgroundVideoPlayer.play(); // Bắt đầu phát video
-            // Create canvas for rendering
+            backgroundVideoPlayer.play();
             Canvas canvas = new Canvas(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
             GraphicsContext gc = canvas.getGraphicsContext2D();
 
             // Create root pane
             Pane gameRoot = new Pane();
+
+            String imagePath = Constants.PATH_TO_IMAGE_BACKGROUND;
+
+            Image image = new Image(Objects.requireNonNull(Main.class.getResourceAsStream(imagePath)));
+            ImageView imageView = new ImageView(image);
+
+            imageView.setFitWidth(Constants.SCREEN_WIDTH+18);
+            imageView.setFitHeight(Constants.SCREEN_HEIGHT);
+            imageView.setPreserveRatio(false);
+
+            // Lớp 1: Ảnh tĩnh (Nền)
+            gameRoot.getChildren().add(imageView);
 
             gameRoot.getChildren().add(mediaView);
 

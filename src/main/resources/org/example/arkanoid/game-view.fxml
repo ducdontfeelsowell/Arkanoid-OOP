@@ -66,6 +66,11 @@
     </AnchorPane>
     <AnchorPane fx:id="loseScreen" prefHeight="141.0" prefWidth="185.0" visible="false">
         <children>
+         <ImageView fitHeight="800.0" fitWidth="1260.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/lose_background.jpg" />
+            </image>
+         </ImageView>
             <MediaView fx:id="lose_backgroundMediaView" fitHeight="800.0" fitWidth="1260.0" preserveRatio="false" />
 
             <ImageView fx:id="playAgainImage" fitHeight="96.0" fitWidth="166.0" layoutX="548.8" layoutY="370.0" pickOnBounds="true">
@@ -129,29 +134,49 @@
     </AnchorPane>
     <AnchorPane fx:id="winScreen" prefHeight="800.0" prefWidth="1260.0" visible="false">
         <children>
+         <ImageView fitHeight="800.0" fitWidth="1260.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/win_background.jpg" />
+            </image>
+         </ImageView>
             <MediaView fx:id="win_backgroundMediaView" fitHeight="800.0" fitWidth="1260.0" preserveRatio="false" />
-         <Label alignment="CENTER" layoutX="397.0" layoutY="288.0" prefHeight="166.0" prefWidth="465.0" text="YOU WIN">
-            <font>
-               <Font name="System Bold" size="84.0" />
-            </font>
-            <textFill>
-               <LinearGradient endX="1.0" endY="1.0" startX="0.9166667249166605" startY="0.21969694079774799">
-                  <stops>
-                     <Stop>
-                        <color>
-                           <Color red="0.3867446482181549" green="0.6526315808296204" blue="0.3335672616958618" />
-                        </color>
-                     </Stop>
-                     <Stop offset="1.0">
-                        <color>
-                           <Color red="1.0" green="1.0" blue="1.0" />
-                        </color>
-                     </Stop>
-                  </stops>
-               </LinearGradient>
-            </textFill>
-         </Label>
-            <Button fx:id="backButton3" layoutX="600.0" layoutY="500.0" mnemonicParsing="false" onAction="#onBackClick3" prefHeight="70.0" prefWidth="152.0" text="BACK" />
+            <Label alignment="CENTER" layoutX="397.0" layoutY="288.0" prefHeight="166.0" prefWidth="465.0" text="YOU WIN">
+                <font>
+                    <Font name="System Bold" size="84.0" />
+                </font>
+                <textFill>
+                    <LinearGradient endX="1.0" endY="1.0" startX="0.9166667249166605" startY="0.21969694079774799">
+                        <stops>
+                            <Stop>
+                                <color>
+                                    <Color red="0.3867446482181549" green="0.6526315808296204" blue="0.3335672616958618" />
+                                </color>
+                            </Stop>
+                            <Stop offset="1.0">
+                                <color>
+                                    <Color red="1.0" green="1.0" blue="1.0" />
+                                </color>
+                            </Stop>
+                        </stops>
+                    </LinearGradient>
+                </textFill>
+            </Label>
+            <ImageView fx:id="backImage3" fitHeight="96.0" fitWidth="166.0" layoutX="548.8" layoutY="500.0" pickOnBounds="true">
+                <image>
+                    <Image url="@../../../Images/background/button1.png" />
+                </image>
+            </ImageView>
+            <ImageView fx:id="backHoverImage3" fitHeight="96.0" fitWidth="166.0" layoutX="548.8" layoutY="500.0" mouseTransparent="true" pickOnBounds="true" visible="false">
+                <image>
+                    <Image url="@../../../Images/background/button.png" />
+                </image>
+            </ImageView>
+            <Label alignment="CENTER" layoutX="548.8" layoutY="500.0" prefHeight="96.0" prefWidth="166.0" text="BACK" textFill="WHITE">
+                <font>
+                    <Font name="System Bold Italic" size="18.0" />
+                </font>
+            </Label>
+            <Button fx:id="backButton3" layoutX="548.8" layoutY="500.0" mnemonicParsing="false" onAction="#onBackClick3" opacity="0.0" prefHeight="96.0" prefWidth="166.0" text="BACK" />
         </children>
     </AnchorPane>
 </AnchorPane>
