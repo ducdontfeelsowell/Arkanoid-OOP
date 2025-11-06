@@ -68,8 +68,8 @@ public class Constants {
     /*
     vùng chơi (play area)
     */
-    public final static double PLAY_AREA_LEFT = 340;
-    public final static double PLAY_AREA_RIGHT_MARGIN = 290;
+    public final static double PLAY_AREA_LEFT = 318;
+    public final static double PLAY_AREA_RIGHT_MARGIN = 327;
 
 
     /*
@@ -143,6 +143,7 @@ public class Constants {
     public final static String PATH_TO_VIDEO = "/Images/background/main_video_background.mp4";
     public final static String PATH_TO_GAME_BACKGROUND = "/Images/background/main_game_background.jpg";
     public final static String PATH_TO_MENU_BACKGROUND = "/Images/background/menu_Background.jpg";
+    public final static String PATH_TO_IMAGE_BACKGROUND = "/Images/background/main_image_background.jpg";
 
 
     public static boolean isStarted = false;

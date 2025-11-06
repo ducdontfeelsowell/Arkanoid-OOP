@@ -55,7 +55,7 @@ public class Ball extends MoveAbleObject {
 
         try {
             trailImage = new Image(getClass().getResourceAsStream(Constants.PATH_TO_TRAIL_2));
-            ballImage = new Image(getClass().getResourceAsStream(Constants.PATH_TO_BALL_1));
+            ballImage = new Image(getClass().getResourceAsStream(Constants.PATH_TO_TRAIL_2));
         } catch (Exception e) {
             System.err.println("Lỗi tải ảnh cho vệt hoặc bóng!");
             trailImage = null; // Đặt là null nếu không tải được
@@ -116,7 +116,7 @@ public class Ball extends MoveAbleObject {
         if (trailImage != null) {
             for (int i = trail.size() - 1; i >= 0; i--) {
                 //tốc độ render trail
-                if(i % 1 != 0){
+                if(i % 2 != 0){
                     continue;
                 }
                 TrailSegment segment = trail.get(i);

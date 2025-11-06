@@ -8,7 +8,7 @@ import org.example.arkanoid.config.Constants;
 
 public class RenderWin {
     public static void render(int finalScore, GraphicsContext gc) {
-        gc.setFill(Color.rgb(0, 0, 0, 0.7));
+//        gc.setFill(Color.rgb(0, 0, 0, 0.7));
         gc.fillRect(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
 
         gc.setFill(Color.GOLD);
