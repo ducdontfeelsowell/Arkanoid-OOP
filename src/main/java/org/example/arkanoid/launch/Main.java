@@ -25,6 +25,7 @@ import org.example.arkanoid.input.MapLoader;
 import org.example.arkanoid.object.Ball;
 import org.example.arkanoid.object.Brick.Brick;
 import org.example.arkanoid.object.Paddle;
+import org.example.arkanoid.game.ProgressManager;
 
 import java.io.IOException;
 import java.net.URL;
@@ -65,6 +66,7 @@ public class Main extends Application {
         for(int i = 1 ; i <=12 ; i++){
             Constants.MAP_PATH[i] = "src/main/resources/Maps/map" +String.valueOf(i)+".txt";
         }
+        ProgressManager.loadProgress();
         // Load menu scene
         Parent root = FXMLLoader.load(Objects.requireNonNull(
                 getClass().getResource(Constants.PATH_TO_MAIN_MENU)));
@@ -168,7 +170,7 @@ public class Main extends Application {
             bulletManager = new BulletManager();
 
             gameManager = new GameManager(gameController, inputHandler,
-                    paddle, ballManager, bricks, gameRenderer, itemManager, bulletManager);
+                    paddle, ballManager, bricks, gameRenderer, itemManager, bulletManager, level);
 
             gameManager.Init();
 
@@ -179,43 +181,6 @@ public class Main extends Application {
             primaryStage.setX(Constants.DEFAULT_SCREEN_X);
             primaryStage.setY(Constants.DEFAULT_SCREEN_Y);
             primaryStage.setScene(gameScene);
-
-            // Old fps cap, jaggy one
-            /*
-            if (timer != null) timer.stop();
-
-            timer = new AnimationTimer() {
-                private double fps = Constants.FPS;
-                private double interval = Constants.INTERVAL;
-                private long lastUpdate = 0;
-
-                private int frameCount = 0;
-                private long lastFpsTime = 0;
-
-                @Override
-                public void handle(long now) {
-                    if (now - lastUpdate >= interval) {
-                        gameManager.updateGame();
-                        lastUpdate = now;
-                        frameCount++;
-
-                        long delayNs = (long) interval - (System.nanoTime() - now);
-                        if (delayNs > 0) {
-                            try {
-                                Thread.sleep(delayNs / 1_000_000, (int) (delayNs % 1_000_000));
-                            } catch (InterruptedException ignored) {}
-                        }
-                    }
-
-                    if (now - lastFpsTime >= 1000000000) {
-                        System.out.println("FPS: " + frameCount);
-                        frameCount = 0;
-                        lastFpsTime = now;
-                    }
-                }
-            };
-            timer.start();
-             */
 
             if (loop != null) {
                 loop.stop();
@@ -287,6 +252,20 @@ public class Main extends Application {
         if (soundManager != null) {
             soundManager.playRandomBackgroundMusic(); // Phát nhạc 1, 2
         }
+
+        // --- SỬA LỖI ĐANG Ở ĐÂY ---
+        // Vấn đề: Chỉ setScene(menuScene) sẽ hiển thị lại root CŨ (là màn Level Select)
+        // Giải pháp: Tải lại Menu chính và đặt nó làm root MỚI cho menuScene.
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource(Constants.PATH_TO_MAIN_MENU));
+            Parent root = loader.load();
+            menuScene.setRoot(root); // Đặt lại root của scene cũ
+        } catch (IOException e) {
+            System.err.println("Lỗi nghiêm trọng: Không thể tải lại main menu!");
+            e.printStackTrace();
+        }
+        // --- KẾT THÚC SỬA LỖI ---
+
         if (primaryStage != null && menuScene != null) {
             primaryStage.setScene(menuScene);
         }
