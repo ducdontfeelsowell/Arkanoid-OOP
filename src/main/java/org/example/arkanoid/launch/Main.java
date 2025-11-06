@@ -260,6 +260,7 @@ public class Main extends Application {
             int nextLevel = curr_level + 1;
 
             if (nextLevel <= 12) { // Giả định có 12 map
+                Constants.isStarted = false;
                 startGame(nextLevel);
             } else {
                 // Hoàn thành tất cả các map
