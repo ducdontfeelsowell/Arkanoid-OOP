@@ -6,6 +6,7 @@ import org.example.arkanoid.game.BulletManager; // THÊM MỚI
 import org.example.arkanoid.game.ItemManager;
 import org.example.arkanoid.object.Ball;
 import org.example.arkanoid.object.Paddle;
+import org.example.arkanoid.game.EffectManager;
 
 public class ResetBallAndPaddle {
     public static void reset(BallManager ballManager, Paddle paddle, ItemManager im, BulletManager bm) {
@@ -29,6 +30,7 @@ public class ResetBallAndPaddle {
         // --- THÊM MỚI: Hủy tất cả đạn trên màn hình ---
         bm.clear();
 
+        EffectManager.getInstance().clear();
         // 3. Kích hoạt nhấp nháy 1.5 giây
         long invincibilityDuration = 1_500_000_000L; // 1.5 giây (tính bằng nano giây)
         paddle.activateInvincibility(invincibilityDuration);
