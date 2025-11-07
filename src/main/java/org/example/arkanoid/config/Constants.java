@@ -1,6 +1,7 @@
 package org.example.arkanoid.config;
 
 import javafx.scene.image.Image;
+import java.util.Objects;
 
 public class Constants {
     /*
@@ -145,7 +146,6 @@ public class Constants {
     public final static String PATH_TO_GAME_BACKGROUND = "/Images/background/main_game_background.jpg";
     public final static String PATH_TO_MENU_BACKGROUND = "/Images/background/menu_Background.jpg";
 
-
     public static boolean isStarted = false;
 
     /*
@@ -199,6 +199,7 @@ public class Constants {
     public static final String PATH_TO_PADDLE_2 = "/Images/paddle/paddle2.png";
     public static final String PATH_TO_SHOOTER_PADDLE = "/Images/paddle/shooter.png";
     public static final String PATH_TO_SHOOTS = "/Images/paddle/shoots.png";
+
 
     /*
     đường dẫn đến hình ảnh của ball

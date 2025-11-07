@@ -68,6 +68,7 @@ public class GameManager {
                 im.checkCollisions(paddle, ballManager, this);
                 bm.update();
                 bm.checkCollisions(bricks, this, im);
+                EffectManager.getInstance().update();
             } else {
                 ballManager.balls.get(0).setX(paddle.getX() + paddle.getWidth() / 2 - ballManager.balls.get(0).getWidth() / 2);
                 ballManager.balls.get(0).setY(paddle.getY() - ballManager.balls.get(0).getHeight() - 1);

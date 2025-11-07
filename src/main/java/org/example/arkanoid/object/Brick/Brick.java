@@ -7,6 +7,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import org.example.arkanoid.config.Constants;
 import org.example.arkanoid.object.GameObject;
+import javafx.scene.paint.Color;
 
 public class Brick extends GameObject {
 
@@ -15,13 +16,20 @@ public class Brick extends GameObject {
     private int score;
     private boolean destroyed;
     private Image brickImage;
+    private Color brickColor;
 
     public Brick(double x, double y, double width, double height, int hitPoints, int type) {
         super(x, y, width, height);
         this.hitPoints = hitPoints;
         this.type = type;
         this.destroyed = false;
-
+        switch (this.type) {
+            case 1: this.brickColor = Color.rgb(130, 220, 100); break; // Màu xanh
+            case 2: this.brickColor = Color.rgb(255, 150, 80); break;  // Màu cam
+            case 3: this.brickColor = Color.rgb(120, 120, 120); break; // Màu xám (bất tử)
+            case 4: this.brickColor = Color.rgb(255, 80, 80); break;   // Màu đỏ (nổ)
+            default: this.brickColor = Color.GRAY;
+        }
         loadImage();
         setScoreBasedOnType();
     }
@@ -114,5 +122,12 @@ public class Brick extends GameObject {
 
     public void setDestroyed(boolean destroyed) {
         this.destroyed = destroyed;
+    }
+
+    public Color getBrickColor() {
+        if (this.brickColor == null) {
+            return Color.GRAY; // Trả về màu xám nếu có lỗi
+        }
+        return this.brickColor;
     }
 }

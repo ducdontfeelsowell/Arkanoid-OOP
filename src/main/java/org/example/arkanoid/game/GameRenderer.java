@@ -30,6 +30,8 @@ public class GameRenderer {
      * Vẽ toàn bộ game state
      */
     public void renderObject(Paddle paddle, BallManager ball, Brick[][] bricks, ItemManager im, BulletManager bm, int score, int lives) {
+        gc.save();
+        EffectManager.getInstance().applyShake(gc);
         gc.clearRect(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
         if (backgroundImage2 != null) {
             gc.drawImage(backgroundImage2, 315, 0, Constants.SCREEN_WIDTH/2, Constants.SCREEN_HEIGHT);
@@ -49,6 +51,8 @@ public class GameRenderer {
         RenderUI.render(score, lives, gc);
         im.render(gc);
         bm.render(gc);
+        EffectManager.getInstance().render(gc);
+        gc.restore();
     }
 
     public void renderGameOver(int score) {

@@ -6,6 +6,7 @@ import org.example.arkanoid.game.ItemManager;
 import org.example.arkanoid.game.SoundManager; // THÊM MỚI
 import org.example.arkanoid.object.Ball;
 import org.example.arkanoid.object.Brick.Brick;
+import org.example.arkanoid.game.EffectManager;
 
 public class HandleBrickCollision {
     public static void handle(Ball ball, Brick[][] bricks, Brick brick, GameManager gm, ItemManager im, int row, int col) {
@@ -68,11 +69,15 @@ public class HandleBrickCollision {
                     if (im != null) {
                         im.spawnItem(brick);
                     }
+                    EffectManager.getInstance().spawnBrickDebris(brick);
                 }
             }
 
             case 4 -> {
-                int points = 0;
+                double centerX = brick.getX() + brick.getWidth() / 2;
+                double centerY = brick.getY() + brick.getHeight() / 2;
+                EffectManager.getInstance().spawnExplosion(centerX, centerY);
+                EffectManager.getInstance().shakeScreen(5, 150_000_000L);                int points = 0;
                 brick.takeHit();
                 points = DestroyRegion.destroyer(bricks, row, col, points);
                 gm.setScore(gm.getScore() + points);
