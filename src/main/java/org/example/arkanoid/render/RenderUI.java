@@ -6,6 +6,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import org.example.arkanoid.config.Constants;
+import org.example.arkanoid.game.GameManager;
+import org.example.arkanoid.object.Paddle;
+import org.example.arkanoid.game.BallManager;
 
 import java.util.Objects;
 
@@ -22,7 +25,21 @@ public class RenderUI {
     private static final double HEART_SIZE = 30;
     private static final double HEART_PADDING = 5;
 
-    // --- SỬA ĐỔI: Điều chỉnh layout cho LIVES và TIM ---
+    // --- Biến cho Icon Timer ---
+    private static Image shooterIcon;
+    private static Image safetyIcon;
+    private static Image expandIcon;
+    private static Image shrinkIcon;
+    private static Image slowIcon; // THÊM MỚI
+
+    private static final double ICON_SIZE = 30;
+    private static final double ICON_TEXT_PADDING = 10;
+
+    // Tọa độ Y bắt đầu vẽ timer/counter (dưới SCORE)
+    private static final double TIMER_START_Y = 80;
+    private static final double TIMER_LINE_HEIGHT = 40; // Khoảng cách giữa các timer
+    private static final double TIMER_START_X = 20; // Thẳng hàng với SCORE
+
 
     // Tọa độ X bắt đầu cho cột UI (Tăng không gian từ 150 lên 220)
     private static final double UI_RIGHT_COLUMN_X = Constants.SCREEN_WIDTH - 220;
@@ -38,7 +55,6 @@ public class RenderUI {
 
     // Tọa độ Y cho hàng tim THỨ HAI (Bên dưới hàng 1)
     private static final double HEART_ROW_2_Y = HEART_ROW_1_Y + HEART_SIZE + HEART_PADDING;
-    // --- KẾT THÚC SỬA ĐỔI ---
 
     static {
         try {
@@ -50,9 +66,41 @@ public class RenderUI {
             e.printStackTrace();
             heartImage = null;
         }
+
+        // --- Tải icon cho timer ---
+        try {
+            // Shooter Icon
+            shooterIcon = new Image(Objects.requireNonNull(
+                    RenderUI.class.getResourceAsStream(Constants.PATH_TO_SHOOTER_ITEM_ANIM[0])
+            ));
+            // Safety Net Icon
+            safetyIcon = new Image(Objects.requireNonNull(
+                    RenderUI.class.getResourceAsStream(Constants.PATH_TO_SAFETY_ANIM[0])
+            ));
+            // Expand Icon
+            expandIcon = new Image(Objects.requireNonNull(
+                    RenderUI.class.getResourceAsStream(Constants.PATH_TO_EXPAND_ANIM[0])
+            ));
+            // Shrink Icon
+            shrinkIcon = new Image(Objects.requireNonNull(
+                    RenderUI.class.getResourceAsStream(Constants.PATH_TO_SHRINK_ANIM[0])
+            ));
+            // Slow Icon
+            slowIcon = new Image(Objects.requireNonNull(
+                    RenderUI.class.getResourceAsStream(Constants.PATH_TO_SLOW_ANIM[0])
+            ));
+
+        } catch (Exception e) {
+            System.err.println("Lỗi: Không thể tải ảnh timer icons!");
+            shooterIcon = null;
+            safetyIcon = null;
+            expandIcon = null;
+            shrinkIcon = null;
+            slowIcon = null;
+        }
     }
 
-    public static void render(int score, int lives, GraphicsContext gc) {
+    public static void render(int score, int lives, GameManager gm, Paddle paddle, BallManager ballManager, GraphicsContext gc) {
         // Tính FPS (giữ nguyên)
         calculateFPS();
 
@@ -62,7 +110,7 @@ public class RenderUI {
         // Score (trái) - (giữ nguyên)
         gc.fillText("SCORE: " + score, 20, 40);
 
-        // --- SỬA ĐỔI: Vẽ "LIVES:" ---
+        // --- Vẽ "LIVES:" ---
         gc.fillText("LIVES:", UI_RIGHT_COLUMN_X, LIVES_TEXT_Y);
 
         // --- Vẽ trái tim (bên phải chữ LIVES:) ---
@@ -86,7 +134,7 @@ public class RenderUI {
             gc.fillText("" + lives, HEART_START_X, LIVES_TEXT_Y);
         }
 
-        // --- SỬA ĐỔI: Vị trí FPS ---
+        // --- Vị trí FPS ---
 
         // Tính Y cho FPS (nằm dưới 2 hàng tim)
         double fpsY = HEART_ROW_2_Y + HEART_SIZE + 20;
@@ -94,7 +142,122 @@ public class RenderUI {
         // Vẽ FPS, căn X thẳng hàng với chữ "LIVES:"
         gc.fillText("FPS: " + currentFPS, UI_RIGHT_COLUMN_X, fpsY);
 
-        // --- KẾT THÚC SỬA ĐỔI ---
+
+        // --- Vẽ Timer và Ball Counter (Dưới SCORE) ---
+
+        // Đặt lại Font
+        gc.setFill(Color.WHITE);
+        gc.setFont(Font.font("Arial", FontWeight.BOLD, 22));
+
+        double currentTimerY = TIMER_START_Y;
+        long now = System.nanoTime();
+
+        // 1. Kiểm tra và vẽ Ball Counter (nếu có > 1 bóng)
+        int ballCount = ballManager.getBallCount();
+        if (ballCount > 1) {
+            Image ballIcon = ballManager.getBallIcon();
+            String counterText = ": " + ballCount;
+
+            // Vẽ Icon
+            if (ballIcon != null) {
+                gc.drawImage(ballIcon, TIMER_START_X, currentTimerY - ICON_SIZE / 1.5, ICON_SIZE, ICON_SIZE);
+            }
+            // Vẽ Text
+            gc.fillText(counterText, TIMER_START_X + ICON_SIZE + ICON_TEXT_PADDING, currentTimerY);
+
+            currentTimerY += TIMER_LINE_HEIGHT;
+        }
+
+
+        // 2. Kiểm tra và vẽ Shooter Timer
+        if (paddle.isShooter()) {
+            // SỬA ĐỔI: Tính remainingNano
+            long remainingNano = (long)paddle.getShooterEndTime() - now;
+            if (remainingNano > 0) {
+                double remainingSeconds = remainingNano / 1_000_000_000.0;
+                String formattedTime = String.format(": %.2fs", remainingSeconds);
+
+                // Vẽ Icon
+                if (shooterIcon != null) {
+                    gc.drawImage(shooterIcon, TIMER_START_X, currentTimerY - ICON_SIZE / 1.5, ICON_SIZE, ICON_SIZE);
+                }
+                // Vẽ Text
+                gc.fillText(formattedTime, TIMER_START_X + ICON_SIZE + ICON_TEXT_PADDING, currentTimerY);
+
+                currentTimerY += TIMER_LINE_HEIGHT;
+            }
+        }
+
+        // 3. Kiểm tra và vẽ Size Timer (Expand/Shrink)
+        if (paddle.getSizeEndTime() != 0) {
+            // SỬA ĐỔI: Tính remainingNano
+            long remainingNano = (long)paddle.getSizeEndTime() - now;
+            if (remainingNano > 0) {
+                double remainingSeconds = remainingNano / 1_000_000_000.0;
+                String formattedTime = String.format(": %.2fs", remainingSeconds);
+
+                Image iconToDraw = null;
+                // Xác định icon dựa trên kích thước hiện tại so với kích thước mặc định
+                if (paddle.getWidth() > Constants.DEFAULT_PADDLE_WIDTH) {
+                    iconToDraw = expandIcon;
+                } else if (paddle.getWidth() < Constants.DEFAULT_PADDLE_WIDTH) {
+                    iconToDraw = shrinkIcon;
+                }
+
+                // Vẽ Icon
+                if (iconToDraw != null) {
+                    gc.drawImage(iconToDraw, TIMER_START_X, currentTimerY - ICON_SIZE / 1.5, ICON_SIZE, ICON_SIZE);
+                }
+                // Vẽ Text
+                gc.fillText(formattedTime, TIMER_START_X + ICON_SIZE + ICON_TEXT_PADDING, currentTimerY);
+
+                currentTimerY += TIMER_LINE_HEIGHT;
+            }
+        }
+
+        // 4. Kiểm tra và vẽ Speed Timer (Slow/Fast)
+        if (paddle.getSpeedEndTime() != 0) {
+            // SỬA ĐỔI: Tính remainingNano
+            long remainingNano = (long)paddle.getSpeedEndTime() - now;
+            if (remainingNano > 0) {
+                double remainingSeconds = remainingNano / 1_000_000_000.0;
+                String formattedTime = String.format(": %.2fs", remainingSeconds);
+
+                Image iconToDraw = null;
+
+                // Xác định icon Slow
+                if (paddle.getSpeed() < Constants.DEFAULT_PADDLE_SPEED) {
+                    iconToDraw = slowIcon;
+                }
+
+                // Vẽ Icon
+                if (iconToDraw != null) {
+                    gc.drawImage(iconToDraw, TIMER_START_X, currentTimerY - ICON_SIZE / 1.5, ICON_SIZE, ICON_SIZE);
+                }
+                // Vẽ Text
+                gc.fillText(formattedTime, TIMER_START_X + ICON_SIZE + ICON_TEXT_PADDING, currentTimerY);
+
+                currentTimerY += TIMER_LINE_HEIGHT;
+            }
+        }
+
+
+        // 5. Kiểm tra và vẽ Safety Net Timer
+        if (gm.isSafetyNetActive()) {
+            // SỬA ĐỔI: Tính remainingNano
+            long remainingNano = (long)gm.getSafetyNetEndTime() - now;
+            if (remainingNano > 0) {
+                double remainingSeconds = remainingNano / 1_000_000_000.0;
+                String formattedTime = String.format(": %.2fs", remainingSeconds);
+
+                // Vẽ Icon
+                if (safetyIcon != null) {
+                    gc.drawImage(safetyIcon, TIMER_START_X, currentTimerY - ICON_SIZE / 1.5, ICON_SIZE, ICON_SIZE);
+                }
+                // Vẽ Text
+                gc.fillText(formattedTime, TIMER_START_X + ICON_SIZE + ICON_TEXT_PADDING, currentTimerY);
+            }
+        }
     }
 
     /**

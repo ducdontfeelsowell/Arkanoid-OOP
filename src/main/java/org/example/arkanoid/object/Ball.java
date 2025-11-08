@@ -223,6 +223,10 @@ public class Ball extends MoveAbleObject {
         updateVelocity();
     }
 
+    public Image getBallImage() {
+        return ballImage;
+    }
+
     public double getxCenter() {
         return xCenter;
     }

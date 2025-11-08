@@ -6,7 +6,7 @@ import org.example.arkanoid.object.Item;
 import org.example.arkanoid.object.Paddle;
 import org.example.arkanoid.object.Ball;
 import org.example.arkanoid.object.Brick.Brick;
-import org.example.arkanoid.game.SoundManager; // Import này đã có
+import org.example.arkanoid.game.SoundManager;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -89,32 +89,71 @@ public class ItemManager {
      */
     private void applyItemEffect(Item item, Paddle paddle, BallManager ballManager, GameManager gm) {
 
-        // --- SỬA ĐỔI: Logic phát âm thanh item ---
         switch (item.getType()) {
             case EXPAND_PADDLE:
                 SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_USE_ITEM);
+
+                // Hủy timeout SHRINK nếu có (kích thước < mặc định)
+                if (paddle.getWidth() < Constants.DEFAULT_PADDLE_WIDTH) {
+                    paddle.cancelSizeTimeout();
+                }
+
                 double newWidth = Math.min(paddle.getWidth() + 20, 150);
-                paddle.setWidth(newWidth);
+                paddle.setSizeWithTimeout(newWidth);
                 break;
 
             case SHRINK_PADDLE:
-                SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_USE_ITEM);
+                SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_NEGATIVE_BUFF);
+
+                // Hủy timeout EXPAND nếu có (kích thước > mặc định)
+                if (paddle.getWidth() > Constants.DEFAULT_PADDLE_WIDTH) {
+                    paddle.cancelSizeTimeout();
+                }
+
                 double shrinkWidth = Math.max(paddle.getWidth() - 20, 60);
-                paddle.setWidth(shrinkWidth);
+                paddle.setSizeWithTimeout(shrinkWidth);
                 break;
 
             case EXTRA_LIFE:
                 SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_USE_ITEM);
-                gm.setLives(gm.getLives() + 1);
+
+                int currentLives = gm.getLives();
+                int newLives = Math.min(currentLives + 1, 6);
+                gm.setLives(newLives);
                 break;
 
             case SHOOTER_PADDLE:
-                // Phát âm thanh súng riêng
                 SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_GUN_ITEM);
                 paddle.activateShooter();
                 break;
+
+            case MULTI_BALL:
+                SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_USE_ITEM);
+                ballManager.addBall(paddle);
+                break;
+
+            case SAFETY_NET:
+                SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_USE_ITEM);
+                gm.activateSafetyNet(Constants.DEFAULT_SAFETY_NET_DURATION);
+                break;
+
+            case SLOW_SPEED:
+                SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_NEGATIVE_BUFF);
+
+                double slowMultiplier = 0.5; // Giảm 50% tốc độ Paddle
+
+                // 1. Kiểm tra và hủy hiệu ứng ngược (nếu có item FAST_SPEED)
+                if (paddle.getSpeed() > Constants.DEFAULT_PADDLE_SPEED) {
+                    paddle.cancelSpeedTimeout();
+                }
+
+                // 2. Chỉ thay đổi tốc độ Paddle
+                double newPaddleSpeed = Constants.DEFAULT_PADDLE_SPEED * slowMultiplier;
+                paddle.setSpeedWithTimeout(newPaddleSpeed);
+
+                // KHÔNG THAY ĐỔI TỐC ĐỘ BÓNG
+                break;
         }
-        // --- KẾT THÚC SỬA ĐỔI ---
     }
 
     /**

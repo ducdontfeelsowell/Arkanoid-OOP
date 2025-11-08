@@ -11,7 +11,7 @@ import org.example.arkanoid.input.InputHandler;
 import org.example.arkanoid.object.Ball;
 import org.example.arkanoid.object.Brick.Brick;
 import org.example.arkanoid.object.Paddle;
-import org.example.arkanoid.game.SoundManager; // Import này đã có
+import org.example.arkanoid.game.SoundManager;
 import org.example.arkanoid.game.ProgressManager;
 
 import java.io.File;
@@ -35,6 +35,9 @@ public class GameManager {
     private boolean won;
     private int currentLevel;
 
+    private boolean safetyNetActive = false;
+    private double safetyNetEndTime = 0;
+
     public GameManager(GameController gameController, InputHandler inputHandler,
                        Paddle paddle, BallManager ballManager, Brick[][] bricks, GameRenderer renderer,
                        ItemManager im, BulletManager bm, int level) {
@@ -56,12 +59,27 @@ public class GameManager {
 
     public void updateGame() {
         if (!GameController.isPaused() && !gameOver && !won) {
+
+            // LƯU TRẠNG THÁI CŨ
+            boolean wasSafetyNetActive = safetyNetActive;
+
+            // KIỂM TRA HẾT HẠN
+            if (safetyNetActive && (double)System.nanoTime() > safetyNetEndTime) {
+                safetyNetActive = false;
+            }
+
+            // PHÁT ÂM THANH KHI HẾT HẠN
+            if (wasSafetyNetActive && !safetyNetActive) {
+                SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_NEGATIVE_BUFF);
+            }
+
+
             inputHandler.handleInput(paddle, bm);
             paddle.update();
 
             // đợi bắt đầu bóng
             if(Constants.isStarted) {
-                UpdatePhysics.update(ballManager);
+                UpdatePhysics.update(ballManager, this);
                 CheckCollisions.check(ballManager, paddle, bricks, this, im, bm);
                 CheckWinCondition.check(bricks, this);
                 im.update();
@@ -88,7 +106,7 @@ public class GameManager {
             renderer.renderWin(score);
             gameController.showWinScreen();
         } else {
-            renderer.renderObject(paddle, ballManager, bricks, im, bm, score, lives);
+            renderer.renderObject(this, paddle, ballManager, bricks, im, bm, score, lives);
         }
     }
     static Image createCroppedImage(Image sourceImage, Rectangle2D viewport) {
@@ -170,6 +188,10 @@ public class GameManager {
                     Constants.PATH_TO_SOUND_LOSE,
                     Constants.PATH_TO_SOUND_AFTERLOSE
             );
+
+            // Dọn dẹp hiệu ứng khi game Over
+            EffectManager.getInstance().clear();
+
         } else {
             this.gameOver = gameOver;
         }
@@ -188,8 +210,35 @@ public class GameManager {
                     Constants.PATH_TO_SOUND_WIN,
                     Constants.PATH_TO_SOUND_AFTERWIN
             );
+
+            // Dọn dẹp hiệu ứng khi Win
+            EffectManager.getInstance().clear();
+
         } else {
             this.won = won;
         }
+    }
+
+    /**
+     * Kích hoạt lưới an toàn
+     */
+    public void activateSafetyNet(double durationNano) {
+        this.safetyNetActive = true;
+        this.safetyNetEndTime = (double)System.nanoTime() + durationNano;
+        System.out.println("Safety Net KÍCH HOẠT!"); // (Debug)
+    }
+
+    /**
+     * Kiểm tra xem lưới an toàn có đang hoạt động không
+     */
+    public boolean isSafetyNetActive() {
+        return safetyNetActive;
+    }
+
+    /**
+     * Getter cho thời gian kết thúc
+     */
+    public double getSafetyNetEndTime() {
+        return safetyNetEndTime;
     }
 }
