@@ -25,7 +25,7 @@ public class Constants {
     public final static double DEFAULT_PADDLE_WIDTH = 120;
     public final static double DEFAULT_PADDLE_HEIGHT = 30;
     public final static double DEFAULT_PADDLE_POSITION_X = SCREEN_WIDTH / 2 - DEFAULT_PADDLE_WIDTH / 2;
-    public final static double DEFAULT_PADDLE_POSITION_Y = SCREEN_HEIGHT - 100;
+    public final static double DEFAULT_PADDLE_POSITION_Y = SCREEN_HEIGHT - DEFAULT_PADDLE_HEIGHT - 10;
     public final static double DEFAULT_PADDLE_DX = 0;
     public final static double DEFAULT_PADDLE_DY = 0;
     public final static double DEFAULT_PADDLE_SPEED = 20;
@@ -50,14 +50,19 @@ public class Constants {
     public final static double DEFAULT_ITEM_DX = 0;
     public final static double DEFAULT_ITEM_DY = 2;
 
-    public final static double DEFAULT_BULLET_WIDTH = 5;
+    public final static double DEFAULT_BULLET_WIDTH = 8;
     public final static double DEFAULT_BULLET_HEIGHT = 15;
     public final static double DEFAULT_BULLET_DX = 0;
     public final static double DEFAULT_BULLET_DY = -8;
+
+    /*
+    thời gian hoạt động của item
+     */
     public final static double DEFAULT_BULLET_COOLDOWN = 100_000_000L;
-    public final static double DEFAULT_SHOOTER_DURATION = 10_000_000_000L;
-
-
+    public final static double DEFAULT_SHOOTER_DURATION = 10_000_000_000.0;
+    public final static double DEFAULT_SAFETY_NET_DURATION = 10_000_000_000.0;
+    public final static double DEFAULT_SIZE_DURATION = 10_000_000_000.0;
+    public final static double DEFAULT_SPEED_DURATION = 10_000_000_000.0;
 
     /*
     hit point brick
@@ -216,23 +221,27 @@ public class Constants {
     /*
     đường dẫn đến hình ảnh của item
      */
-    public static final String PATH_TO_SHRINK_1 = "/Images/item/Shrink/shrink1.png";
-    public static final String PATH_TO_SHRINK_2 = "/Images/item/Shrink/shrink2.png";
-    public static final String PATH_TO_SHRINK_3 = "/Images/item/Shrink/shrink3.png";
-    public static final String PATH_TO_SHRINK_4 = "/Images/item/Shrink/shrink4.png";
-    public static final String PATH_TO_SHRINK_5 = "/Images/item/Shrink/shrink5.png";
-    public static final String PATH_TO_SHRINK_6 = "/Images/item/Shrink/shrink6.png";
-    public static final String PATH_TO_SHRINK_7 = "/Images/item/Shrink/shrink7.png";
-    public static final String PATH_TO_SHRINK_8 = "/Images/item/Shrink/shrink8.png";
+    public static final String[] PATH_TO_SHRINK_ANIM = {
+            "/Images/item/Shrink/powerup_shrink_1.png",
+            "/Images/item/Shrink/powerup_shrink_2.png",
+            "/Images/item/Shrink/powerup_shrink_3.png",
+            "/Images/item/Shrink/powerup_shrink_4.png",
+            "/Images/item/Shrink/powerup_shrink_5.png",
+            "/Images/item/Shrink/powerup_shrink_6.png",
+            "/Images/item/Shrink/powerup_shrink_7.png",
+            "/Images/item/Shrink/powerup_shrink_8.png"
+    };
 
-    public static final String PATH_TO_EXPAND_1 = "/Images/item/Expand/expand1.png";
-    public static final String PATH_TO_EXPAND_2 = "/Images/item/Expand/expand2.png";
-    public static final String PATH_TO_EXPAND_3 = "/Images/item/Expand/expand3.png";
-    public static final String PATH_TO_EXPAND_4 = "/Images/item/Expand/expand4.png";
-    public static final String PATH_TO_EXPAND_5 = "/Images/item/Expand/expand5.png";
-    public static final String PATH_TO_EXPAND_6 = "/Images/item/Expand/expand6.png";
-    public static final String PATH_TO_EXPAND_7 = "/Images/item/Expand/expand7.png";
-    public static final String PATH_TO_EXPAND_8 = "/Images/item/Expand/expand8.png";
+    public static final String[] PATH_TO_EXPAND_ANIM = {
+            "/Images/item/Expand/powerup_expand_1.png",
+            "/Images/item/Expand/powerup_expand_2.png",
+            "/Images/item/Expand/powerup_expand_3.png",
+            "/Images/item/Expand/powerup_expand_4.png",
+            "/Images/item/Expand/powerup_expand_5.png",
+            "/Images/item/Expand/powerup_expand_6.png",
+            "/Images/item/Expand/powerup_expand_7.png",
+            "/Images/item/Expand/powerup_expand_8.png"
+    };
 
 
     public static final String PATH_TO_BRICK_3333 = "/Images/background/3333.jpg";
@@ -278,13 +287,13 @@ public class Constants {
     public final static double EASY_DROP_CHANCE = 0.5; // 50%
 
     public final static int NORMAL_LIVES = 3;
-    public final static double NORMAL_BALL_SPEED = 7;
-    public final static double NORMAL_PADDLE_SPEED = 4;
+    public final static double NORMAL_BALL_SPEED = 9;
+    public final static double NORMAL_PADDLE_SPEED = 7;
     public final static double NORMAL_DROP_CHANCE = 0.3; // 30%
 
     public final static int HARD_LIVES = 2;
-    public final static double HARD_BALL_SPEED = 9;
-    public final static double HARD_PADDLE_SPEED = 4;
+    public final static double HARD_BALL_SPEED = 14;
+    public final static double HARD_PADDLE_SPEED = 6;
     public final static double HARD_DROP_CHANCE = 0.15; // 15%
 
     // Các biến (không final) để lưu cài đặt HIỆN TẠI
@@ -293,4 +302,158 @@ public class Constants {
     public static double CURRENT_PADDLE_SPEED = NORMAL_PADDLE_SPEED;
     public static double CURRENT_DROP_CHANCE = NORMAL_DROP_CHANCE;
     public static String CURRENT_DIFFICULTY = "Thường";
+
+    public static final String[] PATH_TO_EXPLOSION_ANIM = {
+            "/Images/Explosion/1.png",
+            "/Images/Explosion/2.png",
+            "/Images/Explosion/3.png",
+            "/Images/Explosion/4.png",
+            "/Images/Explosion/5.png",
+            "/Images/Explosion/6.png",
+            "/Images/Explosion/7.png",
+            "/Images/Explosion/8.png",
+            "/Images/Explosion/9.png",
+            "/Images/Explosion/10.png",
+            "/Images/Explosion/11.png",
+            "/Images/Explosion/12.png",
+            "/Images/Explosion/13.png",
+            "/Images/Explosion/14.png",
+            "/Images/Explosion/15.png",
+            "/Images/Explosion/16.png",
+            "/Images/Explosion/17.png",
+            "/Images/Explosion/18.png",
+            "/Images/Explosion/19.png",
+            "/Images/Explosion/20.png",
+            "/Images/Explosion/21.png",
+            "/Images/Explosion/22.png",
+            "/Images/Explosion/23.png",
+            "/Images/Explosion/24.png",
+            "/Images/Explosion/25.png"
+    };
+
+    public static final String PATH_TO_INF_BRICK_STATIC = "/Images/brick/brick_silver.png";
+    public static final String[] PATH_TO_INF_BRICK_ANIM = {
+            "/Images/brick/brick_silver_1.png",
+            "/Images/brick/brick_silver_2.png",
+            "/Images/brick/brick_silver_3.png",
+            "/Images/brick/brick_silver_4.png",
+            "/Images/brick/brick_silver_5.png",
+            "/Images/brick/brick_silver_6.png",
+            "/Images/brick/brick_silver_7.png",
+            "/Images/brick/brick_silver_8.png",
+            "/Images/brick/brick_silver_9.png",
+            "/Images/brick/brick_silver_10.png"
+    };
+
+    public static final String[] PATH_TO_MULTI_BALL_ANIM = {
+            "/Images/item/MultiBall/enemy_molecule_1.png",
+            "/Images/item/MultiBall/enemy_molecule_2.png",
+            "/Images/item/MultiBall/enemy_molecule_3.png",
+            "/Images/item/MultiBall/enemy_molecule_4.png",
+            "/Images/item/MultiBall/enemy_molecule_5.png",
+            "/Images/item/MultiBall/enemy_molecule_6.png",
+            "/Images/item/MultiBall/enemy_molecule_7.png",
+            "/Images/item/MultiBall/enemy_molecule_8.png",
+            "/Images/item/MultiBall/enemy_molecule_9.png",
+            "/Images/item/MultiBall/enemy_molecule_10.png",
+            "/Images/item/MultiBall/enemy_molecule_11.png",
+            "/Images/item/MultiBall/enemy_molecule_12.png",
+            "/Images/item/MultiBall/enemy_molecule_13.png",
+            "/Images/item/MultiBall/enemy_molecule_14.png",
+            "/Images/item/MultiBall/enemy_molecule_15.png",
+            "/Images/item/MultiBall/enemy_molecule_16.png",
+            "/Images/item/MultiBall/enemy_molecule_17.png",
+            "/Images/item/MultiBall/enemy_molecule_18.png",
+            "/Images/item/MultiBall/enemy_molecule_19.png",
+            "/Images/item/MultiBall/enemy_molecule_20.png",
+            "/Images/item/MultiBall/enemy_molecule_21.png",
+            "/Images/item/MultiBall/enemy_molecule_22.png",
+            "/Images/item/MultiBall/enemy_molecule_23.png",
+            "/Images/item/MultiBall/enemy_molecule_24.png",
+            "/Images/item/MultiBall/enemy_molecule_25.png"
+    };
+
+    public static final String[] PATH_TO_SAFETY_ANIM = {
+            "/Images/item/Safety/enemy_cone_1.png",
+            "/Images/item/Safety/enemy_cone_2.png",
+            "/Images/item/Safety/enemy_cone_3.png",
+            "/Images/item/Safety/enemy_cone_4.png",
+            "/Images/item/Safety/enemy_cone_5.png",
+            "/Images/item/Safety/enemy_cone_6.png",
+            "/Images/item/Safety/enemy_cone_7.png",
+            "/Images/item/Safety/enemy_cone_8.png",
+            "/Images/item/Safety/enemy_cone_9.png",
+            "/Images/item/Safety/enemy_cone_10.png",
+            "/Images/item/Safety/enemy_cone_11.png",
+            "/Images/item/Safety/enemy_cone_12.png",
+            "/Images/item/Safety/enemy_cone_13.png",
+            "/Images/item/Safety/enemy_cone_14.png",
+            "/Images/item/Safety/enemy_cone_15.png",
+            "/Images/item/Safety/enemy_cone_16.png",
+            "/Images/item/Safety/enemy_cone_17.png",
+            "/Images/item/Safety/enemy_cone_18.png",
+            "/Images/item/Safety/enemy_cone_19.png",
+            "/Images/item/Safety/enemy_cone_20.png",
+            "/Images/item/Safety/enemy_cone_21.png",
+            "/Images/item/Safety/enemy_cone_22.png",
+            "/Images/item/Safety/enemy_cone_23.png",
+            "/Images/item/Safety/enemy_cone_24.png",
+            "/Images/item/Safety/enemy_cone_25.png"
+    };
+
+    public static final String[] PATH_TO_PADDLE_PULSATE_ANIM = {
+            "/Images/paddle/paddle_pulsate_1.png",
+            "/Images/paddle/paddle_pulsate_2.png",
+            "/Images/paddle/paddle_pulsate_3.png"
+    };
+
+    public static final String[] PATH_TO_SHOOTER_PULSATE_ANIM = {
+            "/Images/paddle/paddle_shooter_pulsate_1.png",
+            "/Images/paddle/paddle_shooter_pulsate_2.png",
+            "/Images/paddle/paddle_shooter_pulsate_3.png"
+    };
+
+    public static final String[] PATH_TO_PADDLE_MATERIALIZE_ANIM = {
+            "/Images/paddle/paddle_materialize_1.png",
+            "/Images/paddle/paddle_materialize_2.png",
+            "/Images/paddle/paddle_materialize_3.png",
+            "/Images/paddle/paddle_materialize_4.png",
+            "/Images/paddle/paddle_materialize_5.png",
+            "/Images/paddle/paddle_materialize_6.png",
+            "/Images/paddle/paddle_materialize_7.png",
+            "/Images/paddle/paddle_materialize_8.png",
+            "/Images/paddle/paddle_materialize_9.png",
+            "/Images/paddle/paddle_materialize_10.png",
+            "/Images/paddle/paddle_materialize_11.png",
+            "/Images/paddle/paddle_materialize_12.png",
+            "/Images/paddle/paddle_materialize_13.png",
+            "/Images/paddle/paddle_materialize_14.png",
+            "/Images/paddle/paddle_materialize_15.png"
+    };
+
+    public static final String[] PATH_TO_SHOOTER_ITEM_ANIM = {
+            "/Images/item/shooter/powerup_laser_1.png",
+            "/Images/item/shooter/powerup_laser_2.png",
+            "/Images/item/shooter/powerup_laser_3.png",
+            "/Images/item/shooter/powerup_laser_4.png",
+            "/Images/item/shooter/powerup_laser_5.png",
+            "/Images/item/shooter/powerup_laser_6.png",
+            "/Images/item/shooter/powerup_laser_7.png",
+            "/Images/item/shooter/powerup_laser_8.png"
+    };
+
+    public static final String[] PATH_TO_SLOW_ANIM = {
+            "/Images/item/Slow/powerup_slow_1.png",
+            "/Images/item/Slow/powerup_slow_2.png",
+            "/Images/item/Slow/powerup_slow_3.png",
+            "/Images/item/Slow/powerup_slow_4.png",
+            "/Images/item/Slow/powerup_slow_5.png",
+            "/Images/item/Slow/powerup_slow_6.png",
+            "/Images/item/Slow/powerup_slow_7.png",
+            "/Images/item/Slow/powerup_slow_8.png"
+    };
+
+    public static final String PATH_TO_SOUND_EXPLOSION = "/Sounds/explosion.wav";
+
+    public static final String PATH_TO_SOUND_NEGATIVE_BUFF = "/Sounds/negative_buff.mp3";
 }

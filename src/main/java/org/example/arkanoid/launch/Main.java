@@ -406,6 +406,9 @@ public class Main extends Application {
         }
         // --- KẾT THÚC SỬA LỖI ---
 
+        // THÊM MỚI: Chủ động reset cờ static
+        GameController.paused = false;
+
         if (primaryStage != null && menuScene != null) {
             primaryStage.setScene(menuScene);
         }
