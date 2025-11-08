@@ -29,20 +29,18 @@ public class HandleBrickCollision {
             // Chỉnh vị trí để bóng không dính vào trong paddle, trái phải
             if (overlapLeft < overlapRight) {
                 ball.setX(ball.getX() - overlapLeft);
-                ball.reverseX();
             } else {
                 ball.setX(ball.getX() + overlapRight);
-                ball.reverseX();
             }
+            ball.reverseX();
         } else {
             // Chỉnh vị trí để bóng không dính vào trong paddle, trên
             if (overlapTop < overlapBottom) {
                 ball.setY(ball.getY() - overlapTop);
-                ball.reverseY();
             } else {
                 ball.setY(ball.getY() + overlapBottom);
-                ball.reverseY();
             }
+            ball.reverseY();
         }
 
 //        // Giảm hit points và cộng điểm
@@ -59,6 +57,7 @@ public class HandleBrickCollision {
 //            }
 //        }
 
+        /*
         switch (brick.getType()) {
             case 1, 2 -> {
                 brick.takeHit();
@@ -85,6 +84,8 @@ public class HandleBrickCollision {
 
             default -> {}
         }
+         */
 
+        BreakBrick.breakIt(bricks, brick, gm, im, row, col);
     }
 }

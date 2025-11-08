@@ -37,7 +37,7 @@ public class Main extends Application {
 
     private static Stage primaryStage;
     private static Scene menuScene;
-    private static AnimationTimer timer;
+    private static AnimationTimer renderTimer;
     private static Timeline loop;
     private static String currentMapPath; // Đường dẫn map hiện tại
 
@@ -57,8 +57,14 @@ public class Main extends Application {
     private static MediaPlayer backgroundVideoPlayer;
     private static int curr_level = 0;
 
-    private static long lastFpsTime = 0;
-    private static int frameCount = 0;
+    private static long lastLogicTime = 0;
+    private static int logicCount = 0;
+
+    private static long lastRenderTimeCounter = 0;
+    private static int renderCount = 0;
+
+    private static Thread logicThread;
+    private static volatile boolean running = false;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -93,6 +99,9 @@ public class Main extends Application {
      */
     public static void startGame(int level) {
         try {
+            // Stop previous threads
+            stopGameThreads();
+
             curr_level = level;
             currentMapPath = Constants.MAP_PATH[curr_level];
 
@@ -194,6 +203,7 @@ public class Main extends Application {
                 loop.stop();
             }
 
+            /* old update
             // Beautiful FPS cap
             loop = new Timeline(new KeyFrame(Duration.millis(1000.0 / Constants.FPS), e -> {
                 gameManager.updateGame();
@@ -211,9 +221,131 @@ public class Main extends Application {
             }));
             loop.setCycleCount(Animation.INDEFINITE);
             loop.play();
+             */
+
+            // Start new threads
+            startGameThreads();
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void startGameThreads() {
+        running = true;
+        final Object lock = new Object();
+
+        // Logic thread
+        logicThread = new Thread(() -> {
+            final double dt = 1.0 / Constants.FPS; // 60 updates/sec
+            final long stepNs = (long) (dt * 1_000_000_000);
+
+            lastLogicTime = System.nanoTime();
+            logicCount = 0;
+
+            while (running) {
+                long start = System.nanoTime();
+
+                synchronized (lock) {
+                    gameManager.updateGame();
+                }
+
+                // FPS counting (optional)
+                logicCount++;
+                long now = System.nanoTime();
+                if (now - lastLogicTime >= 1_000_000_000L) {
+                    System.out.println("UPS: " + logicCount); // UPS = Updates per second
+                    logicCount = 0;
+                    lastLogicTime = now;
+                }
+
+                long elapsed = System.nanoTime() - start;
+                long sleep = stepNs - elapsed;
+                if (sleep > 0) {
+                    try {
+                        Thread.sleep(sleep / 1_000_000, (int) (sleep % 1_000_000));
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
+                }
+            }
+        });
+        logicThread.setDaemon(true);
+        logicThread.start();
+
+        // Render loop (AnimationTimer)
+        renderTimer = new AnimationTimer() {
+            private long lastRenderTime = 0;
+            private final long targetNs = (long) (1_000_000_000 / Constants.FPS);
+            private long accumulatedTime = 0;
+
+            @Override
+            public void handle(long now) {
+                if (lastRenderTime == 0) lastRenderTime = now;
+                long delta = now - lastRenderTime;
+                accumulatedTime += delta;
+
+                if (accumulatedTime >= targetNs) {
+                    synchronized(lock) {
+                        gameManager.render();
+                    }
+                    accumulatedTime -= targetNs;
+                    lastRenderTime = now;
+
+                    renderCount++;
+                    if (now - lastRenderTimeCounter >= 1_000_000_000L) {
+                        System.out.println("FPS: " + renderCount);
+                        renderCount = 0;
+                        lastRenderTimeCounter = now;
+                    }
+                } else {
+                    lastRenderTime = now; // update lastRenderTime to avoid drift
+                }
+            }
+        };
+        renderTimer.start();
+
+        /* no capping render
+        renderTimer = new AnimationTimer() {
+            lastRenderTimeCounter = 0;
+            renderCount = 0;
+
+            @Override
+            public void handle(long now) {
+                synchronized (lock) {
+                    gameManager.render();
+                }
+
+                // FPS counting
+                renderCount++;
+                if (lastRenderTimeCounter == 0) lastRenderTimeCounter = now;
+                if (now - lastRenderTimeCounter >= 1_000_000_000L) {
+                    System.out.println("FPS: " + renderCount);
+                    renderCount = 0;
+                    lastRenderTimeCounter = now;
+                }
+            }
+        };
+        renderTimer.start();
+        */
+    }
+
+    // Stop logic/render threads safely
+    private static void stopGameThreads() {
+        running = false;
+
+        if (renderTimer != null) {
+            renderTimer.stop();
+            renderTimer = null;
+        }
+
+        if (logicThread != null && logicThread.isAlive()) {
+            try {
+                logicThread.join(50); // wait max 50ms for cleanup
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+            logicThread = null;
         }
     }
 
@@ -251,7 +383,7 @@ public class Main extends Application {
      * Quay về menu chính
      */
     public static void returnToMenu() {
-        if (timer != null) timer.stop();
+        if (renderTimer != null) renderTimer.stop();
         if (backgroundVideoPlayer != null) {
             backgroundVideoPlayer.stop();
             backgroundVideoPlayer = null;
