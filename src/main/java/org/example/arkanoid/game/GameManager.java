@@ -12,6 +12,7 @@ import org.example.arkanoid.object.Ball;
 import org.example.arkanoid.object.Brick.Brick;
 import org.example.arkanoid.object.Paddle;
 import org.example.arkanoid.game.SoundManager; // Import này đã có
+import org.example.arkanoid.game.ProgressManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,10 +33,11 @@ public class GameManager {
     private int lives;
     private boolean gameOver;
     private boolean won;
+    private int currentLevel;
 
     public GameManager(GameController gameController, InputHandler inputHandler,
                        Paddle paddle, BallManager ballManager, Brick[][] bricks, GameRenderer renderer,
-                       ItemManager im, BulletManager bm) {
+                       ItemManager im, BulletManager bm, int level) {
         this.gameController = gameController;
         this.inputHandler = inputHandler;
         this.paddle = paddle;
@@ -44,6 +46,7 @@ public class GameManager {
         this.renderer = renderer;
         this.im = im;
         this.bm = bm;
+        this.currentLevel = level;
 
         this.score = 0;
         this.lives = Constants.CURRENT_LIVES;
@@ -65,6 +68,7 @@ public class GameManager {
                 im.checkCollisions(paddle, ballManager, this);
                 bm.update();
                 bm.checkCollisions(bricks, this, im);
+                EffectManager.getInstance().update();
             } else {
                 ballManager.balls.get(0).setX(paddle.getX() + paddle.getWidth() / 2 - ballManager.balls.get(0).getWidth() / 2);
                 ballManager.balls.get(0).setY(paddle.getY() - ballManager.balls.get(0).getHeight() - 1);
@@ -179,6 +183,7 @@ public class GameManager {
         // Chỉ gọi một lần khi thắng
         if (won && !this.won) {
             this.won = true;
+            ProgressManager.unlockNextLevel(this.currentLevel);
             SoundManager.getInstance().playMusicSequence(
                     Constants.PATH_TO_SOUND_WIN,
                     Constants.PATH_TO_SOUND_AFTERWIN

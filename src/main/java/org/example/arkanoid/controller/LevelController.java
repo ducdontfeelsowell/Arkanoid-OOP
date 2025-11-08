@@ -14,6 +14,7 @@ import javafx.util.Duration;
 import org.example.arkanoid.config.Constants;
 import org.example.arkanoid.game.SoundManager;
 import org.example.arkanoid.launch.Main;
+import org.example.arkanoid.game.ProgressManager;
 
 import java.io.IOException;
 import java.net.URL;
@@ -21,6 +22,9 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.scene.input.KeyCode; // THÊM MỚI
 import javafx.scene.input.KeyEvent; // THÊM MỚI
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Stage;
 
 public class LevelController implements Initializable{
     public Button map1Button;
@@ -122,64 +126,154 @@ public class LevelController implements Initializable{
 
     public Button backButton;
 
+    public void updateLockStatus() {
+        int unlocked = ProgressManager.maxLevelUnlocked;
+
+        // Bỏ vô hiệu hóa (setDisable(false)) trước khi kiểm tra
+        // để đảm bảo các màn đã mở được bật lại
+        map2Button.setDisable(false); Level2_out.setOpacity(1.0);
+        map3Button.setDisable(false); Level3_out.setOpacity(1.0);
+        map4Button.setDisable(false); Level4_out.setOpacity(1.0);
+        map5Button.setDisable(false); Level5_out.setOpacity(1.0);
+        map6Button.setDisable(false); Level6_out.setOpacity(1.0);
+        map7Button.setDisable(false); Level7_out.setOpacity(1.0);
+        map8Button.setDisable(false); Level8_out.setOpacity(1.0);
+        map9Button.setDisable(false); Level9_out.setOpacity(1.0);
+        map10Button.setDisable(false); Level10_out.setOpacity(1.0);
+        map11Button.setDisable(false); Level11_out.setOpacity(1.0);
+        map12Button.setDisable(false); Level12_out.setOpacity(1.0);
+
+        // Làm mờ và khóa các màn bị khóa
+        if (unlocked < 2) { map2Button.setDisable(true); Level2_out.setOpacity(0.3); }
+        if (unlocked < 3) { map3Button.setDisable(true); Level3_out.setOpacity(0.3); }
+        if (unlocked < 4) { map4Button.setDisable(true); Level4_out.setOpacity(0.3); }
+        if (unlocked < 5) { map5Button.setDisable(true); Level5_out.setOpacity(0.3); }
+        if (unlocked < 6) { map6Button.setDisable(true); Level6_out.setOpacity(0.3); }
+        if (unlocked < 7) { map7Button.setDisable(true); Level7_out.setOpacity(0.3); }
+        if (unlocked < 8) { map8Button.setDisable(true); Level8_out.setOpacity(0.3); }
+        if (unlocked < 9) { map9Button.setDisable(true); Level9_out.setOpacity(0.3); }
+        if (unlocked < 10) { map10Button.setDisable(true); Level10_out.setOpacity(0.3); }
+        if (unlocked < 11) { map11Button.setDisable(true); Level11_out.setOpacity(0.3); }
+        if (unlocked < 12) { map12Button.setDisable(true); Level12_out.setOpacity(0.3); }
+    }
+
+    private void showLockedLevelMessage() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
+
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Cấp độ bị khóa");
+        alert.setHeaderText(null);
+        alert.setContentText("Bạn phải hoàn thành các cấp độ trước để mở khóa màn chơi này!");
+
+
+        Stage stage = (Stage) backButton.getScene().getWindow();
+        alert.initOwner(stage);
+
+        alert.showAndWait();
+    }
+
     public void onClickMap1() {
         SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
-        Main.startGame(Constants.MAP1_PATH);
+        Main.startGame(1);
     }
 
     public void onClickMap2() {
-        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
-        Main.startGame(Constants.MAP2_PATH);
+        if (ProgressManager.maxLevelUnlocked >= 2) { // <-- KIỂM TRA
+            SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
+            Main.startGame(2);
+        } else {
+            showLockedLevelMessage(); // <-- HIỆN THÔNG BÁO
+        }
     }
 
     public void onClickMap3() {
-        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
-        Main.startGame(Constants.MAP3_PATH);
+        if (ProgressManager.maxLevelUnlocked >= 3) { // <-- KIỂM TRA
+            SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
+            Main.startGame(3);
+        } else {
+            showLockedLevelMessage(); // <-- HIỆN THÔNG BÁO
+        }
     }
 
     public void onClickMap4() {
-        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
-        Main.startGame(Constants.MAP4_PATH);
+        if (ProgressManager.maxLevelUnlocked >= 4) { // <-- KIỂM TRA
+            SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
+            Main.startGame(4);
+        } else {
+            showLockedLevelMessage(); // <-- HIỆN THÔNG BÁO
+        }
     }
 
     public void onClickMap5() {
-        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
-        Main.startGame(Constants.MAP5_PATH);
+        if (ProgressManager.maxLevelUnlocked >= 5) { // <-- KIỂM TRA
+            SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
+            Main.startGame(5);
+        } else {
+            showLockedLevelMessage(); // <-- HIỆN THÔNG BÁO
+        }
     }
 
     public void onClickMap6() {
-        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
-        Main.startGame(Constants.MAP6_PATH);
+        if (ProgressManager.maxLevelUnlocked >= 6) { // <-- KIỂM TRA
+            SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
+            Main.startGame(6);
+        } else {
+            showLockedLevelMessage(); // <-- HIỆN THÔNG BÁO
+        }
     }
 
     public void onClickMap7() {
-        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
-        Main.startGame(Constants.MAP7_PATH);
+        if (ProgressManager.maxLevelUnlocked >= 7) { // <-- KIỂM TRA
+            SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
+            Main.startGame(7);
+        } else {
+            showLockedLevelMessage(); // <-- HIỆN THÔNG BÁO
+        }
     }
 
     public void onClickMap8() {
-        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
-        Main.startGame(Constants.MAP8_PATH);
+        if (ProgressManager.maxLevelUnlocked >= 8) { // <-- KIỂM TRA
+            SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
+            Main.startGame(8);
+        } else {
+            showLockedLevelMessage(); // <-- HIỆN THÔNG BÁO
+        }
     }
 
     public void onClickMap9() {
-        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
-        Main.startGame(Constants.MAP9_PATH);
+        if (ProgressManager.maxLevelUnlocked >= 9) { // <-- KIỂM TRA
+            SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
+            Main.startGame(9);
+        } else {
+            showLockedLevelMessage(); // <-- HIỆN THÔNG BÁO
+        }
     }
 
     public void onClickMap10() {
-        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
-        Main.startGame(Constants.MAP10_PATH);
+        if (ProgressManager.maxLevelUnlocked >= 10) { // <-- KIỂM TRA
+            SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
+            Main.startGame(10);
+        } else {
+            showLockedLevelMessage(); // <-- HIỆN THÔNG BÁO
+        }
     }
 
     public void onClickMap11() {
-        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
-        Main.startGame(Constants.MAP11_PATH);
+        if (ProgressManager.maxLevelUnlocked >= 11) { // <-- KIỂM TRA
+            SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
+            Main.startGame(11);
+        } else {
+            showLockedLevelMessage(); // <-- HIỆN THÔNG BÁO
+        }
     }
 
     public void onClickMap12() {
-        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
-        Main.startGame(Constants.MAP12_PATH);
+        if (ProgressManager.maxLevelUnlocked >= 12) { // <-- KIỂM TRA
+            SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
+            Main.startGame(12);
+        } else {
+            showLockedLevelMessage(); // <-- HIỆN THÔNG BÁO
+        }
     }
 
 
@@ -322,5 +416,6 @@ public class LevelController implements Initializable{
         preventKeyActivation(map12Button);
         preventKeyActivation(backButton);
         // --- KẾT THÚC THÊM MỚI ---
+        updateLockStatus();
     }
 }

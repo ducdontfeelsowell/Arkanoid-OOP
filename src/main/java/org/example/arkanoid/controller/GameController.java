@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -12,8 +11,8 @@ import org.example.arkanoid.config.Constants;
 import org.example.arkanoid.game.SoundManager;
 import org.example.arkanoid.launch.Main;
 import org.example.arkanoid.input.InputHandler;
-import javafx.scene.input.KeyCode; // THÊM MỚI
-import javafx.scene.input.KeyEvent; // THÊM MỚI
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 import java.io.IOException;
 import java.net.URL;
@@ -26,6 +25,9 @@ public class GameController implements Initializable {
     public Button backButton2;
     public Button backButton3;
 
+    // Khai báo nút Next Level
+    public Button nextLevelButton;
+
     public AnchorPane loseScreen;
     public AnchorPane pauseScreen;
     public AnchorPane winScreen;
@@ -36,14 +38,14 @@ public class GameController implements Initializable {
     private InputHandler inputHandler;
 
     @FXML
-    private MediaView win_backgroundMediaView; // Đã thêm
+    private MediaView win_backgroundMediaView;
 
     @FXML
     private MediaView lose_backgroundMediaView;
 
-    private MediaPlayer win_mediaPlayer; // Đã thêm
+    private MediaPlayer win_mediaPlayer;
 
-    private MediaPlayer lose_mediaPlayer; // Đã thêm
+    private MediaPlayer lose_mediaPlayer;
 
     public void update() {
         if (inputHandler != null) {
@@ -89,7 +91,7 @@ public class GameController implements Initializable {
         }
     }
 
-    // --- THÊM MỚI: Phương thức chặn phím Space/Enter ---
+    // Phương thức chặn phím Space/Enter
     private void preventKeyActivation(Button button) {
         if (button != null) {
             button.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
@@ -99,7 +101,6 @@ public class GameController implements Initializable {
             });
         }
     }
-    // --- KẾT THÚC THÊM MỚI ---
 
     @FXML
     public void initialize() {
@@ -115,13 +116,18 @@ public class GameController implements Initializable {
 
         addHoverSound(backButton3);
 
-        // --- THÊM MỚI: Gọi phương thức chặn phím ---
+        // Thêm cho nút Next Level
+        addHoverSound(nextLevelButton);
+
+        // Gọi phương thức chặn phím
         preventKeyActivation(resumeGameButton);
         preventKeyActivation(backButton1);
         preventKeyActivation(playAgainButton);
         preventKeyActivation(backButton2);
         preventKeyActivation(backButton3);
-        // --- KẾT THÚC THÊM MỚI ---
+
+        // Chặn phím cho nút Next Level
+        preventKeyActivation(nextLevelButton);
     }
 
     public void onResumeClick() {
@@ -149,6 +155,18 @@ public class GameController implements Initializable {
         SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         loseScreen.setVisible(false);
         Main.restartGame();
+    }
+
+    /**
+     * Xử lý sự kiện khi nhấp vào nút Next Level trên màn hình Win.
+     */
+    @FXML
+    public void onNextLevelClick() {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
+        System.out.println("OKPPPPPPPPPPPPPPPPPPPK");
+        winScreen.setVisible(false);
+        paused = false;
+        Main.loadNextLevel(); // Gọi phương thức để tải map tiếp theo
     }
 
     private void initializeLoseScreenVideo() {

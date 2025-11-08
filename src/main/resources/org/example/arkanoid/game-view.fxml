@@ -13,6 +13,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.arkanoid.controller.GameController">
+
     <AnchorPane fx:id="pauseScreen" prefHeight="800.0" prefWidth="1260.0" visible="false">
         <children>
             <ImageView fitHeight="296.0" fitWidth="478.0" layoutX="391.0" layoutY="242.0" pickOnBounds="true">
@@ -64,6 +65,7 @@
             <Button fx:id="backButton1" layoutX="566.0" layoutY="450.0" mnemonicParsing="false" onAction="#onBackClick1" opacity="0.0" prefHeight="50.0" prefWidth="128.0" text="BACK" />
         </children>
     </AnchorPane>
+
     <AnchorPane fx:id="loseScreen" prefHeight="141.0" prefWidth="185.0" visible="false">
         <children>
          <ImageView fitHeight="800.0" fitWidth="1260.0" pickOnBounds="true">
@@ -72,17 +74,6 @@
             </image>
          </ImageView>
             <MediaView fx:id="lose_backgroundMediaView" fitHeight="800.0" fitWidth="1260.0" preserveRatio="false" />
-
-            <ImageView fx:id="playAgainImage" fitHeight="96.0" fitWidth="166.0" layoutX="548.8" layoutY="370.0" pickOnBounds="true">
-                <image>
-                    <Image url="@../../../Images/background/button1.png" />
-                </image>
-            </ImageView>
-            <ImageView fx:id="playAgainHoverImage" fitHeight="96.0" fitWidth="166.0" layoutX="548.8" layoutY="370.0" mouseTransparent="true" pickOnBounds="true" visible="false">
-                <image>
-                    <Image url="@../../../Images/background/button.png" />
-                </image>
-            </ImageView>
 
             <Label alignment="CENTER" layoutX="349.0" layoutY="160.0" prefHeight="166.0" prefWidth="562.0" text="GAME OVER">
                 <textFill>
@@ -106,6 +97,16 @@
                 </font>
             </Label>
 
+            <ImageView fx:id="playAgainImage" fitHeight="96.0" fitWidth="166.0" layoutX="548.8" layoutY="370.0" pickOnBounds="true">
+                <image>
+                    <Image url="@../../../Images/background/button1.png" />
+                </image>
+            </ImageView>
+            <ImageView fx:id="playAgainHoverImage" fitHeight="96.0" fitWidth="166.0" layoutX="548.8" layoutY="370.0" mouseTransparent="true" pickOnBounds="true" visible="false">
+                <image>
+                    <Image url="@../../../Images/background/button.png" />
+                </image>
+            </ImageView>
             <Label alignment="CENTER" layoutX="548.8" layoutY="370.0" prefHeight="96.0" prefWidth="166.0" text="PLAY AGAIN" textFill="WHITE">
                 <font>
                     <Font name="System Bold Italic" size="18.0" />
@@ -123,7 +124,6 @@
                     <Image url="@../../../Images/background/button.png" />
                 </image>
             </ImageView>
-
             <Label alignment="CENTER" layoutX="548.8" layoutY="500.0" prefHeight="96.0" prefWidth="166.0" text="BACK" textFill="WHITE">
                 <font>
                     <Font name="System Bold Italic" size="18.0" />
@@ -132,6 +132,7 @@
             <Button fx:id="backButton2" layoutX="548.8" layoutY="500.0" mnemonicParsing="false" onAction="#onBackClick2" opacity="0.0" prefHeight="96.0" prefWidth="166.0" text="BACK" />
         </children>
     </AnchorPane>
+
     <AnchorPane fx:id="winScreen" prefHeight="800.0" prefWidth="1260.0" visible="false">
         <children>
          <ImageView fitHeight="800.0" fitWidth="1260.0" pickOnBounds="true">
