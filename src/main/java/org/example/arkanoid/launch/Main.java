@@ -93,7 +93,6 @@ public class Main extends Application {
 
             URL videoUrl = Main.class.getResource(videoPath);
             if (videoUrl == null) {
-                // Ném lỗi rõ ràng nếu không tìm thấy, không dựa vào Objects.requireNonNull
                 throw new IOException("Không tìm thấy file video. Vui lòng kiểm tra đường dẫn: " + videoPath);
             }
             Media media = new Media(videoUrl.toExternalForm());
