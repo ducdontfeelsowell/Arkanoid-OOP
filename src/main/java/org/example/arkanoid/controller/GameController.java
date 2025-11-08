@@ -102,34 +102,6 @@ public class GameController implements Initializable {
         }
     }
 
-    @FXML
-    public void initialize() {
-        if (pauseScreen != null) {
-            pauseScreen.setVisible(false);
-        }
-
-        addHoverSound(resumeGameButton);
-        addHoverSound(backButton1);
-
-        addHoverSound(playAgainButton);
-        addHoverSound(backButton2);
-
-        addHoverSound(backButton3);
-
-        // Thêm cho nút Next Level
-        addHoverSound(nextLevelButton);
-
-        // Gọi phương thức chặn phím
-        preventKeyActivation(resumeGameButton);
-        preventKeyActivation(backButton1);
-        preventKeyActivation(playAgainButton);
-        preventKeyActivation(backButton2);
-        preventKeyActivation(backButton3);
-
-        // Chặn phím cho nút Next Level
-        preventKeyActivation(nextLevelButton);
-    }
-
     public void onResumeClick() {
         paused = false;
         pauseScreen.setVisible(false);
@@ -254,8 +226,33 @@ public class GameController implements Initializable {
             // Xử lý lỗi (có thể hiển thị màn hình tĩnh thay thế)
         }
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // --- TOÀN BỘ CODE ĐÃ ĐƯỢC CHUYỂN VÀO ĐÂY ---
+        if (pauseScreen != null) {
+            pauseScreen.setVisible(false);
+        }
 
+        addHoverSound(resumeGameButton);
+        addHoverSound(backButton1);
+
+        addHoverSound(playAgainButton);
+        addHoverSound(backButton2);
+
+        addHoverSound(backButton3);
+
+        // Thêm cho nút Next Level
+        addHoverSound(nextLevelButton);
+
+        // Gọi phương thức chặn phím
+        preventKeyActivation(resumeGameButton);
+        preventKeyActivation(backButton1);
+        preventKeyActivation(playAgainButton);
+        preventKeyActivation(backButton2);
+        preventKeyActivation(backButton3);
+
+        // Chặn phím cho nút Next Level
+        preventKeyActivation(nextLevelButton);
     }
 }

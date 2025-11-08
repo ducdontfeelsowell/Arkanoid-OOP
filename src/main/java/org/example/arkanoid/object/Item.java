@@ -15,7 +15,10 @@ public class Item extends MoveAbleObject {
         EXPAND_PADDLE,    // Mở rộng paddle
         SHRINK_PADDLE,    // Thu nhỏ paddle
         EXTRA_LIFE,       // Thêm mạng
-        SHOOTER_PADDLE    // Biến paddle thành shooter
+        SHOOTER_PADDLE,   // Biến paddle thành shooter
+        MULTI_BALL,
+        SAFETY_NET,
+        SLOW_SPEED        // <-- THÊM MỚI: Giảm tốc độ
     }
 
     private ItemType type;
@@ -41,15 +44,13 @@ public class Item extends MoveAbleObject {
         try {
             switch (type) {
                 case EXPAND_PADDLE:
-                    for (int i = 1; i <= 8; i++) {
-                        String path = String.format("/Images/item/Expand/expand%d.png", i);
+                    for (String path : Constants.PATH_TO_EXPAND_ANIM) {
                         animationFrames.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream(path))));
                     }
                     break;
 
                 case SHRINK_PADDLE:
-                    for (int i = 1; i <= 8; i++) {
-                        String path = String.format("/Images/item/Shrink/shrink%d.png", i);
+                    for (String path : Constants.PATH_TO_SHRINK_ANIM) {
                         animationFrames.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream(path))));
                     }
                     break;
@@ -59,7 +60,24 @@ public class Item extends MoveAbleObject {
                     break;
 
                 case SHOOTER_PADDLE:
-                    animationFrames.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream(Constants.PATH_TO_TRANSFER_SHOOTER))));
+                    for (String path : Constants.PATH_TO_SHOOTER_ITEM_ANIM) {
+                        animationFrames.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream(path))));
+                    }
+                    break;
+                case MULTI_BALL:
+                    for (String path : Constants.PATH_TO_MULTI_BALL_ANIM) {
+                        animationFrames.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream(path))));
+                    }
+                    break;
+                case SAFETY_NET:
+                    for (String path : Constants.PATH_TO_SAFETY_ANIM) {
+                        animationFrames.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream(path))));
+                    }
+                    break;
+                case SLOW_SPEED:
+                    for (String path : Constants.PATH_TO_SLOW_ANIM) {
+                        animationFrames.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream(path))));
+                    }
                     break;
             }
         } catch (Exception e) {
@@ -107,6 +125,9 @@ public class Item extends MoveAbleObject {
             case EXPAND_PADDLE: return Color.GREEN;
             case SHRINK_PADDLE: return Color.RED;
             case EXTRA_LIFE: return Color.GOLD;
+            case MULTI_BALL: return Color.CYAN;
+            case SAFETY_NET: return Color.BLUEVIOLET;
+            case SLOW_SPEED: return Color.LIGHTBLUE;
             default: return Color.GRAY;
         }
     }

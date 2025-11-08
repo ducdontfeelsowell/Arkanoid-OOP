@@ -251,7 +251,12 @@ public class Main extends Application {
      * Quay về menu chính
      */
     public static void returnToMenu() {
-        if (timer != null) timer.stop();
+        // SỬA ĐỔI: Dừng đúng 'loop', không phải 'timer'
+        if (loop != null) {
+            loop.stop();
+        }
+        // (Dòng cũ: if (timer != null) timer.stop();)
+
         if (backgroundVideoPlayer != null) {
             backgroundVideoPlayer.stop();
             backgroundVideoPlayer = null;
@@ -273,6 +278,9 @@ public class Main extends Application {
             e.printStackTrace();
         }
         // --- KẾT THÚC SỬA LỖI ---
+
+        // THÊM MỚI: Chủ động reset cờ static
+        GameController.paused = false;
 
         if (primaryStage != null && menuScene != null) {
             primaryStage.setScene(menuScene);
