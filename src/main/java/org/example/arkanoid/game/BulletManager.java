@@ -4,7 +4,10 @@ import javafx.scene.canvas.GraphicsContext;
 import org.example.arkanoid.object.Brick.Brick;
 import org.example.arkanoid.object.Bullet;
 import org.example.arkanoid.config.Constants;
-import org.example.arkanoid.game.SoundManager; // THÊM MỚI
+import org.example.arkanoid.game.SoundManager;
+import org.example.arkanoid.object.Brick.ExplodeBrick; // <-- THÊM MỚI
+import org.example.arkanoid.logic.DestroyRegion;       // <-- THÊM MỚI
+import org.example.arkanoid.game.EffectManager;       // <-- THÊM MỚI
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -23,9 +26,7 @@ public class BulletManager {
         long now = System.nanoTime();
         if (now - lastShotTime > Constants.DEFAULT_BULLET_COOLDOWN) {
 
-            // --- THÊM MỚI: Phát âm thanh bắn súng ---
             SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_SHOOT);
-            // --- KẾT THÚC THÊM MỚI ---
 
             double spawnY = paddleY;
 
@@ -73,12 +74,35 @@ public class BulletManager {
 
                     if (brick != null && !brick.isDestroyed() && bullet.isCollidingWith(brick)) {
 
-                        brick.takeHit();
+                        // --- SỬA ĐỔI: Xử lý va chạm gạch nổ ---
+                        if (brick instanceof ExplodeBrick) {
+                            // 1. Tạo hiệu ứng nổ và rung
+                            double centerX = brick.getX() + brick.getWidth() / 2;
+                            double centerY = brick.getY() + brick.getHeight() / 2;
+                            EffectManager.getInstance().spawnExplosion(centerX, centerY);
+                            EffectManager.getInstance().shakeScreen(5, 150_000_000L);
 
-                        if (brick.isDestroyed()) {
-                            gm.setScore(gm.getScore() + brick.getScore());
-                            im.spawnItem(brick);
+                            // 2. Phá hủy gạch
+                            int points = 0;
+                            brick.takeHit();
+
+                            // 3. Phá hủy gạch xung quanh
+                            points = DestroyRegion.destroyer(bricks, i, j, points);
+                            gm.setScore(gm.getScore() + points);
+
+                        } else {
+                            // Logic cũ cho gạch thường
+                            brick.takeHit();
+
+                            if (brick.isDestroyed()) {
+                                gm.setScore(gm.getScore() + brick.getScore());
+                                im.spawnItem(brick);
+
+                                // Thêm hiệu ứng mảnh vỡ cho gạch thường
+                                EffectManager.getInstance().spawnBrickDebris(brick);
+                            }
                         }
+                        // --- KẾT THÚC SỬA ĐỔI ---
 
                         hit = true;
                         break;

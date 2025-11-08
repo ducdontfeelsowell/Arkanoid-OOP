@@ -3,7 +3,8 @@ package org.example.arkanoid.game;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import org.example.arkanoid.object.Brick.Brick;
-import org.example.arkanoid.object.Particle; // <-- THAY ĐỔI IMPORT
+import org.example.arkanoid.object.Particle; // <-- Giữ nguyên import này
+import org.example.arkanoid.object.ExplosionAnimation; // <-- THÊM IMPORT MỚI
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -14,10 +15,12 @@ public class EffectManager {
 
     private static EffectManager instance;
 
-    // --- THAY ĐỔI: Danh sách này giờ chứa Particle ---
+    // --- Danh sách cho mảnh vỡ (giữ nguyên) ---
     private List<Particle> particles;
 
-    // --- THÊM MỚI: Biến random ---
+    // --- THÊM MỚI: Danh sách cho animation nổ ---
+    private List<ExplosionAnimation> explosions;
+
     private Random random = new Random();
 
     // Biến cho Screen Shake (Giữ nguyên)
@@ -25,8 +28,10 @@ public class EffectManager {
     private long shakeEndTime = 0;
 
     private EffectManager() {
-        // --- THAY ĐỔI: Khởi tạo danh sách Particle ---
         particles = new ArrayList<>();
+
+        // --- THÊM MỚI: Khởi tạo danh sách nổ ---
+        explosions = new ArrayList<>();
     }
 
     public static EffectManager getInstance() {
@@ -36,62 +41,79 @@ public class EffectManager {
         return instance;
     }
 
-
+    /**
+     * Tạo mảnh vỡ (Giữ nguyên)
+     */
     public void spawnBrickDebris(Brick brick) {
         double x = brick.getX() + brick.getWidth() / 2;
         double y = brick.getY() + brick.getHeight() / 2;
         Color color = brick.getBrickColor();
-        int particleCount = 10; // 10 mảnh vỡ
-        double life = 60 + random.nextInt(30); // Sống 1 - 1.5 giây
-        double speed = 2.0; // Bay ra chậm
+        int particleCount = 10;
+        double life = 60 + random.nextInt(30);
+        double speed = 2.0;
 
         for (int i = 0; i < particleCount; i++) {
             particles.add(new Particle(x, y, color, life, speed));
         }
     }
 
-    // --- THÊM MỚI: Phương thức tạo vụ nổ (cho gạch nổ) ---
+
+    // --- SỬA ĐỔI: Phương thức tạo vụ nổ (cho gạch nổ) ---
     public void spawnExplosion(double x, double y) {
-        int particleCount = 40; // 40 mảnh vỡ
-        double life = 80 + random.nextInt(40); // Sống 1.3 - 2 giây
-        double speed = 5.0; // Bay ra nhanh
+        // Xóa mã tạo particle cũ
 
-        // Mảng màu của vụ nổ
-        Color[] explosionColors = { Color.YELLOW, Color.ORANGE, Color.RED, Color.WHITE };
-
-        for (int i = 0; i < particleCount; i++) {
-            Color color = explosionColors[random.nextInt(explosionColors.length)];
-            particles.add(new Particle(x, y, color, life, speed));
-        }
+        // THÊM MỚI: Tạo một đối tượng ExplosionAnimation
+        // (x, y) được truyền vào đây là TÂM của viên gạch
+        ExplosionAnimation anim = new ExplosionAnimation(x, y);
+        explosions.add(anim);
     }
+    // --- KẾT THÚC SỬA ĐỔI ---
 
 
     public void update() {
-        // --- THAY ĐỔI: Cập nhật danh sách Particle ---
-        Iterator<Particle> iterator = particles.iterator();
-        while (iterator.hasNext()) {
-            Particle p = iterator.next();
+        // --- Cập nhật mảnh vỡ (giữ nguyên) ---
+        Iterator<Particle> pIterator = particles.iterator();
+        while (pIterator.hasNext()) {
+            Particle p = pIterator.next();
             p.update();
             if (p.isFinished()) {
-                iterator.remove();
+                pIterator.remove();
+            }
+        }
+
+        // --- THÊM MỚI: Cập nhật các animation nổ ---
+        Iterator<ExplosionAnimation> eIterator = explosions.iterator();
+        while (eIterator.hasNext()) {
+            ExplosionAnimation anim = eIterator.next();
+            anim.update();
+            if (anim.isFinished()) {
+                eIterator.remove();
             }
         }
     }
 
 
     public void render(GraphicsContext gc) {
-        // --- THAY ĐỔI: Vẽ các Particle ---
+        // --- Vẽ các Particle (giữ nguyên) ---
         for (Particle p : particles) {
             p.render(gc);
+        }
+
+        // --- THÊM MỚI: Vẽ các animation nổ ---
+        for (ExplosionAnimation anim : explosions) {
+            anim.render(gc);
         }
     }
 
 
     public void clear() {
-        // --- THAY ĐỔI: Xóa các Particle ---
         particles.clear();
+
+        // --- THÊM MỚI: Xóa các vụ nổ ---
+        explosions.clear();
     }
 
+    // ... (Các phương thức shakeScreen và applyShake giữ nguyên) ...
     public void shakeScreen(double intensity, long durationNano) {
         this.shakeIntensity = intensity;
         this.shakeEndTime = System.nanoTime() + durationNano;
@@ -103,14 +125,12 @@ public class EffectManager {
         long now = System.nanoTime();
         if (now > shakeEndTime) {
             shakeEndTime = 0;
-            return; // Hết thời gian rung
+            return;
         }
 
-        // Tạo vị trí rung ngẫu nhiên
         double offsetX = (Math.random() - 0.5) * 2 * shakeIntensity;
         double offsetY = (Math.random() - 0.5) * 2 * shakeIntensity;
 
-        // Di chuyển toàn bộ canvas
         gc.translate(offsetX, offsetY);
     }
 }
