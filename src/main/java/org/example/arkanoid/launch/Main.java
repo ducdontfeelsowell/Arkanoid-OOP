@@ -118,9 +118,6 @@ public class Main extends Application {
             backgroundVideoPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Lặp vô hạn
             backgroundVideoPlayer.setMute(true); // Tắt tiếng video nền
 
-            mediaPlayer = new MediaPlayer(media);
-            mediaPlayer.setAutoPlay(true);
-
             // 3. Tạo MediaView
             MediaView mediaView = new MediaView(backgroundVideoPlayer);
             mediaView.setFitWidth(Constants.SCREEN_WIDTH);
