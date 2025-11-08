@@ -1,6 +1,7 @@
 package org.example.arkanoid.config;
 
 import javafx.scene.image.Image;
+import java.util.Objects;
 
 public class Constants {
     /*
@@ -15,7 +16,7 @@ public class Constants {
     /*
     FPS
      */
-    public static final double FPS = 120.0;
+    public static final double FPS = 60.0;
     public static final double INTERVAL = 1000000000 / FPS; // nanoseconds per frame, that's 10^9/fps
 
     /*
@@ -27,7 +28,7 @@ public class Constants {
     public final static double DEFAULT_PADDLE_POSITION_Y = SCREEN_HEIGHT - 100;
     public final static double DEFAULT_PADDLE_DX = 0;
     public final static double DEFAULT_PADDLE_DY = 0;
-    public final static double DEFAULT_PADDLE_SPEED = 7;
+    public final static double DEFAULT_PADDLE_SPEED = 10;
 
     /*
     ball
@@ -97,6 +98,7 @@ public class Constants {
     /*
     đường dẫn đến các file map
      */
+    public final static String[] MAP_PATH  = new String[13];
     public final static String MAP1_PATH  = "src/main/resources/Maps/map1.txt";
     public final static String MAP2_PATH  = "src/main/resources/Maps/map2.txt";
     public final static String MAP3_PATH  = "src/main/resources/Maps/map3.txt";
@@ -144,7 +146,6 @@ public class Constants {
     public final static String PATH_TO_GAME_BACKGROUND = "/Images/background/main_game_background.jpg";
     public final static String PATH_TO_MENU_BACKGROUND = "/Images/background/menu_Background.jpg";
     public final static String PATH_TO_IMAGE_BACKGROUND = "/Images/background/main_image_background.jpg";
-
 
     public static boolean isStarted = false;
 
@@ -199,6 +200,7 @@ public class Constants {
     public static final String PATH_TO_PADDLE_2 = "/Images/paddle/paddle2.png";
     public static final String PATH_TO_SHOOTER_PADDLE = "/Images/paddle/shooter.png";
     public static final String PATH_TO_SHOOTS = "/Images/paddle/shoots.png";
+
 
     /*
     đường dẫn đến hình ảnh của ball

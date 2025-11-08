@@ -1,6 +1,9 @@
 package org.example.arkanoid.launch;
 
+import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,36 +26,48 @@ import org.example.arkanoid.input.MapLoader;
 import org.example.arkanoid.object.Ball;
 import org.example.arkanoid.object.Brick.Brick;
 import org.example.arkanoid.object.Paddle;
+import org.example.arkanoid.game.ProgressManager;
 
 import java.io.IOException;
 import java.net.URL;
+import javafx.util.Duration;
 import java.util.Objects;
 
 public class Main extends Application {
 
-    private static Stage         primaryStage;
-    private static Scene         menuScene;
+    private static Stage primaryStage;
+    private static Scene menuScene;
     private static AnimationTimer timer;
-    private static String        currentMapPath;
+    private static Timeline loop;
+    private static String currentMapPath; // Đường dẫn map hiện tại
 
-    private static Paddle        paddle;
-    private static BallManager   ballManager;
-    private static Brick[][]     bricks;
 
-    private static InputHandler   inputHandler;
+    private static Paddle paddle;
+    private static BallManager ballManager;
+    private static Brick[][] bricks;
+
+    private static InputHandler inputHandler;
     private static GameController gameController;
-    private static GameRenderer   gameRenderer;
-    private static GameManager    gameManager;
-    private static ItemManager    itemManager;
-    private static BulletManager  bulletManager;
-    private static MediaPlayer    mediaPlayer;
-    private static SoundManager   soundManager;
+    private static GameRenderer gameRenderer;
+    private static GameManager gameManager;
+    private static ItemManager itemManager;
+    private static BulletManager bulletManager;
+    private static MediaPlayer mediaPlayer;
+    private static SoundManager soundManager;
     private static MediaPlayer backgroundVideoPlayer;
+    private static int curr_level = 0;
+
+    private static long lastFpsTime = 0;
+    private static int frameCount = 0;
 
     @Override
     public void start(Stage stage) throws Exception {
         primaryStage = stage;
 
+        for(int i = 1 ; i <=12 ; i++){
+            Constants.MAP_PATH[i] = "src/main/resources/Maps/map" +String.valueOf(i)+".txt";
+        }
+        ProgressManager.loadProgress();
         // Load menu scene
         Parent root = FXMLLoader.load(Objects.requireNonNull(
                 getClass().getResource(Constants.PATH_TO_MAIN_MENU)));
@@ -74,11 +89,12 @@ public class Main extends Application {
     }
 
     /**
-     * Khởi tạo và bắt đầu game
+     * Khởi tạo và bắt đầu game với mapPath cụ thể
      */
-    public static void startGame(String mapPath) {
+    public static void startGame(int level) {
         try {
-            currentMapPath = mapPath;
+            curr_level = level;
+            currentMapPath = Constants.MAP_PATH[curr_level];
 
             if (backgroundVideoPlayer != null) {
                 backgroundVideoPlayer.stop();
@@ -156,7 +172,7 @@ public class Main extends Application {
             ballManager = new BallManager();
             ballManager.addBall(paddle);
 
-            bricks = MapLoader.loadMap(mapPath);
+            bricks = MapLoader.loadMap(currentMapPath);
 
             gameRenderer = new GameRenderer(gc);
 
@@ -165,7 +181,7 @@ public class Main extends Application {
             bulletManager = new BulletManager();
 
             gameManager = new GameManager(gameController, inputHandler,
-                    paddle, ballManager, bricks, gameRenderer, itemManager, bulletManager);
+                    paddle, ballManager, bricks, gameRenderer, itemManager, bulletManager, level);
 
             gameManager.Init();
 
@@ -177,44 +193,62 @@ public class Main extends Application {
             primaryStage.setY(Constants.DEFAULT_SCREEN_Y);
             primaryStage.setScene(gameScene);
 
-            if (timer != null) timer.stop();
+            if (loop != null) {
+                loop.stop();
+            }
 
-            timer = new AnimationTimer() {
-                private double fps = Constants.FPS;
-                private double interval = Constants.INTERVAL;
-                private long lastUpdate = 0;
+            // Beautiful FPS cap
+            loop = new Timeline(new KeyFrame(Duration.millis(1000.0 / Constants.FPS), e -> {
+                gameManager.updateGame();
 
-                private int frameCount = 0;
-                private long lastFpsTime = 0;
+                // FPS counting
+                frameCount++;
+                long now = System.nanoTime();
+                if (lastFpsTime == 0) lastFpsTime = now;
 
-                @Override
-                public void handle(long now) {
-                    if (now - lastUpdate >= interval) {
-                        gameManager.updateGame();
-                        lastUpdate = now;
-                        frameCount++;
-
-                        long delayNs = (long) interval - (System.nanoTime() - now);
-                        if (delayNs > 0) {
-                            try {
-                                Thread.sleep(delayNs / 1_000_000, (int) (delayNs % 1_000_000));
-                            } catch (InterruptedException ignored) {}
-                        }
-                    }
-
-                    if (now - lastFpsTime >= 1000000000) {
-                        System.out.println("FPS: " + frameCount);
-                        frameCount = 0;
-                        lastFpsTime = now;
-                    }
+                if (now - lastFpsTime >= 1_000_000_000) {  // every 1 second
+                    System.out.println("FPS: " + frameCount);
+                    frameCount = 0;
+                    lastFpsTime = now;
                 }
-            };
-            timer.start();
+            }));
+            loop.setCycleCount(Animation.INDEFINITE);
+            loop.play();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Chuyển sang level tiếp theo
+     */
+    public static void loadNextLevel() {
+        System.out.println("OKK");
+        if (currentMapPath == null) {
+            System.err.println("Lỗi: Không xác định được map hiện tại. Quay về Menu.");
+            returnToMenu();
+            return;
+        }
+
+        try {
+            // currentMapPath có dạng: "src/main/resources/Maps/mapX.txt"
+            int nextLevel = curr_level + 1;
+
+            if (nextLevel <= 12) { // Giả định có 12 map
+                Constants.isStarted = false;
+                startGame(nextLevel);
+            } else {
+                // Hoàn thành tất cả các map
+                System.out.println("Chúc mừng! Bạn đã hoàn thành tất cả các màn chơi.");
+                returnToMenu(); // Quay về menu sau khi hoàn thành
+            }
+        } catch (NumberFormatException e) {
+            System.err.println("Lỗi khi phân tích số cấp độ từ đường dẫn: " + currentMapPath);
+            returnToMenu();
+        }
+    }
+
 
     /**
      * Quay về menu chính
@@ -229,6 +263,20 @@ public class Main extends Application {
         if (soundManager != null) {
             soundManager.playRandomBackgroundMusic(); // Phát nhạc 1, 2
         }
+
+        // --- SỬA LỖI ĐANG Ở ĐÂY ---
+        // Vấn đề: Chỉ setScene(menuScene) sẽ hiển thị lại root CŨ (là màn Level Select)
+        // Giải pháp: Tải lại Menu chính và đặt nó làm root MỚI cho menuScene.
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource(Constants.PATH_TO_MAIN_MENU));
+            Parent root = loader.load();
+            menuScene.setRoot(root); // Đặt lại root của scene cũ
+        } catch (IOException e) {
+            System.err.println("Lỗi nghiêm trọng: Không thể tải lại main menu!");
+            e.printStackTrace();
+        }
+        // --- KẾT THÚC SỬA LỖI ---
+
         if (primaryStage != null && menuScene != null) {
             primaryStage.setScene(menuScene);
         }
@@ -237,10 +285,8 @@ public class Main extends Application {
 
     public static void restartGame() {
         GameController.paused = false;
-        if (currentMapPath != null) {
-            startGame(currentMapPath);
-            Constants.isStarted = false;
-        }
+        startGame(curr_level);
+        Constants.isStarted = false;
     }
 
     public static GameController getGameController() {

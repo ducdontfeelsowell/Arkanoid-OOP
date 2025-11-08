@@ -9,6 +9,7 @@ import org.example.arkanoid.config.Constants;
 import javafx.scene.image.ImageView;
 import org.example.arkanoid.game.SoundManager;
 import org.example.arkanoid.launch.Main;
+import org.example.arkanoid.controller.LevelController;
 
 import java.io.IOException;
 import java.net.URL;
@@ -68,6 +69,8 @@ public class MenuController implements Initializable{
         SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.PATH_TO_LEVEL_VIEW));
         Parent root = loader.load();
+        LevelController controller = loader.getController();
+        controller.updateLockStatus();
         playButton.getScene().setRoot(root);
     }
 
