@@ -278,13 +278,13 @@ public class Constants {
     public final static double EASY_DROP_CHANCE = 0.5; // 50%
 
     public final static int NORMAL_LIVES = 3;
-    public final static double NORMAL_BALL_SPEED = 7;
-    public final static double NORMAL_PADDLE_SPEED = 4;
+    public final static double NORMAL_BALL_SPEED = 9;
+    public final static double NORMAL_PADDLE_SPEED = 7;
     public final static double NORMAL_DROP_CHANCE = 0.3; // 30%
 
     public final static int HARD_LIVES = 2;
-    public final static double HARD_BALL_SPEED = 9;
-    public final static double HARD_PADDLE_SPEED = 4;
+    public final static double HARD_BALL_SPEED = 14;
+    public final static double HARD_PADDLE_SPEED = 6;
     public final static double HARD_DROP_CHANCE = 0.15; // 15%
 
     // Các biến (không final) để lưu cài đặt HIỆN TẠI
@@ -293,4 +293,17 @@ public class Constants {
     public static double CURRENT_PADDLE_SPEED = NORMAL_PADDLE_SPEED;
     public static double CURRENT_DROP_CHANCE = NORMAL_DROP_CHANCE;
     public static String CURRENT_DIFFICULTY = "Thường";
+
+    public static final String[] PATH_TO_EXPLOSION_ANIM = {
+            "/Images/explosion/enemy_explosion_1.png",
+            "/Images/explosion/enemy_explosion_2.png",
+            "/Images/explosion/enemy_explosion_3.png",
+            "/Images/explosion/enemy_explosion_4.png",
+            "/Images/explosion/enemy_explosion_5.png",
+            "/Images/explosion/enemy_explosion_6.png",
+            "/Images/explosion/enemy_explosion_7.png",
+            "/Images/explosion/enemy_explosion_8.png",
+            "/Images/explosion/enemy_explosion_9.png",
+            "/Images/explosion/enemy_explosion_10.png"
+    };
 }
