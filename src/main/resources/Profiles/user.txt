@@ -1,0 +1,8 @@
+manh2006=5,3500,5260
+namcuto=1,0,280
+manhdhdhj=1,600,0
+hoangvanthang=4,1850,2350
+vutienmanh=2,1100,940
+mânha=1,1000,0
+Vugiaanhduc=2,4200,2670
+phiduongdat=1,0,80
