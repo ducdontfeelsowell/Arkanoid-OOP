@@ -50,26 +50,32 @@ public class Paddle extends MoveAbleObject {
 
 
     private int currentImageIndex = 0;
-    private long lastToggleTime = 0;
+    // private long lastToggleTime = 0; // <-- XÓA
     private final long TOGGLE_INTERVAL = 200_000_000; // 200ms
+    private long toggleAccumulator = 0; // <-- THÊM: Bộ đếm animation
 
     private boolean isShooter = false;
-    private double shooterEndTime = 0;
+    // private double shooterEndTime = 0; // <-- XÓA
+    private double shooterRemainingTime = 0; // <-- THÊM
 
     // --- Logic bất tử ---
     private boolean isInvincible = false;
-    private double invincibilityEndTime = 0;
+    // private double invincibilityEndTime = 0; // <-- XÓA
+    private double invincibilityRemainingTime = 0; // <-- THÊM
 
     private int materializeFrameIndex = 0;
-    private long lastMaterializeTime = 0;
+    // private long lastMaterializeTime = 0; // <-- XÓA
     private final long MATERIALIZE_INTERVAL = 40_000_000L; // 40ms/frame
+    private long materializeAccumulator = 0; // <-- THÊM
     // --- Kết thúc ---
 
-    private double sizeEndTime = 0;
+    // private double sizeEndTime = 0; // <-- XÓA
+    private double sizeRemainingTime = 0; // <-- THÊM
     private double originalWidth = Constants.DEFAULT_PADDLE_WIDTH;
 
     // THÊM MỚI: Logic cho tốc độ giới hạn thời gian (long -> double)
-    private double speedEndTime = 0;
+    // private double speedEndTime = 0; // <-- XÓA
+    private double speedRemainingTime = 0; // <-- THÊM
     private double originalSpeed = Constants.CURRENT_PADDLE_SPEED;
 
 
@@ -83,11 +89,13 @@ public class Paddle extends MoveAbleObject {
                 Constants.DEFAULT_PADDLE_DY);
 
         this.speed = Constants.CURRENT_PADDLE_SPEED;
+        // Khởi tạo tốc độ ban đầu
+        this.originalSpeed = Constants.CURRENT_PADDLE_SPEED;
     }
 
     @Override
     public void move() {
-        x += dx;
+        x += dx * speed; // <-- SỬA: Sử dụng speed * dx
 
         if (x < Constants.PLAY_AREA_LEFT) {
             x = Constants.PLAY_AREA_LEFT;
@@ -97,71 +105,118 @@ public class Paddle extends MoveAbleObject {
     }
 
     public void moveLeft() {
-        dx = -speed;
+        dx = -1; // Chỉ đặt hướng
     }
 
     public void moveRight() {
-        dx = +speed;
+        dx = +1; // Chỉ đặt hướng
     }
 
     public void stopMove() {
         dx = 0;
     }
 
-    @Override
-    public void update() {
+
+    // public void update() { // <-- SỬA
+    // @Override // <-- XÓA DÒNG NÀY
+    public void update(long deltaTime) { // <-- THÊM: Nhận deltaTime
         move();
 
-        // SỬA ĐỔI: (Kiểm tra double)
-        if (isShooter && (double)System.nanoTime() > shooterEndTime) {
-            isShooter = false;
-            SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_GUN_LOAD);
+        // --- LOGIC ĐẾM NGƯỢC ITEM (ĐÃ SỬA) ---
+
+        // Cập nhật Shooter
+        if (isShooter) {
+            shooterRemainingTime -= deltaTime;
+            if (shooterRemainingTime <= 0) {
+                deactivateShooter();
+            }
         }
 
-        // Cập nhật trạng thái bất tử (Kiểm tra double)
-        if (isInvincible && (double)System.nanoTime() > invincibilityEndTime) {
-            isInvincible = false;
+        // Cập nhật trạng thái bất tử
+        if (isInvincible) {
+            invincibilityRemainingTime -= deltaTime;
+            if (invincibilityRemainingTime <= 0) {
+                isInvincible = false;
+                invincibilityRemainingTime = 0;
+            }
         }
 
-        // Logic Reset kích thước (Kiểm tra double)
-        if (sizeEndTime != 0 && (double)System.nanoTime() > sizeEndTime) {
-            this.width = originalWidth;
-            sizeEndTime = 0;
+        // Logic Reset kích thước
+        if (sizeRemainingTime > 0) {
+            sizeRemainingTime -= deltaTime;
+            if (sizeRemainingTime <= 0) {
+                resetSize(); // Sử dụng hàm reset
+                sizeRemainingTime = 0;
+            }
         }
 
-        // Logic Reset tốc độ Paddle (Kiểm tra double)
-        if (speedEndTime != 0 && (double)System.nanoTime() > speedEndTime) {
-            this.speed = originalSpeed;
-            speedEndTime = 0;
+        // Logic Reset tốc độ Paddle
+        if (speedRemainingTime > 0) {
+            speedRemainingTime -= deltaTime;
+            if (speedRemainingTime <= 0) {
+                resetSpeed(); // Sử dụng hàm reset
+                speedRemainingTime = 0;
+            }
         }
+
+        // --- LOGIC ANIMATION (ĐÃ SỬA) ---
+        // Cập nhật animation chính (pulsate)
+        toggleAccumulator += deltaTime;
+        if (toggleAccumulator > TOGGLE_INTERVAL) {
+            List<Image> frames = isShooter ? staticShooterFrames : staticNormalFrames;
+            if (!frames.isEmpty()) {
+                currentImageIndex = (currentImageIndex + 1) % frames.size();
+            }
+            toggleAccumulator -= TOGGLE_INTERVAL;
+        }
+
+        // Cập nhật animation materialize (bất tử)
+        if (isInvincible) {
+            materializeAccumulator += deltaTime;
+            if (materializeAccumulator > MATERIALIZE_INTERVAL) {
+                if (materializeFrameIndex < staticMaterializeFrames.size()) {
+                    materializeFrameIndex++;
+                }
+                materializeAccumulator -= MATERIALIZE_INTERVAL;
+            }
+        } else {
+            // Reset khi không bất tử
+            materializeFrameIndex = 0;
+            materializeAccumulator = 0;
+        }
+    }
+
+    // THÊM PHƯƠNG THỨC NÀY ĐỂ SỬA LỖI COMPILER
+    /**
+     * Phương thức này bắt buộc phải có do kế thừa từ GameObject/MoveAbleObject.
+     * Tuy nhiên, toàn bộ logic game đã được chuyển sang update(long deltaTime)
+     * và được gọi trực tiếp từ GameManager.
+     */
+    @Override
+    public void update() {
+        // Để trống
     }
 
     @Override
     public void render(GraphicsContext gc) {
-        long currentTime = System.nanoTime();
+        // long currentTime = System.nanoTime(); // <-- XÓA: Không cần thời gian ở đây nữa
         Image currentImage = null;
 
-        // --- Xử lý animation bất tử/xuất hiện ---
+        // --- Xử lý animation bất tử/xuất hiện (Logic đã được update() xử lý) ---
         if (isInvincible) {
 
-            // Chuyển frame materialize
-            if (currentTime - lastMaterializeTime > MATERIALIZE_INTERVAL) {
-                if (materializeFrameIndex < staticMaterializeFrames.size()) {
-                    materializeFrameIndex++;
-                }
-                lastMaterializeTime = currentTime;
-            }
+            // Chuyển frame materialize (ĐÃ CHUYỂN LÊN UPDATE)
 
             // Chỉ hiển thị animation materialize trong khi nó chưa chạy xong
             if (materializeFrameIndex < staticMaterializeFrames.size()) {
                 currentImage = staticMaterializeFrames.get(materializeFrameIndex);
             } else {
                 // Nếu animation materialize đã chạy xong, vẽ paddle thường/shooter
-                currentImage = getNormalOrShooterFrame(currentTime);
+                currentImage = getNormalOrShooterFrame(); // <-- XÓA Tham số
             }
         } else {
             // Vẽ paddle thường hoặc shooter
-            currentImage = getNormalOrShooterFrame(currentTime);
+            currentImage = getNormalOrShooterFrame(); // <-- XÓA Tham số
         }
         // --- KẾT THÚC SỬA ĐỔI ---
 
@@ -175,17 +230,14 @@ public class Paddle extends MoveAbleObject {
     }
 
     /**
-     * Phương thức mới để lấy frame animation hiện tại
+     * Phương thức mới để lấy frame animation hiện tại (Đã được update() tính toán)
      */
-    private Image getNormalOrShooterFrame(long currentTime) {
+    private Image getNormalOrShooterFrame() { // <-- XÓA Tham số
         List<Image> frames = isShooter ? staticShooterFrames : staticNormalFrames;
 
         if (frames.isEmpty()) return null;
 
-        if (currentTime - lastToggleTime > TOGGLE_INTERVAL) {
-            currentImageIndex = (currentImageIndex + 1) % frames.size();
-            lastToggleTime = currentTime;
-        }
+        // XÓA TẤT CẢ LOGIC THỜI GIAN Ở ĐÂY
 
         if (currentImageIndex >= frames.size()) {
             currentImageIndex = 0;
@@ -196,71 +248,93 @@ public class Paddle extends MoveAbleObject {
 
     public void activateShooter() {
         this.isShooter = true;
-        // SỬA ĐỔI: Lưu double
-        this.shooterEndTime = (double)System.nanoTime() + Constants.DEFAULT_SHOOTER_DURATION;
+        // SỬA ĐỔI: Đặt thời gian còn lại
+        // this.shooterEndTime = (double)System.nanoTime() + Constants.DEFAULT_SHOOTER_DURATION; // <-- XÓA
+        this.shooterRemainingTime = Constants.DEFAULT_SHOOTER_DURATION; // <-- THÊM
+    }
+
+    // THÊM: Hàm tắt súng
+    private void deactivateShooter() {
+        this.isShooter = false;
+        this.shooterRemainingTime = 0;
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_GUN_LOAD);
     }
 
     // --- CÁC PHƯƠNG THỨC KÍCH THƯỚC ---
     public void setSizeWithTimeout(double newWidth) {
-        if (sizeEndTime == 0) {
-            this.originalWidth = Constants.DEFAULT_PADDLE_WIDTH;
+        if (sizeRemainingTime <= 0) { // Sửa: kiểm tra thời gian còn lại
+            // Lưu lại kích thước gốc CHỈ khi bắt đầu hiệu ứng mới
+            this.originalWidth = this.width; // Lưu kích thước hiện tại, không phải default
         }
 
         this.width = newWidth;
 
-        // SỬA ĐỔI: Lưu double
-        this.sizeEndTime = (double)System.nanoTime() + Constants.DEFAULT_SIZE_DURATION;
+        // SỬA ĐỔI: Đặt thời gian còn lại
+        // this.sizeEndTime = (double)System.nanoTime() + Constants.DEFAULT_SIZE_DURATION; // <-- XÓA
+        this.sizeRemainingTime = Constants.DEFAULT_SIZE_DURATION; // <-- THÊM
     }
 
     public void cancelSizeTimeout() {
-        this.width = originalWidth;
-        this.sizeEndTime = 0;
+        resetSize();
+        this.sizeRemainingTime = 0;
+    }
+
+    // THÊM: Hàm reset size
+    private void resetSize() {
+        this.width = Constants.DEFAULT_PADDLE_WIDTH; // Luôn reset về default
     }
 
     // SỬA ĐỔI: long -> double
-    public double getSizeEndTime() {
-        return sizeEndTime;
+    public double getSizeRemainingTime() { // <-- ĐỔI TÊN
+        return sizeRemainingTime;
     }
     // --- KẾT THÚC CÁC PHƯƠNG THỨC KÍCH THƯỚC ---
 
     // --- CÁC PHƯƠNG THỨC TỐC ĐỘ MỚI ---
-    /**
-     * Áp dụng tốc độ mới cho Paddle và đặt timeout.
-     * @param newSpeed Tốc độ mới.
-     */
     public void setSpeedWithTimeout(double newSpeed) {
-        if (speedEndTime == 0) {
-            this.originalSpeed = Constants.CURRENT_PADDLE_SPEED;
+        if (speedRemainingTime <= 0) { // Sửa: kiểm tra thời gian còn lại
+            // Lưu tốc độ gốc CHỈ khi bắt đầu hiệu ứng mới
+            this.originalSpeed = this.speed; // Lưu tốc độ hiện tại, không phải default
         }
 
         this.speed = newSpeed;
 
-        // SỬA ĐỔI: Lưu double
-        this.speedEndTime = (double)System.nanoTime() + Constants.DEFAULT_SPEED_DURATION;
+        // SỬA ĐỔI: Đặt thời gian còn lại
+        // this.speedEndTime = (double)System.nanoTime() + Constants.DEFAULT_SPEED_DURATION; // <-- XÓA
+        this.speedRemainingTime = Constants.DEFAULT_SPEED_DURATION; // <-- THÊM
     }
 
-    /**
-     * Hủy hiệu ứng tốc độ ngay lập tức.
-     */
     public void cancelSpeedTimeout() {
-        this.speed = originalSpeed;
-        this.speedEndTime = 0;
+        resetSpeed();
+        this.speedRemainingTime = 0;
+    }
+
+    // THÊM: Hàm reset speed
+    private void resetSpeed() {
+        this.speed = Constants.CURRENT_PADDLE_SPEED; // Luôn reset về default (hoặc CURRENT)
     }
 
     // SỬA ĐỔI: long -> double
-    public double getSpeedEndTime() {
-        return speedEndTime;
+    public double getSpeedRemainingTime() { // <-- ĐỔI TÊN
+        return speedRemainingTime;
     }
     // --- KẾT THÚC CÁC PHƯƠNG THỨC TỐC ĐỘ MỚI ---
 
     // --- CÁC PHƯƠNG THỨC BẤT TỬ ---
     public void activateInvincibility(long durationNano) {
         this.isInvincible = true;
-        // SỬA ĐỔI: Lưu double
-        this.invincibilityEndTime = (double)System.nanoTime() + durationNano;
+        // SỬA ĐỔI: Đặt thời gian còn lại
+        // this.invincibilityEndTime = (double)System.nanoTime() + durationNano; // <-- XÓA
+        this.invincibilityRemainingTime = durationNano; // <-- THÊM
 
+        // Reset animation
         this.materializeFrameIndex = 0;
-        this.lastMaterializeTime = 0;
+        this.materializeAccumulator = 0;
+    }
+
+    // THÊM: Getter thời gian bất tử
+    public double getInvincibilityRemainingTime() {
+        return invincibilityRemainingTime;
     }
 
     public void stopInvincibility() {
@@ -276,13 +350,24 @@ public class Paddle extends MoveAbleObject {
     public void resetState() {
         this.isShooter = false;
         this.isInvincible = false;
-        this.sizeEndTime = 0;
+
+        this.sizeRemainingTime = 0; // Sửa
         this.width = Constants.DEFAULT_PADDLE_WIDTH;
         this.x = Constants.DEFAULT_PADDLE_POSITION_X;
 
         // RESET timeout tốc độ
         this.speed = Constants.CURRENT_PADDLE_SPEED;
-        this.speedEndTime = 0;
+        this.speedRemainingTime = 0; // Sửa
+
+        // Reset thời gian item
+        this.shooterRemainingTime = 0; // Sửa
+        this.invincibilityRemainingTime = 0; // Sửa
+
+        // Reset animation
+        this.currentImageIndex = 0;
+        this.materializeFrameIndex = 0;
+        this.toggleAccumulator = 0;
+        this.materializeAccumulator = 0;
     }
 
     public boolean isShooter() {
@@ -290,8 +375,8 @@ public class Paddle extends MoveAbleObject {
     }
 
     // SỬA ĐỔI: long -> double
-    public double getShooterEndTime() {
-        return shooterEndTime;
+    public double getShooterRemainingTime() { // <-- ĐỔI TÊN
+        return shooterRemainingTime;
     }
 
     public double getSpeed() {

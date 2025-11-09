@@ -103,7 +103,7 @@ public class RenderUI {
     }
 
     public static void render(int score, int lives, GameManager gm, Paddle paddle, BallManager ballManager, GraphicsContext gc) {
-        // Tính FPS (giữ nguyên)
+        // Tính FPS (giữ nguyên - OK vì FPS nên chạy kể cả khi pause)
         calculateFPS();
 
         gc.setFill(Color.WHITE);
@@ -157,7 +157,7 @@ public class RenderUI {
         gc.setFont(Font.font("Arial", FontWeight.BOLD, 22));
 
         double currentTimerY = TIMER_START_Y;
-        long now = System.nanoTime();
+        // long now = System.nanoTime(); // <-- XÓA DÒNG NÀY
 
         // 1. Kiểm tra và vẽ Ball Counter (nếu có > 1 bóng)
         int ballCount = ballManager.getBallCount();
@@ -178,7 +178,8 @@ public class RenderUI {
 
         // 2. Kiểm tra và vẽ Shooter Timer
         if (paddle.isShooter()) {
-            long remainingNano = (long)paddle.getShooterEndTime() - now;
+            // long remainingNano = (long)paddle.getShooterEndTime() - now; // <-- SỬA DÒNG NÀY
+            long remainingNano = (long)paddle.getShooterRemainingTime(); // <-- THAY BẰNG DÒNG NÀY
             if (remainingNano > 0) {
                 double remainingSeconds = remainingNano / 1_000_000_000.0;
                 String formattedTime = String.format(": %.2fs", remainingSeconds);
@@ -195,60 +196,69 @@ public class RenderUI {
         }
 
         // 3. Kiểm tra và vẽ Size Timer (Expand/Shrink)
-        if (paddle.getSizeEndTime() != 0) {
-            long remainingNano = (long)paddle.getSizeEndTime() - now;
-            if (remainingNano > 0) {
-                double remainingSeconds = remainingNano / 1_000_000_000.0;
-                String formattedTime = String.format(": %.2fs", remainingSeconds);
+        // if (paddle.getSizeEndTime() != 0) { // <-- SỬA DÒNG NÀY
+        if (paddle.getSizeRemainingTime() > 0) { // <-- THAY BẰNG DÒNG NÀY
+            // long remainingNano = (long)paddle.getSizeEndTime() - now; // <-- SỬA DÒNG NÀY
+            long remainingNano = (long)paddle.getSizeRemainingTime(); // <-- THAY BẰNG DÒNG NÀY
 
-                Image iconToDraw = null;
-                // Xác định icon dựa trên kích thước hiện tại so với kích thước mặc định
-                if (paddle.getWidth() > Constants.DEFAULT_PADDLE_WIDTH) {
-                    iconToDraw = expandIcon;
-                } else if (paddle.getWidth() < Constants.DEFAULT_PADDLE_WIDTH) {
-                    iconToDraw = shrinkIcon;
-                }
+            // if (remainingNano > 0) { // <-- Có thể xóa check này vì đã check ở trên
+            double remainingSeconds = remainingNano / 1_000_000_000.0;
+            String formattedTime = String.format(": %.2fs", remainingSeconds);
 
-                // Vẽ Icon
-                if (iconToDraw != null) {
-                    gc.drawImage(iconToDraw, TIMER_START_X, currentTimerY - ICON_SIZE / 1.5, ICON_SIZE, ICON_SIZE);
-                }
-                // Vẽ Text
-                gc.fillText(formattedTime, TIMER_START_X + ICON_SIZE + ICON_TEXT_PADDING, currentTimerY);
-
-                currentTimerY += TIMER_LINE_HEIGHT;
+            Image iconToDraw = null;
+            // Xác định icon dựa trên kích thước hiện tại so với kích thước mặc định
+            if (paddle.getWidth() > Constants.DEFAULT_PADDLE_WIDTH) {
+                iconToDraw = expandIcon;
+            } else if (paddle.getWidth() < Constants.DEFAULT_PADDLE_WIDTH) {
+                iconToDraw = shrinkIcon;
             }
+
+            // Vẽ Icon
+            if (iconToDraw != null) {
+                gc.drawImage(iconToDraw, TIMER_START_X, currentTimerY - ICON_SIZE / 1.5, ICON_SIZE, ICON_SIZE);
+            }
+            // Vẽ Text
+            gc.fillText(formattedTime, TIMER_START_X + ICON_SIZE + ICON_TEXT_PADDING, currentTimerY);
+
+            currentTimerY += TIMER_LINE_HEIGHT;
+            // }
         }
 
         // 4. Kiểm tra và vẽ Speed Timer (Slow/Fast)
-        if (paddle.getSpeedEndTime() != 0) {
-            long remainingNano = (long)paddle.getSpeedEndTime() - now;
-            if (remainingNano > 0) {
-                double remainingSeconds = remainingNano / 1_000_000_000.0;
-                String formattedTime = String.format(": %.2fs", remainingSeconds);
+        // if (paddle.getSpeedEndTime() != 0) { // <-- SỬA DÒNG NÀY
+        if (paddle.getSpeedRemainingTime() > 0) { // <-- THAY BẰNG DÒNG NÀY
+            // long remainingNano = (long)paddle.getSpeedEndTime() - now; // <-- SỬA DÒNG NÀY
+            long remainingNano = (long)paddle.getSpeedRemainingTime(); // <-- THAY BẰNG DÒNG NÀY
 
-                Image iconToDraw = null;
+            // if (remainingNano > 0) { // <-- Có thể xóa check này
+            double remainingSeconds = remainingNano / 1_000_000_000.0;
+            String formattedTime = String.format(": %.2fs", remainingSeconds);
 
-                // Xác định icon Slow
-                if (paddle.getSpeed() < Constants.DEFAULT_PADDLE_SPEED) {
-                    iconToDraw = slowIcon;
-                }
+            Image iconToDraw = null;
 
-                // Vẽ Icon
-                if (iconToDraw != null) {
-                    gc.drawImage(iconToDraw, TIMER_START_X, currentTimerY - ICON_SIZE / 1.5, ICON_SIZE, ICON_SIZE);
-                }
-                // Vẽ Text
-                gc.fillText(formattedTime, TIMER_START_X + ICON_SIZE + ICON_TEXT_PADDING, currentTimerY);
-
-                currentTimerY += TIMER_LINE_HEIGHT;
+            // Xác định icon Slow
+            // Sửa: Dùng hằng số (hoặc biến originalSpeed nếu có) để so sánh
+            if (paddle.getSpeed() < Constants.CURRENT_PADDLE_SPEED) {
+                iconToDraw = slowIcon;
             }
+            // Note: Bạn có thể thêm logic cho "Fast Speed" nếu có item đó
+
+            // Vẽ Icon
+            if (iconToDraw != null) {
+                gc.drawImage(iconToDraw, TIMER_START_X, currentTimerY - ICON_SIZE / 1.5, ICON_SIZE, ICON_SIZE);
+            }
+            // Vẽ Text
+            gc.fillText(formattedTime, TIMER_START_X + ICON_SIZE + ICON_TEXT_PADDING, currentTimerY);
+
+            currentTimerY += TIMER_LINE_HEIGHT;
+            // }
         }
 
 
         // 5. Kiểm tra và vẽ Safety Net Timer
         if (gm.isSafetyNetActive()) {
-            long remainingNano = (long)gm.getSafetyNetEndTime() - now;
+            // long remainingNano = (long)gm.getSafetyNetEndTime() - now; // <-- SỬA DÒNG NÀY
+            long remainingNano = (long)gm.getSafetyNetRemainingTime(); // <-- THAY BẰNG DÒNG NÀY
             if (remainingNano > 0) {
                 double remainingSeconds = remainingNano / 1_000_000_000.0;
                 String formattedTime = String.format(": %.2fs", remainingSeconds);
