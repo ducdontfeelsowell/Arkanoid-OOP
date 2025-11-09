@@ -71,7 +71,7 @@ public class Main extends Application {
         primaryStage = stage;
 
         for(int i = 1 ; i <=12 ; i++){
-            Constants.MAP_PATH[i] = "src/main/resources/Maps/map" +String.valueOf(i)+".txt";
+            Constants.MAP_PATH[i] = "src/main/resources/Maps/map" + String.valueOf(i) +".txt";
         }
 
         // 1. Khởi tạo và phát nhạc ngẫu nhiên cho menu
