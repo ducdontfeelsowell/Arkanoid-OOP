@@ -10,6 +10,7 @@ vutienmanh=2,1100,940
 mânha=1,1000,0
 32=1,0,0
 DACQUYENCUAKEMANH-VUGIAANHDUC=1,0,0
+yy=1,0,0
 namcuto=1,0,280
 mèo béo bị gay da đen do thái=1,0,0
 lll=1,0,0
