@@ -1,7 +1,6 @@
 package org.example.arkanoid.config;
 
 import javafx.scene.image.Image;
-import java.util.Objects;
 
 public class Constants {
     /*
@@ -203,8 +202,8 @@ public class Constants {
     /*
     đường dẫn đến hình ảnh hiệu ứng đuôi của ball
      */
-    public static final String PATH_TO_TRAIL_1 = "/Images/ball/trail_effect/trail_effect1.png";
-    public static final String PATH_TO_TRAIL_2 = "/Images/ball/trail_effect/trail_effect2.png";
+    public static final String PATH_TO_TRAIL_1 = "/Images/trail/trail_effect1.png";
+    public static final String PATH_TO_TRAIL_2 = "/Images/trail/trail_effect2.png";
 
     public final static String PATH_TO_CURSOR = "/Images/background/cursor1.png";
     public final static String PATH_TO_HOVER_CURSOR = "/Images/background/hover_cursor.png";
