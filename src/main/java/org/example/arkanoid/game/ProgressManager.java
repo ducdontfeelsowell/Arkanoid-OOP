@@ -1,7 +1,9 @@
 package org.example.arkanoid.game;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ProgressManager {
@@ -31,6 +33,10 @@ public class ProgressManager {
             this.level = level;
             this.coins = coins;
             this.score = score;
+        }
+
+        public int getScore() {
+            return score;
         }
 
         @Override
@@ -95,6 +101,16 @@ public class ProgressManager {
             System.err.println("Lỗi khi lưu file user.txt!");
             e.printStackTrace();
         }
+    }
+
+    public static List<ScoreManager.PlayerScore> seeCurrentData() {
+        List<ScoreManager.PlayerScore> checks = new ArrayList<>();
+        ScoreManager scoreManager = new ScoreManager();
+        for (Map.Entry<String, UserData> entry : userDatabase.entrySet()) {
+            ScoreManager.PlayerScore player = scoreManager.new PlayerScore(entry.getKey(), entry.getValue().getScore());
+            checks.add(player);
+        }
+        return checks;
     }
 
     /**
