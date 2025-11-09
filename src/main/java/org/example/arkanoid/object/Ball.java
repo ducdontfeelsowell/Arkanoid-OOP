@@ -169,7 +169,6 @@ public class Ball extends MoveAbleObject {
                 return; // Không vẽ bóng
             }
         }
-        // Vẽ bóng bình thường
         draw(gc);
     }
     // --- KẾT THÚC THÊM MỚI ---
