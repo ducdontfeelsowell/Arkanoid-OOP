@@ -7,6 +7,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import org.example.arkanoid.config.Constants;
 import org.example.arkanoid.game.GameManager;
+import org.example.arkanoid.game.ProgressManager; // <-- THÊM MỚI
 import org.example.arkanoid.object.Paddle;
 import org.example.arkanoid.game.BallManager;
 
@@ -30,13 +31,14 @@ public class RenderUI {
     private static Image safetyIcon;
     private static Image expandIcon;
     private static Image shrinkIcon;
-    private static Image slowIcon; // THÊM MỚI
+    private static Image slowIcon;
 
     private static final double ICON_SIZE = 30;
     private static final double ICON_TEXT_PADDING = 10;
 
     // Tọa độ Y bắt đầu vẽ timer/counter (dưới SCORE)
-    private static final double TIMER_START_Y = 80;
+    // SỬA ĐỔI: Tăng giá trị Y để chừa không gian cho COIN
+    private static final double TIMER_START_Y = 110;
     private static final double TIMER_LINE_HEIGHT = 40; // Khoảng cách giữa các timer
     private static final double TIMER_START_X = 20; // Thẳng hàng với SCORE
 
@@ -110,6 +112,11 @@ public class RenderUI {
         // Score (trái) - (giữ nguyên)
         gc.fillText("SCORE: " + score, 20, 40);
 
+        // --- THÊM MỚI: VẼ SỐ COIN ---
+        // Đặt font giống SCORE và vẽ ở Y=70 (dưới SCORE 30px)
+        gc.fillText("COIN: " + ProgressManager.currentCoins, 20, 70);
+        // --- KẾT THÚC THÊM MỚI ---
+
         // --- Vẽ "LIVES:" ---
         gc.fillText("LIVES:", UI_RIGHT_COLUMN_X, LIVES_TEXT_Y);
 
@@ -171,7 +178,6 @@ public class RenderUI {
 
         // 2. Kiểm tra và vẽ Shooter Timer
         if (paddle.isShooter()) {
-            // SỬA ĐỔI: Tính remainingNano
             long remainingNano = (long)paddle.getShooterEndTime() - now;
             if (remainingNano > 0) {
                 double remainingSeconds = remainingNano / 1_000_000_000.0;
@@ -190,7 +196,6 @@ public class RenderUI {
 
         // 3. Kiểm tra và vẽ Size Timer (Expand/Shrink)
         if (paddle.getSizeEndTime() != 0) {
-            // SỬA ĐỔI: Tính remainingNano
             long remainingNano = (long)paddle.getSizeEndTime() - now;
             if (remainingNano > 0) {
                 double remainingSeconds = remainingNano / 1_000_000_000.0;
@@ -217,7 +222,6 @@ public class RenderUI {
 
         // 4. Kiểm tra và vẽ Speed Timer (Slow/Fast)
         if (paddle.getSpeedEndTime() != 0) {
-            // SỬA ĐỔI: Tính remainingNano
             long remainingNano = (long)paddle.getSpeedEndTime() - now;
             if (remainingNano > 0) {
                 double remainingSeconds = remainingNano / 1_000_000_000.0;
@@ -244,7 +248,6 @@ public class RenderUI {
 
         // 5. Kiểm tra và vẽ Safety Net Timer
         if (gm.isSafetyNetActive()) {
-            // SỬA ĐỔI: Tính remainingNano
             long remainingNano = (long)gm.getSafetyNetEndTime() - now;
             if (remainingNano > 0) {
                 double remainingSeconds = remainingNano / 1_000_000_000.0;
