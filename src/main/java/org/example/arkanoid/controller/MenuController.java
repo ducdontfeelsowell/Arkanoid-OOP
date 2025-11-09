@@ -9,12 +9,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.Node; // THÊM MỚI
 import javafx.scene.image.Image;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import org.example.arkanoid.config.Constants;
 import javafx.scene.image.ImageView;
 import org.example.arkanoid.game.SoundManager;
 import org.example.arkanoid.launch.Main;
 import org.example.arkanoid.controller.LevelController;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -69,6 +73,9 @@ public class MenuController implements Initializable{
 
     @FXML
     private ImageView exitHoverImage;
+
+    @FXML
+    private MediaView menuPlayerView;
 
     // Các phương thức xử lý sự kiện đã có
     @FXML
@@ -210,13 +217,28 @@ public class MenuController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("DEBUG: SettingController Initialized.");
 
-        // ******* Đảm bảo tải Cursor sau khi Scene đã có *******
+        try {
+            String resourcePath = "/Images/background/video_main_menu.mp4";
+
+            URL videoResource = getClass().getResource(resourcePath);
+            Media media = new Media(videoResource.toExternalForm());
+            MediaPlayer menu_mediaPlayer = new MediaPlayer(media);
+            menuPlayerView.setMediaPlayer(menu_mediaPlayer);
+            menu_mediaPlayer.setAutoPlay(true);
+            menu_mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Lặp vô hạn
+            menu_mediaPlayer.setMute(true); // Tắt tiếng video nền
+            menu_mediaPlayer.play();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Không thể tải hoặc phát video.");
+        }
+
         playButton.sceneProperty().addListener((obs, oldScene, newScene) -> {
             if (newScene != null) {
                 initializeCursors(newScene);
             }
         });
-        // ******************************************************
 
         // Giữ lại setMouseTransparent(true) nếu cần cho bố cục
         playHoverImage.setMouseTransparent(true);
