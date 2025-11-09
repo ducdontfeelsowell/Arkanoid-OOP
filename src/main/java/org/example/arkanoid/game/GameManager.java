@@ -93,6 +93,26 @@ public class GameManager {
             }
         }
 
+        /*
+        // kiểm tra pause/unpause
+        if (!gameOver && !won) {
+            gameController.update();
+        }
+
+        // Render
+        if (gameOver) {
+            renderer.renderGameOver(score);
+            gameController.showLoseScreen();
+        } else if (won) {
+            renderer.renderWin(score);
+            gameController.showWinScreen();
+        } else {
+            renderer.renderObject(paddle, ballManager, bricks, im, bm, score, lives);
+        }
+         */
+    }
+
+    public void render() {
         // kiểm tra pause/unpause
         if (!gameOver && !won) {
             gameController.update();
@@ -109,6 +129,7 @@ public class GameManager {
             renderer.renderObject(this, paddle, ballManager, bricks, im, bm, score, lives);
         }
     }
+
     static Image createCroppedImage(Image sourceImage, Rectangle2D viewport) {
         if (sourceImage == null || viewport == null) {
             return null;
