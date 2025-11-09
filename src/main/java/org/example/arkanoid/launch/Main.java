@@ -6,6 +6,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -52,7 +53,6 @@ public class Main extends Application {
     private static GameManager gameManager;
     private static ItemManager itemManager;
     private static BulletManager bulletManager;
-    private static MediaPlayer mediaPlayer;
     private static SoundManager soundManager;
     private static MediaPlayer backgroundVideoPlayer;
     private static int curr_level = 0;
@@ -98,10 +98,6 @@ public class Main extends Application {
 
             if (backgroundVideoPlayer != null) {
                 backgroundVideoPlayer.stop();
-            }
-
-            if (mediaPlayer != null) {
-                mediaPlayer.stop();
             }
 
             String videoPath = Constants.PATH_TO_VIDEO;

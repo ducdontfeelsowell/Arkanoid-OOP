@@ -3,22 +3,31 @@ package org.example.arkanoid.controller;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.scene.Node;
 import org.example.arkanoid.config.Constants;
 import org.example.arkanoid.game.SoundManager;
 import org.example.arkanoid.launch.Main;
 import org.example.arkanoid.input.InputHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.Cursor; // Đã thêm
+import javafx.scene.Scene; // Đã thêm
+import javafx.scene.image.Image; // Đã thêm
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class GameController implements Initializable {
+    // THÊM: Biến Cursor tĩnh
+    private static Cursor defaultGameCursor;
+    private static Cursor buttonHoverCursor;
+
     public Button resumeGameButton;
     public Button backButton1;
     public Button playAgainButton;
@@ -42,6 +51,26 @@ public class GameController implements Initializable {
 
     @FXML
     private MediaView lose_backgroundMediaView;
+
+
+    @FXML
+    private ImageView backHoverImage1; // Back Button 1 (Pause Screen)
+
+    @FXML
+    private ImageView backHoverImage2; // Back Button 2 (Lose Screen)
+
+    @FXML
+    private ImageView backHoverImage3; // Back Button 3 (Win Screen)
+
+    @FXML
+    private ImageView resumeHoverImage1; // Resume Button (Pause Screen)
+
+    @FXML
+    private ImageView playAgainHoverImage; // Play Again Button (Lose Screen)
+
+    // Khai báo ImageView cho nút Next Level
+    @FXML
+    private ImageView nextLevelHoverImage;
 
     private MediaPlayer win_mediaPlayer;
 
@@ -81,11 +110,69 @@ public class GameController implements Initializable {
         return paused;
     }
 
-    private void addHoverSound(Button button) {
+    // THÊM: Phương thức khởi tạo Cursor
+    private void initializeCursors(Scene scene) {
+        // Khởi tạo con trỏ mặc định
+
+            try {
+                URL cursorUrl = getClass().getResource(Constants.PATH_TO_CURSOR);
+                if (cursorUrl != null) {
+                    System.out.println("GGGGGGGGGGGGGG");
+                    Image customImage = new Image(cursorUrl.toExternalForm());
+                    defaultGameCursor = Cursor.cursor(cursorUrl.toExternalForm());
+                    // Áp dụng con trỏ mặc định cho Scene
+                    if (scene != null) { // Đảm bảo scene không null
+                        scene.setCursor(defaultGameCursor);
+                    }
+                } else {
+                    System.out.println("MMMMMMMMMMMM");
+                    defaultGameCursor = Cursor.DEFAULT;
+                }
+            } catch (Exception e) {
+                System.err.println("Lỗi khi tải con trỏ mặc định (img1) trong GameController: " + e.getMessage());
+                defaultGameCursor = Cursor.DEFAULT;
+            }
+
+        // Khởi tạo con trỏ hover
+        if (buttonHoverCursor == null) {
+            try {
+                URL cursorUrl = getClass().getResource(Constants.PATH_TO_HOVER_CURSOR);
+                if (cursorUrl != null) {
+                    Image customImage = new Image(cursorUrl.toExternalForm());
+                    buttonHoverCursor = Cursor.cursor(cursorUrl.toExternalForm());
+                } else {
+                    buttonHoverCursor = Cursor.HAND;
+                }
+            } catch (Exception e) {
+                System.err.println("Lỗi khi tải con trỏ hover (img2) trong GameController: " + e.getMessage());
+                buttonHoverCursor = Cursor.HAND;
+            }
+        }
+    }
+
+    private void addHoverEffect(Button button, Node hoverNode) {
         if (button != null) {
+            if (hoverNode != null) {
+                hoverNode.setVisible(false);
+            }
             button.hoverProperty().addListener((obs, oldVal, newVal) -> {
                 if (newVal) {
+                    // KHI HOVER VÀO: Đổi ảnh và đổi con trỏ
                     SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_HOVER);
+                    if (hoverNode != null) {
+                        hoverNode.setVisible(true);
+                    }
+                    if (buttonHoverCursor != null && button.getScene() != null) {
+                        button.getScene().setCursor(buttonHoverCursor);
+                    }
+                } else {
+                    // KHI RỜI KHỎI HOVER: Đổi ảnh và đổi con trỏ về mặc định
+                    if (hoverNode != null) {
+                        hoverNode.setVisible(false);
+                    }
+                    if (defaultGameCursor != null && button.getScene() != null) {
+                        button.getScene().setCursor(defaultGameCursor);
+                    }
                 }
             });
         }
@@ -145,7 +232,6 @@ public class GameController implements Initializable {
         if (lose_mediaPlayer != null) {
             return; // Đã khởi tạo rồi
         }
-
         try {
             String videoPath = "/Images/background/lose_background.mp4";
             URL videoUrl = getClass().getResource(videoPath);
@@ -173,7 +259,6 @@ public class GameController implements Initializable {
         loseScreen.setVisible(true);
         paused = true;
         loseScreen.setVisible(true);
-
         // 3. Bắt đầu chạy video
         if (lose_mediaPlayer != null) {
             lose_mediaPlayer.play();
@@ -182,12 +267,8 @@ public class GameController implements Initializable {
 
     public void showWinScreen() {
         initializeWinScreenVideo();
-
-        // 2. Bật cờ và hiển thị
         paused = true;
         winScreen.setVisible(true);
-
-        // 3. Bắt đầu chạy video
         if (win_mediaPlayer != null) {
             win_mediaPlayer.play();
         }
@@ -216,7 +297,6 @@ public class GameController implements Initializable {
             win_mediaPlayer = new MediaPlayer(win_backgroundVideo);
             win_backgroundMediaView.setMediaPlayer(win_mediaPlayer);
 
-            // Thiết lập phát lặp lại và tắt tiếng
             win_mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
             win_mediaPlayer.setMute(true);
 
@@ -229,23 +309,33 @@ public class GameController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // --- TOÀN BỘ CODE ĐÃ ĐƯỢC CHUYỂN VÀO ĐÂY ---
+
         if (pauseScreen != null) {
             pauseScreen.setVisible(false);
         }
 
-        addHoverSound(resumeGameButton);
-        addHoverSound(backButton1);
+        // THÊM: Lắng nghe Scene Property (Áp dụng cho bất kỳ nút nào)
+        if (resumeGameButton != null) {
+            resumeGameButton.sceneProperty().addListener((obs, oldScene, newScene) -> {
+                if (newScene != null) {
+                    initializeCursors(newScene);
+                }
+            });
+        }
 
-        addHoverSound(playAgainButton);
-        addHoverSound(backButton2);
+        // 2. Áp dụng hiệu ứng Hover mới (Âm thanh + Hiển thị/Ẩn + Con trỏ)
+        addHoverEffect(resumeGameButton, resumeHoverImage1);
+        addHoverEffect(backButton1, backHoverImage1);
 
-        addHoverSound(backButton3);
+        addHoverEffect(playAgainButton, playAgainHoverImage);
+        addHoverEffect(backButton2, backHoverImage2);
+
+        addHoverEffect(backButton3, backHoverImage3);
 
         // Thêm cho nút Next Level
-        addHoverSound(nextLevelButton);
+        addHoverEffect(nextLevelButton, nextLevelHoverImage);
 
-        // Gọi phương thức chặn phím
+        // 3. Gọi phương thức chặn phím
         preventKeyActivation(resumeGameButton);
         preventKeyActivation(backButton1);
         preventKeyActivation(playAgainButton);

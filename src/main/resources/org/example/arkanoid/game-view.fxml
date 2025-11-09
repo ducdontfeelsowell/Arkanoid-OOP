@@ -48,7 +48,7 @@
             </Label>
             <Button fx:id="resumeGameButton" layoutX="566.0" layoutY="380.0" mnemonicParsing="false" onAction="#onResumeClick" opacity="0.0" prefHeight="50.0" prefWidth="128.0" text="RESUME" />
 
-            <ImageView fx:id="backImage1" fitHeight="50.0" fitWidth="128.0" layoutX="566.0" layoutY="450.0" pickOnBounds="true">
+            <ImageView fitHeight="50.0" fitWidth="128.0" layoutX="566.0" layoutY="450.0" pickOnBounds="true">
                 <image>
                     <Image url="@../../../Images/background/button1.png" />
                 </image>

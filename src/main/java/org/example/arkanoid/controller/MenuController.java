@@ -3,8 +3,12 @@ package org.example.arkanoid.controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.Node; // THÊM MỚI
+import javafx.scene.image.Image;
 import org.example.arkanoid.config.Constants;
 import javafx.scene.image.ImageView;
 import org.example.arkanoid.game.SoundManager;
@@ -14,10 +18,13 @@ import org.example.arkanoid.controller.LevelController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.scene.input.KeyCode; // THÊM MỚI
-import javafx.scene.input.KeyEvent; // THÊM MỚI
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 public class MenuController implements Initializable{
+    private static Cursor defaultGameCursor; // Con trỏ mặc định của game (img1)
+    private static Cursor buttonHoverCursor; // Con trỏ khi hover (img2)
+
     @FXML
     public Button exitButton;
 
@@ -104,17 +111,51 @@ public class MenuController implements Initializable{
         System.exit(0);
     }
 
-    private void addHoverSound(Button button) {
+    // PHƯƠNG THỨC ĐÃ SỬA: Xử lý cả âm thanh, trạng thái hiển thị VÀ con trỏ chuột
+    private void addHoverEffect(Button button, Node imageOut, Node imageOn) {
         if (button != null) {
+            // Đảm bảo ảnh ON/HOVER ban đầu bị ẩn
+            if (imageOn != null) {
+                imageOn.setVisible(false);
+            }
+
             button.hoverProperty().addListener((obs, oldVal, newVal) -> {
                 if (newVal) {
+                    // KHI HOVER VÀO:
                     SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_HOVER);
+                    if (imageOut != null) {
+                        imageOut.setVisible(false);
+                    }
+                    if (imageOn != null) {
+                        imageOn.setVisible(true);
+                    }
+
+                    // THÊM MỚI: THAY ĐỔI CON TRỎ THÀNH IMG2 (Hover Cursor)
+                    if (buttonHoverCursor != null && button.getScene() != null) {
+                        button.getScene().setCursor(buttonHoverCursor);
+                    }
+
+                } else {
+                    // KHI RỜI KHỎI HOVER:
+                    if (imageOut != null) {
+                        imageOut.setVisible(true);
+                    }
+                    if (imageOn != null) {
+                        imageOn.setVisible(false);
+                    }
+                    System.out.println("PPPPPPPPPP");
+                    // THÊM MỚI: ĐẶT LẠI CON TRỎ MẶC ĐỊNH (IMG1) CỦA SCENE
+                    if (defaultGameCursor != null && button.getScene() != null) {
+                        button.getScene().setCursor(defaultGameCursor);
+                        System.out.println("TTTTTTTTTTTTTT");
+                    }
                 }
             });
         }
     }
 
-    // --- THÊM MỚI: Phương thức chặn phím Space/Enter ---
+
+    // Phương thức chặn phím Space/Enter
     private void preventKeyActivation(Button button) {
         if (button != null) {
             button.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
@@ -124,46 +165,78 @@ public class MenuController implements Initializable{
             });
         }
     }
-    // --- KẾT THÚC THÊM MỚI ---
+
+    private void initializeCursors(Scene scene) {
+        if (defaultGameCursor == null) {
+            try {
+                // Tải ảnh img1
+                URL cursorUrl = getClass().getResource(Constants.PATH_TO_CURSOR);
+                if (cursorUrl != null) {
+                    Image customImage = new Image(cursorUrl.toExternalForm());
+                    // Tạo Cursor img1
+                    defaultGameCursor = Cursor.cursor(cursorUrl.toExternalForm());
+                    // Áp dụng con trỏ mặc định của game cho Scene
+                    scene.setCursor(defaultGameCursor);
+                } else {
+                    // Fallback nếu không tìm thấy img1
+                    defaultGameCursor = Cursor.DEFAULT;
+                }
+            } catch (Exception e) {
+                System.err.println("Lỗi khi tải con trỏ mặc định (img1): " + e.getMessage());
+                defaultGameCursor = Cursor.DEFAULT;
+            }
+        }
+
+        // KIỂM TRA THỨ HAI: Tải con trỏ hover (img2)
+        if (buttonHoverCursor == null) {
+            try {
+                URL cursorUrl = getClass().getResource(Constants.PATH_TO_HOVER_CURSOR);
+                if (cursorUrl == null) {
+                    buttonHoverCursor = Cursor.HAND;
+                    throw new IOException("Không tìm thấy file con trỏ nút. Dùng Cursor.HAND.");
+                }
+
+                Image customImage = new Image(cursorUrl.toExternalForm());
+                buttonHoverCursor = Cursor.cursor(cursorUrl.toExternalForm());
+
+            } catch (Exception e) {
+                System.err.println("Lỗi khi tải con trỏ hover (img2): " + e.getMessage());
+                buttonHoverCursor = Cursor.HAND;
+            }
+        }
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Play button hover setup
         System.out.println("DEBUG: SettingController Initialized.");
+
+        // ******* Đảm bảo tải Cursor sau khi Scene đã có *******
+        playButton.sceneProperty().addListener((obs, oldScene, newScene) -> {
+            if (newScene != null) {
+                initializeCursors(newScene);
+            }
+        });
+        // ******************************************************
+
+        // Giữ lại setMouseTransparent(true) nếu cần cho bố cục
         playHoverImage.setMouseTransparent(true);
-        playHoverImage.visibleProperty().bind(playButton.hoverProperty());
-        playImage.visibleProperty().bind(playButton.hoverProperty().not());
-
-        // Setting button hover setup
         settingHoverImage.setMouseTransparent(true);
-        settingHoverImage.visibleProperty().bind(settingButton.hoverProperty());
-        settingImage.visibleProperty().bind(settingButton.hoverProperty().not());
-
-        // Help button hover setup
         helpHoverImage.setMouseTransparent(true);
-        helpHoverImage.visibleProperty().bind(helpButton.hoverProperty());
-        helpImage.visibleProperty().bind(helpButton.hoverProperty().not());
-        // Shop button hover setup
         shopHoverImage.setMouseTransparent(true);
-        shopHoverImage.visibleProperty().bind(shopButton.hoverProperty());
-        shopImage.visibleProperty().bind(shopButton.hoverProperty().not());
-
         exitHoverImage.setMouseTransparent(true);
-        exitHoverImage.visibleProperty().bind(exitButton.hoverProperty());
-        exitImage.visibleProperty().bind(exitButton.hoverProperty().not());
 
-        addHoverSound(playButton);
-        addHoverSound(helpButton);
-        addHoverSound(settingButton);
-        addHoverSound(shopButton);
-        addHoverSound(exitButton);
+        // ÁP DỤNG HIỆU ỨNG HOVER MỚI (Âm thanh + Ẩn/Hiện + Con trỏ)
+        addHoverEffect(playButton, playImage, playHoverImage);
+        addHoverEffect(settingButton, settingImage, settingHoverImage);
+        addHoverEffect(helpButton, helpImage, helpHoverImage);
+        addHoverEffect(shopButton, shopImage, shopHoverImage);
+        addHoverEffect(exitButton, exitImage, exitHoverImage);
 
-        // --- THÊM MỚI: Gọi phương thức chặn phím ---
+        // Gọi phương thức chặn phím
         preventKeyActivation(playButton);
         preventKeyActivation(helpButton);
         preventKeyActivation(settingButton);
         preventKeyActivation(shopButton);
         preventKeyActivation(exitButton);
-        // --- KẾT THÚC THÊM MỚI ---
     }
 }
