@@ -15,7 +15,11 @@ public class SoundManager {
     private MediaPlayer backgroundMusicPlayer;
     private MediaPlayer sequentialPlayer; // Trình phát cho âm thanh tuần tự (Win/Lose)
     private boolean isMuted = false;
-    private double musicVolume = 0.5;
+    private double masterVolume = 1;
+    private double musicVolume = 1;
+    private double musicVolumeRaw = 1.0;     // 0.0 - 1.0 (slider value)
+    private double soundEffectVolume = 1;
+    private double sfxVolumeRaw = 1.0;       // 0.0 - 1.0 (slider value)
 
     private int lastTrackIndex = -1;
     private Random random = new Random();
@@ -28,6 +32,12 @@ public class SoundManager {
             instance = new SoundManager();
         }
         return instance;
+    }
+
+    public void reVolume(double master, double music, double sfx) {
+        masterVolume = master;
+        musicVolume = master * music;
+        soundEffectVolume = master * sfx;
     }
 
     public void playBackgroundMusic(String soundPath) {
@@ -66,7 +76,7 @@ public class SoundManager {
                     getClass().getResource(path1)).toExternalForm());
 
             sequentialPlayer = new MediaPlayer(media1);
-            sequentialPlayer.setVolume(musicVolume);
+            sequentialPlayer.setVolume(musicVolume); // Same as music
 
             // Đặt sự kiện khi media1 kết thúc
             sequentialPlayer.setOnEndOfMedia(() -> {
@@ -109,7 +119,7 @@ public class SoundManager {
         try {
             AudioClip clip = new AudioClip(Objects.requireNonNull(
                     getClass().getResource(soundPath)).toExternalForm());
-            clip.setVolume(musicVolume);
+            clip.setVolume(soundEffectVolume);
             clip.play();
         } catch (Exception e) {
             System.err.println("Không thể phát hiệu ứng âm thanh: " + soundPath);
@@ -174,8 +184,40 @@ public class SoundManager {
         }
     }
 
+    public double getMasterVolume() {
+        return masterVolume;
+    }
+
     public double getMusicVolume() {
         return musicVolume;
+    }
+
+    public double getSoundEffectVolume() {
+        return soundEffectVolume;
+    }
+
+    public void setMasterVolume(double masterVolume) {
+        this.masterVolume = masterVolume;
+    }
+
+    public void setSoundEffectVolume(double soundEffectVolume) {
+        this.soundEffectVolume = soundEffectVolume;
+    }
+
+    public double getSfxVolumeRaw() {
+        return sfxVolumeRaw;
+    }
+
+    public void setSfxVolumeRaw(double sfxVolumeRaw) {
+        this.sfxVolumeRaw = sfxVolumeRaw;
+    }
+
+    public double getMusicVolumeRaw() {
+        return musicVolumeRaw;
+    }
+
+    public void setMusicVolumeRaw(double musicVolumeRaw) {
+        this.musicVolumeRaw = musicVolumeRaw;
     }
 
     public boolean isMuted() {

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-
+import org.example.arkanoid.config.Constants;
 public class EffectManager {
 
     private static EffectManager instance;

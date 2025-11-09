@@ -73,15 +73,14 @@ public class Main extends Application {
         for(int i = 1 ; i <=12 ; i++){
             Constants.MAP_PATH[i] = "src/main/resources/Maps/map" +String.valueOf(i)+".txt";
         }
-        ProgressManager.loadProgress();
 
         // 1. Khởi tạo và phát nhạc ngẫu nhiên cho menu
         soundManager = SoundManager.getInstance();
         soundManager.playRandomBackgroundMusic();
 
-        // Load menu scene
+        // Load logic scene
         FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(
-                getClass().getResource(Constants.PATH_TO_MAIN_MENU)));
+                getClass().getResource(Constants.PATH_TO_LOGIN_VIEW)));
 
         Parent root = loader.load();
         menuScene = new Scene(root);
@@ -340,28 +339,34 @@ public class Main extends Application {
      * Quay về menu chính
      */
     public static void returnToMenu() {
-        if (renderTimer != null) renderTimer.stop();
+
+        // 1. Dừng tất cả các luồng game (Logic Thread và Render Timer)
+        stopGameThreads(); // <<< Đảm bảo logic và render dừng
+
         if (backgroundVideoPlayer != null) {
             backgroundVideoPlayer.stop();
             backgroundVideoPlayer = null;
         }
 
-        // Phát nhạc ngẫu nhiên khi quay về menu
+        // 2. Dọn dẹp hiệu ứng trong EffectManager
+        EffectManager.getInstance().clear(); // <<< GỌI LẠI ĐÂY
+
+        // 3. Phát nhạc ngẫu nhiên khi quay về menu
         if (soundManager != null) {
-            soundManager.playRandomBackgroundMusic(); // Phát nhạc 1, 2
+            soundManager.playRandomBackgroundMusic();
         }
 
-        // Sửa lỗi: Tải lại Menu chính
+        // 4. Tải lại Menu chính và đặt nó làm root MỚI
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource(Constants.PATH_TO_MAIN_MENU));
             Parent root = loader.load();
-            menuScene.setRoot(root); // Đặt lại root của scene cũ
+            menuScene.setRoot(root);
         } catch (IOException e) {
             System.err.println("Lỗi nghiêm trọng: Không thể tải lại main menu!");
             e.printStackTrace();
         }
 
-        // Chủ động reset cờ static
+        // THÊM MỚI: Chủ động reset cờ static
         GameController.paused = false;
 
         if (primaryStage != null && menuScene != null) {

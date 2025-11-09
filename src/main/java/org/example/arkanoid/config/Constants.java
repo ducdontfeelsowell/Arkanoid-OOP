@@ -129,6 +129,7 @@ public class Constants {
     public final static String PATH_TO_LEVEL_VIEW   = "/org/example/arkanoid/level-view.fxml";
     public final static String PATH_TO_MAIN_MENU    = "/org/example/arkanoid/main-menu-view.fxml";
     public final static String PATH_TO_SETTING_VIEW = "/org/example/arkanoid/setting-view.fxml";
+    public final static String PATH_TO_LOGIN_VIEW   = "/org/example/arkanoid/login-view.fxml";
 
     /*
     đường dẫn đến hình ảnh chung
@@ -266,6 +267,7 @@ public class Constants {
 
     public static final String PATH_TO_SOUND_PADDLE_HIT = "/Sounds/paddleHit.mp3";
     public static final String PATH_TO_SOUND_WALL_HIT = "/Sounds/wallHit.mp3";
+    public static final String PATH_TO_SOUND_BRICK_3 ="/Sounds/brick_3.mp3";
 
     public static final String PATH_TO_SOUND_GUN_ITEM = "/Sounds/gunItem.wav";
     public static final String PATH_TO_SOUND_GUN_LOAD = "/Sounds/gunLoad.mp3";
@@ -446,4 +448,11 @@ public class Constants {
     public static final String PATH_TO_SOUND_EXPLOSION = "/Sounds/explosion.wav";
 
     public static final String PATH_TO_SOUND_NEGATIVE_BUFF = "/Sounds/negative_buff.mp3";
+
+    public final static String PATH_TO_COIN_50 = "/Images/Coin/extra50.png";
+    public final static String PATH_TO_COIN_100 = "/Images/Coin/extra100.png";
+    public final static String PATH_TO_COIN_250 = "/Images/Coin/extra250.png";
+    public final static String PATH_TO_COIN_500 = "/Images/Coin/extra500.png";
+
+
 }
