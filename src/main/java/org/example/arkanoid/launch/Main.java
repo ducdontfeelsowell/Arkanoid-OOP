@@ -218,7 +218,7 @@ public class Main extends Application {
         // Logic thread
         logicThread = new Thread(() -> {
             final double dt = 1.0 / Constants.FPS; // 60 updates/sec
-            final long stepNs = (long) (dt * 1_000_000_000);
+            final long stepNs = (long) (dt * 1_000_000_000); // <-- ĐÂY LÀ DELTA TIME CỦA BẠN
 
             lastLogicTime = System.nanoTime();
             logicCount = 0;
@@ -227,7 +227,8 @@ public class Main extends Application {
                 long start = System.nanoTime();
 
                 synchronized (lock) {
-                    gameManager.updateGame();
+                    // gameManager.updateGame(); // <-- SỬA DÒNG NÀY
+                    gameManager.updateGame(stepNs); // <-- THAY BẰNG DÒNG NÀY (Truyền delta time)
                 }
 
                 // FPS counting (optional)
