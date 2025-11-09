@@ -198,7 +198,7 @@ public class Constants {
     /*
     đường dẫn đến hình ảnh của ball
      */
-    public static final String PATH_TO_BALL_1 = "/Images/ball/ball6.png";
+    public static final String PATH_TO_BALL_1 = "/Images/ball/ball1.png";
 
     /*
     đường dẫn đến hình ảnh hiệu ứng đuôi của ball
