@@ -198,13 +198,13 @@ public class Constants {
     /*
     đường dẫn đến hình ảnh của ball
      */
-    public static final String PATH_TO_BALL_1 = "/Images/ball/ball6.png";
+    public static final String PATH_TO_BALL_1 = "/Images/ball/Pancake.png";
 
     /*
     đường dẫn đến hình ảnh hiệu ứng đuôi của ball
      */
-    public static final String PATH_TO_TRAIL_1 = "/Images/trail/trail1.png";
-    public static final String PATH_TO_TRAIL_2 = "/Images/trail/trail2.png";
+    public static final String PATH_TO_TRAIL_1 = "/Images/trail/LGBT.png";
+    public static final String PATH_TO_TRAIL_2 = "/Images/trail/Lightning.png";
 
     public final static String PATH_TO_CURSOR = "/Images/background/cursor1.png";
     public final static String PATH_TO_HOVER_CURSOR = "/Images/background/hover_cursor.png";

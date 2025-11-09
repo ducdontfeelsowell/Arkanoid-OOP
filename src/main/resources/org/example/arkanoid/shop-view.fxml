@@ -74,32 +74,32 @@
             </ImageView>
             <ImageView fitHeight="66.0" fitWidth="76.0" layoutX="195.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true">
                 <image>
-                    <Image url="@../../../Images/trail/trail1.png" />
+                    <Image url="@../../../Images/trail/LGBT.png" />
                 </image>
             </ImageView>
             <ImageView fitHeight="66.0" fitWidth="76.0" layoutX="461.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true">
                 <image>
-                    <Image url="@../../../Images/trail/trail2.png" />
+                    <Image url="@../../../Images/trail/Lightning.png" />
                 </image>
             </ImageView>
             <ImageView fitHeight="66.0" fitWidth="76.0" layoutX="686.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true">
                 <image>
-                    <Image url="@../../../Images/trail/trail3.png" />
+                    <Image url="@../../../Images/trail/Dolla.png" />
                 </image>
             </ImageView>
             <ImageView fitHeight="66.0" fitWidth="76.0" layoutX="679.0" layoutY="322.0" pickOnBounds="true" preserveRatio="true">
                 <image>
-                    <Image url="@../../../Images/trail/trail5.png" />
+                    <Image url="@../../../Images/trail/Primogem.png" />
                 </image>
             </ImageView>
             <ImageView fitHeight="66.0" fitWidth="76.0" layoutX="188.0" layoutY="330.0" pickOnBounds="true" preserveRatio="true">
                 <image>
-                    <Image url="@../../../Images/trail/trail4.png" />
+                    <Image url="@../../../Images/trail/Diamond.png" />
                 </image>
             </ImageView>
             <ImageView fitHeight="66.0" fitWidth="76.0" layoutX="455.0" layoutY="322.0" pickOnBounds="true" preserveRatio="true">
                 <image>
-                    <Image url="@../../../Images/trail/trail6.png" />
+                    <Image url="@../../../Images/trail/LuckyClover.png" />
                 </image>
             </ImageView>
         </children>
@@ -114,32 +114,32 @@
             </ImageView>
             <ImageView fitHeight="66.0" fitWidth="76.0" layoutX="195.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true">
                 <image>
-                    <Image url="@../../../Images/trail/trail1.png" />
+                    <Image url="@../../../Images/trail/LGBT.png" />
                 </image>
             </ImageView>
             <ImageView fitHeight="66.0" fitWidth="76.0" layoutX="461.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true">
                 <image>
-                    <Image url="@../../../Images/trail/trail2.png" />
+                    <Image url="@../../../Images/trail/Lightning.png" />
                 </image>
             </ImageView>
             <ImageView fitHeight="66.0" fitWidth="76.0" layoutX="686.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true">
                 <image>
-                    <Image url="@../../../Images/trail/trail3.png" />
+                    <Image url="@../../../Images/trail/Dolla.png" />
                 </image>
             </ImageView>
             <ImageView fitHeight="66.0" fitWidth="76.0" layoutX="679.0" layoutY="322.0" pickOnBounds="true" preserveRatio="true">
                 <image>
-                    <Image url="@../../../Images/trail/trail5.png" />
+                    <Image url="@../../../Images/trail/Primogem.png" />
                 </image>
             </ImageView>
             <ImageView fitHeight="66.0" fitWidth="76.0" layoutX="188.0" layoutY="330.0" pickOnBounds="true" preserveRatio="true">
                 <image>
-                    <Image url="@../../../Images/trail/trail4.png" />
+                    <Image url="@../../../Images/trail/Diamond.png" />
                 </image>
             </ImageView>
             <ImageView fitHeight="66.0" fitWidth="76.0" layoutX="455.0" layoutY="322.0" pickOnBounds="true" preserveRatio="true">
                 <image>
-                    <Image url="@../../../Images/trail/trail6.png" />
+                    <Image url="@../../../Images/trail/LuckyClover.png" />
                 </image>
             </ImageView>
         </children>
