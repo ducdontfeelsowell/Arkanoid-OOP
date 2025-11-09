@@ -34,17 +34,17 @@
             </ImageView>
             <ImageView fitHeight="66.0" fitWidth="76.0" layoutX="175.0" layoutY="127.0" pickOnBounds="true" preserveRatio="true">
                 <image>
-                    <Image url="@../../../Images/ball/ball3.png" />
+                    <Image url="@../../../Images/ball/ball1.png" />
                 </image>
             </ImageView>
             <ImageView fitHeight="66.0" fitWidth="76.0" layoutX="441.0" layoutY="121.0" pickOnBounds="true" preserveRatio="true">
                 <image>
-                    <Image url="@../../../Images/ball/ball1.png" />
+                    <Image url="@../../../Images/ball/ball2.png" />
                 </image>
             </ImageView>
             <ImageView fitHeight="66.0" fitWidth="76.0" layoutX="666.0" layoutY="121.0" pickOnBounds="true" preserveRatio="true">
                 <image>
-                    <Image url="@../../../Images/ball/ball2.png" />
+                    <Image url="@../../../Images/ball/ball3.png" />
                 </image>
             </ImageView>
             <ImageView fitHeight="66.0" fitWidth="76.0" layoutX="447.0" layoutY="316.0" pickOnBounds="true" preserveRatio="true">
@@ -62,6 +62,55 @@
                     <Image url="@../../../Images/ball/ball6.png" />
                 </image>
             </ImageView>
+
+            <ImageView fx:id="backImage11" fitHeight="86.0" fitWidth="150.0" layoutX="138.0" layoutY="206.0" pickOnBounds="true">
+                <image><Image url="@../../../Images/background/button1.png" /></image>
+            </ImageView>
+            <ImageView fx:id="backHoverImage11" fitHeight="86.0" fitWidth="150.0" layoutX="138.0" layoutY="206.0" pickOnBounds="true" visible="false">
+                <image><Image url="@../../../Images/background/button.png" /></image>
+            </ImageView>
+            <Label alignment="CENTER" layoutX="128.0" layoutY="203.0" prefHeight="92.0" prefWidth="169.0" text="EQUIPPED" textFill="#4fcaf7"><font><Font name="Calibri Bold Italic" size="25.0" /></font></Label>
+            <Button fx:id="backButton11" layoutX="147.0" layoutY="215.0" mnemonicParsing="false" onAction="#onBackButtonClick" opacity="0.0" prefHeight="67.0" prefWidth="130.0" text="BALL" />
+            <ImageView fx:id="backImage112" fitHeight="86.0" fitWidth="150.0" layoutX="138.0" layoutY="385.0" pickOnBounds="true">
+                <image><Image url="@../../../Images/background/button1.png" /></image>
+            </ImageView>
+            <ImageView fx:id="backHoverImage112" fitHeight="86.0" fitWidth="150.0" layoutX="138.0" layoutY="385.0" pickOnBounds="true" visible="false">
+                <image><Image url="@../../../Images/background/button.png" /></image>
+            </ImageView>
+            <Label alignment="CENTER" layoutX="128.0" layoutY="382.0" prefHeight="92.0" prefWidth="169.0" text="\$4000" textFill="#4fcaf7"><font><Font name="Calibri Bold Italic" size="32.0" /></font></Label>
+            <Button fx:id="backButton112" layoutX="147.0" layoutY="394.0" mnemonicParsing="false" onAction="#onBackButtonClick" opacity="0.0" prefHeight="67.0" prefWidth="130.0" text="BALL" />
+            <ImageView fx:id="backImage113" fitHeight="86.0" fitWidth="150.0" layoutX="405.0" layoutY="385.0" pickOnBounds="true">
+                <image><Image url="@../../../Images/background/button1.png" /></image>
+            </ImageView>
+            <ImageView fx:id="backHoverImage113" fitHeight="86.0" fitWidth="150.0" layoutX="405.0" layoutY="385.0" pickOnBounds="true" visible="false">
+                <image><Image url="@../../../Images/background/button.png" /></image>
+            </ImageView>
+            <Label alignment="CENTER" layoutX="395.0" layoutY="382.0" prefHeight="92.0" prefWidth="169.0" text="\$5000" textFill="#4fcaf7"><font><Font name="Calibri Bold Italic" size="32.0" /></font></Label>
+            <Button fx:id="backButton113" layoutX="414.0" layoutY="394.0" mnemonicParsing="false" onAction="#onBackButtonClick" opacity="0.0" prefHeight="67.0" prefWidth="130.0" text="BALL" />
+            <ImageView fx:id="backImage114" fitHeight="86.0" fitWidth="150.0" layoutX="634.0" layoutY="385.0" pickOnBounds="true">
+                <image><Image url="@../../../Images/background/button1.png" /></image>
+            </ImageView>
+            <ImageView fx:id="backHoverImage114" fitHeight="86.0" fitWidth="150.0" layoutX="634.0" layoutY="385.0" pickOnBounds="true" visible="false">
+                <image><Image url="@../../../Images/background/button.png" /></image>
+            </ImageView>
+            <Label alignment="CENTER" layoutX="624.0" layoutY="382.0" prefHeight="92.0" prefWidth="169.0" text="\$6000" textFill="#4fcaf7"><font><Font name="Calibri Bold Italic" size="32.0" /></font></Label>
+            <Button fx:id="backButton114" layoutX="643.0" layoutY="394.0" mnemonicParsing="false" onAction="#onBackButtonClick" opacity="0.0" prefHeight="67.0" prefWidth="130.0" text="BALL" />
+            <ImageView fx:id="backImage1141" fitHeight="86.0" fitWidth="150.0" layoutX="624.0" layoutY="206.0" pickOnBounds="true">
+                <image><Image url="@../../../Images/background/button1.png" /></image>
+            </ImageView>
+            <ImageView fx:id="backHoverImage1141" fitHeight="86.0" fitWidth="150.0" layoutX="624.0" layoutY="206.0" pickOnBounds="true" visible="false">
+                <image><Image url="@../../../Images/background/button.png" /></image>
+            </ImageView>
+            <Label alignment="CENTER" layoutX="614.0" layoutY="203.0" prefHeight="92.0" prefWidth="169.0" text="\$3000" textFill="#4fcaf7"><font><Font name="Calibri Bold Italic" size="32.0" /></font></Label>
+            <Button fx:id="backButton1141" layoutX="633.0" layoutY="215.0" mnemonicParsing="false" onAction="#onBackButtonClick" opacity="0.0" prefHeight="67.0" prefWidth="130.0" text="BALL"><font><Font size="32.0" /></font></Button>
+            <ImageView fx:id="backImage1142" fitHeight="86.0" fitWidth="150.0" layoutX="405.0" layoutY="206.0" pickOnBounds="true">
+                <image><Image url="@../../../Images/background/button1.png" /></image>
+            </ImageView>
+            <ImageView fx:id="backHoverImage1142" fitHeight="86.0" fitWidth="150.0" layoutX="405.0" layoutY="206.0" pickOnBounds="true" visible="false">
+                <image><Image url="@../../../Images/background/button.png" /></image>
+            </ImageView>
+            <Label alignment="CENTER" layoutX="395.0" layoutY="203.0" prefHeight="92.0" prefWidth="169.0" text="\$2000" textFill="#4fcaf7"><font><Font name="Calibri Bold Italic" size="32.0" /></font></Label>
+            <Button fx:id="backButton1142" layoutX="414.0" layoutY="215.0" mnemonicParsing="false" onAction="#onBackButtonClick" opacity="0.0" prefHeight="67.0" prefWidth="130.0" text="BALL" />
         </children>
     </AnchorPane>
 
@@ -102,6 +151,106 @@
                     <Image url="@../../../Images/trail/trail6.png" />
                 </image>
             </ImageView>
+         <ImageView fx:id="backImage111" fitHeight="86.0" fitWidth="150.0" layoutX="148.0" layoutY="216.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/button1.png" />
+            </image>
+         </ImageView>
+         <ImageView fx:id="backHoverImage111" fitHeight="86.0" fitWidth="150.0" layoutX="148.0" layoutY="216.0" pickOnBounds="true" visible="false">
+            <image>
+               <Image url="@../../../Images/background/button.png" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" layoutX="138.0" layoutY="213.0" prefHeight="92.0" prefWidth="169.0" text="EQUIPPED" textFill="#4fcaf7">
+            <font>
+               <Font name="Calibri Bold Italic" size="25.0" />
+            </font>
+         </Label>
+         <Button fx:id="backButton111" layoutX="157.0" layoutY="225.0" mnemonicParsing="false" onAction="#onBackButtonClick" opacity="0.0" prefHeight="67.0" prefWidth="130.0" text="BALL" />
+         <ImageView fx:id="backImage1121" fitHeight="86.0" fitWidth="150.0" layoutX="148.0" layoutY="395.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/button1.png" />
+            </image>
+         </ImageView>
+         <ImageView fx:id="backHoverImage1121" fitHeight="86.0" fitWidth="150.0" layoutX="148.0" layoutY="395.0" pickOnBounds="true" visible="false">
+            <image>
+               <Image url="@../../../Images/background/button.png" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" layoutX="138.0" layoutY="392.0" prefHeight="92.0" prefWidth="169.0" text="\$4000" textFill="#4fcaf7">
+            <font>
+               <Font name="Calibri Bold Italic" size="32.0" />
+            </font>
+         </Label>
+         <Button fx:id="backButton1121" layoutX="157.0" layoutY="404.0" mnemonicParsing="false" onAction="#onBackButtonClick" opacity="0.0" prefHeight="67.0" prefWidth="130.0" text="BALL" />
+         <ImageView fx:id="backImage1131" fitHeight="86.0" fitWidth="150.0" layoutX="415.0" layoutY="395.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/button1.png" />
+            </image>
+         </ImageView>
+         <ImageView fx:id="backHoverImage1131" fitHeight="86.0" fitWidth="150.0" layoutX="415.0" layoutY="395.0" pickOnBounds="true" visible="false">
+            <image>
+               <Image url="@../../../Images/background/button.png" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" layoutX="405.0" layoutY="392.0" prefHeight="92.0" prefWidth="169.0" text="\$5000" textFill="#4fcaf7">
+            <font>
+               <Font name="Calibri Bold Italic" size="32.0" />
+            </font>
+         </Label>
+         <Button fx:id="backButton1131" layoutX="424.0" layoutY="404.0" mnemonicParsing="false" onAction="#onBackButtonClick" opacity="0.0" prefHeight="67.0" prefWidth="130.0" text="BALL" />
+         <ImageView fx:id="backImage1143" fitHeight="86.0" fitWidth="150.0" layoutX="644.0" layoutY="395.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/button1.png" />
+            </image>
+         </ImageView>
+         <ImageView fx:id="backHoverImage1143" fitHeight="86.0" fitWidth="150.0" layoutX="644.0" layoutY="395.0" pickOnBounds="true" visible="false">
+            <image>
+               <Image url="@../../../Images/background/button.png" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" layoutX="634.0" layoutY="392.0" prefHeight="92.0" prefWidth="169.0" text="\$6000" textFill="#4fcaf7">
+            <font>
+               <Font name="Calibri Bold Italic" size="32.0" />
+            </font>
+         </Label>
+         <Button fx:id="backButton1143" layoutX="653.0" layoutY="404.0" mnemonicParsing="false" onAction="#onBackButtonClick" opacity="0.0" prefHeight="67.0" prefWidth="130.0" text="BALL" />
+         <ImageView fx:id="backImage11411" fitHeight="86.0" fitWidth="150.0" layoutX="634.0" layoutY="216.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/button1.png" />
+            </image>
+         </ImageView>
+         <ImageView fx:id="backHoverImage11411" fitHeight="86.0" fitWidth="150.0" layoutX="634.0" layoutY="216.0" pickOnBounds="true" visible="false">
+            <image>
+               <Image url="@../../../Images/background/button.png" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" layoutX="624.0" layoutY="213.0" prefHeight="92.0" prefWidth="169.0" text="\$3000" textFill="#4fcaf7">
+            <font>
+               <Font name="Calibri Bold Italic" size="32.0" />
+            </font>
+         </Label>
+         <Button fx:id="backButton11411" layoutX="643.0" layoutY="225.0" mnemonicParsing="false" onAction="#onBackButtonClick" opacity="0.0" prefHeight="67.0" prefWidth="130.0" text="BALL">
+            <font>
+               <Font size="32.0" />
+            </font>
+         </Button>
+         <ImageView fx:id="backImage11421" fitHeight="86.0" fitWidth="150.0" layoutX="415.0" layoutY="216.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/button1.png" />
+            </image>
+         </ImageView>
+         <ImageView fx:id="backHoverImage11421" fitHeight="86.0" fitWidth="150.0" layoutX="415.0" layoutY="216.0" pickOnBounds="true" visible="false">
+            <image>
+               <Image url="@../../../Images/background/button.png" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" layoutX="405.0" layoutY="213.0" prefHeight="92.0" prefWidth="169.0" text="\$2000" textFill="#4fcaf7">
+            <font>
+               <Font name="Calibri Bold Italic" size="32.0" />
+            </font>
+         </Label>
+         <Button fx:id="backButton11421" layoutX="424.0" layoutY="225.0" mnemonicParsing="false" onAction="#onBackButtonClick" opacity="0.0" prefHeight="67.0" prefWidth="130.0" text="BALL" />
         </children>
     </AnchorPane>
 
@@ -122,94 +271,142 @@
                     <Image url="@../../../Images/trail/trail2.png" />
                 </image>
             </ImageView>
-            <ImageView fitHeight="66.0" fitWidth="76.0" layoutX="686.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true">
-                <image>
-                    <Image url="@../../../Images/trail/trail3.png" />
-                </image>
-            </ImageView>
-            <ImageView fitHeight="66.0" fitWidth="76.0" layoutX="679.0" layoutY="322.0" pickOnBounds="true" preserveRatio="true">
-                <image>
-                    <Image url="@../../../Images/trail/trail5.png" />
-                </image>
-            </ImageView>
-            <ImageView fitHeight="66.0" fitWidth="76.0" layoutX="188.0" layoutY="330.0" pickOnBounds="true" preserveRatio="true">
-                <image>
-                    <Image url="@../../../Images/trail/trail4.png" />
-                </image>
-            </ImageView>
-            <ImageView fitHeight="66.0" fitWidth="76.0" layoutX="455.0" layoutY="322.0" pickOnBounds="true" preserveRatio="true">
-                <image>
-                    <Image url="@../../../Images/trail/trail6.png" />
-                </image>
-            </ImageView>
+         <ImageView fx:id="backImage115" fitHeight="86.0" fitWidth="150.0" layoutX="148.0" layoutY="216.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/button1.png" />
+            </image>
+         </ImageView>
+         <ImageView fx:id="backHoverImage115" fitHeight="86.0" fitWidth="150.0" layoutX="148.0" layoutY="216.0" pickOnBounds="true" visible="false">
+            <image>
+               <Image url="@../../../Images/background/button.png" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" layoutX="138.0" layoutY="213.0" prefHeight="92.0" prefWidth="169.0" text="EQUIPPED" textFill="#4fcaf7">
+            <font>
+               <Font name="Calibri Bold Italic" size="25.0" />
+            </font>
+         </Label>
+         <Button fx:id="backButton115" layoutX="157.0" layoutY="225.0" mnemonicParsing="false" onAction="#onBackButtonClick" opacity="0.0" prefHeight="67.0" prefWidth="130.0" text="BALL" />
+         <ImageView fx:id="backImage1122" fitHeight="86.0" fitWidth="150.0" layoutX="148.0" layoutY="395.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/button1.png" />
+            </image>
+         </ImageView>
+         <ImageView fx:id="backHoverImage1122" fitHeight="86.0" fitWidth="150.0" layoutX="148.0" layoutY="395.0" pickOnBounds="true" visible="false">
+            <image>
+               <Image url="@../../../Images/background/button.png" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" layoutX="138.0" layoutY="392.0" prefHeight="92.0" prefWidth="169.0" text="\$4000" textFill="#4fcaf7">
+            <font>
+               <Font name="Calibri Bold Italic" size="32.0" />
+            </font>
+         </Label>
+         <Button fx:id="backButton1122" layoutX="157.0" layoutY="404.0" mnemonicParsing="false" onAction="#onBackButtonClick" opacity="0.0" prefHeight="67.0" prefWidth="130.0" text="BALL" />
+         <ImageView fx:id="backImage1132" fitHeight="86.0" fitWidth="150.0" layoutX="415.0" layoutY="395.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/button1.png" />
+            </image>
+         </ImageView>
+         <ImageView fx:id="backHoverImage1132" fitHeight="86.0" fitWidth="150.0" layoutX="415.0" layoutY="395.0" pickOnBounds="true" visible="false">
+            <image>
+               <Image url="@../../../Images/background/button.png" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" layoutX="405.0" layoutY="392.0" prefHeight="92.0" prefWidth="169.0" text="\$5000" textFill="#4fcaf7">
+            <font>
+               <Font name="Calibri Bold Italic" size="32.0" />
+            </font>
+         </Label>
+         <Button fx:id="backButton1132" layoutX="424.0" layoutY="404.0" mnemonicParsing="false" onAction="#onBackButtonClick" opacity="0.0" prefHeight="67.0" prefWidth="130.0" text="BALL" />
+         <ImageView fx:id="backImage1144" fitHeight="86.0" fitWidth="150.0" layoutX="644.0" layoutY="395.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/button1.png" />
+            </image>
+         </ImageView>
+         <ImageView fx:id="backHoverImage1144" fitHeight="86.0" fitWidth="150.0" layoutX="644.0" layoutY="395.0" pickOnBounds="true" visible="false">
+            <image>
+               <Image url="@../../../Images/background/button.png" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" layoutX="634.0" layoutY="392.0" prefHeight="92.0" prefWidth="169.0" text="\$6000" textFill="#4fcaf7">
+            <font>
+               <Font name="Calibri Bold Italic" size="32.0" />
+            </font>
+         </Label>
+         <Button fx:id="backButton1144" layoutX="653.0" layoutY="404.0" mnemonicParsing="false" onAction="#onBackButtonClick" opacity="0.0" prefHeight="67.0" prefWidth="130.0" text="BALL" />
+         <ImageView fx:id="backImage11412" fitHeight="86.0" fitWidth="150.0" layoutX="634.0" layoutY="216.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/button1.png" />
+            </image>
+         </ImageView>
+         <ImageView fx:id="backHoverImage11412" fitHeight="86.0" fitWidth="150.0" layoutX="634.0" layoutY="216.0" pickOnBounds="true" visible="false">
+            <image>
+               <Image url="@../../../Images/background/button.png" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" layoutX="624.0" layoutY="213.0" prefHeight="92.0" prefWidth="169.0" text="\$3000" textFill="#4fcaf7">
+            <font>
+               <Font name="Calibri Bold Italic" size="32.0" />
+            </font>
+         </Label>
+         <Button fx:id="backButton11412" layoutX="643.0" layoutY="225.0" mnemonicParsing="false" onAction="#onBackButtonClick" opacity="0.0" prefHeight="67.0" prefWidth="130.0" text="BALL">
+            <font>
+               <Font size="32.0" />
+            </font>
+         </Button>
+         <ImageView fx:id="backImage11422" fitHeight="86.0" fitWidth="150.0" layoutX="415.0" layoutY="216.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/button1.png" />
+            </image>
+         </ImageView>
+         <ImageView fx:id="backHoverImage11422" fitHeight="86.0" fitWidth="150.0" layoutX="415.0" layoutY="216.0" pickOnBounds="true" visible="false">
+            <image>
+               <Image url="@../../../Images/background/button.png" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" layoutX="405.0" layoutY="213.0" prefHeight="92.0" prefWidth="169.0" text="\$2000" textFill="#4fcaf7">
+            <font>
+               <Font name="Calibri Bold Italic" size="32.0" />
+            </font>
+         </Label>
+         <Button fx:id="backButton11422" layoutX="424.0" layoutY="225.0" mnemonicParsing="false" onAction="#onBackButtonClick" opacity="0.0" prefHeight="67.0" prefWidth="130.0" text="BALL" />
         </children>
     </AnchorPane>
 
     <ImageView fx:id="backImage" fitHeight="105.0" fitWidth="133.0" layoutX="574.0" layoutY="690.0" pickOnBounds="true">
-        <image>
-            <Image url="@../../../Images/background/button1.png" />
-        </image>
+        <image><Image url="@../../../Images/background/button1.png" /></image>
     </ImageView>
     <ImageView fx:id="backHoverImage" fitHeight="105.0" fitWidth="133.0" layoutX="574.0" layoutY="690.0" pickOnBounds="true" visible="false">
-        <image>
-            <Image url="@../../../Images/background/button.png" />
-        </image>
+        <image><Image url="@../../../Images/background/button.png" /></image>
     </ImageView>
-    <Label alignment="CENTER" layoutX="581.0" layoutY="710.0" prefHeight="65.0" prefWidth="122.0" text="BACK" textFill="#4fcaf7">
-        <font>
-            <Font name="Calibri Bold Italic" size="25.0" />
-        </font>
-    </Label>
+    <Label alignment="CENTER" layoutX="581.0" layoutY="710.0" prefHeight="65.0" prefWidth="122.0" text="BACK" textFill="#4fcaf7"><font><Font name="Calibri Bold Italic" size="25.0" /></font></Label>
     <Button fx:id="backButton" layoutX="581.0" layoutY="710.0" mnemonicParsing="false" onAction="#onBackButtonClick" opacity="0.0" prefHeight="65.0" prefWidth="122.0" text="Back" />
 
     <ImageView fx:id="ballImage" fitHeight="105.0" fitWidth="133.0" layoutX="75.0" layoutY="274.0" pickOnBounds="true">
-        <image>
-            <Image url="@../../../Images/background/button1.png" />
-        </image>
+        <image><Image url="@../../../Images/background/button1.png" /></image>
     </ImageView>
     <ImageView fx:id="ballHoverImage" fitHeight="105.0" fitWidth="133.0" layoutX="75.0" layoutY="274.0" pickOnBounds="true" visible="false">
-        <image>
-            <Image url="@../../../Images/background/button.png" />
-        </image>
+        <image><Image url="@../../../Images/background/button.png" /></image>
     </ImageView>
-    <Label alignment="CENTER" layoutX="82.0" layoutY="294.0" prefHeight="65.0" prefWidth="122.0" text="BALL" textFill="#4fcaf7">
-        <font>
-            <Font name="Calibri Bold Italic" size="25.0" />
-        </font>
-    </Label>
+    <Label alignment="CENTER" layoutX="82.0" layoutY="294.0" prefHeight="65.0" prefWidth="122.0" text="BALL" textFill="#4fcaf7"><font><Font name="Calibri Bold Italic" size="25.0" /></font></Label>
     <Button fx:id="ballButton" layoutX="82.0" layoutY="294.0" mnemonicParsing="false" onAction="#onBallButtonClick" opacity="0.0" prefHeight="65.0" prefWidth="122.0" text="BALL" />
 
     <ImageView fx:id="trailImage" fitHeight="105.0" fitWidth="133.0" layoutX="77.0" layoutY="397.0" pickOnBounds="true">
-        <image>
-            <Image url="@../../../Images/background/button1.png" />
-        </image>
+        <image><Image url="@../../../Images/background/button1.png" /></image>
     </ImageView>
     <ImageView fx:id="trailHoverImage" fitHeight="105.0" fitWidth="133.0" layoutX="77.0" layoutY="397.0" pickOnBounds="true" visible="false">
-        <image>
-            <Image url="@../../../Images/background/button.png" />
-        </image>
+        <image><Image url="@../../../Images/background/button.png" /></image>
     </ImageView>
-    <Label alignment="CENTER" layoutX="84.0" layoutY="417.0" prefHeight="65.0" prefWidth="122.0" text="TRAIL" textFill="#4fcaf7">
-        <font>
-            <Font name="Calibri Bold Italic" size="25.0" />
-        </font>
-    </Label>
+    <Label alignment="CENTER" layoutX="84.0" layoutY="417.0" prefHeight="65.0" prefWidth="122.0" text="TRAIL" textFill="#4fcaf7"><font><Font name="Calibri Bold Italic" size="25.0" /></font></Label>
     <Button fx:id="trailButton" layoutX="84.0" layoutY="417.0" mnemonicParsing="false" onAction="#onTrailButtonClick" opacity="0.0" prefHeight="65.0" prefWidth="122.0" text="TRAIL" />
 
     <ImageView fx:id="paddleImage" fitHeight="105.0" fitWidth="133.0" layoutX="82.0" layoutY="519.0" pickOnBounds="true">
-        <image>
-            <Image url="@../../../Images/background/button1.png" />
-        </image>
+        <image><Image url="@../../../Images/background/button1.png" /></image>
     </ImageView>
     <ImageView fx:id="paddleHoverImage" fitHeight="105.0" fitWidth="133.0" layoutX="82.0" layoutY="519.0" pickOnBounds="true" visible="false">
-        <image>
-            <Image url="@../../../Images/background/button.png" />
-        </image>
+        <image><Image url="@../../../Images/background/button.png" /></image>
     </ImageView>
-    <Label alignment="CENTER" layoutX="89.0" layoutY="539.0" prefHeight="65.0" prefWidth="122.0" text="PADDLE" textFill="#4fcaf7">
-        <font>
-            <Font name="Calibri Bold Italic" size="25.0" />
-        </font>
-    </Label>
+    <Label alignment="CENTER" layoutX="89.0" layoutY="539.0" prefHeight="65.0" prefWidth="122.0" text="PADDLE" textFill="#4fcaf7"><font><Font name="Calibri Bold Italic" size="25.0" /></font></Label>
     <Button fx:id="paddleButton" layoutX="89.0" layoutY="539.0" mnemonicParsing="false" onAction="#onPaddleButtonClick" opacity="0.0" prefHeight="65.0" prefWidth="122.0" text="PADDLE" />
 </AnchorPane>

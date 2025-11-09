@@ -54,7 +54,7 @@ public class Ball extends MoveAbleObject {
         updateVelocity();
 
         try {
-            trailImage = new Image(getClass().getResourceAsStream(Constants.PATH_TO_TRAIL_2));
+            trailImage = new Image(getClass().getResourceAsStream(Constants.PATH_TO_TRAIL_1));
             ballImage = new Image(getClass().getResourceAsStream(Constants.PATH_TO_BALL_1));
         } catch (Exception e) {
             System.err.println("Lỗi tải ảnh cho vệt hoặc bóng!");
