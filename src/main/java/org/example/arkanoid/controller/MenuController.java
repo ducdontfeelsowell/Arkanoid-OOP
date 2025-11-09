@@ -36,6 +36,9 @@ public class MenuController implements Initializable{
     private Button playButton;
 
     @FXML
+    private Button scoreButton;
+
+    @FXML
     private Button helpButton;
 
     @FXML
@@ -49,6 +52,12 @@ public class MenuController implements Initializable{
 
     @FXML
     private ImageView playImage;
+
+    @FXML
+    private ImageView scoreImage;
+
+    @FXML
+    private ImageView scoreHoverImage;
 
     @FXML
     private ImageView settingImage;
@@ -86,6 +95,14 @@ public class MenuController implements Initializable{
         LevelController controller = loader.getController();
         controller.updateLockStatus();
         playButton.getScene().setRoot(root);
+    }
+
+    @FXML
+    public void onScoreButtonClick() throws IOException {
+        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.PATH_TO_SCORE_VIEW));
+        Parent root = loader.load();
+        scoreButton.getScene().setRoot(root);
     }
 
     @FXML
@@ -241,6 +258,7 @@ public class MenuController implements Initializable{
 
         // Giữ lại setMouseTransparent(true) nếu cần cho bố cục
         playHoverImage.setMouseTransparent(true);
+        scoreHoverImage.setMouseTransparent(true);
         settingHoverImage.setMouseTransparent(true);
         helpHoverImage.setMouseTransparent(true);
         shopHoverImage.setMouseTransparent(true);
@@ -248,6 +266,7 @@ public class MenuController implements Initializable{
 
         // ÁP DỤNG HIỆU ỨNG HOVER MỚI (Âm thanh + Ẩn/Hiện + Con trỏ)
         addHoverEffect(playButton, playImage, playHoverImage);
+        addHoverEffect(scoreButton, scoreImage, scoreHoverImage);
         addHoverEffect(settingButton, settingImage, settingHoverImage);
         addHoverEffect(helpButton, helpImage, helpHoverImage);
         addHoverEffect(shopButton, shopImage, shopHoverImage);
@@ -255,6 +274,7 @@ public class MenuController implements Initializable{
 
         // Gọi phương thức chặn phím
         preventKeyActivation(playButton);
+        preventKeyActivation(scoreButton);
         preventKeyActivation(helpButton);
         preventKeyActivation(settingButton);
         preventKeyActivation(shopButton);

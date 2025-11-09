@@ -125,6 +125,7 @@ public class Constants {
     đường dẫn đến các file fxml
      */
     public final static String PATH_TO_GAME_VIEW    = "/org/example/arkanoid/game-view.fxml";
+    public final static String PATH_TO_SCORE_VIEW    = "/org/example/arkanoid/scoreboard-view.fxml";
     public final static String PATH_TO_HELP_VIEW    = "/org/example/arkanoid/help-view.fxml";
     public final static String PATH_TO_LEVEL_VIEW   = "/org/example/arkanoid/level-view.fxml";
     public final static String PATH_TO_MAIN_MENU    = "/org/example/arkanoid/main-menu-view.fxml";
@@ -198,13 +199,13 @@ public class Constants {
     /*
     đường dẫn đến hình ảnh của ball
      */
-    public static final String PATH_TO_BALL_1 = "/Images/ball/ball1.png";
+    public static final String PATH_TO_BALL_1 = "/Images/ball/Pancake.png";
 
     /*
     đường dẫn đến hình ảnh hiệu ứng đuôi của ball
      */
-    public static final String PATH_TO_TRAIL_1 = "/Images/trail/trail1.png";
-    public static final String PATH_TO_TRAIL_2 = "/Images/trail/trail2.png";
+    public static final String PATH_TO_TRAIL_1 = "/Images/trail/LGBT.png";
+    public static final String PATH_TO_TRAIL_2 = "/Images/trail/Lightning.png";
 
     public final static String PATH_TO_CURSOR = "/Images/background/cursor1.png";
     public final static String PATH_TO_HOVER_CURSOR = "/Images/background/hover_cursor.png";
