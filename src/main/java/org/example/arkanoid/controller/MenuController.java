@@ -125,7 +125,6 @@ public class MenuController implements Initializable{
             if (imageOn != null) {
                 imageOn.setVisible(false);
             }
-
             button.hoverProperty().addListener((obs, oldVal, newVal) -> {
                 if (newVal) {
                     // KHI HOVER VÀO:

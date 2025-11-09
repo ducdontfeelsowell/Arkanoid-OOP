@@ -16,6 +16,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.Node;
 import javafx.scene.Cursor; // THÊM MỚI
 import javafx.scene.Scene; // THÊM MỚI
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import org.example.arkanoid.config.Constants;
 import org.example.arkanoid.game.SoundManager;
 
@@ -41,6 +44,9 @@ public class HelpController implements Initializable {
 
     @FXML
     private ImageView backImage; // Ảnh mặc định (out)
+
+    @FXML
+    private MediaView helpPlayerView;
 
     @FXML
     public void onBackButtonClick(ActionEvent event) throws IOException {
@@ -147,6 +153,22 @@ public class HelpController implements Initializable {
             });
         }
 
+        try {
+            String resourcePath = "/Images/background/video_main_menu.mp4";
+
+            URL videoResource = getClass().getResource(resourcePath);
+            Media media = new Media(videoResource.toExternalForm());
+            MediaPlayer help_mediaPlayer = new MediaPlayer(media);
+            helpPlayerView.setMediaPlayer(help_mediaPlayer);
+            help_mediaPlayer.setAutoPlay(true);
+            help_mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Lặp vô hạn
+            help_mediaPlayer.setMute(true); // Tắt tiếng video nền
+            help_mediaPlayer.play();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Không thể tải hoặc phát video.");
+        }
         // Loại bỏ các ràng buộc visibleProperty().bind() thủ công
         // backHoverImage.setMouseTransparent(true); // Giữ lại vì liên quan đến bố cục
 
