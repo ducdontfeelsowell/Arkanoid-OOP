@@ -452,4 +452,6 @@ public class Constants {
     public final static String PATH_TO_COIN_250 = "/Images/Coin/extra250.png";
     public final static String PATH_TO_COIN_500 = "/Images/Coin/extra500.png";
 
+
+
 }

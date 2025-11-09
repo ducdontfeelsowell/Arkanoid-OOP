@@ -1,16 +1,25 @@
 package org.example.arkanoid.logic;
 
 import org.example.arkanoid.config.Constants;
-import org.example.arkanoid.game.SoundManager; // THÊM MỚI
+import org.example.arkanoid.game.EffectManager;
+import org.example.arkanoid.game.SoundManager;
 import org.example.arkanoid.object.Ball;
 import org.example.arkanoid.object.Paddle;
 
 public class CheckBallPaddleCollision {
     public static void check(Ball ball, Paddle paddle) {
+
+        // --- SỬA ĐỔI LOGIC ---
+        // Chúng ta tách điều kiện kiểm tra va chạm và điều kiện reset
+
         if ((ball.isCollidingWith(paddle) && ball.getDy() > 0) && !ball.getSideHit()) {
 
             // Phát âm thanh va chạm paddle
             SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_PADDLE_HIT);
+
+            // Kích hoạt hiệu ứng va chạm
+            double impactX = ball.getX() + ball.getWidth() / 2;
+            double impactY = paddle.getY() - 5;
 
             ball.reverseY();
 
@@ -22,15 +31,7 @@ public class CheckBallPaddleCollision {
             double overlapX = Math.min(overlapLeft, overlapRight);
             double overlapY = Math.min(overlapTop, overlapBottom);
 
-            //Chạm side rồi thì chỉ chòn đẩy bóng, nếu paddle nhanh hơn
-//            if (sideHit) {
-////                if(overlapLeft < overlapRight) {
-////                    ball.setX(ball.getX() - overlapLeft);
-////                } else {
-////                    ball.setX(ball.getX() + overlapRight);
-////                }
-//                return;
-//            } else {
+
             // Bóng chạm cạnh hay chạm trên
             if (overlapX < overlapY) {
                 ball.setSideHit(true);
@@ -59,5 +60,11 @@ public class CheckBallPaddleCollision {
                 ball.setOffset(offset);
             }
         }
+        // --- THÊM MỚI: KHỐI ELSE IF ---
+        // Nếu bóng không va chạm với paddle, reset cờ sideHit
+        else if (!ball.isCollidingWith(paddle)) {
+            ball.setSideHit(false);
+        }
+        // --- KẾT THÚC THÊM MỚI ---
     }
 }

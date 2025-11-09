@@ -8,8 +8,8 @@ public class ProgressManager {
     public static int maxLevelUnlocked;
     public static int currentCoins;
 
-    private static final String SAVE_FILE_PATH = "/Progress/progress.txt";
-    private static final String COIN_SAVE_FILE_PATH = "/Progress/coin.txt";
+    private static final String SAVE_FILE_PATH = "src/main/resources/Progress/progress.txt";
+    private static final String COIN_SAVE_FILE_PATH = "src/main/resources/Progress/coin.txt";
 
     /**
      * Tải tiến độ từ file khi game khởi động.
