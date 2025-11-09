@@ -18,7 +18,11 @@ public class Item extends MoveAbleObject {
         SHOOTER_PADDLE,   // Biến paddle thành shooter
         MULTI_BALL,
         SAFETY_NET,
-        SLOW_SPEED        // <-- THÊM MỚI: Giảm tốc độ
+        SLOW_SPEED,       // Giảm tốc độ
+        COIN_50,
+        COIN_100,
+        COIN_250,
+        COIN_500
     }
 
     private ItemType type;
@@ -79,6 +83,18 @@ public class Item extends MoveAbleObject {
                         animationFrames.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream(path))));
                     }
                     break;
+                case COIN_50:
+                    animationFrames.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream(Constants.PATH_TO_COIN_50))));
+                    break;
+                case COIN_100:
+                    animationFrames.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream(Constants.PATH_TO_COIN_100))));
+                    break;
+                case COIN_250:
+                    animationFrames.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream(Constants.PATH_TO_COIN_250))));
+                    break;
+                case COIN_500:
+                    animationFrames.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream(Constants.PATH_TO_COIN_500))));
+                    break;
             }
         } catch (Exception e) {
             System.err.println("Lỗi tải ảnh cho item: " + type);
@@ -128,6 +144,11 @@ public class Item extends MoveAbleObject {
             case MULTI_BALL: return Color.CYAN;
             case SAFETY_NET: return Color.BLUEVIOLET;
             case SLOW_SPEED: return Color.LIGHTBLUE;
+            case COIN_50:
+            case COIN_100:
+            case COIN_250:
+            case COIN_500:
+                return Color.YELLOW;
             default: return Color.GRAY;
         }
     }
