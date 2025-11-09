@@ -74,9 +74,16 @@ public class Main extends Application {
             Constants.MAP_PATH[i] = "src/main/resources/Maps/map" +String.valueOf(i)+".txt";
         }
         ProgressManager.loadProgress();
+
+        // 1. Khởi tạo và phát nhạc ngẫu nhiên cho menu
+        soundManager = SoundManager.getInstance();
+        soundManager.playRandomBackgroundMusic();
+
         // Load menu scene
-        Parent root = FXMLLoader.load(Objects.requireNonNull(
+        FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(
                 getClass().getResource(Constants.PATH_TO_MAIN_MENU)));
+
+        Parent root = loader.load();
         menuScene = new Scene(root);
 
         // Set stage properties
@@ -88,10 +95,6 @@ public class Main extends Application {
         stage.setX(Constants.DEFAULT_SCREEN_X);
         stage.setY(Constants.DEFAULT_SCREEN_Y);
         stage.show();
-
-        // Khởi tạo và phát nhạc ngẫu nhiên cho menu
-        soundManager = SoundManager.getInstance();
-        soundManager.playRandomBackgroundMusic(); // Phát nhạc 1, 2
     }
 
     /**
@@ -105,11 +108,13 @@ public class Main extends Application {
             curr_level = level;
             currentMapPath = Constants.MAP_PATH[curr_level];
 
+            // DỪNG VIDEO MAIN MENU KHI BẮT ĐẦU GAME
+
             if (backgroundVideoPlayer != null) {
                 backgroundVideoPlayer.stop();
             }
 
-            String videoPath = Constants.PATH_TO_VIDEO;
+            String videoPath = Constants.PATH_TO_GAME_VIDEO;
 
 
             URL videoUrl = Main.class.getResource(videoPath);
@@ -199,26 +204,6 @@ public class Main extends Application {
                 loop.stop();
             }
 
-            /* old update
-            // Beautiful FPS cap
-            loop = new Timeline(new KeyFrame(Duration.millis(1000.0 / Constants.FPS), e -> {
-                gameManager.updateGame();
-
-                // FPS counting
-                frameCount++;
-                long now = System.nanoTime();
-                if (lastFpsTime == 0) lastFpsTime = now;
-
-                if (now - lastFpsTime >= 1_000_000_000) {  // every 1 second
-                    System.out.println("FPS: " + frameCount);
-                    frameCount = 0;
-                    lastFpsTime = now;
-                }
-            }));
-            loop.setCycleCount(Animation.INDEFINITE);
-            loop.play();
-             */
-
             // Start new threads
             startGameThreads();
 
@@ -300,30 +285,6 @@ public class Main extends Application {
             }
         };
         renderTimer.start();
-
-        /* no capping render
-        renderTimer = new AnimationTimer() {
-            lastRenderTimeCounter = 0;
-            renderCount = 0;
-
-            @Override
-            public void handle(long now) {
-                synchronized (lock) {
-                    gameManager.render();
-                }
-
-                // FPS counting
-                renderCount++;
-                if (lastRenderTimeCounter == 0) lastRenderTimeCounter = now;
-                if (now - lastRenderTimeCounter >= 1_000_000_000L) {
-                    System.out.println("FPS: " + renderCount);
-                    renderCount = 0;
-                    lastRenderTimeCounter = now;
-                }
-            }
-        };
-        renderTimer.start();
-        */
     }
 
     // Stop logic/render threads safely
@@ -384,14 +345,13 @@ public class Main extends Application {
             backgroundVideoPlayer.stop();
             backgroundVideoPlayer = null;
         }
+
         // Phát nhạc ngẫu nhiên khi quay về menu
         if (soundManager != null) {
             soundManager.playRandomBackgroundMusic(); // Phát nhạc 1, 2
         }
 
-        // --- SỬA LỖI ĐANG Ở ĐÂY ---
-        // Vấn đề: Chỉ setScene(menuScene) sẽ hiển thị lại root CŨ (là màn Level Select)
-        // Giải pháp: Tải lại Menu chính và đặt nó làm root MỚI cho menuScene.
+        // Sửa lỗi: Tải lại Menu chính
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource(Constants.PATH_TO_MAIN_MENU));
             Parent root = loader.load();
@@ -400,9 +360,8 @@ public class Main extends Application {
             System.err.println("Lỗi nghiêm trọng: Không thể tải lại main menu!");
             e.printStackTrace();
         }
-        // --- KẾT THÚC SỬA LỖI ---
 
-        // THÊM MỚI: Chủ động reset cờ static
+        // Chủ động reset cờ static
         GameController.paused = false;
 
         if (primaryStage != null && menuScene != null) {

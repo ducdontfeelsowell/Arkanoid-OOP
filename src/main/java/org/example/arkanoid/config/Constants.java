@@ -104,18 +104,6 @@ public class Constants {
     đường dẫn đến các file map
      */
     public final static String[] MAP_PATH  = new String[13];
-    public final static String MAP1_PATH  = "src/main/resources/Maps/map1.txt";
-    public final static String MAP2_PATH  = "src/main/resources/Maps/map2.txt";
-    public final static String MAP3_PATH  = "src/main/resources/Maps/map3.txt";
-    public final static String MAP4_PATH  = "src/main/resources/Maps/map4.txt";
-    public final static String MAP5_PATH  = "src/main/resources/Maps/map5.txt";
-    public final static String MAP6_PATH  = "src/main/resources/Maps/map6.txt";
-    public final static String MAP7_PATH  = "src/main/resources/Maps/map7.txt";
-    public final static String MAP8_PATH  = "src/main/resources/Maps/map8.txt";
-    public final static String MAP9_PATH  = "src/main/resources/Maps/map9.txt";
-    public final static String MAP10_PATH = "src/main/resources/Maps/map10.txt";
-    public final static String MAP11_PATH = "src/main/resources/Maps/map11.txt";
-    public final static String MAP12_PATH = "src/main/resources/Maps/map12.txt";
 
     /*
     đường dẫn đến background các map
@@ -147,11 +135,11 @@ public class Constants {
     đường dẫn đến hình ảnh chung
      */
     public final static String PATH_TO_LOGO = "/Images/logo/logo.png";
-    public final static String PATH_TO_VIDEO = "/Images/background/main_video_background.mp4";
+    public final static String PATH_TO_GAME_VIDEO = "/Images/background/main_video_background.mp4";
     public final static String PATH_TO_GAME_BACKGROUND = "/Images/background/main_game_background.jpg";
     public final static String PATH_TO_MENU_BACKGROUND = "/Images/background/menu_Background.jpg";
     public final static String PATH_TO_IMAGE_BACKGROUND = "/Images/background/main_image_background.jpg";
-
+    public final static String PATH_TO_MAIN_MENU_VIDEO = "/Images/background/video_main_menu.mp4";
     public static boolean isStarted = false;
 
     /*
