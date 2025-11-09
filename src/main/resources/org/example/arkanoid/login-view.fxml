@@ -3,9 +3,13 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="loginPane" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.arkanoid.controller.LoginController">
@@ -15,8 +19,42 @@
             <Image url="@../../../Images/background/sign_in_sheet.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="okButton" layoutX="584.0" layoutY="553.0" mnemonicParsing="false" onAction="#onClickOkButton" prefHeight="43.0" prefWidth="105.0" text="Button" />
-      <TextField fx:id="nameTextField" layoutX="278.0" layoutY="246.0" prefHeight="32.0" prefWidth="711.0">
+      <ImageView fx:id="okImage" fitHeight="151.0" fitWidth="229.0" layoutX="512.0" layoutY="507.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../../Images/background/button1.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="okHoverImage" fitHeight="151.0" fitWidth="229.0" layoutX="512.0" layoutY="507.0" pickOnBounds="true" visible="false">
+         <image>
+            <Image url="@../../../Images/background/button.png" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" layoutX="514.0" layoutY="511.0" prefHeight="136.0" prefWidth="229.0" text="OK">
+         <font>
+            <Font name="System Bold Italic" size="50.0" />
+         </font>
+         <textFill>
+            <LinearGradient endX="0.2348484740112767" endY="1.0" startX="0.28787879499070573" startY="0.1893939393939394">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.13793371617794037" green="0.44511890411376953" blue="0.6105263233184814" opacity="0.9700000286102295" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </textFill>
+         <effect>
+            <Glow level="0.81" />
+         </effect>
+      </Label>
+      <Button fx:id="okButton" layoutX="523.0" layoutY="524.0" mnemonicParsing="false" onAction="#onClickOkButton" opacity="0.0" prefHeight="116.0" prefWidth="203.0" text="Button" />
+      <TextField fx:id="nameTextField" layoutX="269.0" layoutY="236.0" prefHeight="47.0" prefWidth="727.0">
          <font>
             <Font size="20.0" />
          </font>
