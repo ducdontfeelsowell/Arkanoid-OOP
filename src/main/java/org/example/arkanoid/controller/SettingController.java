@@ -14,6 +14,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.Node;
 import javafx.scene.Cursor; // THÊM MỚI
 import javafx.scene.Scene; // THÊM MỚI
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import org.example.arkanoid.config.Constants;
 import org.example.arkanoid.game.SoundManager;
 
@@ -46,6 +49,9 @@ public class SettingController implements Initializable {
 
     @FXML private ImageView volumeIconViewHigh;
     @FXML private ImageView volumeIconViewMuted;
+
+    @FXML
+    private MediaView settingPlayerView;
 
     private SoundManager soundManager;
 
@@ -195,6 +201,23 @@ public class SettingController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         soundManager = SoundManager.getInstance();
+
+        try {
+            String resourcePath = "/Images/background/video_main_menu.mp4";
+
+            URL videoResource = getClass().getResource(resourcePath);
+            Media media = new Media(videoResource.toExternalForm());
+            MediaPlayer setting_mediaPlayer = new MediaPlayer(media);
+            settingPlayerView.setMediaPlayer(setting_mediaPlayer);
+            setting_mediaPlayer.setAutoPlay(true);
+            setting_mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Lặp vô hạn
+            setting_mediaPlayer.setMute(true); // Tắt tiếng video nền
+            setting_mediaPlayer.play();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Không thể tải hoặc phát video.");
+        }
 
         // THÊM MỚI: Lắng nghe Scene Property
         if (backButton != null) {
