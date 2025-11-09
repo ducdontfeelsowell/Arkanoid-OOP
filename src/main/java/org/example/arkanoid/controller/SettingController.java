@@ -4,11 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.Slider;
+import javafx.scene.control.*;
 import javafx.scene.image.Image; // THÊM MỚI
 import javafx.scene.image.ImageView;
 import javafx.scene.Node;
@@ -34,20 +30,24 @@ public class SettingController implements Initializable {
     @FXML
     private ImageView backImage; // Ảnh mặc định (out)
 
-    @FXML private Slider volumeSlider;
+    @FXML private Slider volumeSliderMaster;
+    @FXML private Slider volumeSliderMusic;
+    @FXML private Slider volumeSliderSFX;
     @FXML private CheckBox muteCheckbox;
 
+    /* To be moved elsewhere
     // --- KHAI BÁO FXML CHO ĐỘ KHÓ ---
     @FXML private RadioButton easyRadio;
     @FXML private RadioButton normalRadio;
     @FXML private RadioButton hardRadio;
     @FXML private ToggleGroup difficultyToggleGroup;
     // --- KẾT THÚC KHAI BÁO ---
+     */
 
     @FXML private ImageView volumeIconViewHigh;
     @FXML private ImageView volumeIconViewMuted;
 
-    private SoundManager soundManager;
+    SoundManager soundManager = SoundManager.getInstance();
 
     @FXML
     public void onBackButton() throws IOException {
@@ -58,6 +58,40 @@ public class SettingController implements Initializable {
         backButton.getScene().setRoot(root);
     }
 
+    @FXML
+    public void setOnOff(boolean muted) {
+        if (!muted) {
+            muteCheckbox.setText("Sound: ON");
+            muteCheckbox.setSelected(true);
+            volumeIconViewHigh.setVisible(true);
+            volumeIconViewMuted.setVisible(false);
+        } else {
+            muteCheckbox.setText("Sound: OFF");
+            muteCheckbox.setSelected(false);
+            volumeIconViewHigh.setVisible(false);
+            volumeIconViewMuted.setVisible(true);
+        }
+    }
+
+    public void onMuteCheck() {
+        soundManager.toggleMute();
+        setOnOff(soundManager.isMuted());
+    }
+
+    @FXML
+    public void currentVolume() {
+        volumeSliderMaster.setValue(soundManager.getMasterVolume());
+        volumeSliderMusic.setValue(soundManager.getMusicVolumeRaw());
+        volumeSliderSFX.setValue(soundManager.getSfxVolumeRaw());
+    }
+
+    private void updateVolume() {
+        double master = soundManager.getMasterVolume();
+        soundManager.setMusicVolume(master * soundManager.getMusicVolumeRaw());
+        soundManager.setSoundEffectVolume(master * soundManager.getSfxVolumeRaw());
+    }
+
+    /* To be moved elsewhere
     // --- CÁC PHƯƠNG THỨC XỬ LÝ ĐỘ KHÓ (Giữ nguyên) ---
     @FXML
     private void onEasyClick() {
@@ -77,9 +111,7 @@ public class SettingController implements Initializable {
         updateDifficultySettings("Khó");
     }
 
-    /**
-     * Cập nhật các biến CURRENT trong Constants (Giữ nguyên)
-     */
+     // Cập nhật các biến CURRENT trong Constants (Giữ nguyên)
     private void updateDifficultySettings(String difficulty) {
         Constants.CURRENT_DIFFICULTY = difficulty;
 
@@ -105,6 +137,7 @@ public class SettingController implements Initializable {
         }
     }
     // --- KẾT THÚC PHƯƠNG THỨC ĐỘ KHÓ ---
+    */
 
 
     // PHƯƠNG THỨC ĐÃ SỬA: Thêm logic đổi con trỏ
@@ -195,6 +228,22 @@ public class SettingController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         soundManager = SoundManager.getInstance();
+
+        setOnOff(soundManager.isMuted());
+        currentVolume();
+
+        volumeSliderMaster.valueProperty().addListener((obs, oldVal, newVal) -> {
+            soundManager.setMasterVolume(newVal.doubleValue());
+            updateVolume();
+        });
+        volumeSliderMusic.valueProperty().addListener((obs, oldVal, newVal) -> {
+            soundManager.setMusicVolumeRaw(newVal.doubleValue());
+            updateVolume();
+        });
+        volumeSliderSFX.valueProperty().addListener((obs, oldVal, newVal) -> {
+            soundManager.setSfxVolumeRaw(newVal.doubleValue());
+            updateVolume();
+        });
 
         // THÊM MỚI: Lắng nghe Scene Property
         if (backButton != null) {
