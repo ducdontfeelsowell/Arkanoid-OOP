@@ -6,8 +6,11 @@ public class ProgressManager {
 
 
     public static int maxLevelUnlocked;
+    public static int currentCoins;
 
-    private static final String SAVE_FILE_PATH = "target/classes/Progress/progress.txt";
+    private static final String SAVE_FILE_PATH = "src/main/resources/Progress/progress.txt";
+    private static final String COIN_SAVE_FILE_PATH = "src/main/resources/Progress/coin.txt";
+
     /**
      * Tải tiến độ từ file khi game khởi động.
      */
@@ -32,6 +35,27 @@ public class ProgressManager {
             saveProgress();
         }
         System.out.println("Tiến độ đã tải. Màn cao nhất đã mở: " + maxLevelUnlocked);
+
+        loadCoins();
+    }
+
+    private static void loadCoins() {
+        File coinFile = new File(COIN_SAVE_FILE_PATH);
+        if (coinFile.exists()) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(coinFile))) {
+                String line = reader.readLine();
+                currentCoins = Integer.parseInt(line);
+                if (currentCoins < 0) currentCoins = 0;
+            } catch (IOException | NumberFormatException e) {
+                System.err.println("Lỗi khi đọc file coin! Đặt về 0.");
+                currentCoins = 0;
+            }
+        } else {
+            System.out.println("Không tìm thấy file coin. Đặt về 0.");
+            currentCoins = 0;
+            saveCoins(); // Tạo file coin nếu chưa có
+        }
+        System.out.println("Coins đã tải: " + currentCoins);
     }
 
     public static void saveProgress() {
@@ -47,7 +71,24 @@ public class ProgressManager {
             e.printStackTrace();
 
         }
+        saveCoins();
+    }
 
+    private static void saveCoins() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(COIN_SAVE_FILE_PATH))) {
+            writer.write(String.valueOf(currentCoins));
+        } catch (IOException e) {
+            System.err.println("Lỗi khi lưu coin!");
+            e.printStackTrace();
+        }
+    }
+
+    public static void addCoins(int amount) {
+        if (amount > 0) {
+            currentCoins += amount;
+            System.out.println("Đã nhận " + amount + " coins. Tổng: " + currentCoins);
+            saveCoins(); // Lưu ngay khi nhận
+        }
     }
 
     /**

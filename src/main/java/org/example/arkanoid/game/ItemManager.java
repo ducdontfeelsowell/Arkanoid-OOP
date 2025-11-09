@@ -153,6 +153,22 @@ public class ItemManager {
 
                 // KHÔNG THAY ĐỔI TỐC ĐỘ BÓNG
                 break;
+            case COIN_50:
+                SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_USE_ITEM);
+                ProgressManager.addCoins(50);
+                break;
+            case COIN_100:
+                SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_USE_ITEM);
+                ProgressManager.addCoins(100);
+                break;
+            case COIN_250:
+                SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_USE_ITEM);
+                ProgressManager.addCoins(250);
+                break;
+            case COIN_500:
+                SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_USE_ITEM);
+                ProgressManager.addCoins(500);
+                break;
         }
     }
 
