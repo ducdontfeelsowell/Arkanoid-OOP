@@ -49,9 +49,6 @@
             </font>
         </Label>
         <Button fx:id="playButton" layoutX="550.0" layoutY="371.0" mnemonicParsing="false" onAction="#onPlayGameButtonClick" opacity="0.0" prefHeight="72.0" prefWidth="179.0" stylesheets="@../../../../java/org/example/arkanoid/scene.css" text="Play Game">
-            <cursor>
-                <Cursor fx:constant="CROSSHAIR" />
-            </cursor>
             <effect>
                 <Glow level="1.0" />
             </effect>
