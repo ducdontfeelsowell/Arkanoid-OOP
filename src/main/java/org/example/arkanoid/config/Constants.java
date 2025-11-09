@@ -267,6 +267,7 @@ public class Constants {
 
     public static final String PATH_TO_SOUND_PADDLE_HIT = "/Sounds/paddleHit.mp3";
     public static final String PATH_TO_SOUND_WALL_HIT = "/Sounds/wallHit.mp3";
+    public static final String PATH_TO_SOUND_BRICK_3 ="/Sounds/brick_3.mp3";
 
     public static final String PATH_TO_SOUND_GUN_ITEM = "/Sounds/gunItem.wav";
     public static final String PATH_TO_SOUND_GUN_LOAD = "/Sounds/gunLoad.mp3";

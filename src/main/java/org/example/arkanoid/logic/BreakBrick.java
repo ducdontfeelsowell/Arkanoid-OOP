@@ -27,7 +27,7 @@ public class BreakBrick {
                 break; // Thêm break
 
             case 3: // Gạch bất tử (InfBrick)
-                SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_WALL_HIT); // Phát âm thanh va tường
+                SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_BRICK_3); // Phát âm thanh va tường
 
                 // Kích hoạt animation
                 if (brick instanceof InfBrick) {

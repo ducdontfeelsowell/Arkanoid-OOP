@@ -24,7 +24,7 @@ public class Brick extends GameObject {
         this.type = type;
         this.destroyed = false;
         switch (this.type) {
-            case 1: this.brickColor = Color.rgb(130, 220, 100); break; // Màu xanh
+            case 1: this.brickColor = Color.rgb(150, 150, 150); break; // màu xám
             case 2: this.brickColor = Color.rgb(255, 150, 80); break;  // Màu cam
             case 3: this.brickColor = Color.rgb(120, 120, 120); break; // Màu xám (bất tử)
             case 4: this.brickColor = Color.rgb(255, 80, 80); break;   // Màu đỏ (nổ)
