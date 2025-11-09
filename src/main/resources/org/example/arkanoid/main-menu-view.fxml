@@ -31,22 +31,22 @@
             </effect>
         </Label>
 
-        <ImageView fx:id="playImage" fitHeight="98.0" fitWidth="200.0" layoutX="540.0" layoutY="358.0" pickOnBounds="true">
+        <ImageView fx:id="playImage" fitHeight="98.0" fitWidth="200.0" layoutX="541.0" layoutY="312.0" pickOnBounds="true">
             <image>
                 <Image url="@../../../Images/background/button1.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="playHoverImage" fitHeight="98.0" fitWidth="200.0" layoutX="540.0" layoutY="358.0" mouseTransparent="true" pickOnBounds="true" visible="false">
+        <ImageView fx:id="playHoverImage" fitHeight="98.0" fitWidth="200.0" layoutX="541.0" layoutY="312.0" mouseTransparent="true" pickOnBounds="true" visible="false">
             <image>
                 <Image url="@../../../Images/background/button.png" />
             </image>
         </ImageView>
-        <Label alignment="CENTER" layoutX="536.0" layoutY="367.0" prefHeight="78.0" prefWidth="210.0" text="PLAY" textFill="WHITE">
+        <Label alignment="CENTER" layoutX="537.0" layoutY="321.0" prefHeight="78.0" prefWidth="210.0" text="PLAY" textFill="WHITE">
             <font>
                 <Font name="System Bold Italic" size="40.0" />
             </font>
         </Label>
-        <Button fx:id="playButton" layoutX="550.0" layoutY="371.0" mnemonicParsing="false" onAction="#onPlayGameButtonClick" opacity="0.0" prefHeight="72.0" prefWidth="179.0" stylesheets="@../../../../java/org/example/arkanoid/scene.css" text="Play Game">
+        <Button fx:id="playButton" layoutX="551.0" layoutY="325.0" mnemonicParsing="false" onAction="#onPlayGameButtonClick" opacity="0.0" prefHeight="72.0" prefWidth="179.0" stylesheets="@../../../../java/org/example/arkanoid/scene.css" text="Play Game">
             <effect>
                 <Glow level="1.0" />
             </effect>
@@ -103,21 +103,21 @@
         </Label>
         <Button fx:id="shopButton" layoutX="749.0" layoutY="562.0" mnemonicParsing="false" onAction="#onShopButtonClick" opacity="0.0" prefHeight="57.0" prefWidth="140.0" text="SHOP" />
 
-        <ImageView fx:id="exitImage" fitHeight="80.0" fitWidth="138.0" layoutX="165.0" layoutY="627.0" pickOnBounds="true" preserveRatio="false">
+        <ImageView fx:id="exitImage" fitHeight="80.0" fitWidth="138.0" layoutX="571.0" layoutY="645.0" pickOnBounds="true" preserveRatio="false">
             <image>
                 <Image url="@../../../Images/background/button1.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="exitHoverImage" fitHeight="80.0" fitWidth="138.0" layoutX="165.0" layoutY="627.0" pickOnBounds="true" preserveRatio="false" visible="false">
+        <ImageView fx:id="exitHoverImage" fitHeight="80.0" fitWidth="138.0" layoutX="571.0" layoutY="645.0" pickOnBounds="true" preserveRatio="false" visible="false">
             <image>
                 <Image url="@../../../Images/background/button.png" />
             </image>
         </ImageView>
-        <Label alignment="CENTER" layoutX="165.0" layoutY="638.0" prefHeight="56.0" prefWidth="138.0" text="EXIT" textFill="WHITE">
+        <Label alignment="CENTER" layoutX="571.0" layoutY="656.0" prefHeight="56.0" prefWidth="138.0" text="EXIT" textFill="WHITE">
             <font>
                 <Font name="System Bold Italic" size="25.0" />
             </font>
         </Label>
-        <Button fx:id="exitButton" layoutX="165.0" layoutY="637.0" mnemonicParsing="false" onAction="#onExitGameButtonClick" opacity="0.0" prefHeight="56.0" prefWidth="138.0" />
+        <Button fx:id="exitButton" layoutX="571.0" layoutY="655.0" mnemonicParsing="false" onAction="#onExitGameButtonClick" opacity="0.0" prefHeight="56.0" prefWidth="138.0" />
     </children>
 </AnchorPane>

@@ -70,7 +70,7 @@ public class Paddle extends MoveAbleObject {
 
     // THÊM MỚI: Logic cho tốc độ giới hạn thời gian (long -> double)
     private double speedEndTime = 0;
-    private double originalSpeed = Constants.DEFAULT_PADDLE_SPEED;
+    private double originalSpeed = Constants.CURRENT_PADDLE_SPEED;
 
 
     public Paddle() {
@@ -230,7 +230,7 @@ public class Paddle extends MoveAbleObject {
      */
     public void setSpeedWithTimeout(double newSpeed) {
         if (speedEndTime == 0) {
-            this.originalSpeed = Constants.DEFAULT_PADDLE_SPEED;
+            this.originalSpeed = Constants.CURRENT_PADDLE_SPEED;
         }
 
         this.speed = newSpeed;
@@ -281,7 +281,7 @@ public class Paddle extends MoveAbleObject {
         this.x = Constants.DEFAULT_PADDLE_POSITION_X;
 
         // RESET timeout tốc độ
-        this.speed = Constants.DEFAULT_PADDLE_SPEED;
+        this.speed = Constants.CURRENT_PADDLE_SPEED;
         this.speedEndTime = 0;
     }
 
