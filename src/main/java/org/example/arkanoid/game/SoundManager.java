@@ -34,12 +34,6 @@ public class SoundManager {
         return instance;
     }
 
-    public void reVolume(double master, double music, double sfx) {
-        masterVolume = master;
-        musicVolume = master * music;
-        soundEffectVolume = master * sfx;
-    }
-
     public void playBackgroundMusic(String soundPath) {
         try {
             // Dòng debug để xem tệp nhạc nào đang được phát
