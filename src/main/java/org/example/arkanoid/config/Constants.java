@@ -2,6 +2,9 @@ package org.example.arkanoid.config;
 
 import javafx.scene.image.Image;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Constants {
     /*
     màn hình
@@ -130,6 +133,7 @@ public class Constants {
     public final static String PATH_TO_MAIN_MENU    = "/org/example/arkanoid/main-menu-view.fxml";
     public final static String PATH_TO_SETTING_VIEW = "/org/example/arkanoid/setting-view.fxml";
     public final static String PATH_TO_LOGIN_VIEW   = "/org/example/arkanoid/login-view.fxml";
+    public final static String PATH_TO_SHOP_VIEW   = "/org/example/arkanoid/shop-view.fxml";
 
     /*
     đường dẫn đến hình ảnh chung
@@ -198,13 +202,116 @@ public class Constants {
     /*
     đường dẫn đến hình ảnh của ball
      */
-    public static final String PATH_TO_BALL_1 = "/Images/ball/Pancake.png";
+    public static final String PATH_TO_BALL_PANCAKE = "/Images/ball/Pancake.png";
+    public static final String PATH_TO_BALL_EARTH = "/Images/Ball/Earth.png";
+    public static final String PATH_TO_BALL_ENDERMAN1 = "/Images/Ball/Enderman1.png";
+    public static final String PATH_TO_BALL_ENDERMAN2 = "/Images/Ball/Enderman2.png";
+    public static final String PATH_TO_BALL_CHROME = "/Images/Ball/Chrome.png";
+    public static final String PATH_TO_BALL_SOCCER = "/Images/Ball/Soccer.png";
+    // *** THÊM MỚI: (Giả sử bạn có ảnh này, nếu không hãy thay bằng ảnh khác) ***
+    public static final String PATH_TO_BALL_POKEBALL = "/Images/Ball/Pokeball.png";
+
 
     /*
     đường dẫn đến hình ảnh hiệu ứng đuôi của ball
      */
-    public static final String PATH_TO_TRAIL_1 = "/Images/trail/LGBT.png";
-    public static final String PATH_TO_TRAIL_2 = "/Images/trail/Lightning.png";
+    public static final String PATH_TO_TRAIL_LGBT = "/Images/trail/LGBT.png";
+    public static final String PATH_TO_TRAIL_Lightning = "/Images/trail/Lightning.png";
+    public static final String PATH_TO_TRAIL_DOLLA = "/Images/trail/Dolla.png";
+    public static final String PATH_TO_TRAIL_DIAMOND = "/Images/trail/Diamond.png";
+    public static final String PATH_TO_TRAIL_PRIMOGEM = "/Images/trail/Primogem.png";
+    public static final String PATH_TO_TRAIL_LUCKYCLOVER = "/Images/trail/LuckyClover.png";
+
+    // --- ID Vật Phẩm ---
+    public static final String BALL_SKIN_PANCAKE = "BALL_PANCAKE";
+    public static final String BALL_SKIN_EARTH = "BALL_EARTH";
+    public static final String BALL_SKIN_ENDERMAN = "BALL_ENDERMAN"; // (Giữ lại ID này nếu file save cũ dùng nó)
+    public static final String BALL_SKIN_ENDERMAN1 = "BALL_ENDERMAN1"; // (Sửa trong FXML)
+    public static final String BALL_SKIN_ENDERMAN2 = "BALL_ENDERMAN2";
+    public static final String BALL_SKIN_CHROME = "BALL_CHROME";
+    public static final String BALL_SKIN_SOCCER = "BALL_SOCCER";
+    public static final String BALL_SKIN_POKEBALL = "BALL_POKEBALL"; // (Thêm mới)
+
+
+    public static final String TRAIL_SKIN_LGBT = "TRAIL_LGBT"; // Mặc định
+    public static final String TRAIL_SKIN_LIGHTNING = "TRAIL_LIGHTNING";
+    public static final String TRAIL_SKIN_DOLLA = "TRAIL_DOLLA";
+    public static final String TRAIL_SKIN_DIAMOND = "TRAIL_DIAMOND";
+    public static final String TRAIL_SKIN_PRIMOGEM = "TRAIL_PRIMOGEM";
+    public static final String TRAIL_SKIN_LUCKYCLOVER = "TRAIL_LUCKYCLOVER";
+
+    // *** THÊM MỚI: ID cho Paddle ***
+    public static final String PADDLE_SKIN_DEFAULT = "PADDLE_SKIN_DEFAULT";
+    public static final String PADDLE_SKIN_2 = "PADDLE_SKIN2"; // (Khớp với FXML)
+
+
+    // --- Giá Vật Phẩm ---
+    public static final Map<String, Integer> ITEM_COSTS = new HashMap<>();
+    static {
+        // Giá Ball (dựa trên FXML mới)
+        ITEM_COSTS.put(BALL_SKIN_EARTH, 0);
+        ITEM_COSTS.put(BALL_SKIN_PANCAKE, 2000);
+        // *** SỬA: Đảm bảo dùng đúng ID từ FXML ***
+        ITEM_COSTS.put(BALL_SKIN_ENDERMAN1, 3000); // (Enderman1)
+        ITEM_COSTS.put(BALL_SKIN_ENDERMAN, 3000);  // (Hỗ trợ ID cũ BALL_ENDERMAN)
+        ITEM_COSTS.put(BALL_SKIN_SOCCER, 4000);
+        ITEM_COSTS.put(BALL_SKIN_ENDERMAN2, 5000);
+        ITEM_COSTS.put(BALL_SKIN_CHROME, 6000);
+        ITEM_COSTS.put(BALL_SKIN_POKEBALL, 6000); // (Thêm giá)
+
+        // Giá Trail (dựa trên FXML)
+        ITEM_COSTS.put(TRAIL_SKIN_LGBT, 0);
+        ITEM_COSTS.put(TRAIL_SKIN_LIGHTNING, 2000);
+        ITEM_COSTS.put(TRAIL_SKIN_DOLLA, 3000);
+        ITEM_COSTS.put(TRAIL_SKIN_DIAMOND, 4000);
+        ITEM_COSTS.put(TRAIL_SKIN_PRIMOGEM, 5000);
+        ITEM_COSTS.put(TRAIL_SKIN_LUCKYCLOVER, 6000);
+
+        // Giá Paddle (dựa trên FXML)
+        ITEM_COSTS.put(PADDLE_SKIN_DEFAULT, 0);
+        ITEM_COSTS.put(PADDLE_SKIN_2, 2000);
+    }
+
+    // --- Map ID tới Đường Dẫn Ảnh ---
+    public static final Map<String, String> BALL_SKIN_PATHS = new HashMap<>();
+    public static final Map<String, String> TRAIL_SKIN_PATHS = new HashMap<>();
+    // *** THÊM MỚI: Map cho Paddle ***
+    public static final Map<String, String> PADDLE_SKIN_PATHS = new HashMap<>();
+
+
+    static {
+        // *** SỬA LỖI: Ánh xạ chính xác Enderman1 và Enderman2 ***
+        BALL_SKIN_PATHS.put(BALL_SKIN_PANCAKE, Constants.PATH_TO_BALL_PANCAKE);
+        BALL_SKIN_PATHS.put(BALL_SKIN_EARTH, Constants.PATH_TO_BALL_EARTH);
+        BALL_SKIN_PATHS.put(BALL_SKIN_ENDERMAN, Constants.PATH_TO_BALL_ENDERMAN1); // ID cũ trỏ về ảnh 1
+        BALL_SKIN_PATHS.put(BALL_SKIN_ENDERMAN1, Constants.PATH_TO_BALL_ENDERMAN1); // ID mới trỏ về ảnh 1
+        BALL_SKIN_PATHS.put(BALL_SKIN_ENDERMAN2, Constants.PATH_TO_BALL_ENDERMAN2); // ID mới trỏ về ảnh 2
+        BALL_SKIN_PATHS.put(BALL_SKIN_CHROME, Constants.PATH_TO_BALL_CHROME);
+        BALL_SKIN_PATHS.put(BALL_SKIN_SOCCER, Constants.PATH_TO_BALL_SOCCER);
+        BALL_SKIN_PATHS.put(BALL_SKIN_POKEBALL, Constants.PATH_TO_BALL_POKEBALL);
+
+        // (Trail đã đúng)
+        TRAIL_SKIN_PATHS.put(TRAIL_SKIN_LGBT, Constants.PATH_TO_TRAIL_LGBT);
+        TRAIL_SKIN_PATHS.put(TRAIL_SKIN_LIGHTNING, Constants.PATH_TO_TRAIL_Lightning);
+        TRAIL_SKIN_PATHS.put(TRAIL_SKIN_DOLLA, Constants.PATH_TO_TRAIL_DOLLA);
+        TRAIL_SKIN_PATHS.put(TRAIL_SKIN_DIAMOND, Constants.PATH_TO_TRAIL_DIAMOND);
+        TRAIL_SKIN_PATHS.put(TRAIL_SKIN_PRIMOGEM, Constants.PATH_TO_TRAIL_PRIMOGEM);
+        TRAIL_SKIN_PATHS.put(TRAIL_SKIN_LUCKYCLOVER, Constants.PATH_TO_TRAIL_LUCKYCLOVER);
+
+        // *** THÊM MỚI: Ánh xạ cho Paddle ***
+        // (Giả sử PADDLE_SKIN_DEFAULT là paddle0.png và PADDLE_SKIN_2 là paddle1.png)
+        PADDLE_SKIN_PATHS.put(PADDLE_SKIN_DEFAULT, Constants.PATH_TO_PADDLE_0);
+        PADDLE_SKIN_PATHS.put(PADDLE_SKIN_2, Constants.PATH_TO_PADDLE_1);
+    }
+
+
+
+    // (Đây là các giá trị mặc định khi bắt đầu game)
+    public static String CURRENTLY_EQUIPPED_BALL = PATH_TO_BALL_EARTH;
+    public static String CURRENTLY_EQUIPPED_TRAIL = PATH_TO_TRAIL_LGBT;
+    // *** THÊM MỚI: Mặc định cho Paddle ***
+    public static String CURRENTLY_EQUIPPED_PADDLE = PATH_TO_PADDLE_0;
+
 
     public final static String PATH_TO_CURSOR = "/Images/background/cursor1.png";
     public final static String PATH_TO_HOVER_CURSOR = "/Images/background/hover_cursor.png";

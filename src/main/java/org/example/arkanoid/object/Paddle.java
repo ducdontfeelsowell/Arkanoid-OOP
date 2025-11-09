@@ -14,21 +14,20 @@ public class Paddle extends MoveAbleObject {
 
     private double speed;
 
-    private static List<Image> staticNormalFrames;
+    // --- SỬA ĐỔI: Chuyển 'normalFrames' thành non-static ---
+    // Mỗi paddle sẽ tự tải skin animation của riêng nó
+    private List<Image> normalFrames;
+
+    // Giữ lại các frame static cho các hiệu ứng chung
     private static List<Image> staticShooterFrames;
     private static List<Image> staticMaterializeFrames;
 
+    // Tải các hiệu ứng (Shooter, Bất tử) một lần duy nhất
     static {
-        staticNormalFrames = new ArrayList<>();
         staticShooterFrames = new ArrayList<>();
         staticMaterializeFrames = new ArrayList<>();
 
         try {
-            // Ảnh Paddle thường (Pulsate)
-            for (String path : Constants.PATH_TO_PADDLE_PULSATE_ANIM) {
-                staticNormalFrames.add(new Image(Objects.requireNonNull(Paddle.class.getResourceAsStream(path))));
-            }
-
             // Ảnh Shooter Paddle (Shooter Pulsate)
             for (String path : Constants.PATH_TO_SHOOTER_PULSATE_ANIM) {
                 staticShooterFrames.add(new Image(Objects.requireNonNull(Paddle.class.getResourceAsStream(path))));
@@ -42,7 +41,6 @@ public class Paddle extends MoveAbleObject {
         } catch (Exception e) {
             System.err.println("LỖI KHỞI TẠO STATIC: Không thể tải ảnh cho paddle!");
             e.printStackTrace();
-            staticNormalFrames.clear();
             staticShooterFrames.clear();
             staticMaterializeFrames.clear();
         }
@@ -51,7 +49,8 @@ public class Paddle extends MoveAbleObject {
 
     private int currentImageIndex = 0;
     private long lastToggleTime = 0;
-    private final long TOGGLE_INTERVAL = 200_000_000; // 200ms
+    // SỬA ĐỔI: Giảm thời gian animation một chút để skin 2 frame nhìn rõ hơn
+    private final long TOGGLE_INTERVAL = 150_000_000; // 150ms
 
     private boolean isShooter = false;
     private double shooterEndTime = 0;
@@ -68,7 +67,6 @@ public class Paddle extends MoveAbleObject {
     private double sizeEndTime = 0;
     private double originalWidth = Constants.DEFAULT_PADDLE_WIDTH;
 
-    // THÊM MỚI: Logic cho tốc độ giới hạn thời gian (long -> double)
     private double speedEndTime = 0;
     private double originalSpeed = Constants.CURRENT_PADDLE_SPEED;
 
@@ -83,7 +81,51 @@ public class Paddle extends MoveAbleObject {
                 Constants.DEFAULT_PADDLE_DY);
 
         this.speed = Constants.CURRENT_PADDLE_SPEED;
+
+        // --- SỬA LỖI LOGIC: Tải skin động dựa trên Constants ---
+        this.normalFrames = new ArrayList<>();
+        loadEquippedSkin();
     }
+
+    /**
+     * Phương thức trợ giúp mới để tải skin chính xác khi Paddle được tạo
+     */
+    private void loadEquippedSkin() {
+        try {
+            // Lấy skin đã được Main.java tải từ ProgressManager
+            String equippedSkinPath = Constants.CURRENTLY_EQUIPPED_PADDLE;
+
+            if (equippedSkinPath != null && equippedSkinPath.equals(Constants.PATH_TO_PADDLE_1)) {
+                // --- TRƯỜNG HỢP 1: Trang bị PADDLE_SKIN_2 (dùng paddle1.png) ---
+                // Tải animation 2-frame theo yêu cầu của bạn
+                this.normalFrames.add(new Image(Objects.requireNonNull(Paddle.class.getResourceAsStream(Constants.PATH_TO_PADDLE_1))));
+                this.normalFrames.add(new Image(Objects.requireNonNull(Paddle.class.getResourceAsStream(Constants.PATH_TO_PADDLE_2))));
+                System.out.println("Đã tải Skin Paddle 2-frame (Paddle 1 & 2).");
+
+            } else {
+                // --- TRƯỜNG HỢP 2: Trang bị MẶC ĐỊNH (paddle0.png) hoặc skin không xác định ---
+                // Tải animation 3-frame nhấp nháy
+                for (String path : Constants.PATH_TO_PADDLE_PULSATE_ANIM) {
+                    this.normalFrames.add(new Image(Objects.requireNonNull(Paddle.class.getResourceAsStream(path))));
+                }
+                System.out.println("Đã tải Skin Paddle Mặc định (3-frame Pulsate).");
+            }
+
+        } catch (Exception e) {
+            System.err.println("Lỗi nghiêm trọng khi tải skin Paddle! Dùng skin mặc định.");
+            e.printStackTrace();
+            // Dự phòng: Tải animation 3-frame mặc định nếu có lỗi
+            this.normalFrames.clear();
+            try {
+                for (String path : Constants.PATH_TO_PADDLE_PULSATE_ANIM) {
+                    this.normalFrames.add(new Image(Objects.requireNonNull(Paddle.class.getResourceAsStream(path))));
+                }
+            } catch (Exception e2) {
+                System.err.println("Không thể tải cả skin dự phòng!");
+            }
+        }
+    }
+
 
     @Override
     public void move() {
@@ -112,24 +154,23 @@ public class Paddle extends MoveAbleObject {
     public void update() {
         move();
 
-        // SỬA ĐỔI: (Kiểm tra double)
         if (isShooter && (double)System.nanoTime() > shooterEndTime) {
             isShooter = false;
             SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_GUN_LOAD);
         }
 
-        // Cập nhật trạng thái bất tử (Kiểm tra double)
+        // Cập nhật trạng thái bất tử
         if (isInvincible && (double)System.nanoTime() > invincibilityEndTime) {
             isInvincible = false;
         }
 
-        // Logic Reset kích thước (Kiểm tra double)
+        // Logic Reset kích thước
         if (sizeEndTime != 0 && (double)System.nanoTime() > sizeEndTime) {
             this.width = originalWidth;
             sizeEndTime = 0;
         }
 
-        // Logic Reset tốc độ Paddle (Kiểm tra double)
+        // Logic Reset tốc độ Paddle
         if (speedEndTime != 0 && (double)System.nanoTime() > speedEndTime) {
             this.speed = originalSpeed;
             speedEndTime = 0;
@@ -142,6 +183,7 @@ public class Paddle extends MoveAbleObject {
         Image currentImage = null;
 
         // --- Xử lý animation bất tử/xuất hiện ---
+        // (Logic này giữ nguyên, nó ưu tiên đè lên skin thường)
         if (isInvincible) {
 
             // Chuyển frame materialize
@@ -163,7 +205,6 @@ public class Paddle extends MoveAbleObject {
             // Vẽ paddle thường hoặc shooter
             currentImage = getNormalOrShooterFrame(currentTime);
         }
-        // --- KẾT THÚC SỬA ĐỔI ---
 
         if (currentImage != null) {
             gc.drawImage(currentImage, getX(), getY(), getWidth(), getHeight());
@@ -175,14 +216,22 @@ public class Paddle extends MoveAbleObject {
     }
 
     /**
-     * Phương thức mới để lấy frame animation hiện tại
+     * Phương thức này lấy frame animation hiện tại
+     * (Logic này giữ nguyên, nó hoạt động chính xác)
      */
     private Image getNormalOrShooterFrame(long currentTime) {
-        List<Image> frames = isShooter ? staticShooterFrames : staticNormalFrames;
+        // --- Dùng 'this.normalFrames' (non-static) thay vì 'staticNormalFrames' ---
+        // 'staticShooterFrames' vẫn đúng vì hiệu ứng shooter là chung
+        List<Image> frames = isShooter ? staticShooterFrames : this.normalFrames;
 
-        if (frames.isEmpty()) return null;
+        if (frames == null || frames.isEmpty()) return null;
 
-        if (currentTime - lastToggleTime > TOGGLE_INTERVAL) {
+        // Nếu danh sách chỉ có 1 frame (skin tĩnh), nó sẽ luôn trả về 0
+        if (frames.size() == 1) {
+            currentImageIndex = 0;
+        }
+        // Nếu có nhiều frame (animation), thì xoay vòng
+        else if (currentTime - lastToggleTime > TOGGLE_INTERVAL) {
             currentImageIndex = (currentImageIndex + 1) % frames.size();
             lastToggleTime = currentTime;
         }
@@ -196,7 +245,6 @@ public class Paddle extends MoveAbleObject {
 
     public void activateShooter() {
         this.isShooter = true;
-        // SỬA ĐỔI: Lưu double
         this.shooterEndTime = (double)System.nanoTime() + Constants.DEFAULT_SHOOTER_DURATION;
     }
 
@@ -207,8 +255,6 @@ public class Paddle extends MoveAbleObject {
         }
 
         this.width = newWidth;
-
-        // SỬA ĐỔI: Lưu double
         this.sizeEndTime = (double)System.nanoTime() + Constants.DEFAULT_SIZE_DURATION;
     }
 
@@ -217,37 +263,26 @@ public class Paddle extends MoveAbleObject {
         this.sizeEndTime = 0;
     }
 
-    // SỬA ĐỔI: long -> double
     public double getSizeEndTime() {
         return sizeEndTime;
     }
     // --- KẾT THÚC CÁC PHƯƠNG THỨC KÍCH THƯỚC ---
 
     // --- CÁC PHƯƠNG THỨC TỐC ĐỘ MỚI ---
-    /**
-     * Áp dụng tốc độ mới cho Paddle và đặt timeout.
-     * @param newSpeed Tốc độ mới.
-     */
     public void setSpeedWithTimeout(double newSpeed) {
         if (speedEndTime == 0) {
             this.originalSpeed = Constants.CURRENT_PADDLE_SPEED;
         }
 
         this.speed = newSpeed;
-
-        // SỬA ĐỔI: Lưu double
         this.speedEndTime = (double)System.nanoTime() + Constants.DEFAULT_SPEED_DURATION;
     }
 
-    /**
-     * Hủy hiệu ứng tốc độ ngay lập tức.
-     */
     public void cancelSpeedTimeout() {
         this.speed = originalSpeed;
         this.speedEndTime = 0;
     }
 
-    // SỬA ĐỔI: long -> double
     public double getSpeedEndTime() {
         return speedEndTime;
     }
@@ -256,7 +291,6 @@ public class Paddle extends MoveAbleObject {
     // --- CÁC PHƯƠNG THỨC BẤT TỬ ---
     public void activateInvincibility(long durationNano) {
         this.isInvincible = true;
-        // SỬA ĐỔI: Lưu double
         this.invincibilityEndTime = (double)System.nanoTime() + durationNano;
 
         this.materializeFrameIndex = 0;
@@ -289,7 +323,6 @@ public class Paddle extends MoveAbleObject {
         return isShooter;
     }
 
-    // SỬA ĐỔI: long -> double
     public double getShooterEndTime() {
         return shooterEndTime;
     }
