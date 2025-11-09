@@ -1,0 +1,4 @@
+hoangvanthang=4,1850,2350
+vutienmanh=2,1100,940
+Vugiaanhduc=2,4200,2670
+phiduongdat=1,0,80

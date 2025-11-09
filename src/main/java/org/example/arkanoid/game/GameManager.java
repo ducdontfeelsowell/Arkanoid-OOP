@@ -205,6 +205,9 @@ public class GameManager {
         // Chỉ gọi một lần khi thua
         if (gameOver && !this.gameOver) {
             this.gameOver = true;
+
+            ProgressManager.addScoreFromFailedLevel(this.currentLevel, this.score);
+
             SoundManager.getInstance().playMusicSequence(
                     Constants.PATH_TO_SOUND_LOSE,
                     Constants.PATH_TO_SOUND_AFTERLOSE
@@ -226,7 +229,7 @@ public class GameManager {
         // Chỉ gọi một lần khi thắng
         if (won && !this.won) {
             this.won = true;
-            ProgressManager.unlockNextLevel(this.currentLevel);
+            ProgressManager.completeLevel(this.currentLevel, this.score);
             SoundManager.getInstance().playMusicSequence(
                     Constants.PATH_TO_SOUND_WIN,
                     Constants.PATH_TO_SOUND_AFTERWIN

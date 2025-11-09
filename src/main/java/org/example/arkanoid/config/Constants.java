@@ -129,6 +129,7 @@ public class Constants {
     public final static String PATH_TO_LEVEL_VIEW   = "/org/example/arkanoid/level-view.fxml";
     public final static String PATH_TO_MAIN_MENU    = "/org/example/arkanoid/main-menu-view.fxml";
     public final static String PATH_TO_SETTING_VIEW = "/org/example/arkanoid/setting-view.fxml";
+    public final static String PATH_TO_LOGIN_VIEW   = "/org/example/arkanoid/login-view.fxml";
 
     /*
     đường dẫn đến hình ảnh chung
@@ -451,7 +452,6 @@ public class Constants {
     public final static String PATH_TO_COIN_100 = "/Images/Coin/extra100.png";
     public final static String PATH_TO_COIN_250 = "/Images/Coin/extra250.png";
     public final static String PATH_TO_COIN_500 = "/Images/Coin/extra500.png";
-
 
 
 }

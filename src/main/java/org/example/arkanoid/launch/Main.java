@@ -73,15 +73,14 @@ public class Main extends Application {
         for(int i = 1 ; i <=12 ; i++){
             Constants.MAP_PATH[i] = "src/main/resources/Maps/map" +String.valueOf(i)+".txt";
         }
-        ProgressManager.loadProgress();
 
         // 1. Khởi tạo và phát nhạc ngẫu nhiên cho menu
         soundManager = SoundManager.getInstance();
         soundManager.playRandomBackgroundMusic();
 
-        // Load menu scene
+        // Load logic scene
         FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(
-                getClass().getResource(Constants.PATH_TO_MAIN_MENU)));
+                getClass().getResource(Constants.PATH_TO_LOGIN_VIEW)));
 
         Parent root = loader.load();
         menuScene = new Scene(root);
