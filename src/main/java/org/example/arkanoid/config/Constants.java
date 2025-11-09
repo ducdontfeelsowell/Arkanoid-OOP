@@ -261,7 +261,7 @@ public class Constants {
 
     public static final String PATH_TO_SOUND_SHOOT = "/Sounds/gun1.mp3";
 
-    public static final String PATH_TO_SOUND_WIN = "/Sounds/win.mp3";
+    public static final String PATH_TO_SOUND_WIN = "/Sounds/win.wav";
     public static final String PATH_TO_SOUND_LOSE = "/Sounds/lose.mp3";
     public static final String PATH_TO_SOUND_AFTERWIN = "/Sounds/afterwin.mp3";
     public static final String PATH_TO_SOUND_AFTERLOSE = "/Sounds/afterlose.mp3";
