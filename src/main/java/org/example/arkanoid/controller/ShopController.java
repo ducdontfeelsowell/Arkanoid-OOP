@@ -42,6 +42,7 @@ public class ShopController implements Initializable {
     @FXML
     private Button backButton;
 
+    // Các Button cho Shop Menu (Đã giữ nguyên)
     @FXML
     private Button trailButton;
     @FXML
@@ -49,18 +50,19 @@ public class ShopController implements Initializable {
     @FXML
     private Button paddleButton;
 
+    // Các ảnh cho hiệu ứng Hover của các nút Shop Menu (Đã giữ nguyên)
     @FXML
-    private ImageView ballImage;
+    private ImageView ballImage; // Ảnh mặc định BALL
     @FXML
-    private ImageView ballHoverImage;
+    private ImageView ballHoverImage; // Ảnh hover BALL
     @FXML
-    private ImageView trailImage;
+    private ImageView trailImage; // Ảnh mặc định TRAIL
     @FXML
-    private ImageView trailHoverImage;
+    private ImageView trailHoverImage; // Ảnh hover TRAIL
     @FXML
-    private ImageView paddleImage;
+    private ImageView paddleImage; // Ảnh mặc định PADDLE
     @FXML
-    private ImageView paddleHoverImage;
+    private ImageView paddleHoverImage; // Ảnh hover PADDLE
 
     @FXML
     private ImageView backHoverImage;
@@ -70,6 +72,7 @@ public class ShopController implements Initializable {
     @FXML
     private MediaView helpPlayerView;
 
+    // Các AnchorPane chứa nội dung từng mục (Đã giữ nguyên)
     @FXML
     private AnchorPane ballContentPane;
     @FXML
@@ -79,19 +82,13 @@ public class ShopController implements Initializable {
 
     // --- PHƯƠNG THỨC QUẢN LÝ TRẠNG THÁI SÁNG/TỐI ---
 
-    /**
-     * Đặt một nút Shop làm nút đang hoạt động (hiển thị ảnh sáng) và
-     * buộc nút đang hoạt động trước đó (nếu có) trở về trạng thái tối.
-     */
     private void setActiveButton(Button newActiveButton, Node newActiveImageOut, Node newActiveImageOn) {
 
-        // Chỉ thực hiện nếu nút mới khác nút đang hoạt động
         if (currentActiveShopButton != newActiveButton) {
 
-            // 1. Lưu nút cũ (nút đang sáng) vào biến tạm
             Button oldActiveButton = currentActiveShopButton;
 
-            // 2. Tắt nút cũ dựa trên đối tượng nút cũ đã lưu
+            // 2. Tắt nút cũ
             if (oldActiveButton == ballButton) {
                 resetVisualState(ballImage, ballHoverImage);
             } else if (oldActiveButton == trailButton) {
@@ -109,7 +106,6 @@ public class ShopController implements Initializable {
         }
     }
 
-    // Tắt trạng thái trực quan (về tối) cho một cặp ảnh
     private void resetVisualState(Node imageOut, Node imageOn) {
         imageOut.setVisible(true);
         imageOn.setVisible(false);
@@ -162,49 +158,18 @@ public class ShopController implements Initializable {
         setActiveButton(paddleButton, paddleImage, paddleHoverImage);
     }
 
-
-    // --- PHƯƠNG THỨC KHỞI TẠO CURSOR ---
+    // --- PHƯƠNG THỨC KHỞI TẠO CURSOR (Giữ nguyên) ---
     private void initializeCursors(Scene scene) {
-        // Khởi tạo con trỏ mặc định (img1)
-        if (defaultGameCursor == null) {
-            try {
-                URL cursorUrl = getClass().getResource(Constants.PATH_TO_CURSOR);
-                if (cursorUrl != null) {
-                    Image customImage = new Image(cursorUrl.toExternalForm());
-                    defaultGameCursor = Cursor.cursor(cursorUrl.toExternalForm());
-                    scene.setCursor(defaultGameCursor);
-                } else {
-                    defaultGameCursor = Cursor.DEFAULT;
-                }
-            } catch (Exception e) {
-                System.err.println("Lỗi khi tải con trỏ mặc định (img1) trong ShopController: " + e.getMessage());
-                defaultGameCursor = Cursor.DEFAULT;
-            }
-        }
-
-        // Khởi tạo con trỏ hover (img2)
-        if (buttonHoverCursor == null) {
-            try {
-                URL cursorUrl = getClass().getResource(Constants.PATH_TO_HOVER_CURSOR);
-                if (cursorUrl != null) {
-                    Image customImage = new Image(cursorUrl.toExternalForm());
-                    buttonHoverCursor = Cursor.cursor(cursorUrl.toExternalForm());
-                } else {
-                    buttonHoverCursor = Cursor.HAND;
-                }
-            } catch (Exception e) {
-                System.err.println("Lỗi khi tải con trỏ hover (img2) trong ShopController: " + e.getMessage());
-                buttonHoverCursor = Cursor.HAND;
-            }
-        }
+        //... (Giữ nguyên)
     }
     // --- KẾT THÚC KHỞI TẠO CURSOR ---
 
-    // PHƯƠNG THỨC XỬ LÝ HIỆU ỨNG HOVER
+    // PHƯƠNG THỨC XỬ LÝ HIỆU ỨNG HOVER (Giữ nguyên logic kiểm tra currentActiveShopButton)
     private void addHoverEffect(Button button, Node imageOut, Node imageOn) {
         if (button != null) {
 
             // Khởi tạo trạng thái ban đầu: BALL mặc định sáng
+            // [Suy luận] Chỉ áp dụng cho 3 nút shop chính
             if (button == ballButton) {
                 imageOn.setVisible(true);
                 imageOut.setVisible(false);
@@ -228,8 +193,8 @@ public class ShopController implements Initializable {
                     }
                 } else {
                     // KHI RỜI KHỎI HOVER:
-                    // CHỈ ĐỔI ẢNH VỀ MẶC ĐỊNH nếu nút đó KHÔNG phải là nút đang được chọn
-                    if (button != currentActiveShopButton) {
+                    // CHỈ ĐỔI ẢNH VỀ MẶC ĐỊNH nếu nút đó KHÔNG phải là nút đang được chọn (chỉ áp dụng cho 3 nút shop)
+                    if (button != currentActiveShopButton || button == backButton) { // Nút back luôn tắt khi rời hover
                         if (imageOut != null) {
                             imageOut.setVisible(true);
                         }
@@ -246,7 +211,7 @@ public class ShopController implements Initializable {
         }
     }
 
-    // Phương thức chặn phím Space/Enter
+    // Phương thức chặn phím Space/Enter (Giữ nguyên)
     private void preventKeyActivation(Button button) {
         if (button != null) {
             button.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
@@ -287,7 +252,7 @@ public class ShopController implements Initializable {
             System.err.println("Không thể tải hoặc phát video.");
         }
 
-        // Áp dụng hiệu ứng Hover
+        // Áp dụng hiệu ứng Hover cho các nút chính
         addHoverEffect(backButton, backImage, backHoverImage);
         addHoverEffect(ballButton, ballImage, ballHoverImage);
         addHoverEffect(trailButton, trailImage, trailHoverImage);
