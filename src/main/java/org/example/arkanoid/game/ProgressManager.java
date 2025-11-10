@@ -239,7 +239,6 @@ public class ProgressManager {
                     }
 
                     // (Từ V2) Luôn đảm bảo vật phẩm mặc định được sở hữu
-                    ownBalls.add(Constants.BALL_SKIN_PANCAKE);
                     ownBalls.add(Constants.BALL_SKIN_EARTH);
                     ownTrails.add(Constants.TRAIL_SKIN_LGBT);
                     ownPaddles.add(Constants.PADDLE_SKIN_DEFAULT);
@@ -326,7 +325,6 @@ public class ProgressManager {
             ownedTrails = new HashSet<>();
             ownedPaddles = new HashSet<>();
             ownedBalls.add(Constants.BALL_SKIN_EARTH);
-            ownedBalls.add(Constants.BALL_SKIN_PANCAKE);
             ownedTrails.add(Constants.TRAIL_SKIN_LGBT);
             ownedPaddles.add(Constants.PADDLE_SKIN_DEFAULT);
 
