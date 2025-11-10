@@ -98,17 +98,17 @@
             <Label fx:id="label_BALL_CHROME" alignment="CENTER" layoutX="624.0" layoutY="382.0" prefHeight="92.0" prefWidth="169.0" text="\$6000" textFill="#4fcaf7"><font><Font name="Calibri Bold Italic" size="32.0" /></font></Label>
             <Button fx:id="button_BALL_CHROME" layoutX="643.0" layoutY="394.0" mnemonicParsing="false" onAction="#onBuyEquip_BallChrome" opacity="0.0" prefHeight="67.0" prefWidth="130.0" text="BALL" />
 
-          <Label fx:id="playerCoinLabel" alignment="CENTER_RIGHT" layoutX="49.0" layoutY="53.0" prefHeight="47.0" prefWidth="204.0" style="-fx-font-size: 32px; -fx-font-weight: bold;" text="Coins: 99999" textFill="#00f6ff">
-              <font>
-                  <Font name="Calibri Bold Italic" size="32.0" />
-              </font>
-          </Label>
+            <Label fx:id="playerCoinLabel" layoutX="49.0" layoutY="53.0" prefHeight="47.0" prefWidth="282.0" style="-fx-font-size: 32px; -fx-font-weight: bold;" text="Coins: 99999" textFill="#00f6ff">
+                <font>
+                    <Font name="Calibri Bold Italic" size="32.0" />
+                </font>
+            </Label>
 
-          <Label fx:id="shopNotificationLabel" alignment="CENTER" layoutX="273.0" layoutY="54.0" prefHeight="40.0" prefWidth="550.0" style="-fx-font-size: 28px; -fx-font-weight: bold;" text="Không đủ tiền!" textFill="#ff0000">
-              <font>
-                  <Font name="Calibri Bold Italic" size="28.0" />
-              </font>
-          </Label>
+            <Label fx:id="shopNotificationLabel" alignment="CENTER" layoutX="349.0" layoutY="57.0" prefHeight="40.0" prefWidth="550.0" style="-fx-font-size: 28px; -fx-font-weight: bold;" text="" textFill="#ff0000">
+                <font>
+                    <Font name="Calibri Bold Italic" size="28.0" />
+                </font>
+            </Label>
         </children>
     </AnchorPane>
 
@@ -222,16 +222,16 @@
                 </font>
             </Label>
             <Button fx:id="button_TRAIL_LUCKYCLOVER" layoutX="653.0" layoutY="404.0" mnemonicParsing="false" onAction="#onBuyEquip_TrailLuckyClover" opacity="0.0" prefHeight="67.0" prefWidth="130.0" text="TRAIL" />
-         <Label fx:id="playerCoinLabel1" alignment="CENTER_RIGHT" layoutX="59.0" layoutY="63.0" prefHeight="47.0" prefWidth="204.0" style="-fx-font-size: 32px; -fx-font-weight: bold;" text="Coins: 99999" textFill="#00f6ff">
-            <font>
-               <Font name="Calibri Bold Italic" size="32.0" />
-            </font>
-         </Label>
-         <Label fx:id="shopNotificationLabel1" alignment="CENTER" layoutX="283.0" layoutY="64.0" prefHeight="40.0" prefWidth="550.0" style="-fx-font-size: 28px; -fx-font-weight: bold;" text="Không đủ tiền!" textFill="#ff0000">
-            <font>
-               <Font name="Calibri Bold Italic" size="28.0" />
-            </font>
-         </Label>
+            <Label fx:id="playerCoinLabel1" layoutX="49.0" layoutY="53.0" prefHeight="47.0" prefWidth="270.0" style="-fx-font-size: 32px; -fx-font-weight: bold;" text="Coins: 99999" textFill="#00f6ff">
+                <font>
+                    <Font name="Calibri Bold Italic" size="32.0" />
+                </font>
+            </Label>
+            <Label fx:id="shopNotificationLabel1" alignment="CENTER" layoutX="338.0" layoutY="57.0" prefHeight="40.0" prefWidth="550.0" style="-fx-font-size: 28px; -fx-font-weight: bold;" text="" textFill="#ff0000">
+                <font>
+                    <Font name="Calibri Bold Italic" size="28.0" />
+                </font>
+            </Label>
         </children>
     </AnchorPane>
 
@@ -265,27 +265,28 @@
                 </font>
             </Label>
             <Button fx:id="button_PADDLE_SKIN2" layoutX="590.0" layoutY="313.0" mnemonicParsing="false" onAction="#onBuyEquip_PaddleSkin2" opacity="0.0" prefHeight="67.0" prefWidth="130.0" text="PADDLE" />
-         <Label fx:id="playerCoinLabel2" alignment="CENTER_RIGHT" layoutX="59.0" layoutY="63.0" prefHeight="47.0" prefWidth="204.0" style="-fx-font-size: 32px; -fx-font-weight: bold;" text="Coins: 99999" textFill="#00f6ff" visible="false">
-            <font>
-               <Font name="Calibri Bold Italic" size="32.0" />
-            </font>
-         </Label>
-         <Label fx:id="shopNotificationLabel2" alignment="CENTER" layoutX="283.0" layoutY="64.0" prefHeight="40.0" prefWidth="583.0" style="-fx-font-size: 28px; -fx-font-weight: bold;" text="Không đủ tiền!" textFill="#ff0000" visible="false">
-            <font>
-               <Font name="Calibri Bold Italic" size="28.0" />
-            </font>
-         </Label>
-         <ImageView fitHeight="51.0" fitWidth="153.0" layoutX="576.0" layoutY="228.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@../../../Images/paddle/paddle1.png" />
-            </image>
-         </ImageView>
-         <ImageView fitHeight="51.0" fitWidth="153.0" layoutX="152.0" layoutY="234.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@../../../Images/paddle/paddle_pulsate_1.png" />
-            </image>
-         </ImageView>
 
+            <Label fx:id="playerCoinLabel2" layoutX="49.0" layoutY="53.0" prefHeight="47.0" prefWidth="282.0" style="-fx-font-size: 32px; -fx-font-weight: bold;" text="Coins: 99999" textFill="#00f6ff">
+                <font>
+                    <Font name="Calibri Bold Italic" size="32.0" />
+                </font>
+            </Label>
+            <Label fx:id="shopNotificationLabel2" alignment="CENTER" layoutX="338.0" layoutY="57.0" prefHeight="40.0" prefWidth="550.0" style="-fx-font-size: 28px; -fx-font-weight: bold;" text="" textFill="#ff0000">
+                <font>
+                    <Font name="Calibri Bold Italic" size="28.0" />
+                </font>
+            </Label>
+
+            <ImageView fitHeight="51.0" fitWidth="153.0" layoutX="576.0" layoutY="228.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../../../Images/paddle/paddle1.png" />
+                </image>
+            </ImageView>
+            <ImageView fitHeight="51.0" fitWidth="153.0" layoutX="152.0" layoutY="234.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../../../Images/paddle/paddle_pulsate_1.png" />
+                </image>
+            </ImageView>
         </children>
     </AnchorPane>
 

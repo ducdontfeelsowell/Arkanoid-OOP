@@ -166,41 +166,23 @@
                 </textFill>
             </Label>
 
-            <!-- NEXT LEVEL BUTTON -->
-            <ImageView fx:id="nextLevelImage" fitHeight="96.0" fitWidth="166.0" layoutX="650.0" layoutY="580.0" pickOnBounds="true">
-                <image>
-                    <Image url="@../../../Images/background/button1.png" />
-                </image>
-            </ImageView>
-            <ImageView fx:id="nextLevelHoverImage" fitHeight="96.0" fitWidth="166.0" layoutX="650.0" layoutY="580.0" mouseTransparent="true" pickOnBounds="true" visible="false">
-                <image>
-                    <Image url="@../../../Images/background/button.png" />
-                </image>
-            </ImageView>
-            <Label alignment="CENTER" layoutX="650.0" layoutY="580.0" prefHeight="96.0" prefWidth="166.0" text="NEXT LEVEL" textFill="WHITE">
-                <font>
-                    <Font name="System Bold Italic" size="18.0" />
-                </font>
-            </Label>
-            <Button fx:id="nextLevelButton" layoutX="650.0" layoutY="580.0" mnemonicParsing="false" onAction="#onNextLevelClick" opacity="0.0" prefHeight="96.0" prefWidth="166.0" text="NEXT LEVEL" />
-
             <!-- BACK BUTTON -->
-            <ImageView fx:id="backImage3" fitHeight="96.0" fitWidth="166.0" layoutX="450.0" layoutY="580.0" pickOnBounds="true">
+            <ImageView fx:id="backImage3" fitHeight="96.0" fitWidth="166.0" layoutX="557.0" layoutY="583.0" pickOnBounds="true">
                 <image>
                     <Image url="@../../../Images/background/button1.png" />
                 </image>
             </ImageView>
-            <ImageView fx:id="backHoverImage3" fitHeight="96.0" fitWidth="166.0" layoutX="450.0" layoutY="580.0" mouseTransparent="true" pickOnBounds="true" visible="false">
+            <ImageView fx:id="backHoverImage3" fitHeight="96.0" fitWidth="166.0" layoutX="557.0" layoutY="583.0" mouseTransparent="true" pickOnBounds="true" visible="false">
                 <image>
                     <Image url="@../../../Images/background/button.png" />
                 </image>
             </ImageView>
-            <Label alignment="CENTER" layoutX="450.0" layoutY="580.0" prefHeight="96.0" prefWidth="166.0" text="BACK" textFill="WHITE">
+            <Label alignment="CENTER" layoutX="557.0" layoutY="583.0" prefHeight="96.0" prefWidth="166.0" text="BACK" textFill="WHITE">
                 <font>
                     <Font name="System Bold Italic" size="18.0" />
                 </font>
             </Label>
-            <Button fx:id="backButton3" layoutX="450.0" layoutY="580.0" mnemonicParsing="false" onAction="#onBackClick3" opacity="0.0" prefHeight="96.0" prefWidth="166.0" text="BACK" />
+            <Button fx:id="backButton3" layoutX="557.0" layoutY="583.0" mnemonicParsing="false" onAction="#onBackClick3" opacity="0.0" prefHeight="96.0" prefWidth="166.0" text="BACK" />
         </children>
     </AnchorPane>
 </AnchorPane>
