@@ -78,7 +78,7 @@
          <Font name="Arial Black" size="32.0" />
       </font>
    </Label>
-   <Text fill="#16ccf2" layoutX="650.0" layoutY="414.0" lineSpacing="4.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Normal: Phá sau 1 lần va&#10;Hard: Phá sau 3 lần va&#10;Explosible: Phá sau 1 lần và nổ, phá hủy vùng xung quanh&#10;Unbreakable: Không phá được, kể cả nổ" textAlignment="RIGHT">
+   <Text fill="#16ccf2" layoutX="650.0" layoutY="414.0" lineSpacing="4.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Normal: Phá sau 1 lần va&#10;Strong: Phá sau 3 lần va&#10;Explosible: Phá sau 1 lần và nổ, phá hủy vùng xung quanh&#10;Unbreakable: Không phá được, kể cả nổ" textAlignment="RIGHT">
       <font>
          <Font name="Arial Bold" size="20.0" />
       </font>
