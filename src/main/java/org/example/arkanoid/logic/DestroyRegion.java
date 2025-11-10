@@ -28,7 +28,7 @@ public class DestroyRegion {
                         brick.setDestroyed(true);
                     }
 
-                    points += Constants.POINTS_PER_BRICK;
+                    points += brick.getScore();
 
                     // --- SỬA ĐỔI: Tạo hiệu ứng nổ cho TẤT CẢ gạch bị phá hủy ---
 
@@ -39,7 +39,7 @@ public class DestroyRegion {
 
                     // 2. Nếu gạch đó cũng là gạch nổ, gọi đệ quy để tiếp tục lan
                     if (brick instanceof ExplodeBrick) {
-                        destroyer(bricks, r, c, points);
+                        points += destroyer(bricks, r, c, points);
                     }
                     // --- KẾT THÚC SỬA ĐỔI ---
                 }
