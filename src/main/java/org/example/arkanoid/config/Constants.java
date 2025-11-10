@@ -30,7 +30,7 @@ public class Constants {
     public final static double DEFAULT_PADDLE_POSITION_Y = SCREEN_HEIGHT - DEFAULT_PADDLE_HEIGHT - 10;
     public final static double DEFAULT_PADDLE_DX = 0;
     public final static double DEFAULT_PADDLE_DY = 0;
-    public final static double DEFAULT_PADDLE_SPEED = 20;
+    public final static double DEFAULT_PADDLE_SPEED = 7;
 
     /*
     ball
