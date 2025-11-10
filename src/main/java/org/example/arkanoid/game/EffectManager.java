@@ -25,7 +25,8 @@ public class EffectManager {
 
     // Biến cho Screen Shake (Giữ nguyên)
     private double shakeIntensity = 0;
-    private long shakeEndTime = 0;
+    // private long shakeEndTime = 0; // <-- XÓA DÒNG NÀY
+    private double shakeRemainingTime = 0; // <-- THÊM DÒNG NÀY
 
     private EffectManager() {
         particles = new ArrayList<>();
@@ -70,12 +71,23 @@ public class EffectManager {
     // --- KẾT THÚC SỬA ĐỔI ---
 
 
-    public void update() {
+    // public void update() { // <-- SỬA DÒNG NÀY
+    public void update(long deltaTime) { // <-- THAY BẰNG DÒNG NÀY
+
+        // Cập nhật screen shake
+        if (shakeRemainingTime > 0) {
+            shakeRemainingTime -= deltaTime; // <-- THÊM DÒNG NÀY
+            if (shakeRemainingTime <= 0) {
+                shakeIntensity = 0;
+                shakeRemainingTime = 0;
+            }
+        }
+
         // --- Cập nhật mảnh vỡ (giữ nguyên) ---
         Iterator<Particle> pIterator = particles.iterator();
         while (pIterator.hasNext()) {
             Particle p = pIterator.next();
-            p.update();
+            p.update(); // Note: Particle có thể cũng dùng logic thời gian, nếu nó dùng System.nanoTime() thì cũng cần sửa
             if (p.isFinished()) {
                 pIterator.remove();
             }
@@ -85,7 +97,7 @@ public class EffectManager {
         Iterator<ExplosionAnimation> eIterator = explosions.iterator();
         while (eIterator.hasNext()) {
             ExplosionAnimation anim = eIterator.next();
-            anim.update();
+            anim.update(); // Note: Tương tự, nếu animation dùng System.nanoTime() thì cũng cần sửa
             if (anim.isFinished()) {
                 eIterator.remove();
             }
@@ -111,22 +123,30 @@ public class EffectManager {
 
         // --- THÊM MỚI: Xóa các vụ nổ ---
         explosions.clear();
+
+        // Xóa shake
+        shakeIntensity = 0;
+        shakeRemainingTime = 0;
     }
 
     // ... (Các phương thức shakeScreen và applyShake giữ nguyên) ...
     public void shakeScreen(double intensity, long durationNano) {
         this.shakeIntensity = intensity;
-        this.shakeEndTime = System.nanoTime() + durationNano;
+        // this.shakeEndTime = System.nanoTime() + durationNano; // <-- XÓA DÒNG NÀY
+        this.shakeRemainingTime = durationNano; // <-- THÊM DÒNG NÀY
     }
 
     public void applyShake(GraphicsContext gc) {
-        if (shakeEndTime == 0) return;
+        // if (shakeEndTime == 0) return; // <-- SỬA DÒNG NÀY
+        if (shakeRemainingTime <= 0) return; // <-- THAY BẰNG DÒNG NÀY
 
+        /* // XÓA KHỐI LOGIC CŨ
         long now = System.nanoTime();
         if (now > shakeEndTime) {
             shakeEndTime = 0;
             return;
         }
+        */
 
         double offsetX = (Math.random() - 0.5) * 2 * shakeIntensity;
         double offsetY = (Math.random() - 0.5) * 2 * shakeIntensity;

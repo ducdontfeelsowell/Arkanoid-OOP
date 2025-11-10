@@ -54,12 +54,14 @@ public class Ball extends MoveAbleObject {
         updateVelocity();
 
         try {
-            trailImage = new Image(getClass().getResourceAsStream(Constants.PATH_TO_TRAIL_1));
-            ballImage = new Image(getClass().getResourceAsStream(Constants.PATH_TO_BALL_1));
+            // SỬA: Tải ảnh mà người chơi đã trang bị (được Main.java thiết lập)
+            trailImage = new Image(getClass().getResourceAsStream(Constants.CURRENTLY_EQUIPPED_TRAIL));
+            ballImage = new Image(getClass().getResourceAsStream(Constants.CURRENTLY_EQUIPPED_BALL));
         } catch (Exception e) {
-            System.err.println("Lỗi tải ảnh cho vệt hoặc bóng!");
-            trailImage = null; // Đặt là null nếu không tải được
-            ballImage = null; // Đặt là null nếu không tải được
+            System.err.println("Lỗi tải ảnh cho vệt hoặc bóng! Dùng mặc định.");
+            // Dự phòng nếu có lỗi
+            trailImage = new Image(getClass().getResourceAsStream(Constants.PATH_TO_TRAIL_LGBT));
+            ballImage = new Image(getClass().getResourceAsStream(Constants.PATH_TO_BALL_EARTH));
         }
     }
 
