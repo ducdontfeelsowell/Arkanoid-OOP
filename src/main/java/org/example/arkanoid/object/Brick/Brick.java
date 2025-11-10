@@ -37,13 +37,13 @@ public class Brick extends GameObject {
     private void setScoreBasedOnType() {
         switch (this.type) {
             case 1:
-                this.score = 20;
+                this.score = 50;
                 break;
             case 2:
-                this.score = 30;
+                this.score = 100;
                 break;
             case 3:
-                this.score = 40;
+                this.score = 1000000000;
                 break;
             case 4:
                 this.score = 50;
