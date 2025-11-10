@@ -1,6 +1,7 @@
 package org.example.arkanoid.config;
 
 import javafx.scene.image.Image;
+import org.example.arkanoid.game.ProgressManager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,7 +36,7 @@ public class Constants {
     /*
     ball
      */
-    public final static double DEFAULT_BALL_SIZE = 15;
+    public final static double DEFAULT_BALL_SIZE = 20;
     public final static double DEFAULT_BALL_POSITION_X = SCREEN_WIDTH / 2 - DEFAULT_BALL_SIZE / 2;
     public final static double DEFAULT_BALL_POSITION_Y = DEFAULT_PADDLE_POSITION_Y - DEFAULT_BALL_SIZE - 5;
     public final static double DEFAULT_BALL_SPEED = 5;
@@ -402,6 +403,33 @@ public class Constants {
     public static double CURRENT_PADDLE_SPEED = NORMAL_PADDLE_SPEED;
     public static double CURRENT_DROP_CHANCE = NORMAL_DROP_CHANCE;
     public static String CURRENT_DIFFICULTY = "Thường";
+    public static int CURRENT_DIFFICULTY_SETTING = ProgressManager.DIFFICULTY_NORMAL;
+
+    public static void setDifficulty(int difficultySetting) {
+        if (difficultySetting == ProgressManager.DIFFICULTY_EASY) { // 0
+            CURRENT_LIVES = EASY_LIVES;
+            CURRENT_BALL_SPEED = EASY_BALL_SPEED;
+            CURRENT_PADDLE_SPEED = EASY_PADDLE_SPEED;
+            CURRENT_DROP_CHANCE = EASY_DROP_CHANCE;
+            CURRENT_DIFFICULTY = "Dễ";
+            CURRENT_DIFFICULTY_SETTING = ProgressManager.DIFFICULTY_EASY;
+        } else if (difficultySetting == ProgressManager.DIFFICULTY_HARD) { // 2
+            CURRENT_LIVES = HARD_LIVES;
+            CURRENT_BALL_SPEED = HARD_BALL_SPEED;
+            CURRENT_PADDLE_SPEED = HARD_PADDLE_SPEED;
+            CURRENT_DROP_CHANCE = HARD_DROP_CHANCE;
+            CURRENT_DIFFICULTY = "Khó";
+            CURRENT_DIFFICULTY_SETTING = ProgressManager.DIFFICULTY_HARD;
+        } else { // 1 (Normal) là mặc định
+            CURRENT_LIVES = NORMAL_LIVES;
+            CURRENT_BALL_SPEED = NORMAL_BALL_SPEED;
+            CURRENT_PADDLE_SPEED = NORMAL_PADDLE_SPEED;
+            CURRENT_DROP_CHANCE = NORMAL_DROP_CHANCE;
+            CURRENT_DIFFICULTY = "Thường";
+            CURRENT_DIFFICULTY_SETTING = ProgressManager.DIFFICULTY_NORMAL;
+        }
+        System.out.println("Đã đặt độ khó: " + CURRENT_DIFFICULTY + " (Mạng: " + CURRENT_LIVES + ")");
+    }
 
     public static final String[] PATH_TO_EXPLOSION_ANIM = {
             "/Images/Explosion/1.png",
