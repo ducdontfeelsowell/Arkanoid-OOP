@@ -8,17 +8,23 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import org.example.arkanoid.config.Constants;
+import org.example.arkanoid.game.ScoreManager;
 import org.example.arkanoid.game.SoundManager;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.PriorityQueue;
 import java.util.ResourceBundle;
-/*
+
 public class ScoreboardController implements Initializable {
     private static Cursor defaultGameCursor; // Con trỏ mặc định của game (img1)
     private static Cursor buttonHoverCursor; // Con trỏ khi hover (img2)
@@ -29,6 +35,61 @@ public class ScoreboardController implements Initializable {
     private ImageView backHoverImage; // Ảnh khi hover
     @FXML
     private ImageView backImage; // Ảnh mặc định (out)
+    @FXML
+    private Label name1;
+    @FXML
+    private Label name2;
+    @FXML
+    private Label name3;
+    @FXML
+    private Label name4;
+    @FXML
+    private Label name5;
+    @FXML
+    private Label name6;
+    @FXML
+    private Label name7;
+    @FXML
+    private Label score1;
+    @FXML
+    private Label score2;
+    @FXML
+    private Label score3;
+    @FXML
+    private Label score4;
+    @FXML
+    private Label score5;
+    @FXML
+    private Label score6;
+    @FXML
+    private Label score7;
+
+    @FXML
+    private MediaView scoreboardPlayerView;
+
+    private ScoreManager scoreManager = new ScoreManager();
+
+    @FXML
+    public void seeMeSomeScores() {
+        scoreManager.processScore();
+
+        PriorityQueue<ScoreManager.PlayerScore> topScores = scoreManager.getTopScores();
+
+        // Who knew it could be done like this. well, not the old me
+        Label[] nameLabels = new Label[] {name1, name2, name3, name4, name5, name6, name7};
+        Label[] scoreLabels = new Label[] {score1, score2, score3, score4, score5, score6, score7};
+
+        for (int i = 0; i < 7; i++) {
+            if (!topScores.isEmpty()) {
+                ScoreManager.PlayerScore player = topScores.poll();
+                nameLabels[i].setText(player.getName());
+                scoreLabels[i].setText(String.valueOf(player.getScore()));
+            } else {
+                nameLabels[i].setText("");
+                scoreLabels[i].setText("");
+            }
+        }
+    }
 
     @FXML
     public void onBackButton() throws IOException {
@@ -125,7 +186,20 @@ public class ScoreboardController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        seeMeSomeScores();
 
+        // THÊM MỚI: Lắng nghe Scene Property
+        if (backButton != null) {
+            backButton.sceneProperty().addListener((obs, oldScene, newScene) -> {
+                if (newScene != null) {
+                    initializeCursors(newScene);
+                }
+            });
+        }
+
+        backHoverImage.setMouseTransparent(true);
+
+        addHoverEffect(backButton, backImage, backHoverImage);
+        preventKeyActivation(backButton);
     }
 }
-*/
