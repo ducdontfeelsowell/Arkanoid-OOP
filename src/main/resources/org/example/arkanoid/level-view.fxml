@@ -30,6 +30,58 @@
          <Font name="Calibri Bold Italic" size="25.0" />
       </font>
    </Label>
+   <AnchorPane layoutX="114.0" layoutY="246.0" prefHeight="80.0" prefWidth="200.0">
+      <children>
+         <ImageView fitHeight="80.0" fitWidth="52.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="80.0" fitWidth="52.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/hover_choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" prefHeight="80.0" prefWidth="53.0" text="EASY" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <Button mnemonicParsing="false" opacity="0.0" prefHeight="80.0" prefWidth="52.0" text="EASY" />
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="73.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="73.0" pickOnBounds="true" visible="false">
+            <image>
+               <Image url="@../../../Images/background/hover_choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" layoutX="73.0" prefHeight="80.0" prefWidth="53.0" text="NORMAL" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <Button layoutX="73.0" mnemonicParsing="false" opacity="0.0" prefHeight="80.0" prefWidth="52.0" text="NORMAL" />
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="146.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="146.0" pickOnBounds="true" visible="false">
+            <image>
+               <Image url="@../../../Images/background/hover_choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" layoutX="146.0" prefHeight="80.0" prefWidth="53.0" text="HARD" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <Button layoutX="146.0" mnemonicParsing="false" opacity="0.0" prefHeight="80.0" prefWidth="52.0" text="HARD" />
+      </children>
+   </AnchorPane>
        <Button fx:id="map1Button" layoutX="153.0" layoutY="161.0" mnemonicParsing="false" onAction="#onClickMap1" opacity="0.0" prefHeight="80.0" prefWidth="122.0" text="1" />
    <ImageView fx:id="Level2_out" fitHeight="105.0" fitWidth="133.0" layoutX="313.0" layoutY="150.0" pickOnBounds="true">
       <image>
@@ -46,6 +98,58 @@
          <Font name="Calibri Bold Italic" size="25.0" />
       </font>
    </Label>
+   <AnchorPane layoutX="281.0" layoutY="246.0" prefHeight="80.0" prefWidth="200.0">
+      <children>
+         <ImageView fitHeight="80.0" fitWidth="52.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="80.0" fitWidth="52.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/hover_choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" prefHeight="80.0" prefWidth="53.0" text="EASY" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <Button mnemonicParsing="false" opacity="0.0" prefHeight="80.0" prefWidth="52.0" text="EASY" />
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="73.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="73.0" pickOnBounds="true" visible="false">
+            <image>
+               <Image url="@../../../Images/background/hover_choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" layoutX="73.0" prefHeight="80.0" prefWidth="53.0" text="NORMAL" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <Button layoutX="73.0" mnemonicParsing="false" opacity="0.0" prefHeight="80.0" prefWidth="52.0" text="NORMAL" />
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="146.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="146.0" pickOnBounds="true" visible="false">
+            <image>
+               <Image url="@../../../Images/background/hover_choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" layoutX="146.0" prefHeight="80.0" prefWidth="53.0" text="HARD" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <Button layoutX="146.0" mnemonicParsing="false" opacity="0.0" prefHeight="80.0" prefWidth="52.0" text="HARD" />
+      </children>
+   </AnchorPane>
    <Button fx:id="map2Button" layoutX="320.0" layoutY="162.0" mnemonicParsing="false" onAction="#onClickMap2" opacity="0.0" prefHeight="80.0" prefWidth="122.0" text="1" />
    <ImageView fx:id="Level3_out" fitHeight="105.0" fitWidth="133.0" layoutX="484.0" layoutY="151.0" pickOnBounds="true">
       <image>
@@ -62,6 +166,58 @@
          <Font name="Calibri Bold Italic" size="25.0" />
       </font>
    </Label>
+   <AnchorPane layoutX="957.0" layoutY="246.0" prefHeight="80.0" prefWidth="200.0">
+      <children>
+         <ImageView fitHeight="80.0" fitWidth="52.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="80.0" fitWidth="52.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/hover_choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" prefHeight="80.0" prefWidth="53.0" text="EASY" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <Button mnemonicParsing="false" opacity="0.0" prefHeight="80.0" prefWidth="52.0" text="EASY" />
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="73.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="73.0" pickOnBounds="true" visible="false">
+            <image>
+               <Image url="@../../../Images/background/hover_choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" layoutX="73.0" prefHeight="80.0" prefWidth="53.0" text="NORMAL" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <Button layoutX="73.0" mnemonicParsing="false" opacity="0.0" prefHeight="80.0" prefWidth="52.0" text="NORMAL" />
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="146.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="146.0" pickOnBounds="true" visible="false">
+            <image>
+               <Image url="@../../../Images/background/hover_choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" layoutX="146.0" prefHeight="80.0" prefWidth="53.0" text="HARD" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <Button layoutX="146.0" mnemonicParsing="false" opacity="0.0" prefHeight="80.0" prefWidth="52.0" text="HARD" />
+      </children>
+   </AnchorPane>
    <Button fx:id="map3Button" layoutX="491.0" layoutY="163.0" mnemonicParsing="false" onAction="#onClickMap3" opacity="0.0" prefHeight="80.0" prefWidth="122.0" text="1" />
    <ImageView fx:id="Level4_out" fitHeight="105.0" fitWidth="133.0" layoutX="655.0" layoutY="150.0" pickOnBounds="true">
       <image>
@@ -78,6 +234,58 @@
          <Font name="Calibri Bold Italic" size="25.0" />
       </font>
    </Label>
+   <AnchorPane layoutX="790.0" layoutY="246.0" prefHeight="80.0" prefWidth="200.0">
+      <children>
+         <ImageView fitHeight="80.0" fitWidth="52.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="80.0" fitWidth="52.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/hover_choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" prefHeight="80.0" prefWidth="53.0" text="EASY" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <Button mnemonicParsing="false" opacity="0.0" prefHeight="80.0" prefWidth="52.0" text="EASY" />
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="73.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="73.0" pickOnBounds="true" visible="false">
+            <image>
+               <Image url="@../../../Images/background/hover_choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" layoutX="73.0" prefHeight="80.0" prefWidth="53.0" text="NORMAL" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <Button layoutX="73.0" mnemonicParsing="false" opacity="0.0" prefHeight="80.0" prefWidth="52.0" text="NORMAL" />
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="146.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="146.0" pickOnBounds="true" visible="false">
+            <image>
+               <Image url="@../../../Images/background/hover_choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" layoutX="146.0" prefHeight="80.0" prefWidth="53.0" text="HARD" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <Button layoutX="146.0" mnemonicParsing="false" opacity="0.0" prefHeight="80.0" prefWidth="52.0" text="HARD" />
+      </children>
+   </AnchorPane>
    <Button fx:id="map4Button" layoutX="662.0" layoutY="162.0" mnemonicParsing="false" onAction="#onClickMap4" opacity="0.0" prefHeight="80.0" prefWidth="122.0" text="1" />
    <ImageView fx:id="Level5_out" fitHeight="105.0" fitWidth="133.0" layoutX="819.0" layoutY="151.0" pickOnBounds="true">
       <image>
@@ -94,6 +302,58 @@
          <Font name="Calibri Bold Italic" size="25.0" />
       </font>
    </Label>
+   <AnchorPane layoutX="957.0" layoutY="422.0" prefHeight="80.0" prefWidth="200.0">
+      <children>
+         <ImageView fitHeight="80.0" fitWidth="52.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="80.0" fitWidth="52.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/hover_choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" prefHeight="80.0" prefWidth="53.0" text="EASY" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <Button mnemonicParsing="false" opacity="0.0" prefHeight="80.0" prefWidth="52.0" text="EASY" />
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="73.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="73.0" pickOnBounds="true" visible="false">
+            <image>
+               <Image url="@../../../Images/background/hover_choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" layoutX="73.0" prefHeight="80.0" prefWidth="53.0" text="NORMAL" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <Button layoutX="73.0" mnemonicParsing="false" opacity="0.0" prefHeight="80.0" prefWidth="52.0" text="NORMAL" />
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="146.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="146.0" pickOnBounds="true" visible="false">
+            <image>
+               <Image url="@../../../Images/background/hover_choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" layoutX="146.0" prefHeight="80.0" prefWidth="53.0" text="HARD" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <Button layoutX="146.0" mnemonicParsing="false" opacity="0.0" prefHeight="80.0" prefWidth="52.0" text="HARD" />
+      </children>
+   </AnchorPane>
    <Button fx:id="map5Button" layoutX="826.0" layoutY="163.0" mnemonicParsing="false" onAction="#onClickMap5" opacity="0.0" prefHeight="80.0" prefWidth="122.0" text="1" />
    <ImageView fx:id="Level6_out" fitHeight="105.0" fitWidth="133.0" layoutX="992.0" layoutY="152.0" pickOnBounds="true">
       <image>
@@ -110,6 +370,58 @@
          <Font name="Calibri Bold Italic" size="25.0" />
       </font>
    </Label>
+   <AnchorPane layoutX="790.0" layoutY="422.0" prefHeight="80.0" prefWidth="200.0">
+      <children>
+         <ImageView fitHeight="80.0" fitWidth="52.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="80.0" fitWidth="52.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/hover_choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" prefHeight="80.0" prefWidth="53.0" text="EASY" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <Button mnemonicParsing="false" opacity="0.0" prefHeight="80.0" prefWidth="52.0" text="EASY" />
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="73.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="73.0" pickOnBounds="true" visible="false">
+            <image>
+               <Image url="@../../../Images/background/hover_choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" layoutX="73.0" prefHeight="80.0" prefWidth="53.0" text="NORMAL" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <Button layoutX="73.0" mnemonicParsing="false" opacity="0.0" prefHeight="80.0" prefWidth="52.0" text="NORMAL" />
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="146.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="146.0" pickOnBounds="true" visible="false">
+            <image>
+               <Image url="@../../../Images/background/hover_choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" layoutX="146.0" prefHeight="80.0" prefWidth="53.0" text="HARD" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <Button layoutX="146.0" mnemonicParsing="false" opacity="0.0" prefHeight="80.0" prefWidth="52.0" text="HARD" />
+      </children>
+   </AnchorPane>
    <Button fx:id="map6Button" layoutX="999.0" layoutY="164.0" mnemonicParsing="false" onAction="#onClickMap6" opacity="0.0" prefHeight="80.0" prefWidth="122.0" text="1" />
    <ImageView fx:id="Level7_out" fitHeight="105.0" fitWidth="133.0" layoutX="146.0" layoutY="328.0" pickOnBounds="true">
       <image>
@@ -126,6 +438,58 @@
          <Font name="Calibri Bold Italic" size="25.0" />
       </font>
    </Label>
+   <AnchorPane layoutX="622.0" layoutY="422.0" prefHeight="80.0" prefWidth="200.0">
+      <children>
+         <ImageView fitHeight="80.0" fitWidth="52.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="80.0" fitWidth="52.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/hover_choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" prefHeight="80.0" prefWidth="53.0" text="EASY" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <Button mnemonicParsing="false" opacity="0.0" prefHeight="80.0" prefWidth="52.0" text="EASY" />
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="73.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="73.0" pickOnBounds="true" visible="false">
+            <image>
+               <Image url="@../../../Images/background/hover_choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" layoutX="73.0" prefHeight="80.0" prefWidth="53.0" text="NORMAL" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <Button layoutX="73.0" mnemonicParsing="false" opacity="0.0" prefHeight="80.0" prefWidth="52.0" text="NORMAL" />
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="146.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="146.0" pickOnBounds="true" visible="false">
+            <image>
+               <Image url="@../../../Images/background/hover_choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" layoutX="146.0" prefHeight="80.0" prefWidth="53.0" text="HARD" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <Button layoutX="146.0" mnemonicParsing="false" opacity="0.0" prefHeight="80.0" prefWidth="52.0" text="HARD" />
+      </children>
+   </AnchorPane>
    <Button fx:id="map7Button" layoutX="153.0" layoutY="340.0" mnemonicParsing="false" onAction="#onClickMap7" opacity="0.0" prefHeight="80.0" prefWidth="122.0" text="1" />
    <ImageView fx:id="Level8_out" fitHeight="105.0" fitWidth="133.0" layoutX="320.0" layoutY="329.0" pickOnBounds="true">
       <image>
@@ -142,6 +506,58 @@
          <Font name="Calibri Bold Italic" size="25.0" />
       </font>
    </Label>
+   <AnchorPane layoutX="455.0" layoutY="422.0" prefHeight="80.0" prefWidth="200.0">
+      <children>
+         <ImageView fitHeight="80.0" fitWidth="52.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="80.0" fitWidth="52.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/hover_choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" prefHeight="80.0" prefWidth="53.0" text="EASY" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <Button mnemonicParsing="false" opacity="0.0" prefHeight="80.0" prefWidth="52.0" text="EASY" />
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="73.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="73.0" pickOnBounds="true" visible="false">
+            <image>
+               <Image url="@../../../Images/background/hover_choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" layoutX="73.0" prefHeight="80.0" prefWidth="53.0" text="NORMAL" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <Button layoutX="73.0" mnemonicParsing="false" opacity="0.0" prefHeight="80.0" prefWidth="52.0" text="NORMAL" />
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="146.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="146.0" pickOnBounds="true" visible="false">
+            <image>
+               <Image url="@../../../Images/background/hover_choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" layoutX="146.0" prefHeight="80.0" prefWidth="53.0" text="HARD" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <Button layoutX="146.0" mnemonicParsing="false" opacity="0.0" prefHeight="80.0" prefWidth="52.0" text="HARD" />
+      </children>
+   </AnchorPane>
    <Button fx:id="map8Button" layoutX="327.0" layoutY="341.0" mnemonicParsing="false" onAction="#onClickMap8" opacity="0.0" prefHeight="80.0" prefWidth="122.0" text="1" />
    <ImageView fx:id="Level9_out" fitHeight="105.0" fitWidth="133.0" layoutX="484.0" layoutY="330.0" pickOnBounds="true">
       <image>
@@ -158,6 +574,58 @@
          <Font name="Calibri Bold Italic" size="25.0" />
       </font>
    </Label>
+   <AnchorPane layoutX="281.0" layoutY="422.0" prefHeight="80.0" prefWidth="200.0">
+      <children>
+         <ImageView fitHeight="80.0" fitWidth="52.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="80.0" fitWidth="52.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/hover_choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" prefHeight="80.0" prefWidth="53.0" text="EASY" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <Button mnemonicParsing="false" opacity="0.0" prefHeight="80.0" prefWidth="52.0" text="EASY" />
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="73.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="73.0" pickOnBounds="true" visible="false">
+            <image>
+               <Image url="@../../../Images/background/hover_choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" layoutX="73.0" prefHeight="80.0" prefWidth="53.0" text="NORMAL" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <Button layoutX="73.0" mnemonicParsing="false" opacity="0.0" prefHeight="80.0" prefWidth="52.0" text="NORMAL" />
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="146.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="146.0" pickOnBounds="true" visible="false">
+            <image>
+               <Image url="@../../../Images/background/hover_choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" layoutX="146.0" prefHeight="80.0" prefWidth="53.0" text="HARD" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <Button layoutX="146.0" mnemonicParsing="false" opacity="0.0" prefHeight="80.0" prefWidth="52.0" text="HARD" />
+      </children>
+   </AnchorPane>
    <Button fx:id="map9Button" layoutX="491.0" layoutY="342.0" mnemonicParsing="false" onAction="#onClickMap9" opacity="0.0" prefHeight="80.0" prefWidth="122.0" text="1" />
    <ImageView fx:id="Level10_out" fitHeight="105.0" fitWidth="133.0" layoutX="657.0" layoutY="329.0" pickOnBounds="true">
       <image>
@@ -174,6 +642,58 @@
          <Font name="Calibri Bold Italic" size="25.0" />
       </font>
    </Label>
+   <AnchorPane layoutX="622.0" layoutY="246.0" prefHeight="80.0" prefWidth="200.0">
+      <children>
+         <ImageView fitHeight="80.0" fitWidth="52.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="80.0" fitWidth="52.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/hover_choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" prefHeight="80.0" prefWidth="53.0" text="EASY" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <Button mnemonicParsing="false" opacity="0.0" prefHeight="80.0" prefWidth="52.0" text="EASY" />
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="73.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="73.0" pickOnBounds="true" visible="false">
+            <image>
+               <Image url="@../../../Images/background/hover_choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" layoutX="73.0" prefHeight="80.0" prefWidth="53.0" text="NORMAL" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <Button layoutX="73.0" mnemonicParsing="false" opacity="0.0" prefHeight="80.0" prefWidth="52.0" text="NORMAL" />
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="146.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="146.0" pickOnBounds="true" visible="false">
+            <image>
+               <Image url="@../../../Images/background/hover_choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" layoutX="146.0" prefHeight="80.0" prefWidth="53.0" text="HARD" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <Button layoutX="146.0" mnemonicParsing="false" opacity="0.0" prefHeight="80.0" prefWidth="52.0" text="HARD" />
+      </children>
+   </AnchorPane>
    <Button fx:id="map10Button" layoutX="664.0" layoutY="341.0" mnemonicParsing="false" onAction="#onClickMap10" opacity="0.0" prefHeight="80.0" prefWidth="122.0" text="1" />
    <ImageView fx:id="Level11_out" fitHeight="105.0" fitWidth="133.0" layoutX="819.0" layoutY="329.0" pickOnBounds="true">
       <image>
@@ -190,6 +710,58 @@
          <Font name="Calibri Bold Italic" size="25.0" />
       </font>
    </Label>
+   <AnchorPane layoutX="114.0" layoutY="422.0" prefHeight="80.0" prefWidth="200.0">
+      <children>
+         <ImageView fitHeight="80.0" fitWidth="52.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="80.0" fitWidth="52.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/hover_choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" prefHeight="80.0" prefWidth="53.0" text="EASY" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <Button mnemonicParsing="false" opacity="0.0" prefHeight="80.0" prefWidth="52.0" text="EASY" />
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="73.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="73.0" pickOnBounds="true" visible="false">
+            <image>
+               <Image url="@../../../Images/background/hover_choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" layoutX="73.0" prefHeight="80.0" prefWidth="53.0" text="NORMAL" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <Button layoutX="73.0" mnemonicParsing="false" opacity="0.0" prefHeight="80.0" prefWidth="52.0" text="NORMAL" />
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="146.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="146.0" pickOnBounds="true" visible="false">
+            <image>
+               <Image url="@../../../Images/background/hover_choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" layoutX="146.0" prefHeight="80.0" prefWidth="53.0" text="HARD" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <Button layoutX="146.0" mnemonicParsing="false" opacity="0.0" prefHeight="80.0" prefWidth="52.0" text="HARD" />
+      </children>
+   </AnchorPane>
    <Button fx:id="map11Button" layoutX="826.0" layoutY="341.0" mnemonicParsing="false" onAction="#onClickMap11" opacity="0.0" prefHeight="80.0" prefWidth="122.0" text="1" />
    <ImageView fx:id="Level12_out" fitHeight="105.0" fitWidth="133.0" layoutX="992.0" layoutY="328.0" pickOnBounds="true">
       <image>
@@ -206,6 +778,58 @@
          <Font name="Calibri Bold Italic" size="25.0" />
       </font>
    </Label>
+   <AnchorPane layoutX="455.0" layoutY="246.0" prefHeight="80.0" prefWidth="200.0">
+      <children>
+         <ImageView fitHeight="80.0" fitWidth="52.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="80.0" fitWidth="52.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/hover_choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" prefHeight="80.0" prefWidth="53.0" text="EASY" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <Button mnemonicParsing="false" opacity="0.0" prefHeight="80.0" prefWidth="52.0" text="EASY" />
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="73.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="73.0" pickOnBounds="true" visible="false">
+            <image>
+               <Image url="@../../../Images/background/hover_choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" layoutX="73.0" prefHeight="80.0" prefWidth="53.0" text="NORMAL" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <Button layoutX="73.0" mnemonicParsing="false" opacity="0.0" prefHeight="80.0" prefWidth="52.0" text="NORMAL" />
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="146.0" pickOnBounds="true">
+            <image>
+               <Image url="@../../../Images/background/choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="80.0" fitWidth="52.0" layoutX="146.0" pickOnBounds="true" visible="false">
+            <image>
+               <Image url="@../../../Images/background/hover_choose_difficulty.jpg" />
+            </image>
+         </ImageView>
+         <Label alignment="CENTER" layoutX="146.0" prefHeight="80.0" prefWidth="53.0" text="HARD" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+         <Button layoutX="146.0" mnemonicParsing="false" opacity="0.0" prefHeight="80.0" prefWidth="52.0" text="HARD" />
+      </children>
+   </AnchorPane>
    <Button fx:id="map12Button" layoutX="999.0" layoutY="340.0" mnemonicParsing="false" onAction="#onClickMap12" opacity="0.0" prefHeight="80.0" prefWidth="122.0" text="1" />
    <ImageView fx:id="back_button_out" fitHeight="118.0" fitWidth="229.0" layoutX="534.0" layoutY="534.0" pickOnBounds="true">
       <image>

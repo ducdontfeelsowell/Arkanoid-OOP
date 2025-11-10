@@ -16,15 +16,17 @@ import java.util.List;
 public class BulletManager {
 
     private List<Bullet> bullets;
-    private long lastShotTime = 0;
+    // private long lastShotTime = 0; // <-- XÓA DÒNG NÀY
+    private double cooldownRemainingTime = 0; // <-- THÊM DÒNG NÀY
 
     public BulletManager() {
         this.bullets = new ArrayList<>();
     }
 
     public void shoot(double paddleX, double paddleY, double paddleWidth) {
-        long now = System.nanoTime();
-        if (now - lastShotTime > Constants.DEFAULT_BULLET_COOLDOWN) {
+        // long now = System.nanoTime(); // <-- XÓA DÒNG NÀY
+        // if (now - lastShotTime > Constants.DEFAULT_BULLET_COOLDOWN) { // <-- SỬA DÒNG NÀY
+        if (cooldownRemainingTime <= 0) { // <-- THAY BẰNG DÒNG NÀY
 
             SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_SHOOT);
 
@@ -39,11 +41,19 @@ public class BulletManager {
             this.bullets.add(newBulletLeft);
             this.bullets.add(newBulletRight);
 
-            lastShotTime = now;
+            // lastShotTime = now; // <-- XÓA DÒNG NÀY
+            cooldownRemainingTime = Constants.DEFAULT_BULLET_COOLDOWN; // <-- THÊM DÒNG NÀY
         }
     }
 
-    public void update() {
+    // public void update() { // <-- SỬA DÒNG NÀY
+    public void update(long deltaTime) { // <-- THAY BẰNG DÒNG NÀY
+
+        // Cập nhật cooldown
+        if (cooldownRemainingTime > 0) {
+            cooldownRemainingTime -= deltaTime; // <-- THÊM DÒNG NÀY
+        }
+
         Iterator<Bullet> iterator = bullets.iterator();
         while (iterator.hasNext()) {
             Bullet bullet = iterator.next();

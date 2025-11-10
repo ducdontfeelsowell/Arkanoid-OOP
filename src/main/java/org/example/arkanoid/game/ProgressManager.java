@@ -56,6 +56,12 @@ public class ProgressManager {
             this.ownedPaddles = (ownPaddles != null) ? ownPaddles : new HashSet<>(); // <-- THÊM MỚI
         }
 
+        // --- THÊM MỚI: Getter cho seeCurrentData() ---
+        public int getScore() {
+            return score;
+        }
+        // --- KẾT THÚC THÊM MỚI ---
+
         @Override
         public String toString() {
             // *** SỬA ĐỊNH DẠNG: Thêm 2 phần tử mới ***
@@ -179,6 +185,22 @@ public class ProgressManager {
             e.printStackTrace();
         }
     }
+
+    // --- LẤY TỪ BẢN 3 ---
+    /**
+     * Trả về danh sách PlayerScore cho ScoreManager
+     */
+    public static List<ScoreManager.PlayerScore> seeCurrentData() {
+        List<ScoreManager.PlayerScore> checks = new ArrayList<>();
+        ScoreManager scoreManager = new ScoreManager();
+        for (Map.Entry<String, UserData> entry : userDatabase.entrySet()) {
+            ScoreManager.PlayerScore player = scoreManager.new PlayerScore(entry.getKey(), entry.getValue().getScore());
+            checks.add(player);
+        }
+        return checks;
+    }
+    // --- KẾT THÚC LẤY TỪ BẢN 3 ---
+
 
     /**
      * Được gọi bởi MenuController.
