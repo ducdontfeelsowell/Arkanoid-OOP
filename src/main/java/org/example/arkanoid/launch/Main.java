@@ -172,6 +172,10 @@ public class Main extends Application {
             inputHandler = new InputHandler(gameScene);
             gameController.setInputHandler(inputHandler);
 
+            Constants.CURRENTLY_EQUIPPED_BALL = ProgressManager.getEquippedBallPath();
+            Constants.CURRENTLY_EQUIPPED_TRAIL = ProgressManager.getEquippedTrailPath();
+            Constants.CURRENTLY_EQUIPPED_PADDLE = ProgressManager.getEquippedPaddlePath(); // <-- THÊM MỚI
+
             // Initialize game objects
             paddle = new Paddle();
 
@@ -190,6 +194,10 @@ public class Main extends Application {
                     paddle, ballManager, bricks, gameRenderer, itemManager, bulletManager, level);
 
             gameManager.Init();
+
+            // Tải skin đã trang bị của người chơi
+            Constants.CURRENTLY_EQUIPPED_BALL = ProgressManager.getEquippedBallPath();
+            Constants.CURRENTLY_EQUIPPED_TRAIL = ProgressManager.getEquippedTrailPath();
 
             // Phát nhạc cố định cho game
             soundManager.playBackgroundMusic(Constants.PATH_TO_SOUND_BACKGROUND_3);
@@ -218,7 +226,7 @@ public class Main extends Application {
         // Logic thread
         logicThread = new Thread(() -> {
             final double dt = 1.0 / Constants.FPS; // 60 updates/sec
-            final long stepNs = (long) (dt * 1_000_000_000);
+            final long stepNs = (long) (dt * 1_000_000_000); // <-- ĐÂY LÀ DELTA TIME CỦA BẠN
 
             lastLogicTime = System.nanoTime();
             logicCount = 0;
@@ -227,7 +235,8 @@ public class Main extends Application {
                 long start = System.nanoTime();
 
                 synchronized (lock) {
-                    gameManager.updateGame();
+                    // gameManager.updateGame(); // <-- SỬA DÒNG NÀY
+                    gameManager.updateGame(stepNs); // <-- THAY BẰNG DÒNG NÀY (Truyền delta time)
                 }
 
                 // FPS counting (optional)

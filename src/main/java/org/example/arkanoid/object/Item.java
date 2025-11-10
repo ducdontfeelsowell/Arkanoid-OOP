@@ -85,15 +85,19 @@ public class Item extends MoveAbleObject {
                     break;
                 case COIN_50:
                     animationFrames.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream(Constants.PATH_TO_COIN_50))));
+                    this.width = 60;
                     break;
                 case COIN_100:
                     animationFrames.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream(Constants.PATH_TO_COIN_100))));
+                    this.width = 60;
                     break;
                 case COIN_250:
                     animationFrames.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream(Constants.PATH_TO_COIN_250))));
+                    this.width = 60;
                     break;
                 case COIN_500:
                     animationFrames.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream(Constants.PATH_TO_COIN_500))));
+                    this.width = 60;
                     break;
             }
         } catch (Exception e) {

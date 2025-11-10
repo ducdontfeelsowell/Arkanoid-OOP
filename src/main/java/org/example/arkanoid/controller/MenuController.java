@@ -124,7 +124,7 @@ public class MenuController implements Initializable{
     @FXML
     public void onShopButtonClick() throws IOException {
         SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/arkanoid/shop-view.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.PATH_TO_SHOP_VIEW));
         Parent newRoot = loader.load();
         shopButton.getScene().setRoot(newRoot);
     }

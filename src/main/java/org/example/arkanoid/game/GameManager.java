@@ -37,7 +37,8 @@ public class GameManager {
     private int currentDifficultySetting; // THÊM MỚI: 0, 1, hoặc 2
 
     private boolean safetyNetActive = false;
-    private double safetyNetEndTime = 0;
+    // private double safetyNetEndTime = 0; // <-- XÓA DÒNG NÀY
+    private double safetyNetRemainingTime = 0; // <-- THÊM DÒNG NÀY
 
     public GameManager(GameController gameController, InputHandler inputHandler,
                        Paddle paddle, BallManager ballManager, Brick[][] bricks, GameRenderer renderer,
@@ -61,16 +62,26 @@ public class GameManager {
         this.won = false;
     }
 
-    public void updateGame() {
+    // public void updateGame() { // <-- SỬA DÒNG NÀY
+    public void updateGame(long deltaTime) { // <-- THAY BẰNG DÒNG NÀY (nhận deltaTime)
         if (!GameController.isPaused() && !gameOver && !won) {
 
             // LƯU TRẠNG THÁI CŨ
             boolean wasSafetyNetActive = safetyNetActive;
 
-            // KIỂM TRA HẾT HẠN
-            if (safetyNetActive && (double)System.nanoTime() > safetyNetEndTime) {
-                safetyNetActive = false;
+            // KIỂM TRA HẾT HẠN (LOGIC MỚI)
+            // if (safetyNetActive && (double)System.nanoTime() > safetyNetEndTime) { // <-- XÓA DÒNG NÀY
+            //    safetyNetActive = false; // <-- XÓA DÒNG NÀY
+            // } // <-- XÓA DÒNG NÀY
+            if (safetyNetActive) {
+                safetyNetRemainingTime -= deltaTime; // <-- THÊM DÒNG NÀY
+                if (safetyNetRemainingTime <= 0) {
+                    safetyNetActive = false; // <-- THÊM DÒNG NÀY
+                    safetyNetRemainingTime = 0;
+                }
             }
+            // KẾT THÚC LOGIC MỚI
+
 
             // PHÁT ÂM THANH KHI HẾT HẠN
             if (wasSafetyNetActive && !safetyNetActive) {
@@ -79,18 +90,24 @@ public class GameManager {
 
 
             inputHandler.handleInput(paddle, bm);
-            paddle.update();
+            // paddle.update(); // <-- SỬA DÒNG NÀY
+            paddle.update(deltaTime); // <-- THAY BẰNG DÒNG NÀY
 
             // đợi bắt đầu bóng
             if(Constants.isStarted) {
                 UpdatePhysics.update(ballManager, this);
                 CheckCollisions.check(ballManager, paddle, bricks, this, im, bm);
                 CheckWinCondition.check(bricks, this);
-                im.update();
+                im.update(); // ItemManager không cần delta time vì nó chỉ di chuyển item
                 im.checkCollisions(paddle, ballManager, this);
-                bm.update();
+
+                // bm.update(); // <-- SỬA DÒNG NÀY
+                bm.update(deltaTime); // <-- THAY BẰNG DÒNG NÀY
+
                 bm.checkCollisions(bricks, this, im);
-                EffectManager.getInstance().update();
+
+                // EffectManager.getInstance().update(); // <-- SỬA DÒNG NÀY
+                EffectManager.getInstance().update(deltaTime); // <-- THAY BẰNG DÒNG NÀY
             } else {
                 ballManager.balls.get(0).setX(paddle.getX() + paddle.getWidth() / 2 - ballManager.balls.get(0).getWidth() / 2);
                 ballManager.balls.get(0).setY(paddle.getY() - ballManager.balls.get(0).getHeight() - 1);
@@ -237,7 +254,8 @@ public class GameManager {
      */
     public void activateSafetyNet(double durationNano) {
         this.safetyNetActive = true;
-        this.safetyNetEndTime = (double)System.nanoTime() + durationNano;
+        // this.safetyNetEndTime = (double)System.nanoTime() + durationNano; // <-- XÓA DÒNG NÀY
+        this.safetyNetRemainingTime = durationNano; // <-- THAY BẰNG DÒNG NÀY
         System.out.println("Safety Net KÍCH HOẠT!"); // (Debug)
     }
 
@@ -251,7 +269,9 @@ public class GameManager {
     /**
      * Getter cho thời gian kết thúc
      */
-    public double getSafetyNetEndTime() {
-        return safetyNetEndTime;
+    // public double getSafetyNetEndTime() { // <-- SỬA DÒNG NÀY
+    public double getSafetyNetRemainingTime() { // <-- THAY BẰNG DÒNG NÀY
+        // return safetyNetEndTime; // <-- SỬA DÒNG NÀY
+        return safetyNetRemainingTime; // <-- THAY BẰNG DÒNG NÀY
     }
 }
