@@ -2,13 +2,13 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.media.MediaView?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.arkanoid.controller.HelpController">
     <ImageView fitHeight="800.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="false">
@@ -43,6 +43,45 @@
         </font>
     </Label>
     <Button fx:id="backButton" layoutX="580.5" layoutY="725.0" mnemonicParsing="false" onAction="#onBackButtonClick" opacity="0.0" prefHeight="65.0" prefWidth="122.0" text="Back" />
-
-    <TextArea layoutX="157.0" layoutY="165.0" prefHeight="482.0" prefWidth="991.0" text="🎯 Mục tiêu&#10;Dùng thanh trượt (Paddle) để điều khiển quả bóng. Phá hủy tất cả các viên gạch có thể phá được trên màn hình để chiến thắng.&#10;&#10;Đừng để bóng rơi xuống cạnh dưới màn hình, nếu không bạn sẽ mất một mạng!&#10;&#10;🕹️ Điều khiển&#10;Phím Mũi tên Trái / Phải: Di chuyển thanh trượt.&#10;&#10;Phím Space (Dấu cách):&#10;&#10;Thả bóng ra để bắt đầu lượt chơi.&#10;&#10;Bắn đạn khi bạn đang có item &quot;Súng Bắn&quot; (Shooter Paddle).&#10;&#10;Phím Escape (ESC): Tạm dừng (Pause) hoặc tiếp tục (Resume) trò chơi.&#10;&#10;🎁 Vật phẩm (Items)&#10;Khi phá gạch, bạn có cơ hội nhận được các vật phẩm. Hãy dùng thanh trượt để đỡ chúng:&#10;&#10;Mở Rộng (Expand): Làm thanh trượt dài ra, giúp bạn đỡ bóng dễ hơn.&#10;&#10;Thu Nhỏ (Shrink): Làm thanh trượt ngắn lại (Cẩn thận!).&#10;&#10;Thêm Mạng (Extra Life): Tặng bạn thêm 1 mạng sống.&#10;&#10;Súng Bắn (Shooter): Gắn hai khẩu súng lên thanh trượt. Nhấn Space để bắn đạn và phá gạch từ bên dưới!&#10;&#10;🧱 Các loại Gạch&#10;Gạch Thường: Bị phá hủy sau 1 lần va chạm.&#10;&#10;Gạch Cứng: Cần 3 lần va chạm để phá hủy (máu của gạch sẽ hiển thị trên viên gạch).&#10;&#10;Gạch Bất Tử: Không thể bị phá hủy.&#10;&#10;Gạch Nổ (Explode): Khi bị phá hủy, nó sẽ phá hủy tất cả các gạch khác xung quanh nó (trừ gạch bất tử)." />
+   <Label layoutX="75.0" layoutY="164.0" text="OBJECTIVE" textFill="#16ccf2">
+      <font>
+         <Font name="Arial Black" size="32.0" />
+      </font>
+   </Label>
+   <Text fill="#16ccf2" layoutX="75.0" layoutY="229.0" lineSpacing="4.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dùng Paddle để điều khiển bóng&#10;Phá hủy tất cả các viên gạch để chiến thắng&#10;Đừng để bóng rơi xuống cạnh dưới!">
+      <font>
+         <Font name="Arial Bold" size="20.0" />
+      </font>
+   </Text>
+   <Label layoutX="1079.0" layoutY="164.0" text="Control" textFill="#16ccf2">
+      <font>
+         <Font name="Arial Black" size="32.0" />
+      </font>
+   </Label>
+   <Text fill="#16ccf2" layoutX="715.0" layoutY="237.0" lineSpacing="4.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mũi tên Trái / Phải: Di chuyển Paddle&#10;Space: Thả bóng ra chơi / Bắn đạn khi có Súng Bắn&#10;Esc: Tạm dừng / Tiếp tục" textAlignment="RIGHT">
+      <font>
+         <Font name="Arial Bold" size="20.0" />
+      </font>
+   </Text>
+   <Label alignment="CENTER_RIGHT" layoutX="75.0" layoutY="349.0" text="Items" textFill="#16ccf2">
+      <font>
+         <Font name="Arial Black" size="32.0" />
+      </font>
+   </Label>
+   <Text fill="#16ccf2" layoutX="75.0" layoutY="415.0" lineSpacing="4.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phá gạch có thể rơi ra vật phẩm!&#10;Expand: Kéo dài Paddle&#10;Shrink: Làm ngắn Paddle&#10;Extra Life: Thêm mạng&#10;Shooter: Súng bắn phá gạch&#10;Safety Net: Bóng nảy lại lên từ dưới&#10;Multi-Ball: Bóng x3&#10;Slow: Giảm tốc bóng&#10;Coin: Thưởng tiền">
+      <font>
+         <Font name="Arial Bold" size="20.0" />
+      </font>
+   </Text>
+   <Label layoutX="1115.0" layoutY="349.0" text="Brick" textFill="#16ccf2">
+      <font>
+         <Font name="Arial Black" size="32.0" />
+      </font>
+   </Label>
+   <Text fill="#16ccf2" layoutX="650.0" layoutY="414.0" lineSpacing="4.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Normal: Phá sau 1 lần va&#10;Strong: Phá sau 3 lần va&#10;Explosible: Phá sau 1 lần và nổ, phá hủy vùng xung quanh&#10;Unbreakable: Không phá được, kể cả nổ" textAlignment="RIGHT">
+      <font>
+         <Font name="Arial Bold" size="20.0" />
+      </font>
+   </Text>
+    
 </AnchorPane>

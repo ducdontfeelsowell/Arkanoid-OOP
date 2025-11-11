@@ -77,7 +77,6 @@ public class RenderUI {
             slowIcon = new Image(Objects.requireNonNull(
                     RenderUI.class.getResourceAsStream(Constants.PATH_TO_SLOW_ANIM[0])
             ));
-
         } catch (Exception e) {
             System.err.println("Lỗi: Không thể tải ảnh timer icons!");
             shooterIcon = null;

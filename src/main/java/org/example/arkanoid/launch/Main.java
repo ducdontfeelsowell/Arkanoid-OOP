@@ -162,6 +162,11 @@ public class Main extends Application {
             inputHandler = new InputHandler(gameScene);
             gameController.setInputHandler(inputHandler);
 
+            Constants.CURRENTLY_EQUIPPED_BALL = ProgressManager.getEquippedBallPath();
+            Constants.CURRENTLY_EQUIPPED_TRAIL = ProgressManager.getEquippedTrailPath();
+            Constants.CURRENTLY_EQUIPPED_PADDLE = ProgressManager.getEquippedPaddlePath(); // <-- THÊM MỚI
+
+            // Initialize game objects
             paddle = new Paddle();
 
             ballManager = new BallManager();
@@ -262,7 +267,7 @@ public class Main extends Application {
                         lastRenderTimeCounter = now;
                     }
                 } else {
-                    lastRenderTime = now;
+                    lastRenderTime = now; // update lastRenderTime to avoid drift
                 }
             }
         };

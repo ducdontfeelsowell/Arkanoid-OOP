@@ -43,7 +43,7 @@ public class Brick extends GameObject {
                 this.score = 100;
                 break;
             case 3:
-                this.score = 50;
+                this.score = 1000000000;
                 break;
             case 4:
                 this.score = 50;
