@@ -364,16 +364,98 @@ public class LevelController implements Initializable{
         backButton.getScene().setRoot(root);
     }
 
-    // ... (Giữ nguyên initializeCursors, addHoverEffect, preventKeyActivation) ...
-    private void initializeCursors(Scene scene) {
-        // ...
-    }
     private void addHoverEffect(Button button, Node imageOut, Node imageOn) {
-        // ...
+        if (button != null) {
+            if (imageOn != null) {
+                imageOn.setVisible(false);
+            }
+            button.hoverProperty().addListener((obs, oldVal, newVal) -> {
+                if (newVal) {
+                    // KHI HOVER VÀO:
+                    SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_HOVER);
+                    if (imageOut != null) {
+                        imageOut.setVisible(false);
+                    }
+                    if (imageOn != null) {
+                        imageOn.setVisible(true);
+                    }
+
+                    // THÊM MỚI: THAY ĐỔI CON TRỎ THÀNH IMG2 (Hover Cursor)
+                    if (buttonHoverCursor != null && button.getScene() != null) {
+                        button.getScene().setCursor(buttonHoverCursor);
+                    }
+
+                } else {
+                    // KHI RỜI KHỎI HOVER:
+                    if (imageOut != null) {
+                        imageOut.setVisible(true);
+                    }
+                    if (imageOn != null) {
+                        imageOn.setVisible(false);
+                    }
+                    System.out.println("PPPPPPPPPP");
+                    // THÊM MỚI: ĐẶT LẠI CON TRỎ MẶC ĐỊNH (IMG1) CỦA SCENE
+                    if (defaultGameCursor != null && button.getScene() != null) {
+                        button.getScene().setCursor(defaultGameCursor);
+                        System.out.println("TTTTTTTTTTTTTT");
+                    }
+                }
+            });
+        }
     }
+
+
+    // Phương thức chặn phím Space/Enter
     private void preventKeyActivation(Button button) {
-        // ...
+        if (button != null) {
+            button.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+                if (event.getCode() == KeyCode.SPACE || event.getCode() == KeyCode.ENTER) {
+                    event.consume();
+                }
+            });
+        }
     }
+
+    private void initializeCursors(Scene scene) {
+        if (defaultGameCursor == null) {
+            try {
+                // Tải ảnh img1
+                URL cursorUrl = getClass().getResource(Constants.PATH_TO_CURSOR);
+                if (cursorUrl != null) {
+                    Image customImage = new Image(cursorUrl.toExternalForm());
+                    // Tạo Cursor img1
+                    defaultGameCursor = Cursor.cursor(cursorUrl.toExternalForm());
+                    // Áp dụng con trỏ mặc định của game cho Scene
+                    scene.setCursor(defaultGameCursor);
+                } else {
+                    // Fallback nếu không tìm thấy img1
+                    defaultGameCursor = Cursor.DEFAULT;
+                }
+            } catch (Exception e) {
+                System.err.println("Lỗi khi tải con trỏ mặc định (img1): " + e.getMessage());
+                defaultGameCursor = Cursor.DEFAULT;
+            }
+        }
+
+        // KIỂM TRA THỨ HAI: Tải con trỏ hover (img2)
+        if (buttonHoverCursor == null) {
+            try {
+                URL cursorUrl = getClass().getResource(Constants.PATH_TO_HOVER_CURSOR);
+                if (cursorUrl == null) {
+                    buttonHoverCursor = Cursor.HAND;
+                    throw new IOException("Không tìm thấy file con trỏ nút. Dùng Cursor.HAND.");
+                }
+
+                Image customImage = new Image(cursorUrl.toExternalForm());
+                buttonHoverCursor = Cursor.cursor(cursorUrl.toExternalForm());
+
+            } catch (Exception e) {
+                System.err.println("Lỗi khi tải con trỏ hover (img2): " + e.getMessage());
+                buttonHoverCursor = Cursor.HAND;
+            }
+        }
+    }
+
 
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("DEBUG: LevelController Initialized.");
@@ -443,16 +525,33 @@ public class LevelController implements Initializable{
         back_button_on.setMouseTransparent(true);
 
         // --- (Code addHoverEffect cũ cho các nút Level) ---
+
         addHoverEffect(map1Button, Level1_out, Level1_on);
         addHoverEffect(map2Button, Level2_out, Level2_on);
-        // ... (lặp lại cho đến 12) ...
+        addHoverEffect(map3Button, Level3_out, Level3_on);
+        addHoverEffect(map4Button, Level4_out, Level4_on);
+        addHoverEffect(map5Button, Level5_out, Level5_on);
+        addHoverEffect(map6Button, Level6_out, Level6_on);
+        addHoverEffect(map7Button, Level7_out, Level7_on);
+        addHoverEffect(map8Button, Level8_out, Level8_on);
+        addHoverEffect(map9Button, Level9_out, Level9_on);
+        addHoverEffect(map10Button, Level10_out, Level10_on);
+        addHoverEffect(map11Button, Level11_out, Level11_on);
         addHoverEffect(map12Button, Level12_out, Level12_on);
         addHoverEffect(backButton, back_button_out, back_button_on);
 
         // --- (Code preventKeyActivation cũ cho các nút Level) ---
         preventKeyActivation(map1Button);
         preventKeyActivation(map2Button);
-        // ... (lặp lại cho đến 12) ...
+        preventKeyActivation(map3Button);
+        preventKeyActivation(map4Button);
+        preventKeyActivation(map5Button);
+        preventKeyActivation(map6Button);
+        preventKeyActivation(map7Button);
+        preventKeyActivation(map8Button);
+        preventKeyActivation(map9Button);
+        preventKeyActivation(map10Button);
+        preventKeyActivation(map11Button);
         preventKeyActivation(map12Button);
         preventKeyActivation(backButton);
 

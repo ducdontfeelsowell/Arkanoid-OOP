@@ -138,7 +138,6 @@ public class MenuController implements Initializable{
     // PHƯƠNG THỨC ĐÃ SỬA: Xử lý cả âm thanh, trạng thái hiển thị VÀ con trỏ chuột
     private void addHoverEffect(Button button, Node imageOut, Node imageOn) {
         if (button != null) {
-            // Đảm bảo ảnh ON/HOVER ban đầu bị ẩn
             if (imageOn != null) {
                 imageOn.setVisible(false);
             }
