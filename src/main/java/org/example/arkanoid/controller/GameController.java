@@ -12,6 +12,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.Node;
 import org.example.arkanoid.config.Constants;
+import org.example.arkanoid.game.EffectManager;
 import org.example.arkanoid.game.SoundManager;
 import org.example.arkanoid.launch.Main;
 import org.example.arkanoid.input.InputHandler;
@@ -181,6 +182,7 @@ public class GameController implements Initializable {
     private void returnToLevelScreen(Button originatingButton) {
         Constants.isStarted = false;
         this.inputHandler = null;
+        EffectManager.getInstance().clear();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.PATH_TO_LEVEL_VIEW));
             Parent root = loader.load();
