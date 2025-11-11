@@ -84,6 +84,57 @@ public class LevelController implements Initializable{
     @FXML private ImageView back_button_out;
     @FXML private ImageView back_button_on;
 
+    // THÊM MỚI: Các ImageView cho nút độ khó (Level 1)
+    @FXML private ImageView level1Easy_out, level1Easy_on;
+    @FXML private ImageView level1Normal_out, level1Normal_on;
+    @FXML private ImageView level1Hard_out, level1Hard_on;
+
+    // (Lặp lại cho Level 2 đến 12)
+    @FXML private ImageView level2Easy_out, level2Easy_on;
+    @FXML private ImageView level2Normal_out, level2Normal_on;
+    @FXML private ImageView level2Hard_out, level2Hard_on;
+
+    @FXML private ImageView level3Easy_out, level3Easy_on;
+    @FXML private ImageView level3Normal_out, level3Normal_on;
+    @FXML private ImageView level3Hard_out, level3Hard_on;
+
+    @FXML private ImageView level4Easy_out, level4Easy_on;
+    @FXML private ImageView level4Normal_out, level4Normal_on;
+    @FXML private ImageView level4Hard_out, level4Hard_on;
+
+    @FXML private ImageView level5Easy_out, level5Easy_on;
+    @FXML private ImageView level5Normal_out, level5Normal_on;
+    @FXML private ImageView level5Hard_out, level5Hard_on;
+
+    @FXML private ImageView level6Easy_out, level6Easy_on;
+    @FXML private ImageView level6Normal_out, level6Normal_on;
+    @FXML private ImageView level6Hard_out, level6Hard_on;
+
+    @FXML private ImageView level7Easy_out, level7Easy_on;
+    @FXML private ImageView level7Normal_out, level7Normal_on;
+    @FXML private ImageView level7Hard_out, level7Hard_on;
+
+    @FXML private ImageView level8Easy_out, level8Easy_on;
+    @FXML private ImageView level8Normal_out, level8Normal_on;
+    @FXML private ImageView level8Hard_out, level8Hard_on;
+
+    @FXML private ImageView level9Easy_out, level9Easy_on;
+    @FXML private ImageView level9Normal_out, level9Normal_on;
+    @FXML private ImageView level9Hard_out, level9Hard_on;
+
+    @FXML private ImageView level10Easy_out, level10Easy_on;
+    @FXML private ImageView level10Normal_out, level10Normal_on;
+    @FXML private ImageView level10Hard_out, level10Hard_on;
+
+    @FXML private ImageView level11Easy_out, level11Easy_on;
+    @FXML private ImageView level11Normal_out, level11Normal_on;
+    @FXML private ImageView level11Hard_out, level11Hard_on;
+
+    @FXML private ImageView level12Easy_out, level12Easy_on;
+    @FXML private ImageView level12Normal_out, level12Normal_on;
+    @FXML private ImageView level12Hard_out, level12Hard_on;
+
+
     // Các AnchorPane chọn độ khó ---
     @FXML private AnchorPane difficultyPane1, difficultyPane2, difficultyPane3, difficultyPane4,
             difficultyPane5, difficultyPane6, difficultyPane7, difficultyPane8,
@@ -107,9 +158,14 @@ public class LevelController implements Initializable{
     // Mảng để quản lý ảnh (cho hiệu ứng khóa)
     private ImageView[] levelOutImages;
 
+    // THÊM MỚI: Mảng cho ảnh nút độ khó
+    private ImageView[] easyOutImages, easyOnImages;
+    private ImageView[] normalOutImages, normalOnImages;
+    private ImageView[] hardOutImages, hardOnImages;
+
 
     /**
-     * SỬA ĐỔI: Cập nhật khóa cho cả Nút Level và Nút Độ Khó
+     * SỬA ĐỔI: Cập nhật khóa cho cả Nút Level và Nút Độ Khó (Dùng ảnh thay vì nút)
      */
     public void updateLockStatus() {
         int unlockedLevel = ProgressManager.maxLevelUnlocked;
@@ -143,11 +199,13 @@ public class LevelController implements Initializable{
         if (unlockedLevel < 12) { map12Button.setDisable(true); Level12_out.setOpacity(0.3); }
 
 
-        // --- 2. THÊM MỚI: Cập nhật trạng thái khóa cho Nút Độ Khó ---
-        if (easyButtons == null) return; // (Chưa khởi tạo)
+        // --- 2. SỬA ĐỔI: Cập nhật trạng thái khóa cho Nút Độ Khó (Dùng ảnh) ---
+        if (easyButtons == null || easyOutImages == null || easyOnImages == null) return; // (Chưa khởi tạo)
 
         for (int i = 0; i < 12; i++) {
-            if (easyButtons[i] == null || normalButtons[i] == null || hardButtons[i] == null) {
+            if (easyButtons[i] == null || normalButtons[i] == null || hardButtons[i] == null ||
+                    easyOutImages[i] == null || normalOutImages[i] == null || hardOutImages[i] == null ||
+                    easyOnImages[i] == null || normalOnImages[i] == null || hardOnImages[i] == null) {
                 continue;
             }
 
@@ -156,24 +214,26 @@ public class LevelController implements Initializable{
 
             // Nút Easy: Luôn mở (nút level cha đã xử lý khóa)
             easyButtons[i].setDisable(false);
-            easyButtons[i].setOpacity(1.0);
+            easyOutImages[i].setOpacity(1.0); // CHỈNH SỬA (từ Button sang ImageView)
 
             // Nút Normal: Khóa nếu Easy chưa xong (status < 1)
             if (status < ProgressManager.STATUS_EASY_COMPLETED) { // status < 1
                 normalButtons[i].setDisable(true);
-                normalButtons[i].setOpacity(0.3); // (Thêm hiệu ứng mờ)
+                normalOutImages[i].setOpacity(0.3); // CHỈNH SỬA (từ Button sang ImageView)
+                normalOnImages[i].setVisible(false); // THÊM MỚI: Đảm bảo ảnh 'on' tắt
             } else {
                 normalButtons[i].setDisable(false);
-                normalButtons[i].setOpacity(1.0);
+                normalOutImages[i].setOpacity(1.0); // CHỈNH SỬA (từ Button sang ImageView)
             }
 
             // Nút Hard: Khóa nếu Normal chưa xong (status < 2)
             if (status < ProgressManager.STATUS_NORMAL_COMPLETED) { // status < 2
                 hardButtons[i].setDisable(true);
-                hardButtons[i].setOpacity(0.3);
+                hardOutImages[i].setOpacity(0.3); // CHỈNH SỬA (từ Button sang ImageView)
+                hardOnImages[i].setVisible(false); // THÊM MỚI: Đảm bảo ảnh 'on' tắt
             } else {
                 hardButtons[i].setDisable(false);
-                hardButtons[i].setOpacity(1.0);
+                hardOutImages[i].setOpacity(1.0); // CHỈNH SỬA (từ Button sang ImageView)
             }
         }
     }
@@ -526,6 +586,39 @@ public class LevelController implements Initializable{
                 Level7_out, Level8_out, Level9_out, Level10_out, Level11_out, Level12_out
         };
 
+        // THÊM MỚI: Khởi tạo mảng ảnh độ khó
+        easyOutImages = new ImageView[]{
+                level1Easy_out, level2Easy_out, level3Easy_out, level4Easy_out,
+                level5Easy_out, level6Easy_out, level7Easy_out, level8Easy_out,
+                level9Easy_out, level10Easy_out, level11Easy_out, level12Easy_out
+        };
+        easyOnImages = new ImageView[]{
+                level1Easy_on, level2Easy_on, level3Easy_on, level4Easy_on,
+                level5Easy_on, level6Easy_on, level7Easy_on, level8Easy_on,
+                level9Easy_on, level10Easy_on, level11Easy_on, level12Easy_on
+        };
+        normalOutImages = new ImageView[]{
+                level1Normal_out, level2Normal_out, level3Normal_out, level4Normal_out,
+                level5Normal_out, level6Normal_out, level7Normal_out, level8Normal_out,
+                level9Normal_out, level10Normal_out, level11Normal_out, level12Normal_out
+        };
+        normalOnImages = new ImageView[]{
+                level1Normal_on, level2Normal_on, level3Normal_on, level4Normal_on,
+                level5Normal_on, level6Normal_on, level7Normal_on, level8Normal_on,
+                level9Normal_on, level10Normal_on, level11Normal_on, level12Normal_on
+        };
+        hardOutImages = new ImageView[]{
+                level1Hard_out, level2Hard_out, level3Hard_out, level4Hard_out,
+                level5Hard_out, level6Hard_out, level7Hard_out, level8Hard_out,
+                level9Hard_out, level10Hard_out, level11Hard_out, level12Hard_out
+        };
+        hardOnImages = new ImageView[]{
+                level1Hard_on, level2Hard_on, level3Hard_on, level4Hard_on,
+                level5Hard_on, level6Hard_on, level7Hard_on, level8Hard_on,
+                level9Hard_on, level10Hard_on, level11Hard_on, level12Hard_on
+        };
+
+
         // (Ẩn tất cả các pane độ khó - FXML đã làm, nhưng để chắc chắn)
         hideAllDifficultyPanes();
 
@@ -544,6 +637,12 @@ public class LevelController implements Initializable{
         Level12_on.setMouseTransparent(true);
         back_button_on.setMouseTransparent(true);
 
+        // THÊM MỚI: setMouseTransparent cho ảnh "on" của nút độ khó
+        for (ImageView iv : easyOnImages) { if (iv != null) iv.setMouseTransparent(true); }
+        for (ImageView iv : normalOnImages) { if (iv != null) iv.setMouseTransparent(true); }
+        for (ImageView iv : hardOnImages) { if (iv != null) iv.setMouseTransparent(true); }
+
+
         // ÁP DỤNG HIỆU ỨNG HOVER MỚI (Âm thanh + Ẩn/Hiện + Con trỏ)
         addHoverEffect(map1Button, Level1_out, Level1_on);
         addHoverEffect(map2Button, Level2_out, Level2_on);
@@ -558,6 +657,13 @@ public class LevelController implements Initializable{
         addHoverEffect(map11Button, Level11_out, Level11_on);
         addHoverEffect(map12Button, Level12_out, Level12_on);
         addHoverEffect(backButton, back_button_out, back_button_on);
+
+        // THÊM MỚI: Áp dụng hiệu ứng hover cho nút độ khó
+        for(int i=0; i<12; i++) {
+            if (easyButtons[i] != null) addHoverEffect(easyButtons[i], easyOutImages[i], easyOnImages[i]);
+            if (normalButtons[i] != null) addHoverEffect(normalButtons[i], normalOutImages[i], normalOnImages[i]);
+            if (hardButtons[i] != null) addHoverEffect(hardButtons[i], hardOutImages[i], hardOnImages[i]);
+        }
 
 
         // Gọi phương thức chặn phím
@@ -574,6 +680,11 @@ public class LevelController implements Initializable{
         preventKeyActivation(map11Button);
         preventKeyActivation(map12Button);
         preventKeyActivation(backButton);
+
+        // THÊM MỚI: Chặn phím cho nút độ khó
+        for (Button b : easyButtons) { preventKeyActivation(b); }
+        for (Button b : normalButtons) { preventKeyActivation(b); }
+        for (Button b : hardButtons) { preventKeyActivation(b); }
 
         updateLockStatus();
     }
