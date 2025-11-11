@@ -32,7 +32,6 @@ public class ShopController implements Initializable {
     private static Cursor defaultGameCursor;
     private static Cursor buttonHoverCursor;
 
-    // Theo dõi nút shop đang được chọn để giữ trạng thái sáng
     private Button currentActiveShopButton;
 
     // ĐÃ BỔ SUNG: MediaView từ FXML
@@ -192,7 +191,6 @@ public class ShopController implements Initializable {
         if (imageOut != null) imageOut.setVisible(true);
         if (imageOn != null) imageOn.setVisible(false);
     }
-    // ----------------------------------------------------------------------
 
 
     @FXML

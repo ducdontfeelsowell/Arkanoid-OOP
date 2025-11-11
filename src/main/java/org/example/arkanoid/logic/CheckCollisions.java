@@ -1,7 +1,7 @@
 package org.example.arkanoid.logic;
 
 import org.example.arkanoid.game.BallManager;
-import org.example.arkanoid.game.BulletManager; // THÊM MỚI
+import org.example.arkanoid.game.BulletManager;
 import org.example.arkanoid.game.GameManager;
 import org.example.arkanoid.game.ItemManager;
 import org.example.arkanoid.object.Ball;
