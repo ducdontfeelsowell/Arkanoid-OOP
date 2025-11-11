@@ -9,15 +9,12 @@ import org.example.arkanoid.object.Paddle;
 public class CheckBallPaddleCollision {
     public static void check(Ball ball, Paddle paddle) {
 
-        // --- SỬA ĐỔI LOGIC ---
-        // Chúng ta tách điều kiện kiểm tra va chạm và điều kiện reset
+
 
         if ((ball.isCollidingWith(paddle) && ball.getDy() > 0) && !ball.getSideHit()) {
 
-            // Phát âm thanh va chạm paddle
             SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_PADDLE_HIT);
 
-            // Kích hoạt hiệu ứng va chạm
             double impactX = ball.getX() + ball.getWidth() / 2;
             double impactY = paddle.getY() - 5;
 
@@ -32,10 +29,8 @@ public class CheckBallPaddleCollision {
             double overlapY = Math.min(overlapTop, overlapBottom);
 
 
-            // Bóng chạm cạnh hay chạm trên
             if (overlapX < overlapY) {
                 ball.setSideHit(true);
-                // Chỉnh vị trí để bóng không dính vào trong paddle
                 ball.setDy(Math.abs(ball.getDy()));
                 if (overlapLeft < overlapRight) {
                     ball.setX(ball.getX() - overlapLeft);
@@ -46,12 +41,10 @@ public class CheckBallPaddleCollision {
                 }
 
             } else {
-                // Điều chỉnh hướng X dựa trên vị trí chạm
                 double paddleCenter = paddle.getX() + paddle.getWidth() / 2;
                 double ballCenter = ball.getX() + ball.getWidth() / 2;
                 double offset = (ballCenter - paddleCenter) / (paddle.getWidth() / 2);
 
-                // Thay đổi góc phản xạ dựa vào vị trí va chạm
                 if (Math.abs(offset) < Constants.DEFAULT_BALL_OFFSET) {
                     offset = Math.signum(offset) * Constants.DEFAULT_BALL_OFFSET;
                 } else if (Math.abs(offset) >= Constants.DEFAULT_BALL_OFFSET_CAP) {
@@ -60,11 +53,9 @@ public class CheckBallPaddleCollision {
                 ball.setOffset(offset);
             }
         }
-        // --- THÊM MỚI: KHỐI ELSE IF ---
-        // Nếu bóng không va chạm với paddle, reset cờ sideHit
+
         else if (!ball.isCollidingWith(paddle)) {
             ball.setSideHit(false);
         }
-        // --- KẾT THÚC THÊM MỚI ---
     }
 }
