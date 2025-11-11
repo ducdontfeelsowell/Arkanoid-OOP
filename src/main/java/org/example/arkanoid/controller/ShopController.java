@@ -82,6 +82,14 @@ public class ShopController implements Initializable {
     @FXML private ImageView BALL_CHROME_HoverImage;
     @FXML private ImageView BALL_CHROME_Image;
 
+    // --- BỔ SUNG: FXML ID cho các ImageView Pulsate (Ball) ---
+    @FXML private ImageView BALL_EARTH_PulsateImage;
+    @FXML private ImageView BALL_SOCCER_PulsateImage;
+    @FXML private ImageView BALL_PANCAKE_PulsateImage;
+    @FXML private ImageView BALL_ENDERMAN2_PulsateImage;
+    @FXML private ImageView BALL_ENDERMAN1_PulsateImage;
+    @FXML private ImageView BALL_CHROME_PulsateImage;
+
 
     // --- FXML ID cho các ImageView (Trail) ---
     @FXML private ImageView TRAIL_LGBT_HoverImage;
@@ -97,12 +105,24 @@ public class ShopController implements Initializable {
     @FXML private ImageView TRAIL_LUCKYCLOVER_HoverImage;
     @FXML private ImageView TRAIL_LUCKYCLOVER_Image;
 
+    // --- BỔ SUNG: FXML ID cho các ImageView Pulsate (Trail) ---
+    @FXML private ImageView TRAIL_LGBT_PulsateImage;
+    @FXML private ImageView TRAIL_DIAMOND_PulsateImage;
+    @FXML private ImageView TRAIL_LIGHTNING_PulsateImage;
+    @FXML private ImageView TRAIL_PRIMOGEM_PulsateImage;
+    @FXML private ImageView TRAIL_DOLLA_PulsateImage;
+    @FXML private ImageView TRAIL_LUCKYCLOVER_PulsateImage;
+
 
     // --- FXML ID cho các ImageView (Paddle) ---
     @FXML private ImageView PADDLE_DEFAULT_HoverImage;
     @FXML private ImageView PADDLE_DEFAULT_Image;
     @FXML private ImageView PADDLE_SKIN2_HoverImage;
     @FXML private ImageView PADDLE_SKIN2_Image;
+
+    // --- BỔ SUNG: FXML ID cho các ImageView Pulsate (Paddle) ---
+    @FXML private ImageView PADDLE_DEFAULT_PulsateImage;
+    @FXML private ImageView PADDLE_SKIN2_PulsateImage;
 
 
     // Các AnchorPane chứa nội dung từng mục
@@ -114,9 +134,6 @@ public class ShopController implements Initializable {
     private AnchorPane paddleContentPane;
 
     // --- Các nhãn hiển thị (TỪ FXML MỚI) ---
-    // Lưu ý: Các nhãn này có vẻ bị trùng tên trong FXML (playerCoinLabel2, shopNotificationLabel2)
-    // và không được khai báo trong ballContentPane/trailContentPane.
-    // Logic cập nhật dưới đây đã sửa lỗi này bằng cách sử dụng các biến thành viên khác nhau (playerCoinLabel, playerCoinLabel1, playerCoinLabel2)
     @FXML private Label playerCoinLabel;
     @FXML private Label shopNotificationLabel;
     @FXML private Label playerCoinLabel1;
@@ -438,36 +455,39 @@ public class ShopController implements Initializable {
         // 1. Cập nhật tiền (Sử dụng hàm trợ giúp mới)
         updateAllCoinLabels("Coins: " + ProgressManager.getCurrentCoins_Static());
 
-        // 2. Cập nhật các nút Ball
-        updateItemUI(label_BALL_EARTH, button_BALL_EARTH, Constants.BALL_SKIN_EARTH, "ball");
-        updateItemUI(label_BALL_PANCAKE, button_BALL_PANCAKE, Constants.BALL_SKIN_PANCAKE, "ball");
-        // *** SỬA: Đảm bảo dùng đúng ID từ FXML (Enderman1) ***
-        updateItemUI(label_BALL_ENDERMAN1, button_BALL_ENDERMAN1, Constants.BALL_SKIN_ENDERMAN1, "ball");
-        updateItemUI(label_BALL_SOCCER, button_BALL_SOCCER, Constants.BALL_SKIN_SOCCER, "ball");
-        // *** SỬA: Đảm bảo dùng đúng ID từ FXML (Enderman2) ***
-        updateItemUI(label_BALL_ENDERMAN2, button_BALL_ENDERMAN2, Constants.BALL_SKIN_ENDERMAN2, "ball");
-        updateItemUI(label_BALL_CHROME, button_BALL_CHROME, Constants.BALL_SKIN_CHROME, "ball");
+        // 2. Cập nhật các nút Ball (Đã thêm tham số PulsateImage)
+        updateItemUI(label_BALL_EARTH, button_BALL_EARTH, Constants.BALL_SKIN_EARTH, "ball", BALL_EARTH_PulsateImage);
+        updateItemUI(label_BALL_PANCAKE, button_BALL_PANCAKE, Constants.BALL_SKIN_PANCAKE, "ball", BALL_PANCAKE_PulsateImage);
+        updateItemUI(label_BALL_ENDERMAN1, button_BALL_ENDERMAN1, Constants.BALL_SKIN_ENDERMAN1, "ball", BALL_ENDERMAN1_PulsateImage);
+        updateItemUI(label_BALL_SOCCER, button_BALL_SOCCER, Constants.BALL_SKIN_SOCCER, "ball", BALL_SOCCER_PulsateImage);
+        updateItemUI(label_BALL_ENDERMAN2, button_BALL_ENDERMAN2, Constants.BALL_SKIN_ENDERMAN2, "ball", BALL_ENDERMAN2_PulsateImage);
+        updateItemUI(label_BALL_CHROME, button_BALL_CHROME, Constants.BALL_SKIN_CHROME, "ball", BALL_CHROME_PulsateImage);
 
-        // 3. Cập nhật các nút Trail
-        updateItemUI(label_TRAIL_LGBT, button_TRAIL_LGBT, Constants.TRAIL_SKIN_LGBT, "trail");
-        updateItemUI(label_TRAIL_LIGHTNING, button_TRAIL_LIGHTNING, Constants.TRAIL_SKIN_LIGHTNING, "trail");
-        updateItemUI(label_TRAIL_DOLLA, button_TRAIL_DOLLA, Constants.TRAIL_SKIN_DOLLA, "trail");
-        updateItemUI(label_TRAIL_DIAMOND, button_TRAIL_DIAMOND, Constants.TRAIL_SKIN_DIAMOND, "trail");
-        updateItemUI(label_TRAIL_PRIMOGEM, button_TRAIL_PRIMOGEM, Constants.TRAIL_SKIN_PRIMOGEM, "trail");
-        updateItemUI(label_TRAIL_LUCKYCLOVER, button_TRAIL_LUCKYCLOVER, Constants.TRAIL_SKIN_LUCKYCLOVER, "trail");
+        // 3. Cập nhật các nút Trail (Đã thêm tham số PulsateImage)
+        updateItemUI(label_TRAIL_LGBT, button_TRAIL_LGBT, Constants.TRAIL_SKIN_LGBT, "trail", TRAIL_LGBT_PulsateImage);
+        updateItemUI(label_TRAIL_LIGHTNING, button_TRAIL_LIGHTNING, Constants.TRAIL_SKIN_LIGHTNING, "trail", TRAIL_LIGHTNING_PulsateImage);
+        updateItemUI(label_TRAIL_DOLLA, button_TRAIL_DOLLA, Constants.TRAIL_SKIN_DOLLA, "trail", TRAIL_DOLLA_PulsateImage);
+        updateItemUI(label_TRAIL_DIAMOND, button_TRAIL_DIAMOND, Constants.TRAIL_SKIN_DIAMOND, "trail", TRAIL_DIAMOND_PulsateImage);
+        updateItemUI(label_TRAIL_PRIMOGEM, button_TRAIL_PRIMOGEM, Constants.TRAIL_SKIN_PRIMOGEM, "trail", TRAIL_PRIMOGEM_PulsateImage);
+        updateItemUI(label_TRAIL_LUCKYCLOVER, button_TRAIL_LUCKYCLOVER, Constants.TRAIL_SKIN_LUCKYCLOVER, "trail", TRAIL_LUCKYCLOVER_PulsateImage);
 
-        // 4. Cập nhật Paddle
-        // *** SỬA: Dùng hằng số đã thêm vào Constants.java ***
-        updateItemUI(label_PADDLE_DEFAULT, button_PADDLE_DEFAULT, Constants.PADDLE_SKIN_DEFAULT, "paddle");
-        updateItemUI(label_PADDLE_SKIN2, button_PADDLE_SKIN2, Constants.PADDLE_SKIN_2, "paddle");
+        // 4. Cập nhật Paddle (Đã thêm tham số PulsateImage)
+        updateItemUI(label_PADDLE_DEFAULT, button_PADDLE_DEFAULT, Constants.PADDLE_SKIN_DEFAULT, "paddle", PADDLE_DEFAULT_PulsateImage);
+        updateItemUI(label_PADDLE_SKIN2, button_PADDLE_SKIN2, Constants.PADDLE_SKIN_2, "paddle", PADDLE_SKIN2_PulsateImage);
     }
 
     /**
      * Phương thức trợ giúp (helper) để cập nhật một cặp Label/Button vật phẩm
+     * SỬA: Đã thêm tham số ImageView pulsateImage
      */
-    private void updateItemUI(Label label, Button button, String itemId, String itemType) {
+    private void updateItemUI(Label label, Button button, String itemId, String itemType, ImageView pulsateImage) {
         if (label == null || button == null) {
             return;
+        }
+
+        // BỔ SUNG: Luôn reset (ẩn) hiệu ứng nhấp nháy trước khi kiểm tra
+        if (pulsateImage != null) {
+            pulsateImage.setVisible(false);
         }
 
         boolean isOwned;
@@ -483,7 +503,6 @@ public class ShopController implements Initializable {
             equippedId = ProgressManager.getEquippedTrail();
             if (equippedId == null) equippedId = Constants.TRAIL_SKIN_LGBT; // Mặc định
         } else { // "paddle"
-            // *** SỬA: Logic này giờ đã hoạt động vì ProgressManager đã được cập nhật ***
             isOwned = ProgressManager.isPaddleOwned(itemId);
             equippedId = ProgressManager.getEquippedPaddle();
             if (equippedId == null) equippedId = Constants.PADDLE_SKIN_DEFAULT;
@@ -491,14 +510,20 @@ public class ShopController implements Initializable {
 
         if (isOwned) {
             if (equippedId.equals(itemId)) {
+                // ĐANG TRANG BỊ
                 label.setText("Equipped");
                 button.setDisable(true);
+                // BỔ SUNG: Hiển thị hiệu ứng nhấp nháy
+                if (pulsateImage != null) {
+                    pulsateImage.setVisible(true);
+                }
             } else {
+                // ĐÃ SỞ HỮU (NHƯNG KHÔNG TRANG BỊ)
                 label.setText("Equip");
                 button.setDisable(false);
             }
         } else {
-            // Chưa sở hữu
+            // CHƯA SỞ HỮU
             Integer cost = Constants.ITEM_COSTS.get(itemId);
             if (cost != null) {
                 if (cost == 0) {
@@ -519,6 +544,7 @@ public class ShopController implements Initializable {
 
     /**
      * Phương thức trợ giúp chung để xử lý click mua/trang bị
+     * (Không cần thay đổi hàm này, vì nó gọi updateShopUI() ở cuối)
      */
     private void handleItemClick(Label label, Button button, String itemId, String itemType) {
         // Xóa thông báo cũ (Sử dụng hàm trợ giúp mới)
@@ -562,6 +588,7 @@ public class ShopController implements Initializable {
         }
 
         // Sau khi thực hiện hành động, cập nhật lại TOÀN BỘ giao diện
+        // Hàm này sẽ tự động gọi updateItemUI với logic nhấp nháy mới
         updateShopUI();
     }
 
@@ -572,10 +599,8 @@ public class ShopController implements Initializable {
     // --- Ball Handlers ---
     @FXML private void onBuyEquip_BallEarth() { handleItemClick(label_BALL_EARTH, button_BALL_EARTH, Constants.BALL_SKIN_EARTH, "ball"); }
     @FXML private void onBuyEquip_BallPancake() { handleItemClick(label_BALL_PANCAKE, button_BALL_PANCAKE, Constants.BALL_SKIN_PANCAKE, "ball"); }
-    // *** SỬA: Đảm bảo dùng đúng ID từ FXML (Enderman1) ***
     @FXML private void onBuyEquip_BallEnderman1() { handleItemClick(label_BALL_ENDERMAN1, button_BALL_ENDERMAN1, Constants.BALL_SKIN_ENDERMAN1, "ball"); }
     @FXML private void onBuyEquip_BallSoccer() { handleItemClick(label_BALL_SOCCER, button_BALL_SOCCER, Constants.BALL_SKIN_SOCCER, "ball"); }
-    // *** SỬA: Đảm bảo dùng đúng ID từ FXML (Enderman2) ***
     @FXML private void onBuyEquip_BallEnderman2() { handleItemClick(label_BALL_ENDERMAN2, button_BALL_ENDERMAN2, Constants.BALL_SKIN_ENDERMAN2, "ball"); }
     @FXML private void onBuyEquip_BallChrome() { handleItemClick(label_BALL_CHROME, button_BALL_CHROME, Constants.BALL_SKIN_CHROME, "ball"); }
 
@@ -588,7 +613,6 @@ public class ShopController implements Initializable {
     @FXML private void onBuyEquip_TrailLuckyClover() { handleItemClick(label_TRAIL_LUCKYCLOVER, button_TRAIL_LUCKYCLOVER, Constants.TRAIL_SKIN_LUCKYCLOVER, "trail"); }
 
     // --- Paddle Handlers ---
-    // *** SỬA: Dùng hằng số đã thêm vào Constants.java ***
     @FXML private void onBuyEquip_PaddleDefault() { handleItemClick(label_PADDLE_DEFAULT, button_PADDLE_DEFAULT, Constants.PADDLE_SKIN_DEFAULT, "paddle"); }
     @FXML private void onBuyEquip_PaddleSkin2() { handleItemClick(label_PADDLE_SKIN2, button_PADDLE_SKIN2, Constants.PADDLE_SKIN_2, "paddle"); }
 
