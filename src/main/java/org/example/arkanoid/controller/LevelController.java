@@ -104,7 +104,6 @@ public class LevelController implements Initializable{
 
     private AnchorPane[] difficultyPanes;
     private Button[] easyButtons, normalButtons, hardButtons;
-    // Mảng để quản lý ảnh (cho hiệu ứng khóa)
     private ImageView[] levelOutImages;
 
 
@@ -115,8 +114,6 @@ public class LevelController implements Initializable{
         int unlockedLevel = ProgressManager.maxLevelUnlocked;
         int[] difficulties = ProgressManager.currentDifficultyCompleted; // Mảng trạng thái
 
-        // --- 1. Khóa Nút Level (Logic cũ) ---
-        // (Bật lại tất cả trước khi khóa)
         map2Button.setDisable(false); Level2_out.setOpacity(1.0);
         map3Button.setDisable(false); Level3_out.setOpacity(1.0);
         map4Button.setDisable(false); Level4_out.setOpacity(1.0);
@@ -129,7 +126,6 @@ public class LevelController implements Initializable{
         map11Button.setDisable(false); Level11_out.setOpacity(1.0);
         map12Button.setDisable(false); Level12_out.setOpacity(1.0);
 
-        // Làm mờ và khóa các màn bị khóa
         if (unlockedLevel < 2) { map2Button.setDisable(true); Level2_out.setOpacity(0.3); }
         if (unlockedLevel < 3) { map3Button.setDisable(true); Level3_out.setOpacity(0.3); }
         if (unlockedLevel < 4) { map4Button.setDisable(true); Level4_out.setOpacity(0.3); }
@@ -143,7 +139,6 @@ public class LevelController implements Initializable{
         if (unlockedLevel < 12) { map12Button.setDisable(true); Level12_out.setOpacity(0.3); }
 
 
-        // --- 2. THÊM MỚI: Cập nhật trạng thái khóa cho Nút Độ Khó ---
         if (easyButtons == null) return; // (Chưa khởi tạo)
 
         for (int i = 0; i < 12; i++) {
@@ -203,14 +198,10 @@ public class LevelController implements Initializable{
         if (paneToShow == null) return;
 
         if (paneToShow.isVisible()) {
-            // Nếu đã hiển thị, ẩn đi
             paneToShow.setVisible(false);
         } else {
-            // Ẩn tất cả các pane khác
             hideAllDifficultyPanes();
-            // Cập nhật lại trạng thái khóa (vì dữ liệu có thể đã thay đổi)
             updateLockStatus();
-            // Hiển thị pane này
             paneToShow.setVisible(true);
         }
     }
@@ -333,7 +324,6 @@ public class LevelController implements Initializable{
         int level = 0;
         int difficulty = 0;
 
-        // Phân tích fx:id để tìm Level (1-12)
         if (fxId.startsWith("level1Easy") || fxId.startsWith("level1Normal") || fxId.startsWith("level1Hard")) level = 1;
         else if (fxId.startsWith("level2")) level = 2;
         else if (fxId.startsWith("level3")) level = 3;
@@ -347,7 +337,6 @@ public class LevelController implements Initializable{
         else if (fxId.startsWith("level11")) level = 11;
         else if (fxId.startsWith("level12")) level = 12;
 
-        // Phân tích fx:id để tìm Difficulty (0, 1, 2)
         if (fxId.contains("Easy")) difficulty = ProgressManager.DIFFICULTY_EASY;
         else if (fxId.contains("Normal")) difficulty = ProgressManager.DIFFICULTY_NORMAL;
         else if (fxId.contains("Hard")) difficulty = ProgressManager.DIFFICULTY_HARD;
@@ -356,13 +345,10 @@ public class LevelController implements Initializable{
         if (level > 0) {
             SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
 
-            // 1. Set độ khó toàn cục trong Constants
             Constants.setDifficulty(difficulty);
 
-            // 2. Ẩn tất cả các pane (vì chúng ta sắp rời đi)
             hideAllDifficultyPanes();
 
-            // 3. Bắt đầu game
             Main.startGame(level);
         }
     }
@@ -383,7 +369,6 @@ public class LevelController implements Initializable{
             }
             button.hoverProperty().addListener((obs, oldVal, newVal) -> {
                 if (newVal) {
-                    // KHI HOVER VÀO:
                     SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_HOVER);
                     if (imageOut != null) {
                         imageOut.setVisible(false);
@@ -392,7 +377,6 @@ public class LevelController implements Initializable{
                         imageOn.setVisible(true);
                     }
 
-                    // THÊM MỚI: THAY ĐỔI CON TRỎ THÀNH IMG2 (Hover Cursor)
                     if (buttonHoverCursor != null && button.getScene() != null) {
                         button.getScene().setCursor(buttonHoverCursor);
                     }
@@ -406,7 +390,6 @@ public class LevelController implements Initializable{
                         imageOn.setVisible(false);
                     }
                     System.out.println("PPPPPPPPPP");
-                    // THÊM MỚI: ĐẶT LẠI CON TRỎ MẶC ĐỊNH (IMG1) CỦA SCENE
                     if (defaultGameCursor != null && button.getScene() != null) {
                         button.getScene().setCursor(defaultGameCursor);
                         System.out.println("TTTTTTTTTTTTTT");
@@ -416,7 +399,6 @@ public class LevelController implements Initializable{
         }
     }
 
-    // Phương thức chặn phím Space/Enter
     private void preventKeyActivation(Button button) {
         if (button != null) {
             button.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
@@ -448,7 +430,6 @@ public class LevelController implements Initializable{
             }
         }
 
-        // KIỂM TRA THỨ HAI: Tải con trỏ hover (img2)
         if (buttonHoverCursor == null) {
             try {
                 URL cursorUrl = getClass().getResource(Constants.PATH_TO_HOVER_CURSOR);
@@ -523,10 +504,8 @@ public class LevelController implements Initializable{
                 Level7_out, Level8_out, Level9_out, Level10_out, Level11_out, Level12_out
         };
 
-        // (Ẩn tất cả các pane độ khó - FXML đã làm, nhưng để chắc chắn)
         hideAllDifficultyPanes();
 
-        // --- (Code setMouseTransparent cũ) ---
         Level1_on.setMouseTransparent(true);
         Level2_on.setMouseTransparent(true);
         Level3_on.setMouseTransparent(true);
@@ -541,7 +520,6 @@ public class LevelController implements Initializable{
         Level12_on.setMouseTransparent(true);
         back_button_on.setMouseTransparent(true);
 
-        // ÁP DỤNG HIỆU ỨNG HOVER MỚI (Âm thanh + Ẩn/Hiện + Con trỏ)
         addHoverEffect(map1Button, Level1_out, Level1_on);
         addHoverEffect(map2Button, Level2_out, Level2_on);
         addHoverEffect(map3Button, Level3_out, Level3_on);
@@ -557,7 +535,6 @@ public class LevelController implements Initializable{
         addHoverEffect(backButton, back_button_out, back_button_on);
 
 
-        // Gọi phương thức chặn phím
         preventKeyActivation(map1Button);
         preventKeyActivation(map2Button);
         preventKeyActivation(map3Button);
