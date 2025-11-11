@@ -29,8 +29,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 public class HelpController implements Initializable {
-    private static Cursor defaultGameCursor; // Con trỏ mặc định của game (img1)
-    private static Cursor buttonHoverCursor; // Con trỏ khi hover (img2)
+    private static Cursor defaultGameCursor;
+    private static Cursor buttonHoverCursor;
     private boolean isTransisioning = false;
 
     @FXML
