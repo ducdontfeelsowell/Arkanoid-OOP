@@ -12,7 +12,7 @@ public class ProgressManager {
     public static String currentPlayerName;
     public static int maxLevelUnlocked;
     public static int currentCoins;
-    public static int totalScore; // <-- THÊM MỚI: Tổng điểm
+    public static int totalScore;
 
     // Đường dẫn file mới
     private static final String PROFILE_DIR_PATH = "src/main/resources/Profiles/";
@@ -41,7 +41,6 @@ public class ProgressManager {
 
         @Override
         public String toString() {
-            // Format để lưu vào file: level,coins,score
             return level + "," + coins + "," + score;
         }
     }
@@ -53,13 +52,13 @@ public class ProgressManager {
         userDatabase.clear();
         File profileDir = new File(PROFILE_DIR_PATH);
         if (!profileDir.exists()) {
-            profileDir.mkdirs(); // Tạo thư mục nếu chưa có
+            profileDir.mkdirs();
         }
 
         File userFile = new File(USER_FILE_PATH);
         if (!userFile.exists()) {
             System.out.println("Không tìm thấy user.txt. Sẽ tạo file mới khi lưu.");
-            return; // File chưa tồn tại, database rỗng
+            return;
         }
 
         try (BufferedReader reader = new BufferedReader(new FileReader(userFile))) {
@@ -67,10 +66,10 @@ public class ProgressManager {
             while ((line = reader.readLine()) != null) {
                 if (line.trim().isEmpty()) continue;
 
-                String[] parts = line.split("="); // Tách Tên = Dữ liệu
+                String[] parts = line.split("=");
                 if (parts.length == 2) {
                     String name = parts[0];
-                    String[] data = parts[1].split(","); // Tách Dữ liệu (level,coins,score)
+                    String[] data = parts[1].split(",");
                     if (data.length == 3) {
                         int level = Integer.parseInt(data[0]);
                         int coins = Integer.parseInt(data[1]);
@@ -93,7 +92,6 @@ public class ProgressManager {
         File userFile = new File(USER_FILE_PATH);
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(userFile))) {
             for (Map.Entry<String, UserData> entry : userDatabase.entrySet()) {
-                // Ghi theo format: TenNguoiChoi=level,coins,score
                 writer.write(entry.getKey() + "=" + entry.getValue().toString());
                 writer.newLine();
             }
@@ -119,17 +117,16 @@ public class ProgressManager {
      */
     public static void login(String playerName) {
         currentPlayerName = playerName.trim();
-        loadUserDatabase(); // Tải dữ liệu mới nhất từ file
+        loadUserDatabase();
 
         if (userDatabase.containsKey(currentPlayerName)) {
-            // --- NGƯỜI CHƠI CŨ: Tải dữ liệu ---
             System.out.println("Chào mừng trở lại, " + currentPlayerName);
             UserData data = userDatabase.get(currentPlayerName);
             maxLevelUnlocked = data.level;
             currentCoins = data.coins;
             totalScore = data.score;
         } else {
-            // --- NGƯỜi CHƠI MỚI: Tạo dữ liệu ---
+            // NGƯỜi CHƠI MỚI: Tạo dữ liệu
             System.out.println("Tạo người chơi mới: " + currentPlayerName);
             maxLevelUnlocked = 1;
             currentCoins = 0;
@@ -150,10 +147,8 @@ public class ProgressManager {
             return;
         }
 
-        // Cập nhật database trong bộ nhớ
         UserData currentData = userDatabase.get(currentPlayerName);
         if (currentData == null) {
-            // Trường hợp dự phòng nếu người chơi không có trong map
             currentData = new UserData(maxLevelUnlocked, currentCoins, totalScore);
         }
 
@@ -163,7 +158,6 @@ public class ProgressManager {
 
         userDatabase.put(currentPlayerName, currentData);
 
-        // Lưu toàn bộ database (bao gồm thay đổi) ra file
         saveUserDatabase();
     }
 
@@ -176,23 +170,16 @@ public class ProgressManager {
     public static void completeLevel(int levelJustBeaten, int scoreEarned) {
         int nextLevel = levelJustBeaten + 1;
 
-        // Quy tắc: Chỉ cộng điểm VÀ mở khóa level nếu màn vừa qua
-        // là màn cao nhất họ từng đạt tới (levelJustBeaten >= maxLevelUnlocked)
         if (levelJustBeaten >= maxLevelUnlocked && nextLevel <= 12) {
 
             System.out.println("Lần đầu vượt qua màn " + levelJustBeaten + ". Cộng " + scoreEarned + " điểm!");
-            maxLevelUnlocked = nextLevel; // Mở khóa màn tiếp theo
+            maxLevelUnlocked = nextLevel;
             totalScore += scoreEarned; // Chỉ cộng điểm khi là màn mới
 
             saveCurrentProfile(); // Lưu cả level mới và điểm mới
 
         } else if (nextLevel > 12 && levelJustBeaten == 12 && maxLevelUnlocked == 12) {
-            // Xử lý trường hợp đặc biệt: Đánh bại màn 12
-            // Kiểm tra xem điểm đã được cộng cho màn 12 chưa (bằng cách so sánh level)
-            // (Logic này có thể cần điều chỉnh nếu bạn muốn cho phép cộng điểm màn 12 nhiều lần)
 
-            // Giả định: totalScore chỉ được cộng 1 lần duy nhất cho mỗi màn
-            // Nếu maxLevelUnlocked đã > 12 (ví dụ 13), nghĩa là màn 12 đã được tính điểm.
             if (maxLevelUnlocked <= 12) {
                 System.out.println("Lần đầu vượt qua màn 12. Cộng " + scoreEarned + " điểm!");
                 totalScore += scoreEarned;
@@ -200,7 +187,6 @@ public class ProgressManager {
                 saveCurrentProfile();
             }
         } else {
-            // Màn này đã chơi rồi, không cộng điểm, không lưu
             System.out.println("Đã chơi lại màn " + levelJustBeaten + ". Không cộng điểm.");
         }
     }
@@ -210,8 +196,6 @@ public class ProgressManager {
      * KHÔNG tăng maxLevelUnlocked.
      */
     public static void addScoreFromFailedLevel(int levelPlayed, int scoreEarned) {
-        // Quy tắc: Chỉ cộng điểm nếu đây là màn chơi cao nhất
-        // (levelPlayed >= maxLevelUnlocked) VÀ họ chưa hoàn thành game (maxLevelUnlocked <= 12)
         if (levelPlayed >= maxLevelUnlocked && maxLevelUnlocked <= 12) {
             System.out.println("Thua ở màn mới " + levelPlayed + ". Cộng " + scoreEarned + " điểm!");
             totalScore += scoreEarned;
@@ -228,7 +212,7 @@ public class ProgressManager {
         if (amount > 0) {
             currentCoins += amount;
             System.out.println("Đã nhận " + amount + " coins. Tổng: " + currentCoins);
-            saveCurrentProfile(); // Lưu coin ngay lập tức
+            saveCurrentProfile();
         }
     }
 }

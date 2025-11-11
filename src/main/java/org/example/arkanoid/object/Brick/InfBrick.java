@@ -10,30 +10,24 @@ import java.util.Objects;
 
 public class InfBrick extends Brick {
 
-    // --- THÊM MỚI: Quản lý Animation ---
 
-    // Danh sách ảnh tĩnh (static), chỉ tải 1 LẦN
     private static Image staticFrame;
     private static List<Image> animationFrames;
 
-    // Trạng thái animation cho từng viên gạch CỤ THỂ
+
     private boolean isAnimating;
     private int currentFrame;
     private long lastFrameTime;
 
-    // Tốc độ animation (ví dụ: 50ms mỗi frame)
     private static final long FRAME_DURATION_NANO = 50_000_000L;
 
-    // Khối static initializer, chạy 1 lần khi lớp được tải
     static {
         animationFrames = new ArrayList<>();
         try {
-            // Tải ảnh tĩnh (khi không di chuyển)
             staticFrame = new Image(Objects.requireNonNull(
                     InfBrick.class.getResourceAsStream(Constants.PATH_TO_INF_BRICK_STATIC)
             ));
 
-            // Tải 10 ảnh animation
             for (String path : Constants.PATH_TO_INF_BRICK_ANIM) {
                 Image frame = new Image(Objects.requireNonNull(
                         InfBrick.class.getResourceAsStream(path)
@@ -47,7 +41,6 @@ public class InfBrick extends Brick {
             staticFrame = null;
         }
     }
-    // --- KẾT THÚC THÊM MỚI ---
 
     public InfBrick(double x, double y, double width, double height, int hitPoints, int type) {
         super(x, y, width, height, hitPoints, type);
@@ -103,7 +96,6 @@ public class InfBrick extends Brick {
      * Kích hoạt animation va chạm (được gọi từ HandleBrickCollision)
      */
     public void triggerAnimation() {
-        // Chỉ bắt đầu nếu không đang chạy
         if (!isAnimating) {
             this.isAnimating = true;
             this.currentFrame = 0;

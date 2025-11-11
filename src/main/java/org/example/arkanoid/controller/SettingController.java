@@ -5,11 +5,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
-import javafx.scene.image.Image; // THÊM MỚI
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.Node;
-import javafx.scene.Cursor; // THÊM MỚI
-import javafx.scene.Scene; // THÊM MỚI
+import javafx.scene.Cursor;
+import javafx.scene.Scene;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -38,14 +38,7 @@ public class SettingController implements Initializable {
     @FXML private Slider volumeSliderSFX;
     @FXML private CheckBox muteCheckbox;
 
-    /* To be moved elsewhere
-    // --- KHAI BÁO FXML CHO ĐỘ KHÓ ---
-    @FXML private RadioButton easyRadio;
-    @FXML private RadioButton normalRadio;
-    @FXML private RadioButton hardRadio;
-    @FXML private ToggleGroup difficultyToggleGroup;
-    // --- KẾT THÚC KHAI BÁO ---
-     */
+
 
     @FXML private ImageView volumeIconViewHigh;
     @FXML private ImageView volumeIconViewMuted;
@@ -97,53 +90,6 @@ public class SettingController implements Initializable {
         soundManager.setSoundEffectVolume(master * soundManager.getSfxVolumeRaw());
     }
 
-    /* To be moved elsewhere
-    // --- CÁC PHƯƠNG THỨC XỬ LÝ ĐỘ KHÓ (Giữ nguyên) ---
-    @FXML
-    private void onEasyClick() {
-        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
-        updateDifficultySettings("Dễ");
-    }
-
-    @FXML
-    private void onNormalClick() {
-        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
-        updateDifficultySettings("Thường");
-    }
-
-    @FXML
-    private void onHardClick() {
-        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
-        updateDifficultySettings("Khó");
-    }
-
-     // Cập nhật các biến CURRENT trong Constants (Giữ nguyên)
-    private void updateDifficultySettings(String difficulty) {
-        Constants.CURRENT_DIFFICULTY = difficulty;
-
-        switch (difficulty) {
-            case "Dễ":
-                Constants.CURRENT_LIVES = Constants.EASY_LIVES;
-                Constants.CURRENT_PADDLE_SPEED = Constants.EASY_PADDLE_SPEED;
-                Constants.CURRENT_BALL_SPEED = Constants.EASY_BALL_SPEED;
-                Constants.CURRENT_DROP_CHANCE = Constants.EASY_DROP_CHANCE;
-                break;
-            case "Thường":
-                Constants.CURRENT_LIVES = Constants.NORMAL_LIVES;
-                Constants.CURRENT_PADDLE_SPEED = Constants.NORMAL_PADDLE_SPEED;
-                Constants.CURRENT_BALL_SPEED = Constants.NORMAL_BALL_SPEED;
-                Constants.CURRENT_DROP_CHANCE = Constants.NORMAL_DROP_CHANCE;
-                break;
-            case "Khó":
-                Constants.CURRENT_LIVES = Constants.HARD_LIVES;
-                Constants.CURRENT_PADDLE_SPEED = Constants.HARD_PADDLE_SPEED;
-                Constants.CURRENT_BALL_SPEED = Constants.HARD_BALL_SPEED;
-                Constants.CURRENT_DROP_CHANCE = Constants.HARD_DROP_CHANCE;
-                break;
-        }
-    }
-    // --- KẾT THÚC PHƯƠNG THỨC ĐỘ KHÓ ---
-    */
 
 
     // PHƯƠNG THỨC ĐÃ SỬA: Thêm logic đổi con trỏ
@@ -193,7 +139,7 @@ public class SettingController implements Initializable {
             });
         }
     }
-    // ... (Phương thức preventKeyActivation(RadioButton) giữ nguyên) ...
+
 
     private void initializeCursors(Scene scene) {
         // Khởi tạo con trỏ mặc định (img1)
@@ -268,7 +214,7 @@ public class SettingController implements Initializable {
             System.err.println("Không thể tải hoặc phát video.");
         }
 
-        // THÊM MỚI: Lắng nghe Scene Property
+
         if (backButton != null) {
             backButton.sceneProperty().addListener((obs, oldScene, newScene) -> {
                 if (newScene != null) {
@@ -282,6 +228,6 @@ public class SettingController implements Initializable {
         addHoverEffect(backButton, backImage, backHoverImage);
         preventKeyActivation(backButton);
 
-        // ... (Phần còn lại giữ nguyên) ...
+
     }
 }

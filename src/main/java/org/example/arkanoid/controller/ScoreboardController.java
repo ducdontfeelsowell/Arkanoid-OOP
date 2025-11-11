@@ -75,7 +75,6 @@ public class ScoreboardController implements Initializable {
 
         PriorityQueue<ScoreManager.PlayerScore> topScores = scoreManager.getTopScores();
 
-        // Who knew it could be done like this. well, not the old me
         Label[] nameLabels = new Label[] {name1, name2, name3, name4, name5, name6, name7};
         Label[] scoreLabels = new Label[] {score1, score2, score3, score4, score5, score6, score7};
 
@@ -188,7 +187,7 @@ public class ScoreboardController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         seeMeSomeScores();
 
-        // THÊM MỚI: Lắng nghe Scene Property
+
         if (backButton != null) {
             backButton.sceneProperty().addListener((obs, oldScene, newScene) -> {
                 if (newScene != null) {

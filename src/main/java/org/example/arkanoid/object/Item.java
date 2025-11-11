@@ -12,13 +12,13 @@ import java.util.Objects;
 public class Item extends MoveAbleObject {
 
     public enum ItemType {
-        EXPAND_PADDLE,    // Mở rộng paddle
-        SHRINK_PADDLE,    // Thu nhỏ paddle
-        EXTRA_LIFE,       // Thêm mạng
-        SHOOTER_PADDLE,   // Biến paddle thành shooter
+        EXPAND_PADDLE,
+        SHRINK_PADDLE,
+        EXTRA_LIFE,
+        SHOOTER_PADDLE,
         MULTI_BALL,
         SAFETY_NET,
-        SLOW_SPEED,       // Giảm tốc độ
+        SLOW_SPEED,
         COIN_50,
         COIN_100,
         COIN_250,
@@ -31,7 +31,7 @@ public class Item extends MoveAbleObject {
     private List<Image> animationFrames;
     private int currentFrame = 0;
     private long lastFrameTime = 0;
-    private static final long FRAME_DURATION = 100_000_000L; // 100ms per frame (nanoseconds)
+    private static final long FRAME_DURATION = 100_000_000L;
 
     public Item(double x, double y, ItemType type) {
         super(x, y, Constants.DEFAULT_ITEM_WIDTH, Constants.DEFAULT_ITEM_HEIGHT,
@@ -105,7 +105,7 @@ public class Item extends MoveAbleObject {
 
     @Override
     public void move() {
-        y += dy; // Rơi xuống dưới
+        y += dy;
     }
 
     @Override
