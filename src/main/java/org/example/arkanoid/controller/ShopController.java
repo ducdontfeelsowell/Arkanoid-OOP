@@ -32,9 +32,9 @@ public class ShopController implements Initializable {
     private static Cursor defaultGameCursor;
     private static Cursor buttonHoverCursor;
 
-    // Theo dõi nút shop đang được chọn để giữ trạng thái sáng
     private Button currentActiveShopButton;
 
+    // ĐÃ BỔ SUNG: MediaView từ FXML
     @FXML
     private MediaView helpPlayerView;
 
@@ -66,6 +66,44 @@ public class ShopController implements Initializable {
     @FXML
     private ImageView backImage;
 
+
+    // --- FXML ID cho các ImageView (Ball) ---
+    @FXML private ImageView BALL_EARTH_HoverImage;
+    @FXML private ImageView BALL_EARTH_Image;
+    @FXML private ImageView BALL_SOCCER_HoverImage;
+    @FXML private ImageView BALL_SOCCER_Image;
+    @FXML private ImageView BALL_PANCAKE_HoverImage;
+    @FXML private ImageView BALL_PANCAKE_Image;
+    @FXML private ImageView BALL_ENDERMAN2_HoverImage;
+    @FXML private ImageView BALL_ENDERMAN2_Image;
+    @FXML private ImageView BALL_ENDERMAN1_HoverImage;
+    @FXML private ImageView BALL_ENDERMAN1_Image;
+    @FXML private ImageView BALL_CHROME_HoverImage;
+    @FXML private ImageView BALL_CHROME_Image;
+
+
+    // --- FXML ID cho các ImageView (Trail) ---
+    @FXML private ImageView TRAIL_LGBT_HoverImage;
+    @FXML private ImageView TRAIL_LGBT_Image;
+    @FXML private ImageView TRAIL_DIAMOND_HoverImage;
+    @FXML private ImageView TRAIL_DIAMOND_Image;
+    @FXML private ImageView TRAIL_LIGHTNING_HoverImage;
+    @FXML private ImageView TRAIL_LIGHTNING_Image;
+    @FXML private ImageView TRAIL_PRIMOGEM_HoverImage;
+    @FXML private ImageView TRAIL_PRIMOGEM_Image;
+    @FXML private ImageView TRAIL_DOLLA_HoverImage;
+    @FXML private ImageView TRAIL_DOLLA_Image;
+    @FXML private ImageView TRAIL_LUCKYCLOVER_HoverImage;
+    @FXML private ImageView TRAIL_LUCKYCLOVER_Image;
+
+
+    // --- FXML ID cho các ImageView (Paddle) ---
+    @FXML private ImageView PADDLE_DEFAULT_HoverImage;
+    @FXML private ImageView PADDLE_DEFAULT_Image;
+    @FXML private ImageView PADDLE_SKIN2_HoverImage;
+    @FXML private ImageView PADDLE_SKIN2_Image;
+
+
     // Các AnchorPane chứa nội dung từng mục
     @FXML
     private AnchorPane ballContentPane;
@@ -75,12 +113,15 @@ public class ShopController implements Initializable {
     private AnchorPane paddleContentPane;
 
     // --- Các nhãn hiển thị (TỪ FXML MỚI) ---
-    @FXML private Label playerCoinLabel;   // Trong ballContentPane
-    @FXML private Label shopNotificationLabel; // Trong ballContentPane
-    @FXML private Label playerCoinLabel1;  // Trong trailContentPane
-    @FXML private Label shopNotificationLabel1;// Trong trailContentPane
-    @FXML private Label playerCoinLabel2;  // Trong paddleContentPane
-    @FXML private Label shopNotificationLabel2;// Trong paddleContentPane
+    // Lưu ý: Các nhãn này có vẻ bị trùng tên trong FXML (playerCoinLabel2, shopNotificationLabel2)
+    // và không được khai báo trong ballContentPane/trailContentPane.
+    // Logic cập nhật dưới đây đã sửa lỗi này bằng cách sử dụng các biến thành viên khác nhau (playerCoinLabel, playerCoinLabel1, playerCoinLabel2)
+    @FXML private Label playerCoinLabel;
+    @FXML private Label shopNotificationLabel;
+    @FXML private Label playerCoinLabel1;
+    @FXML private Label shopNotificationLabel1;
+    @FXML private Label playerCoinLabel2;
+    @FXML private Label shopNotificationLabel2;
 
 
     // --- FXML ID cho các Labels (Ball) ---
@@ -124,7 +165,7 @@ public class ShopController implements Initializable {
     @FXML private Button button_PADDLE_SKIN2;
 
 
-    // --- PHƯƠNG THỨC QUẢN LÝ TRẠNG THÁI SÁNG/TỐI ---
+    // --- PHƯƠNG THỨC QUẢN LÝ TRẠNG THÁI SÁNG/TỐI (Cho các nút menu chính) ---
 
     private void setActiveButton(Button newActiveButton, Node newActiveImageOut, Node newActiveImageOn) {
         if (currentActiveShopButton != newActiveButton) {
@@ -147,10 +188,9 @@ public class ShopController implements Initializable {
     }
 
     private void resetVisualState(Node imageOut, Node imageOn) {
-        imageOut.setVisible(true);
-        imageOn.setVisible(false);
+        if (imageOut != null) imageOut.setVisible(true);
+        if (imageOn != null) imageOn.setVisible(false);
     }
-    // ----------------------------------------------------------------------
 
 
     @FXML
@@ -224,10 +264,11 @@ public class ShopController implements Initializable {
     // PHƯƠNG THỨC XỬ LÝ HIỆU ỨNG HOVER
     private void addHoverEffect(Button button, Node imageOut, Node imageOn) {
         if (button != null) {
-            // Khởi tạo trạng thái ban đầu
-            if (button == ballButton) { // Nút Ball được chọn mặc định
-                imageOn.setVisible(true);
-                imageOut.setVisible(false);
+            // Khởi tạo trạng thái ban đầu (Chỉ nút Ball menu là sáng mặc định)
+            if (button == ballButton) {
+                if (imageOn != null) imageOn.setVisible(true);
+                if (imageOut != null) imageOut.setVisible(false);
+                currentActiveShopButton = ballButton;
             } else if (imageOn != null) {
                 imageOn.setVisible(false);
                 imageOut.setVisible(true);
@@ -243,8 +284,10 @@ public class ShopController implements Initializable {
                         button.getScene().setCursor(buttonHoverCursor);
                     }
                 } else {
-                    // Nếu không phải là nút đang active, hoặc là nút back, thì tắt
-                    if (button != currentActiveShopButton || button == backButton) {
+                    // Nếu không phải là nút đang active (danh mục), hoặc là nút back/vật phẩm, thì tắt
+                    if (button != currentActiveShopButton || button == backButton || (
+                            button != ballButton && button != trailButton && button != paddleButton
+                    )) {
                         if (imageOut != null) imageOut.setVisible(true);
                         if (imageOn != null) imageOn.setVisible(false);
                     }
@@ -255,6 +298,7 @@ public class ShopController implements Initializable {
             });
         }
     }
+
 
     // Phương thức chặn phím Space/Enter
     private void preventKeyActivation(Button button) {
@@ -300,7 +344,7 @@ public class ShopController implements Initializable {
         }
 
         try {
-            // Khởi tạo video nền
+            // Khởi tạo video nền (Đã kiểm tra và giữ lại)
             String resourcePath = "/Images/background/video_main_menu.mp4";
             URL videoResource = getClass().getResource(resourcePath);
             if(videoResource != null) {
@@ -319,24 +363,65 @@ public class ShopController implements Initializable {
             System.err.println("Không thể tải hoặc phát video.");
         }
 
-        // Áp dụng hiệu ứng Hover cho các nút chính
+        // Áp dụng hiệu ứng Hover cho các nút chính (Đã có sẵn)
         addHoverEffect(backButton, backImage, backHoverImage);
         addHoverEffect(ballButton, ballImage, ballHoverImage);
         addHoverEffect(trailButton, trailImage, trailHoverImage);
         addHoverEffect(paddleButton, paddleImage, paddleHoverImage);
 
-        // Chặn phím
+        // Chặn phím cho các nút chính (Đã có sẵn)
         preventKeyActivation(backButton);
         preventKeyActivation(ballButton);
         preventKeyActivation(trailButton);
         preventKeyActivation(paddleButton);
+
+        // =================================================================
+        // === ÁP DỤNG HIỆU ỨNG HOVER CHO TẤT CẢ CÁC NÚT VẬT PHẨM ===
+        // =================================================================
+
+        // --- Ball Items ---
+        addHoverEffect(button_BALL_EARTH, BALL_EARTH_Image, BALL_EARTH_HoverImage);
+        addHoverEffect(button_BALL_SOCCER, BALL_SOCCER_Image, BALL_SOCCER_HoverImage);
+        addHoverEffect(button_BALL_PANCAKE, BALL_PANCAKE_Image, BALL_PANCAKE_HoverImage);
+        addHoverEffect(button_BALL_ENDERMAN2, BALL_ENDERMAN2_Image, BALL_ENDERMAN2_HoverImage);
+        addHoverEffect(button_BALL_ENDERMAN1, BALL_ENDERMAN1_Image, BALL_ENDERMAN1_HoverImage);
+        addHoverEffect(button_BALL_CHROME, BALL_CHROME_Image, BALL_CHROME_HoverImage);
+
+        // --- Trail Items ---
+        addHoverEffect(button_TRAIL_LGBT, TRAIL_LGBT_Image, TRAIL_LGBT_HoverImage);
+        addHoverEffect(button_TRAIL_DIAMOND, TRAIL_DIAMOND_Image, TRAIL_DIAMOND_HoverImage);
+        addHoverEffect(button_TRAIL_LIGHTNING, TRAIL_LIGHTNING_Image, TRAIL_LIGHTNING_HoverImage);
+        addHoverEffect(button_TRAIL_PRIMOGEM, TRAIL_PRIMOGEM_Image, TRAIL_PRIMOGEM_HoverImage);
+        addHoverEffect(button_TRAIL_DOLLA, TRAIL_DOLLA_Image, TRAIL_DOLLA_HoverImage);
+        addHoverEffect(button_TRAIL_LUCKYCLOVER, TRAIL_LUCKYCLOVER_Image, TRAIL_LUCKYCLOVER_HoverImage);
+
+        // --- Paddle Items ---
+        addHoverEffect(button_PADDLE_DEFAULT, PADDLE_DEFAULT_Image, PADDLE_DEFAULT_HoverImage);
+        addHoverEffect(button_PADDLE_SKIN2, PADDLE_SKIN2_Image, PADDLE_SKIN2_HoverImage);
+
+
+        // --- Dùng vòng lặp để áp dụng chặn phím cho các nút vật phẩm ---
+        Button[] itemButtons = {
+                button_BALL_EARTH, button_BALL_SOCCER, button_BALL_PANCAKE,
+                button_BALL_ENDERMAN2, button_BALL_ENDERMAN1, button_BALL_CHROME,
+
+                button_TRAIL_LGBT, button_TRAIL_DIAMOND, button_TRAIL_LIGHTNING,
+                button_TRAIL_PRIMOGEM, button_TRAIL_DOLLA, button_TRAIL_LUCKYCLOVER,
+
+                button_PADDLE_DEFAULT, button_PADDLE_SKIN2
+        };
+
+        for (Button btn : itemButtons) {
+            if (btn != null) {
+                preventKeyActivation(btn);
+            }
+        }
 
         // ===============================================
         // === CẬP NHẬT LOGIC SHOP KHI KHỞI TẠO ===
         // ===============================================
         updateAllNotificationLabels(""); // Xóa thông báo cũ
         updateShopUI(); // Cập nhật trạng thái các nút (Buy/Equip/Equipped)
-        // ===============================================
     }
 
 

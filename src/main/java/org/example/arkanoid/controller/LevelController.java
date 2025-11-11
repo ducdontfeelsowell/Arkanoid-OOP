@@ -53,21 +53,42 @@ public class LevelController implements Initializable{
     @FXML
     private MediaView backgroundMediaView;
     private MediaPlayer mediaPlayer;
+    private Media backgroundVideo;
 
-    // --- Các ImageView ON/OUT (Của Nút Level) ---
-    @FXML private ImageView Level1_on, Level2_on, Level3_on, Level4_on, Level5_on, Level6_on,
-            Level7_on, Level8_on, Level9_on, Level10_on, Level11_on, Level12_on;
-    @FXML private ImageView Level1_out, Level2_out, Level3_out, Level4_out, Level5_out, Level6_out,
-            Level7_out, Level8_out, Level9_out, Level10_out, Level11_out, Level12_out;
-    @FXML private ImageView back_button_out, back_button_on;
-    // ----------------------------
+    @FXML private ImageView Level1_on;
+    @FXML private ImageView Level2_on;
+    @FXML private ImageView Level3_on;
+    @FXML private ImageView Level4_on;
+    @FXML private ImageView Level5_on;
+    @FXML private ImageView Level6_on;
+    @FXML private ImageView Level7_on;
+    @FXML private ImageView Level8_on;
+    @FXML private ImageView Level9_on;
+    @FXML private ImageView Level10_on;
+    @FXML private ImageView Level11_on;
+    @FXML private ImageView Level12_on;
 
-    // --- THÊM MỚI: Các AnchorPane chọn độ khó ---
+    @FXML private ImageView Level1_out;
+    @FXML private ImageView Level2_out;
+    @FXML private ImageView Level3_out;
+    @FXML private ImageView Level4_out;
+    @FXML private ImageView Level5_out;
+    @FXML private ImageView Level6_out;
+    @FXML private ImageView Level7_out;
+    @FXML private ImageView Level8_out;
+    @FXML private ImageView Level9_out;
+    @FXML private ImageView Level10_out;
+    @FXML private ImageView Level11_out;
+    @FXML private ImageView Level12_out;
+
+    @FXML private ImageView back_button_out;
+    @FXML private ImageView back_button_on;
+
+    // Các AnchorPane chọn độ khó ---
     @FXML private AnchorPane difficultyPane1, difficultyPane2, difficultyPane3, difficultyPane4,
             difficultyPane5, difficultyPane6, difficultyPane7, difficultyPane8,
             difficultyPane9, difficultyPane10, difficultyPane11, difficultyPane12;
 
-    // --- THÊM MỚI: Các nút chọn độ khó ---
     @FXML private Button level1EasyButton, level1NormalButton, level1HardButton;
     @FXML private Button level2EasyButton, level2NormalButton, level2HardButton;
     @FXML private Button level3EasyButton, level3NormalButton, level3HardButton;
@@ -81,7 +102,6 @@ public class LevelController implements Initializable{
     @FXML private Button level11EasyButton, level11NormalButton, level11HardButton;
     @FXML private Button level12EasyButton, level12NormalButton, level12HardButton;
 
-    // --- THÊM MỚI: Mảng để quản lý các control ---
     private AnchorPane[] difficultyPanes;
     private Button[] easyButtons, normalButtons, hardButtons;
     // Mảng để quản lý ảnh (cho hiệu ứng khóa)
@@ -170,7 +190,6 @@ public class LevelController implements Initializable{
         alert.showAndWait();
     }
 
-    // --- THÊM MỚI: Ẩn tất cả các pane chọn độ khó ---
     private void hideAllDifficultyPanes() {
         if (difficultyPanes == null) return;
         for (AnchorPane pane : difficultyPanes) {
@@ -180,7 +199,6 @@ public class LevelController implements Initializable{
         }
     }
 
-    // --- THÊM MỚI: Hiển thị (hoặc ẩn) một pane độ khó cụ thể ---
     private void showDifficultyPane(int levelIndex) {
         if (difficultyPanes == null || levelIndex < 1 || levelIndex > 12) return;
 
@@ -200,9 +218,6 @@ public class LevelController implements Initializable{
         }
     }
 
-
-    // --- SỬA ĐỔI: Các hàm onClickMap (1-12) ---
-    // (Thay vì startGame, chúng ta gọi showDifficultyPane)
 
     public void onClickMap1() {
         SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
@@ -309,7 +324,7 @@ public class LevelController implements Initializable{
     }
 
     /**
-     * THÊM MỚI: Xử lý khi nhấp vào nút Easy, Normal, hoặc Hard.
+     * Xử lý khi nhấp vào nút Easy, Normal, hoặc Hard.
      */
     @FXML
     public void onDifficultyClick(ActionEvent event) {
@@ -364,20 +379,100 @@ public class LevelController implements Initializable{
         backButton.getScene().setRoot(root);
     }
 
-    // ... (Giữ nguyên initializeCursors, addHoverEffect, preventKeyActivation) ...
-    private void initializeCursors(Scene scene) {
-        // ...
-    }
     private void addHoverEffect(Button button, Node imageOut, Node imageOn) {
-        // ...
+        if (button != null) {
+            if (imageOn != null) {
+                imageOn.setVisible(false);
+            }
+            button.hoverProperty().addListener((obs, oldVal, newVal) -> {
+                if (newVal) {
+                    // KHI HOVER VÀO:
+                    SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_HOVER);
+                    if (imageOut != null) {
+                        imageOut.setVisible(false);
+                    }
+                    if (imageOn != null) {
+                        imageOn.setVisible(true);
+                    }
+
+                    // THÊM MỚI: THAY ĐỔI CON TRỎ THÀNH IMG2 (Hover Cursor)
+                    if (buttonHoverCursor != null && button.getScene() != null) {
+                        button.getScene().setCursor(buttonHoverCursor);
+                    }
+
+                } else {
+                    // KHI RỜI KHỎI HOVER:
+                    if (imageOut != null) {
+                        imageOut.setVisible(true);
+                    }
+                    if (imageOn != null) {
+                        imageOn.setVisible(false);
+                    }
+                    System.out.println("PPPPPPPPPP");
+                    // THÊM MỚI: ĐẶT LẠI CON TRỎ MẶC ĐỊNH (IMG1) CỦA SCENE
+                    if (defaultGameCursor != null && button.getScene() != null) {
+                        button.getScene().setCursor(defaultGameCursor);
+                        System.out.println("TTTTTTTTTTTTTT");
+                    }
+                }
+            });
+        }
     }
+
+    // Phương thức chặn phím Space/Enter
     private void preventKeyActivation(Button button) {
-        // ...
+        if (button != null) {
+            button.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+                if (event.getCode() == KeyCode.SPACE || event.getCode() == KeyCode.ENTER) {
+                    event.consume();
+                }
+            });
+        }
     }
+
+    private void initializeCursors(Scene scene) {
+        if (defaultGameCursor == null) {
+            try {
+                // Tải ảnh img1
+                URL cursorUrl = getClass().getResource(Constants.PATH_TO_CURSOR);
+                if (cursorUrl != null) {
+                    Image customImage = new Image(cursorUrl.toExternalForm());
+                    // Tạo Cursor img1
+                    defaultGameCursor = Cursor.cursor(cursorUrl.toExternalForm());
+                    // Áp dụng con trỏ mặc định của game cho Scene
+                    scene.setCursor(defaultGameCursor);
+                } else {
+                    // Fallback nếu không tìm thấy img1
+                    defaultGameCursor = Cursor.DEFAULT;
+                }
+            } catch (Exception e) {
+                System.err.println("Lỗi khi tải con trỏ mặc định (img1): " + e.getMessage());
+                defaultGameCursor = Cursor.DEFAULT;
+            }
+        }
+
+        // KIỂM TRA THỨ HAI: Tải con trỏ hover (img2)
+        if (buttonHoverCursor == null) {
+            try {
+                URL cursorUrl = getClass().getResource(Constants.PATH_TO_HOVER_CURSOR);
+                if (cursorUrl == null) {
+                    buttonHoverCursor = Cursor.HAND;
+                    throw new IOException("Không tìm thấy file con trỏ nút. Dùng Cursor.HAND.");
+                }
+
+                Image customImage = new Image(cursorUrl.toExternalForm());
+                buttonHoverCursor = Cursor.cursor(cursorUrl.toExternalForm());
+
+            } catch (Exception e) {
+                System.err.println("Lỗi khi tải con trỏ hover (img2): " + e.getMessage());
+                buttonHoverCursor = Cursor.HAND;
+            }
+        }
+    }
+
 
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("DEBUG: LevelController Initialized.");
-        // ... (Code load video cũ) ...
         try {
             String videoPath = "/Images/background/level_background.mp4";
             URL videoUrl = getClass().getResource(videoPath);
@@ -395,7 +490,7 @@ public class LevelController implements Initializable{
             System.err.println("Lỗi khi tải video nền LevelController: " + e.getMessage());
         }
 
-        // Lắng nghe Scene Property
+
         if (backButton != null) {
             backButton.sceneProperty().addListener((obs, oldScene, newScene) -> {
                 if (newScene != null) {
@@ -404,7 +499,6 @@ public class LevelController implements Initializable{
             });
         }
 
-        // --- THÊM MỚI: Nhóm các control vào mảng ---
         difficultyPanes = new AnchorPane[]{
                 difficultyPane1, difficultyPane2, difficultyPane3, difficultyPane4,
                 difficultyPane5, difficultyPane6, difficultyPane7, difficultyPane8,
@@ -438,28 +532,49 @@ public class LevelController implements Initializable{
         // --- (Code setMouseTransparent cũ) ---
         Level1_on.setMouseTransparent(true);
         Level2_on.setMouseTransparent(true);
-        // ... (lặp lại cho đến 12) ...
+        Level3_on.setMouseTransparent(true);
+        Level4_on.setMouseTransparent(true);
+        Level5_on.setMouseTransparent(true);
+        Level6_on.setMouseTransparent(true);
+        Level7_on.setMouseTransparent(true);
+        Level8_on.setMouseTransparent(true);
+        Level9_on.setMouseTransparent(true);
+        Level10_on.setMouseTransparent(true);
+        Level11_on.setMouseTransparent(true);
         Level12_on.setMouseTransparent(true);
         back_button_on.setMouseTransparent(true);
 
-        // --- (Code addHoverEffect cũ cho các nút Level) ---
+        // ÁP DỤNG HIỆU ỨNG HOVER MỚI (Âm thanh + Ẩn/Hiện + Con trỏ)
         addHoverEffect(map1Button, Level1_out, Level1_on);
         addHoverEffect(map2Button, Level2_out, Level2_on);
-        // ... (lặp lại cho đến 12) ...
+        addHoverEffect(map3Button, Level3_out, Level3_on);
+        addHoverEffect(map4Button, Level4_out, Level4_on);
+        addHoverEffect(map5Button, Level5_out, Level5_on);
+        addHoverEffect(map6Button, Level6_out, Level6_on);
+        addHoverEffect(map7Button, Level7_out, Level7_on);
+        addHoverEffect(map8Button, Level8_out, Level8_on);
+        addHoverEffect(map9Button, Level9_out, Level9_on);
+        addHoverEffect(map10Button, Level10_out, Level10_on);
+        addHoverEffect(map11Button, Level11_out, Level11_on);
         addHoverEffect(map12Button, Level12_out, Level12_on);
         addHoverEffect(backButton, back_button_out, back_button_on);
 
-        // --- (Code preventKeyActivation cũ cho các nút Level) ---
+
+        // Gọi phương thức chặn phím
         preventKeyActivation(map1Button);
         preventKeyActivation(map2Button);
-        // ... (lặp lại cho đến 12) ...
+        preventKeyActivation(map3Button);
+        preventKeyActivation(map4Button);
+        preventKeyActivation(map5Button);
+        preventKeyActivation(map6Button);
+        preventKeyActivation(map7Button);
+        preventKeyActivation(map8Button);
+        preventKeyActivation(map9Button);
+        preventKeyActivation(map10Button);
+        preventKeyActivation(map11Button);
         preventKeyActivation(map12Button);
         preventKeyActivation(backButton);
 
-        // (Không cần addHoverEffect hoặc preventKeyActivation cho các nút Easy/Normal/Hard
-        // vì chúng là các nút ẩn, trong suốt, nằm dưới các ImageView đã có hiệu ứng)
-
-        // Cập nhật trạng thái khóa
         updateLockStatus();
     }
 }

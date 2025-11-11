@@ -7,14 +7,11 @@ import org.example.arkanoid.game.SoundManager;
 import org.example.arkanoid.object.Ball;
 import org.example.arkanoid.object.Brick.Brick;
 import org.example.arkanoid.game.EffectManager;
-import org.example.arkanoid.object.Brick.InfBrick; // <-- THÊM MỚI
+import org.example.arkanoid.object.Brick.InfBrick;
 
 public class HandleBrickCollision {
     public static void handle(Ball ball, Brick[][] bricks, Brick brick, GameManager gm, ItemManager im, int row, int col) {
 
-        // --- SỬA ĐỔI: Xóa âm thanh chung ở đây ---
-        // SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_PADDLE_HIT);
-        // --- KẾT THÚC SỬA ĐỔI ---
 
         System.out.println("Ball collided with brick of type: " + brick.getType());
         double overlapLeft = ball.getX() + ball.getWidth() - brick.getX();
@@ -27,7 +24,6 @@ public class HandleBrickCollision {
 
         // Đảo chiều dựa trên hướng va chạm
         if (minOverlapX < minOverlapY) {
-            // Chỉnh vị trí để bóng không dính vào trong paddle, trái phải
             if (overlapLeft < overlapRight) {
                 ball.setX(ball.getX() - overlapLeft);
             } else {
@@ -35,7 +31,6 @@ public class HandleBrickCollision {
             }
             ball.reverseX();
         } else {
-            // Chỉnh vị trí để bóng không dính vào trong paddle, trên
             if (overlapTop < overlapBottom) {
                 ball.setY(ball.getY() - overlapTop);
             } else {

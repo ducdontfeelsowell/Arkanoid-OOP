@@ -3,8 +3,8 @@ package org.example.arkanoid.game;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import org.example.arkanoid.object.Brick.Brick;
-import org.example.arkanoid.object.Particle; // <-- Giữ nguyên import này
-import org.example.arkanoid.object.ExplosionAnimation; // <-- THÊM IMPORT MỚI
+import org.example.arkanoid.object.Particle;
+import org.example.arkanoid.object.ExplosionAnimation;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -15,23 +15,20 @@ public class EffectManager {
 
     private static EffectManager instance;
 
-    // --- Danh sách cho mảnh vỡ (giữ nguyên) ---
     private List<Particle> particles;
 
-    // --- THÊM MỚI: Danh sách cho animation nổ ---
     private List<ExplosionAnimation> explosions;
 
     private Random random = new Random();
 
     // Biến cho Screen Shake (Giữ nguyên)
     private double shakeIntensity = 0;
-    // private long shakeEndTime = 0; // <-- XÓA DÒNG NÀY
-    private double shakeRemainingTime = 0; // <-- THÊM DÒNG NÀY
+    private double shakeRemainingTime = 0;
 
     private EffectManager() {
         particles = new ArrayList<>();
 
-        // --- THÊM MỚI: Khởi tạo danh sách nổ ---
+        //  Khởi tạo danh sách nổ
         explosions = new ArrayList<>();
     }
 
@@ -59,45 +56,39 @@ public class EffectManager {
     }
 
 
-    // --- SỬA ĐỔI: Phương thức tạo vụ nổ (cho gạch nổ) ---
+    //  Phương thức tạo vụ nổ (cho gạch nổ)
     public void spawnExplosion(double x, double y) {
-        // Xóa mã tạo particle cũ
 
-        // THÊM MỚI: Tạo một đối tượng ExplosionAnimation
-        // (x, y) được truyền vào đây là TÂM của viên gạch
         ExplosionAnimation anim = new ExplosionAnimation(x, y);
         explosions.add(anim);
     }
-    // --- KẾT THÚC SỬA ĐỔI ---
 
 
-    // public void update() { // <-- SỬA DÒNG NÀY
-    public void update(long deltaTime) { // <-- THAY BẰNG DÒNG NÀY
+    public void update(long deltaTime) {
 
         // Cập nhật screen shake
         if (shakeRemainingTime > 0) {
-            shakeRemainingTime -= deltaTime; // <-- THÊM DÒNG NÀY
+            shakeRemainingTime -= deltaTime;
             if (shakeRemainingTime <= 0) {
                 shakeIntensity = 0;
                 shakeRemainingTime = 0;
             }
         }
 
-        // --- Cập nhật mảnh vỡ (giữ nguyên) ---
         Iterator<Particle> pIterator = particles.iterator();
         while (pIterator.hasNext()) {
             Particle p = pIterator.next();
-            p.update(); // Note: Particle có thể cũng dùng logic thời gian, nếu nó dùng System.nanoTime() thì cũng cần sửa
+            p.update();
             if (p.isFinished()) {
                 pIterator.remove();
             }
         }
 
-        // --- THÊM MỚI: Cập nhật các animation nổ ---
+        // Cập nhật các animation nổ
         Iterator<ExplosionAnimation> eIterator = explosions.iterator();
         while (eIterator.hasNext()) {
             ExplosionAnimation anim = eIterator.next();
-            anim.update(); // Note: Tương tự, nếu animation dùng System.nanoTime() thì cũng cần sửa
+            anim.update();
             if (anim.isFinished()) {
                 eIterator.remove();
             }
@@ -106,12 +97,12 @@ public class EffectManager {
 
 
     public void render(GraphicsContext gc) {
-        // --- Vẽ các Particle (giữ nguyên) ---
+        //  Vẽ các Particle
         for (Particle p : particles) {
             p.render(gc);
         }
 
-        // --- THÊM MỚI: Vẽ các animation nổ ---
+        // Vẽ các animation nổ
         for (ExplosionAnimation anim : explosions) {
             anim.render(gc);
         }
@@ -121,7 +112,7 @@ public class EffectManager {
     public void clear() {
         particles.clear();
 
-        // --- THÊM MỚI: Xóa các vụ nổ ---
+        // Xóa các vụ nổ
         explosions.clear();
 
         // Xóa shake
@@ -129,24 +120,17 @@ public class EffectManager {
         shakeRemainingTime = 0;
     }
 
-    // ... (Các phương thức shakeScreen và applyShake giữ nguyên) ...
+
     public void shakeScreen(double intensity, long durationNano) {
         this.shakeIntensity = intensity;
-        // this.shakeEndTime = System.nanoTime() + durationNano; // <-- XÓA DÒNG NÀY
-        this.shakeRemainingTime = durationNano; // <-- THÊM DÒNG NÀY
+        this.shakeRemainingTime = durationNano;
     }
 
     public void applyShake(GraphicsContext gc) {
-        // if (shakeEndTime == 0) return; // <-- SỬA DÒNG NÀY
-        if (shakeRemainingTime <= 0) return; // <-- THAY BẰNG DÒNG NÀY
 
-        /* // XÓA KHỐI LOGIC CŨ
-        long now = System.nanoTime();
-        if (now > shakeEndTime) {
-            shakeEndTime = 0;
-            return;
-        }
-        */
+        if (shakeRemainingTime <= 0) return;
+
+
 
         double offsetX = (Math.random() - 0.5) * 2 * shakeIntensity;
         double offsetY = (Math.random() - 0.5) * 2 * shakeIntensity;

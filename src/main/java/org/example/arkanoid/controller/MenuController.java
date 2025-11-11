@@ -7,7 +7,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.Node; // THÊM MỚI
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -138,7 +138,6 @@ public class MenuController implements Initializable{
     // PHƯƠNG THỨC ĐÃ SỬA: Xử lý cả âm thanh, trạng thái hiển thị VÀ con trỏ chuột
     private void addHoverEffect(Button button, Node imageOut, Node imageOn) {
         if (button != null) {
-            // Đảm bảo ảnh ON/HOVER ban đầu bị ẩn
             if (imageOn != null) {
                 imageOn.setVisible(false);
             }
@@ -153,7 +152,7 @@ public class MenuController implements Initializable{
                         imageOn.setVisible(true);
                     }
 
-                    // THÊM MỚI: THAY ĐỔI CON TRỎ THÀNH IMG2 (Hover Cursor)
+                    //THAY ĐỔI CON TRỎ THÀNH IMG2 (Hover Cursor)
                     if (buttonHoverCursor != null && button.getScene() != null) {
                         button.getScene().setCursor(buttonHoverCursor);
                     }
@@ -167,7 +166,7 @@ public class MenuController implements Initializable{
                         imageOn.setVisible(false);
                     }
                     System.out.println("PPPPPPPPPP");
-                    // THÊM MỚI: ĐẶT LẠI CON TRỎ MẶC ĐỊNH (IMG1) CỦA SCENE
+                    // ĐẶT LẠI CON TRỎ MẶC ĐỊNH (IMG1) CỦA SCENE
                     if (defaultGameCursor != null && button.getScene() != null) {
                         button.getScene().setCursor(defaultGameCursor);
                         System.out.println("TTTTTTTTTTTTTT");

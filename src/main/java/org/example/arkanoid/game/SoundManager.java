@@ -13,13 +13,13 @@ public class SoundManager {
     private static SoundManager instance;
 
     private MediaPlayer backgroundMusicPlayer;
-    private MediaPlayer sequentialPlayer; // Trình phát cho âm thanh tuần tự (Win/Lose)
+    private MediaPlayer sequentialPlayer;
     private boolean isMuted = false;
     private double masterVolume = 1;
     private double musicVolume = 1;
-    private double musicVolumeRaw = 1.0;     // 0.0 - 1.0 (slider value)
+    private double musicVolumeRaw = 1.0;
     private double soundEffectVolume = 1;
-    private double sfxVolumeRaw = 1.0;       // 0.0 - 1.0 (slider value)
+    private double sfxVolumeRaw = 1.0;
 
     private int lastTrackIndex = -1;
     private Random random = new Random();
@@ -39,7 +39,7 @@ public class SoundManager {
             // Dòng debug để xem tệp nhạc nào đang được phát
             System.out.println("SoundManager DEBUG: Đang phát nhạc: " + soundPath);
 
-            stopBackgroundMusic(); // Dừng cả nhạc nền và nhạc tuần tự
+            stopBackgroundMusic();
 
             Media media = new Media(Objects.requireNonNull(
                     getClass().getResource(soundPath)).toExternalForm());
@@ -72,22 +72,17 @@ public class SoundManager {
             sequentialPlayer = new MediaPlayer(media1);
             sequentialPlayer.setVolume(musicVolume); // Same as music
 
-            // Đặt sự kiện khi media1 kết thúc
             sequentialPlayer.setOnEndOfMedia(() -> {
-                // Hủy trình phát cũ
                 sequentialPlayer.stop();
                 sequentialPlayer.dispose();
 
-                // Tạo và phát media2
                 try {
                     Media media2 = new Media(Objects.requireNonNull(
                             getClass().getResource(path2)).toExternalForm());
                     sequentialPlayer = new MediaPlayer(media2);
                     sequentialPlayer.setVolume(musicVolume);
 
-                    // --- THÊM MỚI: Đặt lặp lại vô tận cho nhạc afterwin/afterlose ---
                     sequentialPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-                    // --- KẾT THÚC THÊM MỚI ---
 
                     sequentialPlayer.play();
                 } catch (Exception e) {
@@ -96,7 +91,6 @@ public class SoundManager {
                 }
             });
 
-            // Bắt đầu phát media1
             sequentialPlayer.play();
 
         } catch (Exception e) {
@@ -122,13 +116,11 @@ public class SoundManager {
     }
 
     public void stopBackgroundMusic() {
-        // Dừng nhạc nền
         if (backgroundMusicPlayer != null) {
             backgroundMusicPlayer.stop();
             backgroundMusicPlayer.dispose();
             backgroundMusicPlayer = null;
         }
-        // Dừng cả nhạc tuần tự (nếu đang phát)
         if (sequentialPlayer != null) {
             sequentialPlayer.stop();
             sequentialPlayer.dispose();
@@ -140,7 +132,6 @@ public class SoundManager {
         if (backgroundMusicPlayer != null) {
             backgroundMusicPlayer.pause();
         }
-        // Tạm dừng cả nhạc tuần tự (nếu đang phát)
         if (sequentialPlayer != null) {
             sequentialPlayer.pause();
         }
@@ -150,7 +141,6 @@ public class SoundManager {
         if (backgroundMusicPlayer != null) {
             backgroundMusicPlayer.play();
         }
-        // Tiếp tục cả nhạc tuần tự (nếu đang phát)
         if (sequentialPlayer != null) {
             sequentialPlayer.play();
         }
@@ -223,7 +213,6 @@ public class SoundManager {
     }
 
     public void playRandomBackgroundMusic() {
-        // Chỉ random nhạc 1 và 2 cho menu
         String[] musicTracks = {
                 Constants.PATH_TO_SOUND_BACKGROUND_1,
                 Constants.PATH_TO_SOUND_BACKGROUND_2
