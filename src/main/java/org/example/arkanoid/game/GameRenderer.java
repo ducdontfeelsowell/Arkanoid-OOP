@@ -1,6 +1,7 @@
 package org.example.arkanoid.game;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import org.example.arkanoid.config.Constants;
 import org.example.arkanoid.object.Ball;
@@ -8,27 +9,51 @@ import org.example.arkanoid.object.Brick.Brick;
 import org.example.arkanoid.object.Paddle;
 import org.example.arkanoid.render.*;
 
+import java.util.Objects;
+
 
 public class GameRenderer {
     private final GraphicsContext gc;
+    private final Image backgroundImage2;
 
     public GameRenderer(GraphicsContext gc) {
         this.gc = gc;
+        try {
+            this.backgroundImage2 = new Image(getClass().getResourceAsStream(Constants.PATH_TO_GAME_BACKGROUND));
+        } catch (Exception e) {
+            System.err.println("Lỗi tải ảnh background!");
+            throw new RuntimeException(e);
+        }
     }
 
     /**
      * Vẽ toàn bộ game state
      */
-    public void renderObject(Paddle paddle, Ball ball, Brick[][] bricks, int score, int lives) {
-        // Clear canvas
-        gc.setFill(Color.rgb(20, 20, 40));
-        gc.fillRect(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
+    public void renderObject(GameManager gm, Paddle paddle, BallManager ball, Brick[][] bricks, ItemManager im, BulletManager bm, int score, int lives) {
+        gc.save();
+        EffectManager.getInstance().applyShake(gc);
+        gc.clearRect(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
+        if (backgroundImage2 != null) {
+            gc.drawImage(backgroundImage2, 310, 0, Constants.SCREEN_WIDTH/2, Constants.SCREEN_HEIGHT);
+        } else {
+            gc.setFill(Color.rgb(20, 20, 40));
+            gc.fillRect(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
+        }
 
         // Render game objects
         RenderBricks.render(bricks, gc);
         RenderPaddle.render(paddle, gc);
-        RenderBall.render(ball, gc);
-        RenderUI.render(score, lives, gc);
+
+        // Truyền trạng thái của paddle cho bóng
+        RenderBall.render(ball, gc, paddle.isInvincible());
+
+        // Truyền gm và paddle vào RenderUI
+        RenderUI.render(score, lives, gm, paddle, ball, gc);
+
+        im.render(gc);
+        bm.render(gc);
+        EffectManager.getInstance().render(gc);
+        gc.restore();
     }
 
     public void renderGameOver(int score) {

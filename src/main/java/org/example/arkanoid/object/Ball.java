@@ -1,34 +1,72 @@
 package org.example.arkanoid.object;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import org.example.arkanoid.config.Constants;
+import org.example.arkanoid.game.SoundManager; // THÊM MỚI
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Ball extends MoveAbleObject {
     private double speed;
-    private int directionX; // 1: chiều dương, -1: chiều âm trục X
-    private int directionY; // 1: chiều dương, -1: chiều âm trục Y
+    private double offset;
+    private double xCenter;
+    private double yCenter;
+    private double radius;
+    private boolean sideHit = false;
 
-    public Ball(double x, double y, double width, double height,
-                double dx, double dy,
-                double speed, int directionX, int directionY) {
+    private List<TrailSegment> trail;
+    private static final int MAX_TRAIL_LENGTH = 15;
+    private static final double TRAIL_DECAY_RATE = 0.05;
 
-        super(x, y, width, height, dx, dy);
+    private Image trailImage;
+    private Image ballImage;
 
-        this.speed = speed;
-        this.directionX = directionX;
-        this.directionY = directionY;
+    private boolean showWhileFlashing_ball = true;
+    private long lastFlashToggleTime_ball = 0;
+    private final long FLASH_INTERVAL = 100_000_000L;
+
+    public Ball(double positionX, double positionY, double offset, double dx, double dy) {
+        super(
+                positionX,
+                positionY,
+                Constants.DEFAULT_BALL_SIZE,
+                Constants.DEFAULT_BALL_SIZE,
+                dx,
+                dy
+        );
+
+        this.xCenter = positionX + Constants.DEFAULT_BALL_SIZE / 2;
+        this.yCenter = positionY + Constants.DEFAULT_BALL_SIZE / 2;
+
+        this.radius = Constants.DEFAULT_BALL_SIZE/2;
+
+        this.speed = Constants.CURRENT_BALL_SPEED;
+        this.offset = offset;
+        this.trail = new ArrayList<>();
 
         updateVelocity();
+
+        try {
+            // SỬA: Tải ảnh mà người chơi đã trang bị (được Main.java thiết lập)
+            trailImage = new Image(getClass().getResourceAsStream(Constants.CURRENTLY_EQUIPPED_TRAIL));
+            ballImage = new Image(getClass().getResourceAsStream(Constants.CURRENTLY_EQUIPPED_BALL));
+        } catch (Exception e) {
+            System.err.println("Lỗi tải ảnh cho vệt hoặc bóng! Dùng mặc định.");
+            // Dự phòng nếu có lỗi
+            trailImage = new Image(getClass().getResourceAsStream(Constants.PATH_TO_TRAIL_LGBT));
+            ballImage = new Image(getClass().getResourceAsStream(Constants.PATH_TO_BALL_EARTH));
+        }
     }
 
     /**
-     * Cập nhật vận tốc (dx, dy) dựa vào hướng và tốc độ.
+     * Cập nhật vận tốc (dx, dy) dựa vào hướng và tốc độ. Cho va chạm paddle.
      */
     private void updateVelocity() {
-        double diagonalSpeed = speed / Math.sqrt(2);
-        dx = diagonalSpeed * directionX;
-        dy = diagonalSpeed * directionY;
+        dx = speed * offset;
+        dy = -Math.sqrt(Math.pow(speed, 2) - Math.pow(dx, 2));
     }
 
     @Override
@@ -36,25 +74,31 @@ public class Ball extends MoveAbleObject {
         x += dx;
         y += dy;
 
-        // --- Va chạm với tường trái ---
-        if (x <= 0) {
-            x = 0;
-            reverseX();
+        trail.add(0, new TrailSegment(getX(), getY()));
+        if (trail.size() > MAX_TRAIL_LENGTH) {
+            trail.remove(trail.size() - 1);
         }
 
-        // --- Va chạm với tường phải ---
-        if (x + width >= Constants.SCREEN_WIDTH) {
-            x = Constants.SCREEN_WIDTH - width;
+        if (x <= Constants.PLAY_AREA_LEFT) {
+            x = Constants.PLAY_AREA_LEFT;
             reverseX();
+            SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_WALL_HIT);
+        }
+        if (x + width >= Constants.SCREEN_WIDTH - Constants.PLAY_AREA_RIGHT_MARGIN) {
+            x = Constants.SCREEN_WIDTH - width - Constants.PLAY_AREA_RIGHT_MARGIN;
+            reverseX();
+            SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_WALL_HIT);
         }
 
-        // --- Va chạm với tường trên ---
         if (y <= 0) {
             y = 0;
             reverseY();
+            SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_WALL_HIT);
         }
+    }
 
-        // Không xử lý rơi xuống dưới ở đây, để GameManager xử lý
+    public boolean isOffScreen() {
+        return y + Constants.DEFAULT_BALL_SIZE > Constants.SCREEN_HEIGHT;
     }
 
     @Override
@@ -62,50 +106,86 @@ public class Ball extends MoveAbleObject {
         move();
     }
 
+    private void draw(GraphicsContext gc) {
+        if (trailImage != null) {
+            for (int i = trail.size() - 1; i >= 0; i--) {
+                if(i % 1 != 0){
+                    continue;
+                }
+                TrailSegment segment = trail.get(i);
+                double opacity = 1.0 - (double) i / MAX_TRAIL_LENGTH;
+                opacity = Math.max(0, opacity - TRAIL_DECAY_RATE);
+
+                gc.setGlobalAlpha(opacity);
+
+                gc.drawImage(trailImage,
+                        segment.x + getWidth() * 0, segment.y + getHeight() * 0,
+                        getWidth() * 1, getHeight() * 1);
+            }
+            gc.setGlobalAlpha(1.0);
+        }
+
+        gc.setFill(Color.rgb(0, 0, 0, 0.3));
+        gc.fillOval(getX() + 2, getY() + 2, getWidth(), getHeight());
+
+        if (ballImage != null) {
+            gc.drawImage(ballImage, getX(), getY(), getWidth(), getHeight());
+        } else {
+            gc.setFill(Color.rgb(255, 100, 100));
+            gc.fillOval(getX(), getY(), getWidth(), getHeight());
+        }
+    }
+
     @Override
     public void render(GraphicsContext gc) {
-        gc.setFill(Color.rgb(0, 0, 0, 0.3));
-        gc.fillOval(getX() + 2, getY() + 2,
-                getWidth(), getHeight());
+        draw(gc);
+    }
 
-        // Ball
-        gc.setFill(Color.rgb(255, 100, 100));
-        gc.fillOval(getX(), getY(),
-                getWidth(), getHeight());
+    public void render(GraphicsContext gc, boolean isInvincible) {
+        if (isInvincible) {
+            long now = System.nanoTime();
+            if (now - lastFlashToggleTime_ball > FLASH_INTERVAL) {
+                showWhileFlashing_ball = !showWhileFlashing_ball;
+                lastFlashToggleTime_ball = now;
+            }
+            if (!showWhileFlashing_ball) {
+                return;
+            }
+        }
+        draw(gc);
+    }
 
-        // Highlight
-        gc.setFill(Color.rgb(255, 200, 200, 0.7));
-        gc.fillOval(getX() + 3, getY() + 3,
-                getWidth() / 3, getHeight() / 3);
+    public void clearTrail() {
+        if (trail != null) {
+            trail.clear();
+        }
     }
 
     /**
-     * Đảo chiều theo trục X.
+     * Đảo chiều theo trục X. Cho va chạm ngoài paddle.
      */
     public void reverseX() {
-        directionX = -directionX;
-        updateVelocity();
+        dx = -dx;
     }
 
     /**
-     * Đảo chiều theo trục Y.
+     * Đảo chiều theo trục Y. Cho va chạm ngoài paddle.
      */
     public void reverseY() {
-        directionY = -directionY;
-        updateVelocity();
+        dy = -dy;
     }
 
     /**
      * Kiểm tra va chạm giữa hai hình chữ nhật (AABB collision).
      */
     public boolean isCollidingWith(GameObject other) {
-        return x < other.getX() + other.getWidth() &&
-                x + width > other.getX() &&
-                y < other.getY() + other.getHeight() &&
-                y + height > other.getY();
+        return x <= other.getX() + other.getWidth() &&
+                x + width >= other.getX() &&
+                y <= other.getY() + other.getHeight() &&
+                y + height >= other.getY();
     }
 
-    // ===== Getter & Setter =====
+
     public double getSpeed() {
         return speed;
     }
@@ -115,21 +195,41 @@ public class Ball extends MoveAbleObject {
         updateVelocity();
     }
 
-    public int getDirectionX() {
-        return directionX;
+    public double getOffset() {
+        return offset;
     }
 
-    public void setDirectionX(int directionX) {
-        this.directionX = directionX;
+    public void setOffset(double offset) {
+        this.offset = offset;
         updateVelocity();
     }
 
-    public int getDirectionY() {
-        return directionY;
+    public Image getBallImage() {
+        return ballImage;
     }
 
-    public void setDirectionY(int directionY) {
-        this.directionY = directionY;
-        updateVelocity();
+    public double getxCenter() {
+        return xCenter;
+    }
+
+    public double getyCenter() {
+        return yCenter;
+    }
+
+    public double getRadius() {
+        return radius;
+    }
+
+    public boolean getSideHit() {
+        return sideHit;
+    }
+
+    public void setSideHit(boolean sideHit) {
+        this.sideHit = sideHit;
+    }
+
+    private static class TrailSegment {
+        double x, y;
+        public TrailSegment(double x, double y) { this.x = x; this.y = y; }
     }
 }

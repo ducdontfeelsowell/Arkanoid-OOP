@@ -1,5 +1,7 @@
 package org.example.arkanoid.game;
 
+import javafx.geometry.Rectangle2D;
+import javafx.scene.image.*;
 import org.example.arkanoid.logic.CheckCollisions;
 import org.example.arkanoid.logic.CheckWinCondition;
 import org.example.arkanoid.logic.UpdatePhysics;
@@ -9,54 +11,172 @@ import org.example.arkanoid.input.InputHandler;
 import org.example.arkanoid.object.Ball;
 import org.example.arkanoid.object.Brick.Brick;
 import org.example.arkanoid.object.Paddle;
+import org.example.arkanoid.game.SoundManager;
+import org.example.arkanoid.game.ProgressManager;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class GameManager {
 
     private final GameController gameController;
     private final InputHandler inputHandler;
     private final Paddle paddle;
-    private final Ball ball;
+    private final BallManager ballManager;
     private final Brick[][] bricks;
     private final GameRenderer renderer;
+    private final ItemManager im;
+    private final BulletManager bm;
 
     private int score;
     private int lives;
     private boolean gameOver;
     private boolean won;
+    private int currentLevel;
+    private int currentDifficultySetting; // THÊM MỚI: 0, 1, hoặc 2
+
+    private boolean safetyNetActive = false;
+    private double safetyNetRemainingTime = 0;
 
     public GameManager(GameController gameController, InputHandler inputHandler,
-                       Paddle paddle, Ball ball, Brick[][] bricks, GameRenderer renderer) {
+                       Paddle paddle, BallManager ballManager, Brick[][] bricks, GameRenderer renderer,
+                       ItemManager im, BulletManager bm, int level) {
         this.gameController = gameController;
         this.inputHandler = inputHandler;
         this.paddle = paddle;
-        this.ball = ball;
+        this.ballManager = ballManager;
         this.bricks = bricks;
         this.renderer = renderer;
+        this.im = im;
+        this.bm = bm;
+        this.currentLevel = level;
+
+        // Lấy độ khó đã được set (bởi LevelController) từ Constants
+        this.currentDifficultySetting = Constants.CURRENT_DIFFICULTY_SETTING;
 
         this.score = 0;
-        this.lives = Constants.INITIAL_LIVES;
+        this.lives = Constants.CURRENT_LIVES; // Lấy số mạng dựa trên độ khó
         this.gameOver = false;
         this.won = false;
     }
 
-    public void updateGame() {
+    public void updateGame(long deltaTime) {
         if (!GameController.isPaused() && !gameOver && !won) {
-            inputHandler.handleInput(paddle);
-            UpdatePhysics.update(ball);
-            CheckCollisions.check(ball, paddle, bricks, this);
-            CheckWinCondition.check(bricks, this);
+
+
+            boolean wasSafetyNetActive = safetyNetActive;
+
+
+            if (safetyNetActive) {
+                safetyNetRemainingTime -= deltaTime;
+                if (safetyNetRemainingTime <= 0) {
+                    safetyNetActive = false;
+                    safetyNetRemainingTime = 0;
+                }
+            }
+
+
+
+            // PHÁT ÂM THANH KHI HẾT HẠN
+            if (wasSafetyNetActive && !safetyNetActive) {
+                SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_NEGATIVE_BUFF);
+            }
+
+
+            inputHandler.handleInput(paddle, bm);
+
+            paddle.update(deltaTime);
+
+            // đợi bắt đầu bóng
+            if(Constants.isStarted) {
+                UpdatePhysics.update(ballManager, this);
+                CheckCollisions.check(ballManager, paddle, bricks, this, im, bm);
+                CheckWinCondition.check(bricks, this);
+                im.update(); // ItemManager không cần delta time vì nó chỉ di chuyển item
+                im.checkCollisions(paddle, ballManager, this);
+
+
+                bm.update(deltaTime);
+
+                bm.checkCollisions(bricks, this, im);
+
+                EffectManager.getInstance().update(deltaTime);
+            } else {
+                ballManager.balls.get(0).setX(paddle.getX() + paddle.getWidth() / 2 - ballManager.balls.get(0).getWidth() / 2);
+                ballManager.balls.get(0).setY(paddle.getY() - ballManager.balls.get(0).getHeight() - 1);
+            }
         }
 
+
+    }
+
+    public void render() {
         // kiểm tra pause/unpause
-        gameController.update();
+        if (!gameOver && !won) {
+            gameController.update();
+        }
 
         // Render
         if (gameOver) {
             renderer.renderGameOver(score);
+            gameController.showLoseScreen();
         } else if (won) {
             renderer.renderWin(score);
+            gameController.showWinScreen();
         } else {
-            renderer.renderObject(paddle, ball, bricks, score, lives);
+            renderer.renderObject(this, paddle, ballManager, bricks, im, bm, score, lives);
+        }
+    }
+
+    static Image createCroppedImage(Image sourceImage, Rectangle2D viewport) {
+        if (sourceImage == null || viewport == null) {
+            return null;
+        }
+
+        int newWidth = (int) viewport.getWidth();
+        int newHeight = (int) viewport.getHeight();
+
+        int startX = (int) viewport.getMinX();
+        int startY = (int) viewport.getMinY();
+
+        WritableImage croppedImage = new WritableImage(newWidth, newHeight);
+        PixelReader pixelReader = sourceImage.getPixelReader();
+        PixelWriter pixelWriter = croppedImage.getPixelWriter();
+
+        pixelWriter.setPixels(
+                0, 0,
+                newWidth, newHeight,
+                pixelReader,
+                startX, startY
+        );
+
+        return croppedImage;
+    }
+
+    public void Init(){
+        InputStream inputStream = getClass().getResourceAsStream(Constants.PATH_TO_BRICK_3333);
+
+        Image fullImage = null;
+        if (inputStream != null) {
+            fullImage = new Image(inputStream);
+        }
+
+        if (fullImage == null || fullImage.isError()) {
+            System.out.println("FAIL: Không tìm thấy hoặc lỗi tải ảnh.");
+            return;
+        }
+
+        double fullWidth = fullImage.getWidth();
+        double fullHeight = fullImage.getHeight();
+
+        for(int i= 0 ; i < 10 ; i++){
+            Rectangle2D halfTopLeft = new Rectangle2D(231 + i*58,0,45,21);
+            Constants.brick_state_list1[i] = createCroppedImage(fullImage, halfTopLeft);
+        }
+        for(int i= 0 ; i < 10 ; i++){
+            Rectangle2D halfTopLeft = new Rectangle2D(231 + i*58,37,45,21);
+            Constants.brick_state_list2[i] = createCroppedImage(fullImage, halfTopLeft);
         }
     }
 
@@ -81,7 +201,23 @@ public class GameManager {
     }
 
     public void setGameOver(boolean gameOver) {
-        this.gameOver = gameOver;
+        // Chỉ gọi một lần khi thua
+        if (gameOver && !this.gameOver) {
+            this.gameOver = true;
+
+            // Báo cáo THUA với độ khó hiện tại
+            ProgressManager.addScoreFromFailedLevel(this.currentLevel, this.score, this.currentDifficultySetting);
+
+            SoundManager.getInstance().playMusicSequence(
+                    Constants.PATH_TO_SOUND_LOSE,
+                    Constants.PATH_TO_SOUND_AFTERLOSE
+            );
+
+            EffectManager.getInstance().clear();
+
+        } else {
+            this.gameOver = gameOver;
+        }
     }
 
     public boolean isWon() {
@@ -89,6 +225,46 @@ public class GameManager {
     }
 
     public void setWon(boolean won) {
-        this.won = won;
+        // Chỉ gọi một lần khi thắng
+        if (won && !this.won) {
+            this.won = true;
+
+            // Báo cáo THẮNG với độ khó hiện tại
+            ProgressManager.completeLevel(this.currentLevel, this.score, this.currentDifficultySetting);
+
+            SoundManager.getInstance().playMusicSequence(
+                    Constants.PATH_TO_SOUND_WIN,
+                    Constants.PATH_TO_SOUND_AFTERWIN
+            );
+
+            EffectManager.getInstance().clear();
+
+        } else {
+            this.won = won;
+        }
+    }
+
+
+    /**
+     * Kích hoạt lưới an toàn
+     */
+    public void activateSafetyNet(double durationNano) {
+        this.safetyNetActive = true;
+        this.safetyNetRemainingTime = durationNano;
+        System.out.println("Safety Net KÍCH HOẠT!"); // (Debug)
+    }
+
+    /**
+     * Kiểm tra xem lưới an toàn có đang hoạt động không
+     */
+    public boolean isSafetyNetActive() {
+        return safetyNetActive;
+    }
+
+    /**
+     * Getter cho thời gian kết thúc
+     */
+    public double getSafetyNetRemainingTime() {
+        return safetyNetRemainingTime;
     }
 }
