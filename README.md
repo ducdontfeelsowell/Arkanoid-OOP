@@ -97,7 +97,6 @@ The game uses multiple threads for performance:
 | 🔫   | Laser Gun       | Shoots lasers to destroy bricks               |
 |  🕸   | Safety Net      | Prevents ball from dropping out              |
 |❤️|Extra Life| Grants +1 life|
-|🔴|Multi-Ball| x3 current balls|
 |✪|Coin| Grants coins|
 
 ---
