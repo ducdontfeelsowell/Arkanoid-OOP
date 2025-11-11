@@ -142,6 +142,9 @@ The game uses multiple threads for performance:
 #### Shop
 ![shop](https://github.com/user-attachments/assets/bb40ac1c-56eb-45d2-b848-b19b87b13215)
 
+#### Demo
+demo/demogame.mp4
+
 ---
 
 ## Future Improvements
