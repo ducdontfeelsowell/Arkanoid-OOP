@@ -11,11 +11,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image; // THÊM MỚI
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.Node;
-import javafx.scene.Cursor; // THÊM MỚI
-import javafx.scene.Scene; // THÊM MỚI
+import javafx.scene.Cursor;
+import javafx.scene.Scene;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -93,9 +93,8 @@ public class HelpController implements Initializable {
             }
         }
     }
-    // --- KẾT THÚC KHỞI TẠO CURSOR ---
 
-    // PHƯƠNG THỨC ĐÃ SỬA: Thêm logic đổi con trỏ
+    // logic đổi con trỏ
     private void addHoverEffect(Button button, Node imageOut, Node imageOn) {
         if (button != null) {
             // Đảm bảo ảnh ON/HOVER ban đầu bị ẩn
@@ -132,7 +131,7 @@ public class HelpController implements Initializable {
         }
     }
 
-    // Phương thức chặn phím Space/Enter (Giữ nguyên)
+    // Phương thức chặn phím Space/Enter
     private void preventKeyActivation(Button button) {
         if (button != null) {
             button.addEventFilter(KeyEvent.KEY_PRESSED, event -> {

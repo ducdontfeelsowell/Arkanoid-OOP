@@ -33,7 +33,6 @@ public class CheckBallBrickCollision {
 
         List<int[]> collidedBricks = new ArrayList<>();
 
-        // Check nearest brick
         for (int r = Math.max(0, row - 1); r <= Math.min(rows - 1, row + 1); r++) {
             for (int c = Math.max(0, col - 1); c <= Math.min(cols - 1, col + 1); c++) {
 
@@ -52,7 +51,6 @@ public class CheckBallBrickCollision {
             }
         }
 
-        // Handle only the closest brick
         if (collidedBricks.isEmpty()) return;
 
         int[] main = collidedBricks.get(0);
@@ -64,7 +62,6 @@ public class CheckBallBrickCollision {
             int[] rc = collidedBricks.get(i);
             Brick b = bricks[rc[0]][rc[1]];
             if (b != null && !b.isDestroyed()) {
-                // Destroy brick directly, no bounce
                 BreakBrick.breakIt(bricks, b, gm, im, rc[0], rc[1]);
             }
         }

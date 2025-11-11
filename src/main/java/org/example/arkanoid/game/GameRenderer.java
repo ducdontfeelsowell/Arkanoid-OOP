@@ -14,7 +14,7 @@ import java.util.Objects;
 
 public class GameRenderer {
     private final GraphicsContext gc;
-    private final Image backgroundImage2; // <<< THÊM MỚI
+    private final Image backgroundImage2;
 
     public GameRenderer(GraphicsContext gc) {
         this.gc = gc;
@@ -29,7 +29,6 @@ public class GameRenderer {
     /**
      * Vẽ toàn bộ game state
      */
-    // SỬA ĐỔI: Thêm GameManager gm
     public void renderObject(GameManager gm, Paddle paddle, BallManager ball, Brick[][] bricks, ItemManager im, BulletManager bm, int score, int lives) {
         gc.save();
         EffectManager.getInstance().applyShake(gc);
@@ -45,11 +44,10 @@ public class GameRenderer {
         RenderBricks.render(bricks, gc);
         RenderPaddle.render(paddle, gc);
 
-        // --- SỬA ĐỔI: Truyền trạng thái của paddle cho bóng ---
+        // Truyền trạng thái của paddle cho bóng
         RenderBall.render(ball, gc, paddle.isInvincible());
-        // --- KẾT THÚC SỬA ĐỔI ---
 
-        // SỬA ĐỔI: Truyền gm và paddle vào RenderUI
+        // Truyền gm và paddle vào RenderUI
         RenderUI.render(score, lives, gm, paddle, ball, gc);
 
         im.render(gc);

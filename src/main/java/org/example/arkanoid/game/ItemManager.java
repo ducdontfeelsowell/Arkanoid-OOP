@@ -38,7 +38,7 @@ public class ItemManager {
 
         System.out.println(randomType);
         // Tạo item tại vị trí giữa gạch
-        double itemX = brick.getX() + brick.getWidth() / 2 - 15; // 15 = itemWidth/2
+        double itemX = brick.getX() + brick.getWidth() / 2 - 15;
         double itemY = brick.getY();
 
         Item item = new Item(itemX, itemY, randomType);
@@ -142,16 +142,13 @@ public class ItemManager {
 
                 double slowMultiplier = 0.5; // Giảm 50% tốc độ Paddle
 
-                // 1. Kiểm tra và hủy hiệu ứng ngược (nếu có item FAST_SPEED)
                 if (paddle.getSpeed() > Constants.DEFAULT_PADDLE_SPEED) {
                     paddle.cancelSpeedTimeout();
                 }
 
-                // 2. Chỉ thay đổi tốc độ Paddle
                 double newPaddleSpeed = Constants.DEFAULT_PADDLE_SPEED * slowMultiplier;
                 paddle.setSpeedWithTimeout(newPaddleSpeed);
 
-                // KHÔNG THAY ĐỔI TỐC ĐỘ BÓNG
                 break;
             case COIN_50:
                 SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_USE_ITEM);
