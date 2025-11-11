@@ -37,8 +37,13 @@
                     <Image url="@../../../Images/Ball/Earth.png" />
                 </image>
             </ImageView>
-            <ImageView fitHeight="86.0" fitWidth="150.0" layoutX="138.0" layoutY="206.0" pickOnBounds="true">
+            <ImageView fx:id="BALL_EARTH_Image" fitHeight="86.0" fitWidth="150.0" layoutX="138.0" layoutY="206.0" pickOnBounds="true">
                 <image><Image url="@../../../Images/background/button1.png" /></image>
+            </ImageView>
+            <ImageView fx:id="BALL_EARTH_HoverImage" fitHeight="86.0" fitWidth="150.0" layoutX="138.0" layoutY="206.0" pickOnBounds="true" visible="false">
+                <image>
+                    <Image url="@../../../Images/background/button.png" />
+                </image>
             </ImageView>
             <Label fx:id="label_BALL_EARTH" alignment="CENTER" layoutX="128.0" layoutY="203.0" prefHeight="92.0" prefWidth="169.0" text="EQUIPPED" textFill="#4fcaf7"><font><Font name="Calibri Bold Italic" size="25.0" /></font></Label>
             <Button fx:id="button_BALL_EARTH" layoutX="147.0" layoutY="215.0" mnemonicParsing="false" onAction="#onBuyEquip_BallEarth" opacity="0.0" prefHeight="67.0" prefWidth="130.0" text="BALL" />
@@ -48,8 +53,13 @@
                     <Image url="@../../../Images/Ball/Soccer.png" />
                 </image>
             </ImageView>
-            <ImageView fitHeight="86.0" fitWidth="150.0" layoutX="138.0" layoutY="385.0" pickOnBounds="true">
+            <ImageView fx:id="BALL_SOCCER_Image" fitHeight="86.0" fitWidth="150.0" layoutX="138.0" layoutY="385.0" pickOnBounds="true">
                 <image><Image url="@../../../Images/background/button1.png" /></image>
+            </ImageView>
+            <ImageView fx:id="BALL_SOCCER_HoverImage" fitHeight="86.0" fitWidth="150.0" layoutX="138.0" layoutY="385.0" pickOnBounds="true" visible="false">
+                <image>
+                    <Image url="@../../../Images/background/button.png" />
+                </image>
             </ImageView>
             <Label fx:id="label_BALL_SOCCER" alignment="CENTER" layoutX="128.0" layoutY="382.0" prefHeight="92.0" prefWidth="169.0" text="\$4000" textFill="#4fcaf7"><font><Font name="Calibri Bold Italic" size="32.0" /></font></Label>
             <Button fx:id="button_BALL_SOCCER" layoutX="147.0" layoutY="394.0" mnemonicParsing="false" onAction="#onBuyEquip_BallSoccer" opacity="0.0" prefHeight="67.0" prefWidth="130.0" text="BALL" />
@@ -59,8 +69,13 @@
                     <Image url="@../../../Images/Ball/Pancake.png" />
                 </image>
             </ImageView>
-            <ImageView fitHeight="86.0" fitWidth="150.0" layoutX="405.0" layoutY="206.0" pickOnBounds="true">
+            <ImageView fx:id="BALL_PANCAKE_Image" fitHeight="86.0" fitWidth="150.0" layoutX="405.0" layoutY="206.0" pickOnBounds="true">
                 <image><Image url="@../../../Images/background/button1.png" /></image>
+            </ImageView>
+            <ImageView fx:id="BALL_PANCAKE_HoverImage" fitHeight="86.0" fitWidth="150.0" layoutX="405.0" layoutY="206.0" pickOnBounds="true" visible="false">
+                <image>
+                    <Image url="@../../../Images/background/button.png" />
+                </image>
             </ImageView>
             <Label fx:id="label_BALL_PANCAKE" alignment="CENTER" layoutX="395.0" layoutY="203.0" prefHeight="92.0" prefWidth="169.0" text="\$2000" textFill="#4fcaf7"><font><Font name="Calibri Bold Italic" size="32.0" /></font></Label>
             <Button fx:id="button_BALL_PANCAKE" layoutX="414.0" layoutY="215.0" mnemonicParsing="false" onAction="#onBuyEquip_BallPancake" opacity="0.0" prefHeight="67.0" prefWidth="130.0" text="BALL" />
@@ -70,8 +85,13 @@
                     <Image url="@../../../Images/Ball/Enderman2.png" />
                 </image>
             </ImageView>
-            <ImageView fitHeight="86.0" fitWidth="150.0" layoutX="405.0" layoutY="385.0" pickOnBounds="true">
+            <ImageView fx:id="BALL_ENDERMAN2_Image" fitHeight="86.0" fitWidth="150.0" layoutX="405.0" layoutY="385.0" pickOnBounds="true">
                 <image><Image url="@../../../Images/background/button1.png" /></image>
+            </ImageView>
+            <ImageView fx:id="BALL_ENDERMAN2_HoverImage" fitHeight="86.0" fitWidth="150.0" layoutX="405.0" layoutY="385.0" pickOnBounds="true" visible="false">
+                <image>
+                    <Image url="@../../../Images/background/button.png" />
+                </image>
             </ImageView>
             <Label fx:id="label_BALL_ENDERMAN2" alignment="CENTER" layoutX="395.0" layoutY="382.0" prefHeight="92.0" prefWidth="169.0" text="\$5000" textFill="#4fcaf7"><font><Font name="Calibri Bold Italic" size="32.0" /></font></Label>
             <Button fx:id="button_BALL_ENDERMAN2" layoutX="414.0" layoutY="394.0" mnemonicParsing="false" onAction="#onBuyEquip_BallEnderman2" opacity="0.0" prefHeight="67.0" prefWidth="130.0" text="BALL" />
@@ -81,8 +101,13 @@
                     <Image url="@../../../Images/Ball/Enderman1.png" />
                 </image>
             </ImageView>
-            <ImageView fitHeight="86.0" fitWidth="150.0" layoutX="624.0" layoutY="206.0" pickOnBounds="true">
+            <ImageView fx:id="BALL_ENDERMAN1_Image" fitHeight="86.0" fitWidth="150.0" layoutX="624.0" layoutY="206.0" pickOnBounds="true">
                 <image><Image url="@../../../Images/background/button1.png" /></image>
+            </ImageView>
+            <ImageView fx:id="BALL_ENDERMAN1_HoverImage" fitHeight="86.0" fitWidth="150.0" layoutX="624.0" layoutY="206.0" pickOnBounds="true" visible="false">
+                <image>
+                    <Image url="@../../../Images/background/button.png" />
+                </image>
             </ImageView>
             <Label fx:id="label_BALL_ENDERMAN1" alignment="CENTER" layoutX="614.0" layoutY="203.0" prefHeight="92.0" prefWidth="169.0" text="\$3000" textFill="#4fcaf7"><font><Font name="Calibri Bold Italic" size="32.0" /></font></Label>
             <Button fx:id="button_BALL_ENDERMAN1" layoutX="633.0" layoutY="215.0" mnemonicParsing="false" onAction="#onBuyEquip_BallEnderman1" opacity="0.0" prefHeight="67.0" prefWidth="130.0" text="BALL"><font><Font size="32.0" /></font></Button>
@@ -92,8 +117,13 @@
                     <Image url="@../../../Images/Ball/Chrome.png" />
                 </image>
             </ImageView>
-            <ImageView fitHeight="86.0" fitWidth="150.0" layoutX="634.0" layoutY="385.0" pickOnBounds="true">
+            <ImageView fx:id="BALL_CHROME_Image" fitHeight="86.0" fitWidth="150.0" layoutX="634.0" layoutY="385.0" pickOnBounds="true">
                 <image><Image url="@../../../Images/background/button1.png" /></image>
+            </ImageView>
+            <ImageView fx:id="BALL_CHROME_HoverImage" fitHeight="86.0" fitWidth="150.0" layoutX="634.0" layoutY="385.0" pickOnBounds="true" visible="false">
+                <image>
+                    <Image url="@../../../Images/background/button.png" />
+                </image>
             </ImageView>
             <Label fx:id="label_BALL_CHROME" alignment="CENTER" layoutX="624.0" layoutY="382.0" prefHeight="92.0" prefWidth="169.0" text="\$6000" textFill="#4fcaf7"><font><Font name="Calibri Bold Italic" size="32.0" /></font></Label>
             <Button fx:id="button_BALL_CHROME" layoutX="643.0" layoutY="394.0" mnemonicParsing="false" onAction="#onBuyEquip_BallChrome" opacity="0.0" prefHeight="67.0" prefWidth="130.0" text="BALL" />
@@ -125,9 +155,14 @@
                     <Image url="@../../../Images/trail/LGBT.png" />
                 </image>
             </ImageView>
-            <ImageView fitHeight="86.0" fitWidth="150.0" layoutX="148.0" layoutY="216.0" pickOnBounds="true">
+            <ImageView fx:id="TRAIL_LGBT_Image" fitHeight="86.0" fitWidth="150.0" layoutX="148.0" layoutY="216.0" pickOnBounds="true">
                 <image>
                     <Image url="@../../../Images/background/button1.png" />
+                </image>
+            </ImageView>
+            <ImageView fx:id="TRAIL_LGBT_HoverImage" fitHeight="86.0" fitWidth="150.0" layoutX="148.0" layoutY="216.0" pickOnBounds="true" visible="false">
+                <image>
+                    <Image url="@../../../Images/background/button.png" />
                 </image>
             </ImageView>
             <Label fx:id="label_TRAIL_LGBT" alignment="CENTER" layoutX="138.0" layoutY="213.0" prefHeight="92.0" prefWidth="169.0" text="EQUIPPED" textFill="#4fcaf7">
@@ -142,9 +177,14 @@
                     <Image url="@../../../Images/trail/Diamond.png" />
                 </image>
             </ImageView>
-            <ImageView fitHeight="86.0" fitWidth="150.0" layoutX="148.0" layoutY="395.0" pickOnBounds="true">
+            <ImageView fx:id="TRAIL_DIAMOND_Image" fitHeight="86.0" fitWidth="150.0" layoutX="148.0" layoutY="395.0" pickOnBounds="true">
                 <image>
                     <Image url="@../../../Images/background/button1.png" />
+                </image>
+            </ImageView>
+            <ImageView fx:id="TRAIL_DIAMOND_HoverImage" fitHeight="86.0" fitWidth="150.0" layoutX="148.0" layoutY="395.0" pickOnBounds="true" visible="false">
+                <image>
+                    <Image url="@../../../Images/background/button.png" />
                 </image>
             </ImageView>
             <Label fx:id="label_TRAIL_DIAMOND" alignment="CENTER" layoutX="138.0" layoutY="392.0" prefHeight="92.0" prefWidth="169.0" text="\$4000" textFill="#4fcaf7">
@@ -159,9 +199,14 @@
                     <Image url="@../../../Images/trail/Lightning.png" />
                 </image>
             </ImageView>
-            <ImageView fitHeight="86.0" fitWidth="150.0" layoutX="415.0" layoutY="216.0" pickOnBounds="true">
+            <ImageView fx:id="TRAIL_LIGHTNING_Image" fitHeight="86.0" fitWidth="150.0" layoutX="415.0" layoutY="216.0" pickOnBounds="true">
                 <image>
                     <Image url="@../../../Images/background/button1.png" />
+                </image>
+            </ImageView>
+            <ImageView fx:id="TRAIL_LIGHTNING_HoverImage" fitHeight="86.0" fitWidth="150.0" layoutX="415.0" layoutY="216.0" pickOnBounds="true" visible="false">
+                <image>
+                    <Image url="@../../../Images/background/button.png" />
                 </image>
             </ImageView>
             <Label fx:id="label_TRAIL_LIGHTNING" alignment="CENTER" layoutX="405.0" layoutY="213.0" prefHeight="92.0" prefWidth="169.0" text="\$2000" textFill="#4fcaf7">
@@ -176,9 +221,14 @@
                     <Image url="@../../../Images/trail/Primogem.png" />
                 </image>
             </ImageView>
-            <ImageView fitHeight="86.0" fitWidth="150.0" layoutX="415.0" layoutY="395.0" pickOnBounds="true">
+            <ImageView fx:id="TRAIL_PRIMOGEM_Image" fitHeight="86.0" fitWidth="150.0" layoutX="415.0" layoutY="395.0" pickOnBounds="true">
                 <image>
                     <Image url="@../../../Images/background/button1.png" />
+                </image>
+            </ImageView>
+            <ImageView fx:id="TRAIL_PRIMOGEM_HoverImage" fitHeight="86.0" fitWidth="150.0" layoutX="415.0" layoutY="395.0" pickOnBounds="true" visible="false">
+                <image>
+                    <Image url="@../../../Images/background/button.png" />
                 </image>
             </ImageView>
             <Label fx:id="label_TRAIL_PRIMOGEM" alignment="CENTER" layoutX="405.0" layoutY="392.0" prefHeight="92.0" prefWidth="169.0" text="\$5000" textFill="#4fcaf7">
@@ -193,9 +243,14 @@
                     <Image url="@../../../Images/trail/Dolla.png" />
                 </image>
             </ImageView>
-            <ImageView fitHeight="86.0" fitWidth="150.0" layoutX="634.0" layoutY="216.0" pickOnBounds="true">
+            <ImageView fx:id="TRAIL_DOLLA_Image" fitHeight="86.0" fitWidth="150.0" layoutX="634.0" layoutY="216.0" pickOnBounds="true">
                 <image>
                     <Image url="@../../../Images/background/button1.png" />
+                </image>
+            </ImageView>
+            <ImageView fx:id="TRAIL_DOLLA_HoverImage" fitHeight="86.0" fitWidth="150.0" layoutX="634.0" layoutY="216.0" pickOnBounds="true" visible="false">
+                <image>
+                    <Image url="@../../../Images/background/button.png" />
                 </image>
             </ImageView>
             <Label fx:id="label_TRAIL_DOLLA" alignment="CENTER" layoutX="624.0" layoutY="213.0" prefHeight="92.0" prefWidth="169.0" text="\$3000" textFill="#4fcaf7">
@@ -211,9 +266,14 @@
                     <Image url="@../../../Images/trail/LuckyClover.png" />
                 </image>
             </ImageView>
-            <ImageView fitHeight="86.0" fitWidth="150.0" layoutX="644.0" layoutY="395.0" pickOnBounds="true">
+            <ImageView fx:id="TRAIL_LUCKYCLOVER_Image" fitHeight="86.0" fitWidth="150.0" layoutX="644.0" layoutY="395.0" pickOnBounds="true">
                 <image>
                     <Image url="@../../../Images/background/button1.png" />
+                </image>
+            </ImageView>
+            <ImageView fx:id="TRAIL_LUCKYCLOVER_HoverImage" fitHeight="86.0" fitWidth="150.0" layoutX="644.0" layoutY="395.0" pickOnBounds="true" visible="false">
+                <image>
+                    <Image url="@../../../Images/background/button.png" />
                 </image>
             </ImageView>
             <Label fx:id="label_TRAIL_LUCKYCLOVER" alignment="CENTER" layoutX="634.0" layoutY="392.0" prefHeight="92.0" prefWidth="169.0" text="\$6000" textFill="#4fcaf7">
@@ -242,9 +302,14 @@
                     <Image url="@../../../Images/background/shop_board.png" />
                 </image>
             </ImageView>
-            <ImageView fitHeight="86.0" fitWidth="150.0" layoutX="144.0" layoutY="311.0" pickOnBounds="true">
+            <ImageView fx:id="PADDLE_DEFAULT_Image" fitHeight="86.0" fitWidth="150.0" layoutX="144.0" layoutY="311.0" pickOnBounds="true">
                 <image>
                     <Image url="@../../../Images/background/button1.png" />
+                </image>
+            </ImageView>
+            <ImageView fx:id="PADDLE_DEFAULT_HoverImage" fitHeight="86.0" fitWidth="150.0" layoutX="144.0" layoutY="311.0" pickOnBounds="true" visible="false">
+                <image>
+                    <Image url="@../../../Images/background/button.png" />
                 </image>
             </ImageView>
             <Label fx:id="label_PADDLE_DEFAULT" alignment="CENTER" layoutX="134.0" layoutY="308.0" prefHeight="92.0" prefWidth="169.0" text="EQUIPPED" textFill="#4fcaf7">
@@ -254,9 +319,14 @@
             </Label>
             <Button fx:id="button_PADDLE_DEFAULT" layoutX="153.0" layoutY="320.0" mnemonicParsing="false" onAction="#onBuyEquip_PaddleDefault" opacity="0.0" prefHeight="67.0" prefWidth="130.0" text="PADDLE" />
 
-            <ImageView fitHeight="86.0" fitWidth="150.0" layoutX="581.0" layoutY="304.0" pickOnBounds="true">
+            <ImageView fx:id="PADDLE_SKIN2_Image" fitHeight="86.0" fitWidth="150.0" layoutX="581.0" layoutY="304.0" pickOnBounds="true">
                 <image>
                     <Image url="@../../../Images/background/button1.png" />
+                </image>
+            </ImageView>
+            <ImageView fx:id="PADDLE_SKIN2_HoverImage" fitHeight="86.0" fitWidth="150.0" layoutX="581.0" layoutY="304.0" pickOnBounds="true" visible="false">
+                <image>
+                    <Image url="@../../../Images/background/button.png" />
                 </image>
             </ImageView>
             <Label fx:id="label_PADDLE_SKIN2" alignment="CENTER" layoutX="571.0" layoutY="301.0" prefHeight="92.0" prefWidth="169.0" text="\$2000" textFill="#4fcaf7">
