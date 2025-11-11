@@ -20,7 +20,6 @@ public class Constants {
     FPS
      */
     public static final double FPS = 60.0;
-    public static final double INTERVAL = 1000000000 / FPS; // nanoseconds per frame, that's 10^9/fps
 
     /*
     paddle
@@ -84,7 +83,7 @@ public class Constants {
     /*
     kích thước gạch
      */
-    public final static double BRICK_WIDTH =  30;
+    public final static double BRICK_WIDTH =  29;
     public final static double BRICK_HEIGHT = BRICK_WIDTH;
 
     /*
@@ -107,23 +106,6 @@ public class Constants {
     đường dẫn đến các file map
      */
     public final static String[] MAP_PATH  = new String[13];
-
-    /*
-    đường dẫn đến background các map
-     */
-    public final static String PATH_TO_BACKGROUND_MAP1  = "/Images/background/map1_background.jpg";
-    public final static String PATH_TO_BACKGROUND_MAP2  = "/Images/background/map2_background.jpg";
-    public final static String PATH_TO_BACKGROUND_MAP3  = "/Images/background/map3_background.jpg";
-    public final static String PATH_TO_BACKGROUND_MAP4  = "/Images/background/map4_background.jpg";
-    public final static String PATH_TO_BACKGROUND_MAP5  = "/Images/background/map5_background.jpg";
-    public final static String PATH_TO_BACKGROUND_MAP6  = "/Images/background/map6_background.jpg";
-    public final static String PATH_TO_BACKGROUND_MAP7  = "/Images/background/map7_background.jpg";
-    public final static String PATH_TO_BACKGROUND_MAP8  = "/Images/background/map8_background.jpg";
-    public final static String PATH_TO_BACKGROUND_MAP9  = "/Images/background/map9_background.jpg";
-    public final static String PATH_TO_BACKGROUND_MAP10 = "/Images/background/map10_background.jpg";
-    public final static String PATH_TO_BACKGROUND_MAP11 = "/Images/background/map11_background.jpg";
-    public final static String PATH_TO_BACKGROUND_MAP12 = "/Images/background/map12_background.jpg";
-
 
     /*
     đường dẫn đến các file fxml
@@ -176,7 +158,7 @@ public class Constants {
      */
     public final static String PATH_TO_NORMAL_BRICK1 = "/Images/brick/normalbrick1.png";
     public final static String PATH_TO_NORMAL_BRICK2 = "/Images/brick/normalbrick2.png";
-    public final static String PATH_TO_NORMAL_BRICK3 = "/Images/brick/normalbrick3.png";
+    public final static String PATH_TO_NORMAL_BRICK3 = "/Images/brick/normalbrick12.png";
     public final static String PATH_TO_NORMAL_BRICK4 = "/Images/brick/normalbrick4.png";
     public final static String PATH_TO_NORMAL_BRICK5 = "/Images/brick/normalbrick5.png";
     public final static String PATH_TO_NORMAL_BRICK6 = "/Images/brick/normalbrick6.png";
@@ -187,7 +169,7 @@ public class Constants {
     public final static String PATH_TO_NORMAL_BRICK11 = "/Images/brick/normalbrick11.png";
     public final static String PATH_TO_NORMAL_BRICK13 = "/Images/brick/normalbrick13.png";
     public final static String PATH_TO_NORMAL_BRICK14 = "/Images/brick/normalbrick14.png";
-    public final static String PATH_TO_NORMAL_BRICKKK = "/Images/brick/normalbrickkk.png";
+    public final static String PATH_TO_NORMAL_BRICKKK = "/Images/brick/normalbrick3.png";
 
 
 
@@ -210,8 +192,6 @@ public class Constants {
     public static final String PATH_TO_BALL_ENDERMAN2 = "/Images/Ball/Enderman2.png";
     public static final String PATH_TO_BALL_CHROME = "/Images/Ball/Chrome.png";
     public static final String PATH_TO_BALL_SOCCER = "/Images/Ball/Soccer.png";
-    // *** THÊM MỚI: (Giả sử bạn có ảnh này, nếu không hãy thay bằng ảnh khác) ***
-    public static final String PATH_TO_BALL_POKEBALL = "/Images/Ball/Pokeball.png";
 
 
     /*
@@ -232,7 +212,6 @@ public class Constants {
     public static final String BALL_SKIN_ENDERMAN2 = "BALL_ENDERMAN2";
     public static final String BALL_SKIN_CHROME = "BALL_CHROME";
     public static final String BALL_SKIN_SOCCER = "BALL_SOCCER";
-    public static final String BALL_SKIN_POKEBALL = "BALL_POKEBALL"; // (Thêm mới)
 
 
     public static final String TRAIL_SKIN_LGBT = "TRAIL_LGBT"; // Mặc định
@@ -244,7 +223,7 @@ public class Constants {
 
     // *** THÊM MỚI: ID cho Paddle ***
     public static final String PADDLE_SKIN_DEFAULT = "PADDLE_SKIN_DEFAULT";
-    public static final String PADDLE_SKIN_2 = "PADDLE_SKIN2"; // (Khớp với FXML)
+    public static final String PADDLE_SKIN_2 = "PADDLE_SKIN2";
 
 
     // --- Giá Vật Phẩm ---
@@ -259,7 +238,6 @@ public class Constants {
         ITEM_COSTS.put(BALL_SKIN_SOCCER, 4000);
         ITEM_COSTS.put(BALL_SKIN_ENDERMAN2, 5000);
         ITEM_COSTS.put(BALL_SKIN_CHROME, 6000);
-        ITEM_COSTS.put(BALL_SKIN_POKEBALL, 6000); // (Thêm giá)
 
         // Giá Trail (dựa trên FXML)
         ITEM_COSTS.put(TRAIL_SKIN_LGBT, 0);
@@ -274,15 +252,12 @@ public class Constants {
         ITEM_COSTS.put(PADDLE_SKIN_2, 2000);
     }
 
-    // --- Map ID tới Đường Dẫn Ảnh ---
     public static final Map<String, String> BALL_SKIN_PATHS = new HashMap<>();
     public static final Map<String, String> TRAIL_SKIN_PATHS = new HashMap<>();
-    // *** THÊM MỚI: Map cho Paddle ***
     public static final Map<String, String> PADDLE_SKIN_PATHS = new HashMap<>();
 
 
     static {
-        // *** SỬA LỖI: Ánh xạ chính xác Enderman1 và Enderman2 ***
         BALL_SKIN_PATHS.put(BALL_SKIN_PANCAKE, Constants.PATH_TO_BALL_PANCAKE);
         BALL_SKIN_PATHS.put(BALL_SKIN_EARTH, Constants.PATH_TO_BALL_EARTH);
         BALL_SKIN_PATHS.put(BALL_SKIN_ENDERMAN, Constants.PATH_TO_BALL_ENDERMAN1); // ID cũ trỏ về ảnh 1
@@ -290,9 +265,7 @@ public class Constants {
         BALL_SKIN_PATHS.put(BALL_SKIN_ENDERMAN2, Constants.PATH_TO_BALL_ENDERMAN2); // ID mới trỏ về ảnh 2
         BALL_SKIN_PATHS.put(BALL_SKIN_CHROME, Constants.PATH_TO_BALL_CHROME);
         BALL_SKIN_PATHS.put(BALL_SKIN_SOCCER, Constants.PATH_TO_BALL_SOCCER);
-        BALL_SKIN_PATHS.put(BALL_SKIN_POKEBALL, Constants.PATH_TO_BALL_POKEBALL);
 
-        // (Trail đã đúng)
         TRAIL_SKIN_PATHS.put(TRAIL_SKIN_LGBT, Constants.PATH_TO_TRAIL_LGBT);
         TRAIL_SKIN_PATHS.put(TRAIL_SKIN_LIGHTNING, Constants.PATH_TO_TRAIL_Lightning);
         TRAIL_SKIN_PATHS.put(TRAIL_SKIN_DOLLA, Constants.PATH_TO_TRAIL_DOLLA);
@@ -300,8 +273,6 @@ public class Constants {
         TRAIL_SKIN_PATHS.put(TRAIL_SKIN_PRIMOGEM, Constants.PATH_TO_TRAIL_PRIMOGEM);
         TRAIL_SKIN_PATHS.put(TRAIL_SKIN_LUCKYCLOVER, Constants.PATH_TO_TRAIL_LUCKYCLOVER);
 
-        // *** THÊM MỚI: Ánh xạ cho Paddle ***
-        // (Giả sử PADDLE_SKIN_DEFAULT là paddle0.png và PADDLE_SKIN_2 là paddle1.png)
         PADDLE_SKIN_PATHS.put(PADDLE_SKIN_DEFAULT, Constants.PATH_TO_PADDLE_0);
         PADDLE_SKIN_PATHS.put(PADDLE_SKIN_2, Constants.PATH_TO_PADDLE_1);
     }
@@ -383,18 +354,18 @@ public class Constants {
 
     // Các giá trị final cho từng chế độ
     public final static int EASY_LIVES = 5;
-    public final static double EASY_BALL_SPEED = 6;
-    public final static double EASY_PADDLE_SPEED = 5;
+    public final static double EASY_BALL_SPEED = 4;
+    public final static double EASY_PADDLE_SPEED = 7;
     public final static double EASY_DROP_CHANCE = 0.5; // 50%
 
     public final static int NORMAL_LIVES = 3;
-    public final static double NORMAL_BALL_SPEED = 9;
-    public final static double NORMAL_PADDLE_SPEED = 7;
+    public final static double NORMAL_BALL_SPEED = 5;
+    public final static double NORMAL_PADDLE_SPEED = 8;
     public final static double NORMAL_DROP_CHANCE = 0.3; // 30%
 
     public final static int HARD_LIVES = 2;
-    public final static double HARD_BALL_SPEED = 14;
-    public final static double HARD_PADDLE_SPEED = 6;
+    public final static double HARD_BALL_SPEED = 7;
+    public final static double HARD_PADDLE_SPEED = 10;
     public final static double HARD_DROP_CHANCE = 0.15; // 15%
 
     // Các biến (không final) để lưu cài đặt HIỆN TẠI

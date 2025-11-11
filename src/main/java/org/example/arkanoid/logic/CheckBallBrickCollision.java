@@ -11,16 +11,16 @@ import java.util.List;
 
 public class CheckBallBrickCollision {
 
-    public static void check(Ball ball, Brick[][] bricks, GameManager gm, ItemManager im) {
+    public static boolean check(Ball ball, Brick[][] bricks, GameManager gm, ItemManager im) {
         int rows = bricks.length;
-        if (rows == 0) return;
+        if (rows == 0) return false;
         int cols = bricks[0].length;
-        if (cols == 0) return;
+        if (cols == 0) return false;
 
         double relativeBallX = ball.getX() - Constants.PLAY_AREA_LEFT;
 
         if (relativeBallX < 0) {
-            return;
+            return false;
         }
 
         int col = (int) (relativeBallX / Constants.BRICK_WIDTH);
@@ -51,7 +51,7 @@ public class CheckBallBrickCollision {
             }
         }
 
-        if (collidedBricks.isEmpty()) return;
+        if (collidedBricks.isEmpty()) return false;
 
         int[] main = collidedBricks.get(0);
         Brick mainBrick = bricks[main[0]][main[1]];
@@ -65,5 +65,7 @@ public class CheckBallBrickCollision {
                 BreakBrick.breakIt(bricks, b, gm, im, rc[0], rc[1]);
             }
         }
+
+        return true;
     }
 }
