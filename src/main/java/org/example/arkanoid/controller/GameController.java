@@ -1,7 +1,9 @@
 package org.example.arkanoid.controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -18,6 +20,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import org.example.arkanoid.controller.LevelController;
 
 import java.io.IOException;
 import java.net.URL;
@@ -51,17 +54,17 @@ public class GameController implements Initializable {
     private MediaView lose_backgroundMediaView;
 
     @FXML
-    private ImageView backHoverImage1; // Back Button 1 (Pause Screen)
+    private ImageView backHoverImage1;
     @FXML
-    private ImageView backHoverImage2; // Back Button 2 (Lose Screen)
+    private ImageView backHoverImage2;
     @FXML
-    private ImageView backHoverImage3; // Back Button 3 (Win Screen)
+    private ImageView backHoverImage3;
     @FXML
-    private ImageView resumeHoverImage1; // Resume Button (Pause Screen)
+    private ImageView resumeHoverImage1;
     @FXML
-    private ImageView playAgainHoverImage; // Play Again Button (Lose Screen)
+    private ImageView playAgainHoverImage;
     @FXML
-    private ImageView nextLevelHoverImage; // Next Level Button (Win Screen)
+    private ImageView nextLevelHoverImage;
 
     private MediaPlayer win_mediaPlayer;
     private MediaPlayer lose_mediaPlayer;
@@ -70,7 +73,6 @@ public class GameController implements Initializable {
         if (inputHandler != null) {
             boolean escapePressed = inputHandler.isEscapePressed();
 
-            // Detect escape key press (edge detection)
             if (escapePressed && !escapeWasPressed) {
                 togglePause();
             }
@@ -140,7 +142,6 @@ public class GameController implements Initializable {
             }
             button.hoverProperty().addListener((obs, oldVal, newVal) -> {
                 if (newVal) {
-                    // Khi hover vào: đổi ảnh và đổi con trỏ
                     SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_HOVER);
                     if (hoverNode != null) {
                         hoverNode.setVisible(true);
@@ -149,7 +150,6 @@ public class GameController implements Initializable {
                         button.getScene().setCursor(buttonHoverCursor);
                     }
                 } else {
-                    // Khi rời khỏi hover: ẩn ảnh và đổi con trỏ về mặc định
                     if (hoverNode != null) {
                         hoverNode.setVisible(false);
                     }
@@ -161,7 +161,6 @@ public class GameController implements Initializable {
         }
     }
 
-    // Phương thức chặn phím Space/Enter
     private void preventKeyActivation(Button button) {
         if (button != null) {
             button.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
@@ -179,32 +178,50 @@ public class GameController implements Initializable {
         SoundManager.getInstance().resumeBackgroundMusic();
     }
 
+    private void returnToLevelScreen(Button originatingButton) {
+        Constants.isStarted = false;
+        this.inputHandler = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.PATH_TO_LEVEL_VIEW));
+            Parent root = loader.load();
+
+            LevelController controller = loader.getController();
+            if (controller != null) {
+                controller.updateLockStatus();
+            }
+
+            if (originatingButton != null && originatingButton.getScene() != null) {
+                if (defaultGameCursor != null) {
+                    originatingButton.getScene().setCursor(defaultGameCursor);
+                }
+                originatingButton.getScene().setRoot(root);
+            } else {
+                Main.returnToMenu();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Main.returnToMenu();
+        }
+    }
+
     public void onBackClick1() {
         SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
-        paused = false;
         pauseScreen.setVisible(false);
-        Main.returnToMenu();
+        returnToLevelScreen(backButton1);
     }
 
     public void onBackClick2() {
         SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
-        paused = false;
         loseScreen.setVisible(false);
-        Main.returnToMenu();
+        returnToLevelScreen(backButton2);
     }
 
     public void onPLayAgainClick() {
         SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
+        paused = false;
+        Constants.isStarted = false;
         loseScreen.setVisible(false);
         Main.restartGame();
-    }
-
-    @FXML
-    public void onNextLevelClick() {
-        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
-        winScreen.setVisible(false);
-        paused = false;
-        Main.loadNextLevel();
     }
 
     private void initializeLoseScreenVideo() {
@@ -252,8 +269,7 @@ public class GameController implements Initializable {
     public void onBackClick3() {
         SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         winScreen.setVisible(false);
-        paused = false;
-        Main.returnToMenu();
+        returnToLevelScreen(backButton3);
     }
 
     private void initializeWinScreenVideo() {
@@ -283,6 +299,8 @@ public class GameController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        paused = false;
+
         if (pauseScreen != null) {
             pauseScreen.setVisible(false);
         }

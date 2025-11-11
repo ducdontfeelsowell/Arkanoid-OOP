@@ -151,24 +151,21 @@ public class LevelController implements Initializable{
                 continue;
             }
 
-            int levelIndex = i + 1; // Level 1-12
-            int status = difficulties[levelIndex]; // 0, 1, 2, hoặc 3
+            int levelIndex = i + 1;
+            int status = difficulties[levelIndex];
 
-            // Nút Easy: Luôn mở (nút level cha đã xử lý khóa)
             easyButtons[i].setDisable(false);
             easyButtons[i].setOpacity(1.0);
 
-            // Nút Normal: Khóa nếu Easy chưa xong (status < 1)
-            if (status < ProgressManager.STATUS_EASY_COMPLETED) { // status < 1
+            if (status < ProgressManager.STATUS_EASY_COMPLETED) {
                 normalButtons[i].setDisable(true);
-                normalButtons[i].setOpacity(0.3); // (Thêm hiệu ứng mờ)
+                normalButtons[i].setOpacity(0.3);
             } else {
                 normalButtons[i].setDisable(false);
                 normalButtons[i].setOpacity(1.0);
             }
 
-            // Nút Hard: Khóa nếu Normal chưa xong (status < 2)
-            if (status < ProgressManager.STATUS_NORMAL_COMPLETED) { // status < 2
+            if (status < ProgressManager.STATUS_NORMAL_COMPLETED) {
                 hardButtons[i].setDisable(true);
                 hardButtons[i].setOpacity(0.3);
             } else {

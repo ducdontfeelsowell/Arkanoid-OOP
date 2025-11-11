@@ -12,7 +12,7 @@ public class BreakBrick {
 
     public static void breakIt(Brick[][] bricks, Brick brick, GameManager gm, ItemManager im, int row, int col) {
         switch (brick.getType()) {
-            case 1, 2:
+            case 1, 2, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14:
                 SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_PADDLE_HIT);
                 brick.takeHit();
                 if (brick.isDestroyed()) {
