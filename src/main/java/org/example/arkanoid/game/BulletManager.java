@@ -5,9 +5,9 @@ import org.example.arkanoid.object.Brick.Brick;
 import org.example.arkanoid.object.Bullet;
 import org.example.arkanoid.config.Constants;
 import org.example.arkanoid.game.SoundManager;
-import org.example.arkanoid.object.Brick.ExplodeBrick; // <-- THÊM MỚI
-import org.example.arkanoid.logic.DestroyRegion;       // <-- THÊM MỚI
-import org.example.arkanoid.game.EffectManager;       // <-- THÊM MỚI
+import org.example.arkanoid.object.Brick.ExplodeBrick;
+import org.example.arkanoid.logic.DestroyRegion;
+import org.example.arkanoid.game.EffectManager;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -16,17 +16,14 @@ import java.util.List;
 public class BulletManager {
 
     private List<Bullet> bullets;
-    // private long lastShotTime = 0; // <-- XÓA DÒNG NÀY
-    private double cooldownRemainingTime = 0; // <-- THÊM DÒNG NÀY
+    private double cooldownRemainingTime = 0;
 
     public BulletManager() {
         this.bullets = new ArrayList<>();
     }
 
     public void shoot(double paddleX, double paddleY, double paddleWidth) {
-        // long now = System.nanoTime(); // <-- XÓA DÒNG NÀY
-        // if (now - lastShotTime > Constants.DEFAULT_BULLET_COOLDOWN) { // <-- SỬA DÒNG NÀY
-        if (cooldownRemainingTime <= 0) { // <-- THAY BẰNG DÒNG NÀY
+        if (cooldownRemainingTime <= 0) {
 
             SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_SHOOT);
 
@@ -41,17 +38,15 @@ public class BulletManager {
             this.bullets.add(newBulletLeft);
             this.bullets.add(newBulletRight);
 
-            // lastShotTime = now; // <-- XÓA DÒNG NÀY
-            cooldownRemainingTime = Constants.DEFAULT_BULLET_COOLDOWN; // <-- THÊM DÒNG NÀY
+            cooldownRemainingTime = Constants.DEFAULT_BULLET_COOLDOWN;
         }
     }
 
-    // public void update() { // <-- SỬA DÒNG NÀY
-    public void update(long deltaTime) { // <-- THAY BẰNG DÒNG NÀY
+    public void update(long deltaTime) {
 
         // Cập nhật cooldown
         if (cooldownRemainingTime > 0) {
-            cooldownRemainingTime -= deltaTime; // <-- THÊM DÒNG NÀY
+            cooldownRemainingTime -= deltaTime;
         }
 
         Iterator<Bullet> iterator = bullets.iterator();
@@ -84,7 +79,6 @@ public class BulletManager {
 
                     if (brick != null && !brick.isDestroyed() && bullet.isCollidingWith(brick)) {
 
-                        // --- SỬA ĐỔI: Xử lý va chạm gạch nổ ---
                         if (brick instanceof ExplodeBrick) {
                             // 1. Tạo hiệu ứng nổ và rung
                             double centerX = brick.getX() + brick.getWidth() / 2;
@@ -101,18 +95,15 @@ public class BulletManager {
                             gm.setScore(gm.getScore() + points);
 
                         } else {
-                            // Logic cũ cho gạch thường
                             brick.takeHit();
 
                             if (brick.isDestroyed()) {
                                 gm.setScore(gm.getScore() + brick.getScore());
                                 im.spawnItem(brick);
 
-                                // Thêm hiệu ứng mảnh vỡ cho gạch thường
                                 EffectManager.getInstance().spawnBrickDebris(brick);
                             }
                         }
-                        // --- KẾT THÚC SỬA ĐỔI ---
 
                         hit = true;
                         break;

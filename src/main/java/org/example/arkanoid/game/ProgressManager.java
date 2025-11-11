@@ -4,7 +4,6 @@ import org.example.arkanoid.config.Constants;
 
 import java.io.*;
 import java.util.*;
-// Import lớp PlayerScore (giả định là static) từ ScoreManager (từ Bản 1)
 import org.example.arkanoid.game.ScoreManager.PlayerScore;
 
 public class ProgressManager {
@@ -140,7 +139,6 @@ public class ProgressManager {
 
     /**
      * Tải toàn bộ file user.txt vào bộ nhớ (HashMap)
-     * Parser này đã được gộp để xử lý TẤT CẢ các định dạng cũ và định dạng mới.
      */
     private static void loadUserDatabase() {
         userDatabase.clear();
@@ -239,7 +237,6 @@ public class ProgressManager {
                     }
 
                     // (Từ V2) Luôn đảm bảo vật phẩm mặc định được sở hữu
-                    ownBalls.add(Constants.BALL_SKIN_PANCAKE);
                     ownBalls.add(Constants.BALL_SKIN_EARTH);
                     ownTrails.add(Constants.TRAIL_SKIN_LGBT);
                     ownPaddles.add(Constants.PADDLE_SKIN_DEFAULT);
@@ -261,7 +258,6 @@ public class ProgressManager {
 
     /**
      * Lưu toàn bộ database (HashMap) trở lại file user.txt (Ghi đè)
-     * Sử dụng định dạng gộp 6-phần (đã xử lý trong UserData.toString())
      */
     private static void saveUserDatabase() {
         File userFile = new File(USER_FILE_PATH);
@@ -279,14 +275,12 @@ public class ProgressManager {
     /**
      * Được gọi bởi MenuController.
      * Tải dữ liệu nếu người chơi tồn tại, hoặc tạo mới nếu không.
-     * (Đã gộp)
      */
     public static void login(String playerName) {
         currentPlayerName = playerName.trim();
-        loadUserDatabase(); // Tải dữ liệu mới nhất từ file (sử dụng parser gộp)
+        loadUserDatabase();
 
         if (userDatabase.containsKey(currentPlayerName)) {
-            // --- NGƯỜI CHƠI CŨ: Tải dữ liệu ---
             System.out.println("Chào mừng trở lại, " + currentPlayerName);
             UserData data = userDatabase.get(currentPlayerName);
 
@@ -309,9 +303,7 @@ public class ProgressManager {
         } else {
             // --- NGƯỜi CHƠI MỚI: Tạo dữ liệu ---
             System.out.println("Tạo người chơi mới: " + currentPlayerName);
-
-            // Dữ liệu chung
-            maxLevelUnlocked = 1; // Mở khóa màn 1
+            maxLevelUnlocked = 1;
             currentCoins = 0;
             totalScore = 0;
 
@@ -326,7 +318,6 @@ public class ProgressManager {
             ownedTrails = new HashSet<>();
             ownedPaddles = new HashSet<>();
             ownedBalls.add(Constants.BALL_SKIN_EARTH);
-            ownedBalls.add(Constants.BALL_SKIN_PANCAKE);
             ownedTrails.add(Constants.TRAIL_SKIN_LGBT);
             ownedPaddles.add(Constants.PADDLE_SKIN_DEFAULT);
 
@@ -344,7 +335,6 @@ public class ProgressManager {
 
     /**
      * Lưu trạng thái HIỆN TẠI của người chơi vào database VÀ file.
-     * (Đã gộp)
      */
     private static void saveCurrentProfile() {
         if (currentPlayerName == null || currentPlayerName.isEmpty()) {
@@ -352,7 +342,6 @@ public class ProgressManager {
             return;
         }
 
-        // Cập nhật database trong bộ nhớ
         UserData currentData = userDatabase.get(currentPlayerName);
         if (currentData == null) {
             // Trường hợp dự phòng nếu người chơi không có trong map
@@ -380,14 +369,8 @@ public class ProgressManager {
 
         userDatabase.put(currentPlayerName, currentData);
 
-        // Lưu toàn bộ database (bao gồm thay đổi) ra file
         saveUserDatabase();
     }
-
-
-    // ===================================================================
-    // LOGIC HOÀN THÀNH MÀN (LẤY TỪ BẢN 1 - CÓ ĐỘ KHÓ)
-    // ===================================================================
 
     /**
      * Được gọi khi người chơi hoàn thành một màn.
@@ -455,7 +438,7 @@ public class ProgressManager {
         if (amount > 0) {
             currentCoins += amount;
             System.out.println("Đã nhận " + amount + " coins. Tổng: " + currentCoins);
-            saveCurrentProfile(); // Lưu coin ngay lập tức
+            saveCurrentProfile();
         }
     }
 

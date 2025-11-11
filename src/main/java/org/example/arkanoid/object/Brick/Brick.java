@@ -126,7 +126,7 @@ public class Brick extends GameObject {
 
     public Color getBrickColor() {
         if (this.brickColor == null) {
-            return Color.GRAY; // Trả về màu xám nếu có lỗi
+            return Color.GRAY;
         }
         return this.brickColor;
     }
