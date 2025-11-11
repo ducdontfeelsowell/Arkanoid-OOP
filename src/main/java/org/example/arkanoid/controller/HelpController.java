@@ -93,9 +93,8 @@ public class HelpController implements Initializable {
             }
         }
     }
-    // --- KẾT THÚC KHỞI TẠO CURSOR ---
 
-    // PHƯƠNG THỨC ĐÃ SỬA: Thêm logic đổi con trỏ
+    // logic đổi con trỏ
     private void addHoverEffect(Button button, Node imageOut, Node imageOn) {
         if (button != null) {
             // Đảm bảo ảnh ON/HOVER ban đầu bị ẩn
@@ -132,7 +131,7 @@ public class HelpController implements Initializable {
         }
     }
 
-    // Phương thức chặn phím Space/Enter (Giữ nguyên)
+    // Phương thức chặn phím Space/Enter
     private void preventKeyActivation(Button button) {
         if (button != null) {
             button.addEventFilter(KeyEvent.KEY_PRESSED, event -> {

@@ -92,7 +92,7 @@ public class SettingController implements Initializable {
 
 
 
-    // PHƯƠNG THỨC ĐÃ SỬA: Thêm logic đổi con trỏ
+    // PHƯƠNG THỨC ĐÃ SA: Thêm logic đổi con trỏ
     private void addHoverEffect(Button button, Node imageOut, Node imageOn) {
         if (button != null) {
             // Đảm bảo ảnh ON/HOVER ban đầu bị ẩn

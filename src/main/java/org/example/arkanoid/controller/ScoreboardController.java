@@ -99,7 +99,7 @@ public class ScoreboardController implements Initializable {
         backButton.getScene().setRoot(root);
     }
 
-    // PHƯƠNG THỨC ĐÃ SỬA: Thêm logic đổi con trỏ
+    // PHƯƠNG THỨC ĐÃ SỬ: Thêm logic đổi con trỏ
     private void addHoverEffect(Button button, Node imageOut, Node imageOn) {
         if (button != null) {
             // Đảm bảo ảnh ON/HOVER ban đầu bị ẩn
