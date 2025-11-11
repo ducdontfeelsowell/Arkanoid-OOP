@@ -43,42 +43,42 @@
         </font>
     </Label>
     <Button fx:id="backButton" layoutX="580.5" layoutY="725.0" mnemonicParsing="false" onAction="#onBackButtonClick" opacity="0.0" prefHeight="65.0" prefWidth="122.0" text="Back" />
-   <Label layoutX="75.0" layoutY="164.0" text="OBJECTIVE" textFill="#16ccf2">
+   <Label layoutX="154.0" layoutY="156.0" text="OBJECTIVE" textFill="#16ccf2">
       <font>
          <Font name="Arial Black" size="32.0" />
       </font>
    </Label>
-   <Text fill="#16ccf2" layoutX="75.0" layoutY="229.0" lineSpacing="4.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dùng Paddle để điều khiển bóng&#10;Phá hủy tất cả các viên gạch để chiến thắng&#10;Đừng để bóng rơi xuống cạnh dưới!">
+   <Text fill="#16ccf2" layoutX="154.0" layoutY="221.0" lineSpacing="4.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dùng Paddle để điều khiển bóng&#10;Phá hủy tất cả các viên gạch để chiến thắng&#10;Đừng để bóng rơi xuống cạnh dưới!">
       <font>
          <Font name="Arial Bold" size="20.0" />
       </font>
    </Text>
-   <Label layoutX="1079.0" layoutY="164.0" text="Control" textFill="#16ccf2">
+   <Label layoutX="800.0" layoutY="156.0" text="Control" textFill="#16ccf2">
       <font>
          <Font name="Arial Black" size="32.0" />
       </font>
    </Label>
-   <Text fill="#16ccf2" layoutX="715.0" layoutY="237.0" lineSpacing="4.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mũi tên Trái / Phải: Di chuyển Paddle&#10;Space: Thả bóng ra chơi / Bắn đạn khi có Súng Bắn&#10;Esc: Tạm dừng / Tiếp tục" textAlignment="RIGHT">
+   <Text fill="#16ccf2" layoutX="618.0" layoutY="237.0" lineSpacing="4.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mũi tên Trái / Phải: Di chuyển Paddle&#10;Space: Thả bóng ra chơi / Bắn đạn khi có Súng Bắn&#10;Esc: Tạm dừng / Tiếp tục">
       <font>
          <Font name="Arial Bold" size="20.0" />
       </font>
    </Text>
-   <Label alignment="CENTER_RIGHT" layoutX="75.0" layoutY="349.0" text="Items" textFill="#16ccf2">
+   <Label alignment="CENTER_RIGHT" layoutX="154.0" layoutY="349.0" text="Items" textFill="#16ccf2">
       <font>
          <Font name="Arial Black" size="32.0" />
       </font>
    </Label>
-   <Text fill="#16ccf2" layoutX="75.0" layoutY="415.0" lineSpacing="4.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phá gạch có thể rơi ra vật phẩm!&#10;Expand: Kéo dài Paddle&#10;Shrink: Làm ngắn Paddle&#10;Extra Life: Thêm mạng&#10;Shooter: Súng bắn phá gạch&#10;Safety Net: Bóng nảy lại lên từ dưới&#10;Multi-Ball: Bóng x3&#10;Slow: Giảm tốc bóng&#10;Coin: Thưởng tiền">
+   <Text fill="#16ccf2" layoutX="154.0" layoutY="415.0" lineSpacing="4.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phá gạch có thể rơi ra vật phẩm!&#10;Expand: Kéo dài Paddle&#10;Shrink: Làm ngắn Paddle&#10;Extra Life: Thêm mạng&#10;Shooter: Súng bắn phá gạch&#10;Safety Net: Bóng nảy lại lên từ dưới&#10;Multi-Ball: Bóng x3&#10;Slow: Giảm tốc bóng&#10;Coin: Thưởng tiền">
       <font>
          <Font name="Arial Bold" size="20.0" />
       </font>
    </Text>
-   <Label layoutX="1115.0" layoutY="349.0" text="Brick" textFill="#16ccf2">
+   <Label layoutX="800.0" layoutY="349.0" text="Brick" textFill="#16ccf2">
       <font>
          <Font name="Arial Black" size="32.0" />
       </font>
    </Label>
-   <Text fill="#16ccf2" layoutX="650.0" layoutY="414.0" lineSpacing="4.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Normal: Phá sau 1 lần va&#10;Strong: Phá sau 3 lần va&#10;Explosible: Phá sau 1 lần và nổ, phá hủy vùng xung quanh&#10;Unbreakable: Không phá được, kể cả nổ" textAlignment="RIGHT">
+   <Text fill="#16ccf2" layoutX="618.0" layoutY="415.0" lineSpacing="4.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Normal: Phá sau 1 lần va&#10;Strong: Phá sau 3 lần va&#10;Explosible: Phá sau 1 lần và nổ, phá hủy vùng xung quanh&#10;Unbreakable: Không phá được, kể cả nổ" wrappingWidth="507.4613037109375">
       <font>
          <Font name="Arial Bold" size="20.0" />
       </font>

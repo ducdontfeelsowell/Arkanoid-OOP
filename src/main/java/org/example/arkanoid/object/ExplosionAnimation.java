@@ -18,17 +18,15 @@ public class ExplosionAnimation extends GameObject {
     private static List<Image> explosionFrames;
 
     // Kích thước của ảnh (giả định tất cả các frame như nhau)
-    private static double FRAME_WIDTH = 96;  // CẬP NHẬT KÍCH THƯỚC NÀY
-    private static double FRAME_HEIGHT = 96; // CẬP NHẬT KÍCH THƯỚC NÀY
+    private static double FRAME_WIDTH = 96;
+    private static double FRAME_HEIGHT = 96;
 
     private int currentFrame;
     private boolean finished;
     private long lastFrameTime;
 
-    // Tốc độ animation (ví dụ: 80ms mỗi frame)
     private static final long FRAME_DURATION_NANO = 80_000_000L;
 
-    // Khối static initializer, chạy 1 lần khi lớp được tải
     static {
         explosionFrames = new ArrayList<>();
         try {
@@ -38,7 +36,6 @@ public class ExplosionAnimation extends GameObject {
                 explosionFrames.add(frame);
             }
 
-            // Nếu tải ảnh thành công, lấy kích thước của frame đầu tiên
             if (!explosionFrames.isEmpty()) {
                 FRAME_WIDTH = explosionFrames.get(0).getWidth();
                 FRAME_HEIGHT = explosionFrames.get(0).getHeight();
@@ -47,7 +44,7 @@ public class ExplosionAnimation extends GameObject {
         } catch (Exception e) {
             System.err.println("LỖI NGHIÊM TRỌNG: Không thể tải ảnh animation nổ!");
             e.printStackTrace();
-            explosionFrames.clear(); // Xóa danh sách nếu có lỗi
+            explosionFrames.clear();
         }
     }
 
@@ -56,8 +53,7 @@ public class ExplosionAnimation extends GameObject {
      * (x, y) là TÂM của vụ nổ.
      */
     public ExplosionAnimation(double x, double y) {
-        // Tính toán vị trí góc trên-trái (render)
-        // để (x, y) là tâm của ảnh
+
         super(x - FRAME_WIDTH / 2, y - FRAME_HEIGHT / 2, FRAME_WIDTH, FRAME_HEIGHT);
 
         this.currentFrame = 0;
@@ -73,9 +69,8 @@ public class ExplosionAnimation extends GameObject {
 
         long now = System.nanoTime();
         if (now - lastFrameTime > FRAME_DURATION_NANO) {
-            currentFrame++; // Chuyển sang frame tiếp theo
+            currentFrame++;
 
-            // Nếu frame vượt quá số lượng ảnh, đánh dấu là kết thúc
             if (currentFrame >= explosionFrames.size()) {
                 finished = true;
             }
@@ -86,7 +81,7 @@ public class ExplosionAnimation extends GameObject {
     @Override
     public void render(GraphicsContext gc) {
         if (finished || explosionFrames.isEmpty()) {
-            return; // Không vẽ nếu đã kết thúc hoặc không tải được ảnh
+            return;
         }
 
         Image frameToDraw = explosionFrames.get(currentFrame);

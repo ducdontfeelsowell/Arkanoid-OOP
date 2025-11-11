@@ -65,43 +65,7 @@ public class ScoreManager {
         topScores.addAll(minChecker);
     }
 
-    /* For score history, RIP
-    public void loadScore() {
-        File scoreFile = new File(SCORE_FILE_PATH);
-        if (scoreFile.exists()) {
-            try (BufferedReader reader = new BufferedReader(new FileReader(scoreFile))) {
-                String player;
-                while ((player = reader.readLine()) != null) {
-                    Scanner playerScan = new Scanner(player);
-                    String name = playerScan.next();
-                    int score = playerScan.nextInt();
-                    playerScan.close();
-                    minChecker.add(new PlayerScore(name, score));
-                    processScore();
-                }
-            } catch (IOException | NumberFormatException e) {
-                System.err.println("Lỗi khi đọc file score!");
-            }
-        } else {
-            System.out.println("Không tìm thấy file score.");
-        }
-    }
 
-    public void saveScore() {
-        processScore();
-        File scoreFile = new File(SCORE_FILE_PATH);
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(scoreFile))) {
-            while (!minChecker.isEmpty()) {
-                PlayerScore player = minChecker.poll();
-                writer.write(player.getName() + " " + player.getScore());
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            System.err.println("Lỗi khi lưu file user.txt!");
-            e.printStackTrace();
-        }
-    }
-     */
 
     public PriorityQueue<PlayerScore> getTopScores() {
         return topScores;

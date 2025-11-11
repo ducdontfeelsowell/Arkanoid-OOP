@@ -37,7 +37,7 @@ public class Bullet extends MoveAbleObject {
 
     @Override
     public void move() {
-        y += dy; // Di chuyển (dy âm = đi lên)
+        y += dy;
     }
 
     @Override
@@ -57,7 +57,7 @@ public class Bullet extends MoveAbleObject {
     }
 
     public boolean isOffScreen() {
-        return y + height < 0; // Ra khỏi màn hình phía trên
+        return y + height < 0;
     }
 
     public boolean isCollidingWith(GameObject other) {
