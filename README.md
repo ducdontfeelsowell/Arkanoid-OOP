@@ -40,9 +40,6 @@ The project demonstrates the implementation of **OOP principles** and **design p
 You can use **IntelliJ IDEA** to generate UML diagrams:  
 [Tutorial](https://www.youtube.com/watch?v=yCkTqNxZkbY)
 
-Full diagrams are located in:  
-`docs/uml/`
-
 ---
 
 ## Design Patterns Implementation
@@ -120,25 +117,35 @@ The game uses multiple threads for performance:
 
 ### Screenshots
 
-#### Main Menu
-![Main Menu](docs/screenshots/main_menu.png)
+#### Login
+![login](https://github.com/user-attachments/assets/8c46b5d7-37d5-40c3-81bc-83ea12ffcea6)
 
-#### Gameplay
-![Gameplay](docs/screenshots/gameplay.png)
+#### Main Menu
+![arkanoid](https://github.com/user-attachments/assets/c95c4c03-561c-4699-9428-b93268042fb4)
+
+#### Map
+![map2](https://github.com/user-attachments/assets/8163c4ee-cb26-466c-ad09-a83a83ae7e87)
+![map](https://github.com/user-attachments/assets/1b925cdd-b5ea-4e07-a1b6-247741eff613)
 
 #### Power-ups in Action
-![Power-ups](docs/screenshots/powerups.png)
+![powerup](https://github.com/user-attachments/assets/f0780de6-4612-4a8e-a00b-127826247ded)
 
-#### Leaderboard
-![Leaderboard](docs/screenshots/leaderboard.png)
+#### Scoreboard
+![scoreboard](https://github.com/user-attachments/assets/ae95765a-8b0b-4438-9ee7-62cc68ba202c)
 
-### Video Demo
-Full gameplay video is available at:  
-`docs/demo/gameplay.mp4`
+#### Help
+![help](https://github.com/user-attachments/assets/2a683ac6-1f03-4a38-9c84-b451c32b9dad)
+
+#### Setting
+![setting](https://github.com/user-attachments/assets/f0982415-532c-4a32-9d26-76a0c58d3f09)
+
+#### Shop
+![shop](https://github.com/user-attachments/assets/bb40ac1c-56eb-45d2-b848-b19b87b13215)
 
 ---
 
 ## Future Improvements
+
 
 ### Planned Features
 
