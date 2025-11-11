@@ -36,8 +36,7 @@ public class GameManager {
     private int currentLevel;
 
     private boolean safetyNetActive = false;
-    // private double safetyNetEndTime = 0; // <-- XÓA DÒNG NÀY
-    private double safetyNetRemainingTime = 0; // <-- THÊM DÒNG NÀY
+    private double safetyNetRemainingTime = 0;
 
     public GameManager(GameController gameController, InputHandler inputHandler,
                        Paddle paddle, BallManager ballManager, Brick[][] bricks, GameRenderer renderer,
@@ -58,25 +57,21 @@ public class GameManager {
         this.won = false;
     }
 
-    // public void updateGame() { // <-- SỬA DÒNG NÀY
-    public void updateGame(long deltaTime) { // <-- THAY BẰNG DÒNG NÀY (nhận deltaTime)
+    public void updateGame(long deltaTime) {
         if (!GameController.isPaused() && !gameOver && !won) {
 
-            // LƯU TRẠNG THÁI CŨ
+
             boolean wasSafetyNetActive = safetyNetActive;
 
-            // KIỂM TRA HẾT HẠN (LOGIC MỚI)
-            // if (safetyNetActive && (double)System.nanoTime() > safetyNetEndTime) { // <-- XÓA DÒNG NÀY
-            //    safetyNetActive = false; // <-- XÓA DÒNG NÀY
-            // } // <-- XÓA DÒNG NÀY
+
             if (safetyNetActive) {
-                safetyNetRemainingTime -= deltaTime; // <-- THÊM DÒNG NÀY
+                safetyNetRemainingTime -= deltaTime;
                 if (safetyNetRemainingTime <= 0) {
-                    safetyNetActive = false; // <-- THÊM DÒNG NÀY
+                    safetyNetActive = false;
                     safetyNetRemainingTime = 0;
                 }
             }
-            // KẾT THÚC LOGIC MỚI
+
 
 
             // PHÁT ÂM THANH KHI HẾT HẠN
@@ -86,8 +81,8 @@ public class GameManager {
 
 
             inputHandler.handleInput(paddle, bm);
-            // paddle.update(); // <-- SỬA DÒNG NÀY
-            paddle.update(deltaTime); // <-- THAY BẰNG DÒNG NÀY
+
+            paddle.update(deltaTime);
 
             // đợi bắt đầu bóng
             if(Constants.isStarted) {
@@ -97,36 +92,19 @@ public class GameManager {
                 im.update(); // ItemManager không cần delta time vì nó chỉ di chuyển item
                 im.checkCollisions(paddle, ballManager, this);
 
-                // bm.update(); // <-- SỬA DÒNG NÀY
-                bm.update(deltaTime); // <-- THAY BẰNG DÒNG NÀY
+
+                bm.update(deltaTime);
 
                 bm.checkCollisions(bricks, this, im);
 
-                // EffectManager.getInstance().update(); // <-- SỬA DÒNG NÀY
-                EffectManager.getInstance().update(deltaTime); // <-- THAY BẰNG DÒNG NÀY
+                EffectManager.getInstance().update(deltaTime);
             } else {
                 ballManager.balls.get(0).setX(paddle.getX() + paddle.getWidth() / 2 - ballManager.balls.get(0).getWidth() / 2);
                 ballManager.balls.get(0).setY(paddle.getY() - ballManager.balls.get(0).getHeight() - 1);
             }
         }
 
-        /*
-        // kiểm tra pause/unpause
-        if (!gameOver && !won) {
-            gameController.update();
-        }
 
-        // Render
-        if (gameOver) {
-            renderer.renderGameOver(score);
-            gameController.showLoseScreen();
-        } else if (won) {
-            renderer.renderWin(score);
-            gameController.showWinScreen();
-        } else {
-            renderer.renderObject(paddle, ballManager, bricks, im, bm, score, lives);
-        }
-         */
     }
 
     public void render() {
@@ -265,8 +243,7 @@ public class GameManager {
      */
     public void activateSafetyNet(double durationNano) {
         this.safetyNetActive = true;
-        // this.safetyNetEndTime = (double)System.nanoTime() + durationNano; // <-- XÓA DÒNG NÀY
-        this.safetyNetRemainingTime = durationNano; // <-- THAY BẰNG DÒNG NÀY
+        this.safetyNetRemainingTime = durationNano;
         System.out.println("Safety Net KÍCH HOẠT!"); // (Debug)
     }
 
@@ -280,9 +257,7 @@ public class GameManager {
     /**
      * Getter cho thời gian kết thúc
      */
-    // public double getSafetyNetEndTime() { // <-- SỬA DÒNG NÀY
-    public double getSafetyNetRemainingTime() { // <-- THAY BẰNG DÒNG NÀY
-        // return safetyNetEndTime; // <-- SỬA DÒNG NÀY
-        return safetyNetRemainingTime; // <-- THAY BẰNG DÒNG NÀY
+    public double getSafetyNetRemainingTime() {
+        return safetyNetRemainingTime;
     }
 }

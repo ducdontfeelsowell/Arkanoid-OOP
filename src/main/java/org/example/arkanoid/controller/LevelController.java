@@ -16,9 +16,9 @@ import org.example.arkanoid.config.Constants;
 import org.example.arkanoid.game.SoundManager;
 import org.example.arkanoid.launch.Main;
 import org.example.arkanoid.game.ProgressManager;
-import javafx.scene.Cursor; // THÊM MỚI
-import javafx.scene.Scene; // THÊM MỚI
-import javafx.scene.image.Image; // THÊM MỚI
+import javafx.scene.Cursor;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
 
 import java.io.IOException;
 import java.net.URL;
@@ -245,7 +245,7 @@ public class LevelController implements Initializable{
         backButton.getScene().setRoot(root);
     }
 
-    // --- PHƯƠNG THỨC KHỞI TẠO CURSOR ---
+    // PHƯƠNG THỨC KHỞI TẠO CURSOR
     private void initializeCursors(Scene scene) {
         // Khởi tạo con trỏ mặc định (img1)
         if (defaultGameCursor == null) {
@@ -281,10 +281,10 @@ public class LevelController implements Initializable{
             }
         }
     }
-    // --- KẾT THÚC KHỞI TẠO CURSOR ---
 
 
-    // PHƯƠNG THỨC ĐÃ SỬA: Thêm logic đổi con trỏ
+
+
     private void addHoverEffect(Button button, Node imageOut, Node imageOn) {
         if (button != null) {
             // Đảm bảo ảnh ON/HOVER ban đầu bị ẩn
@@ -356,7 +356,7 @@ public class LevelController implements Initializable{
             throw new RuntimeException(e);
         }
 
-        // THÊM MỚI: Lắng nghe Scene Property (Áp dụng cho bất kỳ nút nào)
+
         if (backButton != null) {
             backButton.sceneProperty().addListener((obs, oldScene, newScene) -> {
                 if (newScene != null) {

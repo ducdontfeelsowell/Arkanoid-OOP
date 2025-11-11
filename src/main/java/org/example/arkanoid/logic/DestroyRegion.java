@@ -30,7 +30,7 @@ public class DestroyRegion {
 
                     points += Constants.POINTS_PER_BRICK;
 
-                    // --- SỬA ĐỔI: Tạo hiệu ứng nổ cho TẤT CẢ gạch bị phá hủy ---
+                    // Tạo hiệu ứng nổ cho TẤT CẢ gạch bị phá hủy
 
                     // 1. Tạo hiệu ứng nổ tại vị trí gạch hàng xóm
                     double centerX = brick.getX() + brick.getWidth() / 2;
@@ -41,7 +41,6 @@ public class DestroyRegion {
                     if (brick instanceof ExplodeBrick) {
                         destroyer(bricks, r, c, points);
                     }
-                    // --- KẾT THÚC SỬA ĐỔI ---
                 }
             }
         }

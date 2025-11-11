@@ -21,16 +21,12 @@ public class Ball extends MoveAbleObject {
     private static final int MAX_TRAIL_LENGTH = 15;
     private static final double TRAIL_DECAY_RATE = 0.05;
 
-    // --- THÊM MỚI: Biến để lưu ảnh vệt ---
     private Image trailImage;
-    // --- THÊM MỚI: Biến để lưu ảnh quả bóng ---
     private Image ballImage;
 
-    // --- THÊM MỚI: Biến cho logic nhấp nháy của bóng ---
     private boolean showWhileFlashing_ball = true;
     private long lastFlashToggleTime_ball = 0;
-    private final long FLASH_INTERVAL = 100_000_000L; // 100ms
-    // --- KẾT THÚC THÊM MỚI ---
+    private final long FLASH_INTERVAL = 100_000_000L;
 
     public Ball(double positionX, double positionY, double offset, double dx, double dy) {
         super(
@@ -58,8 +54,8 @@ public class Ball extends MoveAbleObject {
             ballImage = new Image(getClass().getResourceAsStream(Constants.PATH_TO_BALL_1));
         } catch (Exception e) {
             System.err.println("Lỗi tải ảnh cho vệt hoặc bóng!");
-            trailImage = null; // Đặt là null nếu không tải được
-            ballImage = null; // Đặt là null nếu không tải được
+            trailImage = null;
+            ballImage = null;
         }
     }
 
@@ -84,25 +80,23 @@ public class Ball extends MoveAbleObject {
         if (x <= Constants.PLAY_AREA_LEFT) {
             x = Constants.PLAY_AREA_LEFT;
             reverseX();
-            SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_WALL_HIT); // ÂM THANH TƯỜNG
+            SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_WALL_HIT);
         }
         if (x + width >= Constants.SCREEN_WIDTH - Constants.PLAY_AREA_RIGHT_MARGIN) {
             x = Constants.SCREEN_WIDTH - width - Constants.PLAY_AREA_RIGHT_MARGIN;
             reverseX();
-            SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_WALL_HIT); // ÂM THANH TƯỜNG
+            SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_WALL_HIT);
         }
 
-        // --- Va chạm với tường trên ---
         if (y <= 0) {
             y = 0;
             reverseY();
-            SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_WALL_HIT); // ÂM THANH TƯỜNG
+            SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_WALL_HIT);
         }
     }
 
-    // Không xử lý rơi xuống dưới ở đây, trả về kiểm tra để GameManager xử lý
     public boolean isOffScreen() {
-        return y + Constants.DEFAULT_BALL_SIZE > Constants.SCREEN_HEIGHT; // Ra khỏi màn hình phía trên
+        return y + Constants.DEFAULT_BALL_SIZE > Constants.SCREEN_HEIGHT;
     }
 
     @Override
@@ -110,12 +104,9 @@ public class Ball extends MoveAbleObject {
         move();
     }
 
-    // --- SỬA ĐỔI: Tách logic vẽ ra ---
     private void draw(GraphicsContext gc) {
-        // --- SỬA ĐỔI: Vẽ hiệu ứng vệt bằng ảnh ---
         if (trailImage != null) {
             for (int i = trail.size() - 1; i >= 0; i--) {
-                //tốc độ render trail
                 if(i % 1 != 0){
                     continue;
                 }
@@ -123,41 +114,31 @@ public class Ball extends MoveAbleObject {
                 double opacity = 1.0 - (double) i / MAX_TRAIL_LENGTH;
                 opacity = Math.max(0, opacity - TRAIL_DECAY_RATE);
 
-                // Đặt độ mờ trước khi vẽ ảnh
                 gc.setGlobalAlpha(opacity);
 
-                // Vẽ ảnh tại vị trí của vệt
                 gc.drawImage(trailImage,
                         segment.x + getWidth() * 0, segment.y + getHeight() * 0,
                         getWidth() * 1, getHeight() * 1);
             }
-            // Reset lại độ mờ để không ảnh hưởng đến các đối tượng khác
             gc.setGlobalAlpha(1.0);
         }
 
-        // Vẽ bóng đổ (shadow)
         gc.setFill(Color.rgb(0, 0, 0, 0.3));
         gc.fillOval(getX() + 2, getY() + 2, getWidth(), getHeight());
 
-        // --- SỬA ĐỔI: Vẽ quả bóng bằng ảnh ---
         if (ballImage != null) {
-            // Dùng drawImage để vẽ ảnh quả bóng
             gc.drawImage(ballImage, getX(), getY(), getWidth(), getHeight());
         } else {
-            // Dự phòng: Nếu không tải được ảnh, vẽ hình tròn màu đỏ
             gc.setFill(Color.rgb(255, 100, 100));
             gc.fillOval(getX(), getY(), getWidth(), getHeight());
         }
     }
-    // --- KẾT THÚC SỬA ĐỔI ---
 
     @Override
     public void render(GraphicsContext gc) {
-        // Phương thức này giữ lại để tuân thủ GameObject, gọi logic vẽ cơ bản
         draw(gc);
     }
 
-    // --- THÊM MỚI: Overload render để xử lý nhấp nháy ---
     public void render(GraphicsContext gc, boolean isInvincible) {
         if (isInvincible) {
             long now = System.nanoTime();
@@ -166,12 +147,11 @@ public class Ball extends MoveAbleObject {
                 lastFlashToggleTime_ball = now;
             }
             if (!showWhileFlashing_ball) {
-                return; // Không vẽ bóng
+                return;
             }
         }
         draw(gc);
     }
-    // --- KẾT THÚC THÊM MỚI ---
 
     public void clearTrail() {
         if (trail != null) {
@@ -203,7 +183,7 @@ public class Ball extends MoveAbleObject {
                 y + height >= other.getY();
     }
 
-    // ===== Getter & Setter =====
+
     public double getSpeed() {
         return speed;
     }

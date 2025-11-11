@@ -74,18 +74,15 @@ public class Main extends Application {
             Constants.MAP_PATH[i] = "src/main/resources/Maps/map" + String.valueOf(i) +".txt";
         }
 
-        // 1. Khởi tạo và phát nhạc ngẫu nhiên cho menu
         soundManager = SoundManager.getInstance();
         soundManager.playRandomBackgroundMusic();
 
-        // Load logic scene
         FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(
                 getClass().getResource(Constants.PATH_TO_LOGIN_VIEW)));
 
         Parent root = loader.load();
         menuScene = new Scene(root);
 
-        // Set stage properties
         stage.getIcons().add(new Image(Objects.requireNonNull(
                 getClass().getResourceAsStream(Constants.PATH_TO_LOGO))));
         stage.setScene(menuScene);
@@ -101,13 +98,11 @@ public class Main extends Application {
      */
     public static void startGame(int level) {
         try {
-            // Stop previous threads
             stopGameThreads();
 
             curr_level = level;
             currentMapPath = Constants.MAP_PATH[curr_level];
 
-            // DỪNG VIDEO MAIN MENU KHI BẮT ĐẦU GAME
 
             if (backgroundVideoPlayer != null) {
                 backgroundVideoPlayer.stop();
@@ -124,20 +119,18 @@ public class Main extends Application {
 
             backgroundVideoPlayer = new MediaPlayer(media);
             backgroundVideoPlayer.setAutoPlay(true);
-            backgroundVideoPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Lặp vô hạn
-            backgroundVideoPlayer.setMute(true); // Tắt tiếng video nền
+            backgroundVideoPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+            backgroundVideoPlayer.setMute(true);
 
-            // 3. Tạo MediaView
             MediaView mediaView = new MediaView(backgroundVideoPlayer);
             mediaView.setFitWidth(Constants.SCREEN_WIDTH);
             mediaView.setFitHeight(Constants.SCREEN_HEIGHT);
-            mediaView.setPreserveRatio(false); // Kéo dãn video cho vừa màn hình
+            mediaView.setPreserveRatio(false);
 
             backgroundVideoPlayer.play();
             Canvas canvas = new Canvas(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
             GraphicsContext gc = canvas.getGraphicsContext2D();
 
-            // Create root pane
             Pane gameRoot = new Pane();
 
             String imagePath = Constants.PATH_TO_IMAGE_BACKGROUND;
@@ -149,14 +142,12 @@ public class Main extends Application {
             imageView.setFitHeight(Constants.SCREEN_HEIGHT);
             imageView.setPreserveRatio(false);
 
-            // Lớp 1: Ảnh tĩnh (Nền)
             gameRoot.getChildren().add(imageView);
 
             gameRoot.getChildren().add(mediaView);
 
             gameRoot.getChildren().add(canvas);
 
-            // Load pause screen overlay
             FXMLLoader loader = new FXMLLoader(
                     Main.class.getResource(Constants.PATH_TO_GAME_VIEW));
             Parent pauseOverlay = loader.load();
@@ -164,7 +155,6 @@ public class Main extends Application {
 
             gameRoot.getChildren().add(pauseOverlay);
 
-            // Create game scene
             Scene gameScene = new Scene(gameRoot);
 
             gameScene.setFill(Color.TRANSPARENT);
@@ -172,7 +162,6 @@ public class Main extends Application {
             inputHandler = new InputHandler(gameScene);
             gameController.setInputHandler(inputHandler);
 
-            // Initialize game objects
             paddle = new Paddle();
 
             ballManager = new BallManager();
@@ -191,10 +180,8 @@ public class Main extends Application {
 
             gameManager.Init();
 
-            // Phát nhạc cố định cho game
             soundManager.playBackgroundMusic(Constants.PATH_TO_SOUND_BACKGROUND_3);
 
-            // Set scene
             primaryStage.setX(Constants.DEFAULT_SCREEN_X);
             primaryStage.setY(Constants.DEFAULT_SCREEN_Y);
             primaryStage.setScene(gameScene);
@@ -203,7 +190,6 @@ public class Main extends Application {
                 loop.stop();
             }
 
-            // Start new threads
             startGameThreads();
 
         } catch (Exception e) {
@@ -215,10 +201,9 @@ public class Main extends Application {
         running = true;
         final Object lock = new Object();
 
-        // Logic thread
         logicThread = new Thread(() -> {
-            final double dt = 1.0 / Constants.FPS; // 60 updates/sec
-            final long stepNs = (long) (dt * 1_000_000_000); // <-- ĐÂY LÀ DELTA TIME CỦA BẠN
+            final double dt = 1.0 / Constants.FPS;
+            final long stepNs = (long) (dt * 1_000_000_000);
 
             lastLogicTime = System.nanoTime();
             logicCount = 0;
@@ -227,15 +212,13 @@ public class Main extends Application {
                 long start = System.nanoTime();
 
                 synchronized (lock) {
-                    // gameManager.updateGame(); // <-- SỬA DÒNG NÀY
-                    gameManager.updateGame(stepNs); // <-- THAY BẰNG DÒNG NÀY (Truyền delta time)
+                    gameManager.updateGame(stepNs);
                 }
 
-                // FPS counting (optional)
                 logicCount++;
                 long now = System.nanoTime();
                 if (now - lastLogicTime >= 1_000_000_000L) {
-                    System.out.println("UPS: " + logicCount); // UPS = Updates per second
+                    System.out.println("UPS: " + logicCount);
                     logicCount = 0;
                     lastLogicTime = now;
                 }
@@ -254,7 +237,6 @@ public class Main extends Application {
         logicThread.setDaemon(true);
         logicThread.start();
 
-        // Render loop (AnimationTimer)
         renderTimer = new AnimationTimer() {
             private long lastRenderTime = 0;
             private final long targetNs = (long) (1_000_000_000 / Constants.FPS);
@@ -280,14 +262,13 @@ public class Main extends Application {
                         lastRenderTimeCounter = now;
                     }
                 } else {
-                    lastRenderTime = now; // update lastRenderTime to avoid drift
+                    lastRenderTime = now;
                 }
             }
         };
         renderTimer.start();
     }
 
-    // Stop logic/render threads safely
     private static void stopGameThreads() {
         running = false;
 
@@ -298,7 +279,7 @@ public class Main extends Application {
 
         if (logicThread != null && logicThread.isAlive()) {
             try {
-                logicThread.join(50); // wait max 50ms for cleanup
+                logicThread.join(50);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
@@ -318,16 +299,14 @@ public class Main extends Application {
         }
 
         try {
-            // currentMapPath có dạng: "src/main/resources/Maps/mapX.txt"
             int nextLevel = curr_level + 1;
 
-            if (nextLevel <= 12) { // Giả định có 12 map
+            if (nextLevel <= 12) {
                 Constants.isStarted = false;
                 startGame(nextLevel);
             } else {
-                // Hoàn thành tất cả các map
                 System.out.println("Chúc mừng! Bạn đã hoàn thành tất cả các màn chơi.");
-                returnToMenu(); // Quay về menu sau khi hoàn thành
+                returnToMenu();
             }
         } catch (NumberFormatException e) {
             System.err.println("Lỗi khi phân tích số cấp độ từ đường dẫn: " + currentMapPath);
@@ -341,23 +320,19 @@ public class Main extends Application {
      */
     public static void returnToMenu() {
 
-        // 1. Dừng tất cả các luồng game (Logic Thread và Render Timer)
-        stopGameThreads(); // <<< Đảm bảo logic và render dừng
+        stopGameThreads();
 
         if (backgroundVideoPlayer != null) {
             backgroundVideoPlayer.stop();
             backgroundVideoPlayer = null;
         }
 
-        // 2. Dọn dẹp hiệu ứng trong EffectManager
-        EffectManager.getInstance().clear(); // <<< GỌI LẠI ĐÂY
+        EffectManager.getInstance().clear();
 
-        // 3. Phát nhạc ngẫu nhiên khi quay về menu
         if (soundManager != null) {
             soundManager.playRandomBackgroundMusic();
         }
 
-        // 4. Tải lại Menu chính và đặt nó làm root MỚI
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource(Constants.PATH_TO_MAIN_MENU));
             Parent root = loader.load();
@@ -367,7 +342,6 @@ public class Main extends Application {
             e.printStackTrace();
         }
 
-        // THÊM MỚI: Chủ động reset cờ static
         GameController.paused = false;
 
         if (primaryStage != null && menuScene != null) {

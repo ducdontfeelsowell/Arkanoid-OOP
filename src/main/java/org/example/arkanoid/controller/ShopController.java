@@ -33,7 +33,6 @@ public class ShopController implements Initializable {
     private static Cursor defaultGameCursor;
     private static Cursor buttonHoverCursor;
 
-    // Theo dõi nút shop đang được chọn để giữ trạng thái sáng
     private Button currentActiveShopButton;
 
     @FXML
@@ -80,7 +79,7 @@ public class ShopController implements Initializable {
     @FXML
     private AnchorPane paddleContentPane;
 
-    // --- PHƯƠNG THỨC QUẢN LÝ TRẠNG THÁI SÁNG/TỐI ---
+    //  PHƯƠNG THỨC QUẢN LÝ TRẠNG THÁI SÁNG/TỐI
 
     private void setActiveButton(Button newActiveButton, Node newActiveImageOut, Node newActiveImageOn) {
 
@@ -110,7 +109,6 @@ public class ShopController implements Initializable {
         imageOut.setVisible(true);
         imageOn.setVisible(false);
     }
-    // ----------------------------------------------------------------------
 
 
     @FXML
@@ -158,13 +156,12 @@ public class ShopController implements Initializable {
         setActiveButton(paddleButton, paddleImage, paddleHoverImage);
     }
 
-    // --- PHƯƠNG THỨC KHỞI TẠO CURSOR (Giữ nguyên) ---
+    //  PHƯƠNG THỨC KHỞI TẠO CURSOR
     private void initializeCursors(Scene scene) {
         //... (Giữ nguyên)
     }
-    // --- KẾT THÚC KHỞI TẠO CURSOR ---
 
-    // PHƯƠNG THỨC XỬ LÝ HIỆU ỨNG HOVER (Giữ nguyên logic kiểm tra currentActiveShopButton)
+    // PHƯƠNG THỨC XỬ LÝ HIỆU ỨNG HOVER
     private void addHoverEffect(Button button, Node imageOut, Node imageOn) {
         if (button != null) {
 
