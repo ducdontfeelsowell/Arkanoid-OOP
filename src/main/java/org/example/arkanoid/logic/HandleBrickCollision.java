@@ -25,16 +25,16 @@ public class HandleBrickCollision {
         // Đảo chiều dựa trên hướng va chạm
         if (minOverlapX < minOverlapY) {
             if (overlapLeft < overlapRight) {
-                ball.setX(ball.getX() - overlapLeft);
+                ball.setX(ball.getX() - overlapLeft - 1);
             } else {
-                ball.setX(ball.getX() + overlapRight);
+                ball.setX(ball.getX() + overlapRight + 1);
             }
             ball.reverseX();
         } else {
             if (overlapTop < overlapBottom) {
-                ball.setY(ball.getY() - overlapTop);
+                ball.setY(ball.getY() - overlapTop - 1);
             } else {
-                ball.setY(ball.getY() + overlapBottom);
+                ball.setY(ball.getY() + overlapBottom + 1);
             }
             ball.reverseY();
         }
