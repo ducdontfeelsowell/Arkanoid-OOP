@@ -35,13 +35,6 @@ The project demonstrates the implementation of **OOP principles** and **design p
 
 ---
 
-## UML Diagram
-### Class Diagram
-You can use **IntelliJ IDEA** to generate UML diagrams:  
-[Tutorial](https://www.youtube.com/watch?v=yCkTqNxZkbY)
-
----
-
 ## Design Patterns Implementation
 ### 1. **Singleton Pattern**
 **Used in:** `SoundManager`  
@@ -101,7 +94,11 @@ The game uses multiple threads for performance:
 | 🟥   | Shrink Paddle   | Decreases paddle width                        |
 | 🐌   | Slow Ball       | Decreases ball speed by 50%                   |
 | 🎯   | Multi Ball      | Spawns 2 additional balls                     |
-| 🔫   | Laser Gun       | Shoot lasers to destroy bricks                |
+| 🔫   | Laser Gun       | Shoots lasers to destroy bricks               |
+|  🕸   | Safety Net      | Prevents ball from dropping out              |
+|❤️|Extra Life| Grants +1 life|
+|🔴|Multi-Ball| x3 current balls|
+|✪|Coin| Grants coins|
 
 ---
 
@@ -143,6 +140,7 @@ The game uses multiple threads for performance:
 ![shop](https://github.com/user-attachments/assets/bb40ac1c-56eb-45d2-b848-b19b87b13215)
 
 #### Demo
+Found in:
 demo/demogame.mp4
 
 ---
