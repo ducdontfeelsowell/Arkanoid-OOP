@@ -436,7 +436,6 @@ public class ShopController implements Initializable {
     private void handleItemClick(Label label, Button button, String itemId, String itemType) {
         // Xóa thông báo cũ (Sử dụng hàm trợ giúp mới)
         updateAllNotificationLabels("");
-        SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
 
         boolean isOwned;
         if ("ball".equals(itemType)) {
@@ -450,6 +449,8 @@ public class ShopController implements Initializable {
         if (isOwned) {
             // Đã sở hữu -> Click là để "Equip"
             ProgressManager.equipItem(itemId, itemType);
+
+            SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_EQUIP);
         } else {
             // Chưa sở hữu -> Click là để "Buy"
             boolean success = ProgressManager.purchaseAndEquipItem(itemId, itemType);
@@ -467,10 +468,10 @@ public class ShopController implements Initializable {
                     // Trường hợp lỗi khác (ví dụ: vật phẩm không có giá)
                     updateAllNotificationLabels("Không đủ tiền!");
                 }
-                SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_NEGATIVE_BUFF);
+                SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_DENIED);
             } else {
                 // Mua thành công
-                SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_USE_ITEM);
+                SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_BUY);
             }
         }
 
