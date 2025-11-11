@@ -30,19 +30,15 @@ public class MapLoader {
                 double y = rowIndex * Constants.BRICK_HEIGHT;
 
                 Brick brick = switch (type) {
-                    // Gạch 1 HP (Normal) - Types 1, 2, 5, 6
                     case 1, 2, 5, 6 -> new NormalBrick(x, y, Constants.BRICK_WIDTH, Constants.BRICK_HEIGHT,
                             1, type);
 
-                    // Gạch Bất tử (Silver) - Type 3 (Giữ nguyên)
                     case 3 -> new InfBrick(x, y, Constants.BRICK_WIDTH, Constants.BRICK_HEIGHT,
                             Constants.HIT_POINTS_INF_BRICK, type);
 
-                    // Gạch Nổ (1 HP) - Type 4 (Giữ nguyên)
                     case 4 -> new ExplodeBrick(x, y, Constants.BRICK_WIDTH, Constants.BRICK_HEIGHT,
                             1, type);
 
-                    // Gạch 3 HP (Strong) - Types 7-14
                     case 7, 8, 9, 10, 11, 12, 13, 14 -> new StrongBrick(x, y, Constants.BRICK_WIDTH, Constants.BRICK_HEIGHT,
                             3, type);
 

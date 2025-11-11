@@ -26,15 +26,15 @@ import java.util.PriorityQueue;
 import java.util.ResourceBundle;
 
 public class ScoreboardController implements Initializable {
-    private static Cursor defaultGameCursor; // Con trỏ mặc định của game (img1)
-    private static Cursor buttonHoverCursor; // Con trỏ khi hover (img2)
+    private static Cursor defaultGameCursor;
+    private static Cursor buttonHoverCursor;
 
     @FXML
     private Button backButton;
     @FXML
-    private ImageView backHoverImage; // Ảnh khi hover
+    private ImageView backHoverImage;
     @FXML
-    private ImageView backImage; // Ảnh mặc định (out)
+    private ImageView backImage;
     @FXML
     private Label name1;
     @FXML
@@ -99,10 +99,8 @@ public class ScoreboardController implements Initializable {
         backButton.getScene().setRoot(root);
     }
 
-    // PHƯƠNG THỨC ĐÃ SỬ: Thêm logic đổi con trỏ
     private void addHoverEffect(Button button, Node imageOut, Node imageOn) {
         if (button != null) {
-            // Đảm bảo ảnh ON/HOVER ban đầu bị ẩn
             if (imageOn != null) {
                 imageOn.setVisible(false);
             }

@@ -28,7 +28,7 @@ public class LoginController implements Initializable {
     private static Cursor buttonHoverCursor;
 
     @FXML
-    private Button okButton; // (Hoặc loginButton, tùy fx:id của bạn)
+    private Button okButton;
 
     @FXML
     private ImageView okImage;
@@ -50,16 +50,13 @@ public class LoginController implements Initializable {
         SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_CLICK);
         String playerName = nameTextField.getText().trim();
 
-        // Kiểm tra ký tự không hợp lệ
         if (playerName.isEmpty()) {
             errorLabel.setText("Tên không hợp lệ");
             return;
         }
 
-        // 1. Gọi ProgressManager để tải hoặc tạo người chơi
         ProgressManager.login(playerName);
 
-        // 2. Tải Main Menu và chuyển Scene
         FXMLLoader loader = new FXMLLoader(getClass().getResource(Constants.PATH_TO_MAIN_MENU));
         Parent root = loader.load();
         okButton.getScene().setRoot(root);
@@ -67,24 +64,20 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Lắng nghe Scene để thiết lập con trỏ
         okButton.sceneProperty().addListener((obs, oldScene, newScene) -> {
             if (newScene != null) {
                 initializeCursors(newScene);
             }
         });
 
-        // Thêm hiệu ứng hover cho nút OK
         if (okHoverImage != null) {
             okHoverImage.setMouseTransparent(true);
         }
         addHoverEffect(okButton, okImage, okHoverImage);
 
-        // Chặn phím Enter/Space (nếu cần)
         preventKeyActivation(okButton);
     }
 
-    // --- CÁC HÀM HỖ TRỢ (Copy từ MenuController) ---
 
     private void addHoverEffect(Button button, Node imageOut, Node imageOn) {
         if (button != null) {
