@@ -379,56 +379,14 @@ public class LevelController implements Initializable{
         backButton.getScene().setRoot(root);
     }
 
-    // PHƯƠNG THỨC KHỞI TẠO CURSOR
-    private void initializeCursors(Scene scene) {
-        // Khởi tạo con trỏ mặc định (img1)
-        if (defaultGameCursor == null) {
-            try {
-                URL cursorUrl = getClass().getResource(Constants.PATH_TO_CURSOR);
-                if (cursorUrl != null) {
-                    Image customImage = new Image(cursorUrl.toExternalForm());
-                    defaultGameCursor = Cursor.cursor(cursorUrl.toExternalForm());
-                    // Áp dụng con trỏ mặc định cho Scene
-                    scene.setCursor(defaultGameCursor);
-                } else {
-                    defaultGameCursor = Cursor.DEFAULT;
-                }
-            } catch (Exception e) {
-                System.err.println("Lỗi khi tải con trỏ mặc định (img1) trong LevelController: " + e.getMessage());
-                defaultGameCursor = Cursor.DEFAULT;
-            }
-        }
-
-        // Khởi tạo con trỏ hover (img2)
-        if (buttonHoverCursor == null) {
-            try {
-                URL cursorUrl = getClass().getResource(Constants.PATH_TO_HOVER_CURSOR);
-                if (cursorUrl != null) {
-                    Image customImage = new Image(cursorUrl.toExternalForm());
-                    buttonHoverCursor = Cursor.cursor(cursorUrl.toExternalForm());
-                } else {
-                    buttonHoverCursor = Cursor.HAND;
-                }
-            } catch (Exception e) {
-                System.err.println("Lỗi khi tải con trỏ hover (img2) trong LevelController: " + e.getMessage());
-                buttonHoverCursor = Cursor.HAND;
-            }
-        }
-    }
-
-
-
-
     private void addHoverEffect(Button button, Node imageOut, Node imageOn) {
         if (button != null) {
-            // Đảm bảo ảnh ON/HOVER ban đầu bị ẩn
             if (imageOn != null) {
                 imageOn.setVisible(false);
             }
-
             button.hoverProperty().addListener((obs, oldVal, newVal) -> {
                 if (newVal) {
-                    // KHI HOVER VÀO: Đổi ảnh và đổi con trỏ
+                    // KHI HOVER VÀO:
                     SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_HOVER);
                     if (imageOut != null) {
                         imageOut.setVisible(false);
@@ -436,19 +394,25 @@ public class LevelController implements Initializable{
                     if (imageOn != null) {
                         imageOn.setVisible(true);
                     }
+
+                    // THÊM MỚI: THAY ĐỔI CON TRỎ THÀNH IMG2 (Hover Cursor)
                     if (buttonHoverCursor != null && button.getScene() != null) {
                         button.getScene().setCursor(buttonHoverCursor);
                     }
+
                 } else {
-                    // KHI RỜI KHỎI HOVER: Đổi ảnh và đổi con trỏ về mặc định
+                    // KHI RỜI KHỎI HOVER:
                     if (imageOut != null) {
                         imageOut.setVisible(true);
                     }
                     if (imageOn != null) {
                         imageOn.setVisible(false);
                     }
+                    System.out.println("PPPPPPPPPP");
+                    // THÊM MỚI: ĐẶT LẠI CON TRỎ MẶC ĐỊNH (IMG1) CỦA SCENE
                     if (defaultGameCursor != null && button.getScene() != null) {
                         button.getScene().setCursor(defaultGameCursor);
+                        System.out.println("TTTTTTTTTTTTTT");
                     }
                 }
             });
@@ -465,6 +429,47 @@ public class LevelController implements Initializable{
             });
         }
     }
+
+    private void initializeCursors(Scene scene) {
+        if (defaultGameCursor == null) {
+            try {
+                // Tải ảnh img1
+                URL cursorUrl = getClass().getResource(Constants.PATH_TO_CURSOR);
+                if (cursorUrl != null) {
+                    Image customImage = new Image(cursorUrl.toExternalForm());
+                    // Tạo Cursor img1
+                    defaultGameCursor = Cursor.cursor(cursorUrl.toExternalForm());
+                    // Áp dụng con trỏ mặc định của game cho Scene
+                    scene.setCursor(defaultGameCursor);
+                } else {
+                    // Fallback nếu không tìm thấy img1
+                    defaultGameCursor = Cursor.DEFAULT;
+                }
+            } catch (Exception e) {
+                System.err.println("Lỗi khi tải con trỏ mặc định (img1): " + e.getMessage());
+                defaultGameCursor = Cursor.DEFAULT;
+            }
+        }
+
+        // KIỂM TRA THỨ HAI: Tải con trỏ hover (img2)
+        if (buttonHoverCursor == null) {
+            try {
+                URL cursorUrl = getClass().getResource(Constants.PATH_TO_HOVER_CURSOR);
+                if (cursorUrl == null) {
+                    buttonHoverCursor = Cursor.HAND;
+                    throw new IOException("Không tìm thấy file con trỏ nút. Dùng Cursor.HAND.");
+                }
+
+                Image customImage = new Image(cursorUrl.toExternalForm());
+                buttonHoverCursor = Cursor.cursor(cursorUrl.toExternalForm());
+
+            } catch (Exception e) {
+                System.err.println("Lỗi khi tải con trỏ hover (img2): " + e.getMessage());
+                buttonHoverCursor = Cursor.HAND;
+            }
+        }
+    }
+
 
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("DEBUG: LevelController Initialized.");
