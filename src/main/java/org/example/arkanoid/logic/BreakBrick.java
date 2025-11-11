@@ -16,7 +16,7 @@ public class BreakBrick {
                 SoundManager.getInstance().playSoundEffect(Constants.PATH_TO_SOUND_PADDLE_HIT);
                 brick.takeHit();
                 if (brick.isDestroyed()) {
-                    gm.setScore(gm.getScore() + Constants.POINTS_PER_BRICK * brick.getType());
+                    gm.setScore(gm.getScore() + brick.getScore());
 
                     if (im != null) {
                         im.spawnItem(brick);
@@ -41,9 +41,9 @@ public class BreakBrick {
                 double centerY = brick.getY() + brick.getHeight() / 2;
                 EffectManager.getInstance().spawnExplosion(centerX, centerY);
                 EffectManager.getInstance().shakeScreen(5, 150_000_000L);
-                int points = 0;
+                int points = brick.getScore();
                 brick.takeHit();
-                points = DestroyRegion.destroyer(bricks, row, col, points);
+                points += DestroyRegion.destroyer(bricks, row, col, points);
                 gm.setScore(gm.getScore() + points);
                 break;
 

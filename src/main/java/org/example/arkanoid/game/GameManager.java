@@ -34,6 +34,7 @@ public class GameManager {
     private boolean gameOver;
     private boolean won;
     private int currentLevel;
+    private int currentDifficultySetting; // THÊM MỚI: 0, 1, hoặc 2
 
     private boolean safetyNetActive = false;
     private double safetyNetRemainingTime = 0;
@@ -51,8 +52,11 @@ public class GameManager {
         this.bm = bm;
         this.currentLevel = level;
 
+        // Lấy độ khó đã được set (bởi LevelController) từ Constants
+        this.currentDifficultySetting = Constants.CURRENT_DIFFICULTY_SETTING;
+
         this.score = 0;
-        this.lives = Constants.CURRENT_LIVES;
+        this.lives = Constants.CURRENT_LIVES; // Lấy số mạng dựa trên độ khó
         this.gameOver = false;
         this.won = false;
     }
@@ -201,14 +205,14 @@ public class GameManager {
         if (gameOver && !this.gameOver) {
             this.gameOver = true;
 
-            ProgressManager.addScoreFromFailedLevel(this.currentLevel, this.score);
+            // Báo cáo THUA với độ khó hiện tại
+            ProgressManager.addScoreFromFailedLevel(this.currentLevel, this.score, this.currentDifficultySetting);
 
             SoundManager.getInstance().playMusicSequence(
                     Constants.PATH_TO_SOUND_LOSE,
                     Constants.PATH_TO_SOUND_AFTERLOSE
             );
 
-            // Dọn dẹp hiệu ứng khi game Over
             EffectManager.getInstance().clear();
 
         } else {
@@ -224,19 +228,22 @@ public class GameManager {
         // Chỉ gọi một lần khi thắng
         if (won && !this.won) {
             this.won = true;
-            ProgressManager.completeLevel(this.currentLevel, this.score);
+
+            // Báo cáo THẮNG với độ khó hiện tại
+            ProgressManager.completeLevel(this.currentLevel, this.score, this.currentDifficultySetting);
+
             SoundManager.getInstance().playMusicSequence(
                     Constants.PATH_TO_SOUND_WIN,
                     Constants.PATH_TO_SOUND_AFTERWIN
             );
 
-            // Dọn dẹp hiệu ứng khi Win
             EffectManager.getInstance().clear();
 
         } else {
             this.won = won;
         }
     }
+
 
     /**
      * Kích hoạt lưới an toàn
